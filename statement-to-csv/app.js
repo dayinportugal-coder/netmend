@@ -79,6 +79,6 @@ async function handle(f){if(!f)return;var st=document.getElementById('stats');do
   }catch(err){st.textContent='Could not read this PDF ('+err.message+'). If it is password-protected, open it and "print to PDF" first.'}
 }
 document.getElementById('file').addEventListener('change',function(e){handle(e.target.files[0])});
-document.getElementById('demo').addEventListener('click',async function(){var r=await fetch('../samples/demo-statement.pdf');var b=await r.blob();b.name='demo-statement.pdf';handle(b)});
+document.getElementById('demo').addEventListener('click',async function(){var src=this.getAttribute('data-src')||'../samples/demo-statement.pdf';var r=await fetch(src);var b=await r.blob();b.name='demo-statement.pdf';handle(b)});
 ['mode','sep','fmt'].forEach(function(id){document.getElementById(id).addEventListener('change',function(){if(RES.rows.length){RES.tx=toTransactions(RES.rows,document.getElementById('fmt').value);render()}})});
 document.getElementById('dl').addEventListener('click',function(){var b=build();var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([b.csv],{type:'text/csv;charset=utf-8'}));a.download='statement-netmend.csv';a.click()});
