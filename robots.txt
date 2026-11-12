@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dayinportugal-coder.github.io/netmend/sitemap.xml

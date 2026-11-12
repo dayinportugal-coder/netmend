@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Excel Formula Translator: function names in Portuguese, Spanish, French, German, Italian · Netmend</title>
+<meta name="description" content="Translate Excel formulas between English, Portuguese, Spanish, French, German and Italian, including separators. VLOOKUP = PROCV = BUSCARV = SVERWEIS. Free, no sign-up.">
+<link rel="canonical" href="https://dayinportugal-coder.github.io/netmend/excel-functions/">
+<meta property="og:title" content="Excel Formula Translator: function names in Portuguese, Spanish, French, German, Italian · Netmend"><meta property="og:description" content="Translate Excel formulas between English, Portuguese, Spanish, French, German and Italian, including separators. VLOOKUP = PROCV = BUSCARV = SVERWEIS. Free, no sign-up.">
+<meta property="og:image" content="https://dayinportugal-coder.github.io/netmend/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/tools.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Excel formula translator","url":"https://dayinportugal-coder.github.io/netmend/excel-functions/","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Netmend","url":"https://dayinportugal-coder.github.io/netmend/"}}</script>
+<script defer src="data.js"></script><script defer src="app.js"></script></head><body>
+<header><div class="wrap"><a href="../"><img src="../assets/logo.svg" alt="Netmend"></a>
+<nav><a href="../#services">Services</a><a href="../#free-tools">Free tools</a><a class="cta" href="#waitlist">Launch price</a></nav></div></header>
+<div class="hero"><div class="wrap"><h1>Excel formula <span>translator</span></h1><p>VLOOKUP = PROCV = BUSCARV = RECHERCHEV = SVERWEIS. Translate a whole formula, separators included, between 6 languages.</p><div class="pills"><span>6 languages</span><span>Fixes , vs ; separators</span><span>55 functions</span><span>Free, no sign-up</span></div></div></div>
+<section><div class="wrap">
+<h2>Translate an Excel formula</h2>
+<p class="lead">Found a formula in an English tutorial but your Excel is in Portuguese, Spanish, French, German or Italian? Paste it here. We swap the function names <b>and</b> the separators (<code>,</code> → <code>;</code> and <code>1.5</code> → <code>1,5</code>), which is why copied formulas usually fail.</p>
+<div class="tool">
+<label for="f">Formula</label><textarea id="f" style="min-height:70px;font-family:monospace">=IFERROR(VLOOKUP(A2,Prices!A:C,3,FALSE),"not found")*ROUND(1.23,2)</textarea>
+<div class="row"><div><label for="from">From</label><select id="from"></select></div><div><label for="to">To</label><select id="to"></select></div></div>
+<p><button class="btn ghost" id="swap" type="button">⇄ Swap</button></p>
+<label for="res">Result</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
+<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copy result</button></p>
+<p class="note">Sheet names and cell references are not translated. Google Sheets accepts English function names in any language, but uses your locale's separators.</p>
+</div></div></section>
+<section class="alt"><div class="wrap">
+<h2>Excel function names in 6 languages</h2>
+<p class="lead">The 55 functions small businesses use most. Search in any language.</p>
+<input id="q" type="text" placeholder="Search: PROCV, SVERWEIS, RECHERCHEV, lookup…" style="max-width:420px">
+<div class="scroll" style="margin-top:12px"><table><thead><tr><th>English</th><th>Português (PT)</th><th>Español</th><th>Français</th><th>Deutsch</th><th>Italiano</th><th>What it does</th></tr></thead><tbody id="tb"></tbody></table></div>
+<p class="note">Names are for Microsoft Excel desktop and Excel for the web. Portuguese is the Portugal version (Brazil differs for a few names, e.g. UNIQUE). Spotted a wrong name? Email us and we fix it the same day.</p>
+</div></section>
+<section id="waitlist"><div class="wrap">
+<h2>Stuck with a spreadsheet? We fix it.</h2>
+<div class="grid">
+<div class="card"><b>Spreadsheet fix</b><div class="price">$25 <small>per sheet, launch price</small></div><p>Broken formulas, a lookup that won't work, a messy export to clean, a simple invoice or stock template. Fixed price after we see the file. 48h.</p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20spreadsheet%20fix%20quote">Send your file for a quote</a></div>
+<div class="card"><b>Cheat sheet PDF + practice workbook</b><div class="price">$7 <small>launch price</small> <s>$12</s></div><p>This table as a printable 2-page PDF in 6 languages, plus an .xlsx with 20 small-business exercises (VAT, invoices, stock, dates) and answers. Coming soon.</p></div>
+</div>
+<h3>Reserve the cheat sheet + workbook</h3>
+<form class="waitlist" data-product="Excel cheat sheet + practice workbook" data-price="$7">
+<label for="wl-name">Your name or business</label><input id="wl-name" name="name" type="text" required autocomplete="organization">
+
+<div class="check"><input id="wl-res" name="reserve" type="checkbox" value="yes" required><label for="wl-res"><b>Reserve the launch price</b> ($7) for the cheat sheet PDF and practice workbook. No payment now, no obligation to buy.</label></div>
+<div class="check"><input id="wl-news" name="news" type="checkbox" value="yes"><label for="wl-news"><b>I agree to receive one email when it launches</b> (and one if the launch is delayed). No other campaigns.</label></div>
+<p><button class="btn" type="submit">Join the waitlist by email</button></p>
+<p class="note">Opens your email app with a ready message to dayinportugal@gmail.com. We reply within 24h (Mon–Fri). When you order, you pay on Fiverr, Contra or Gumroad, never on this site.</p>
+</form><p class="note"><b>Privacy.</b> Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. This page does not send or store anything: the button only opens your own email app. If you email us, we use your name and email only to answer and, if you ticked the second box, to send one launch email. Legal basis: steps you asked for before a possible contract (GDPR art. 6(1)(b)) and, for the launch email, your consent (art. 6(1)(a)), which you can withdraw at any time. We delete waitlist emails 14 days after launch, or on 30/06/2027 if there is no launch. Reply REMOVE to leave the list or to ask for access, correction or deletion. You can complain to the Portuguese data protection authority (CNPD).</p>
+</div></section>
+<section class="alt"><div class="wrap"><h2>FAQ</h2>
+<details><summary>What is VLOOKUP in Portuguese?</summary><p>PROCV (Portugal and Brazil). In Spanish BUSCARV, French RECHERCHEV, German SVERWEIS, Italian CERCA.VERT.</p></details>
+<details><summary>Why does my formula show an error after I paste it?</summary><p>Usually the separator: English Excel uses commas between arguments, most European Excel versions use semicolons, and a decimal comma. The translator fixes both.</p></details>
+<details><summary>Can I change Excel to English function names?</summary><p>Only by changing Excel's display/editing language in Office settings. Many people prefer to keep their language and translate the formula instead.</p></details>
+</div></section>
+<section><div class="wrap"><h2>More free tools</h2><div class="toolsnav"><a href="../statement-to-csv/">Bank statement → CSV</a><a href="../wall-of-love/">Testimonial wall</a><a href="../pin-maker/">Pinterest pin maker</a><a href="../">All Netmend services</a></div></div></section>
+<footer><div class="wrap">© 2026 Netmend · run by Pedro Carvalho · EU-based · No cookies, no trackers, no sign-up. Free tools run in your browser.</div></footer>
+<script src="../assets/waitlist.js"></script></body></html>
