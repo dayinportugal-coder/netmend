@@ -15,6 +15,7 @@ from funcs import FUNCS, LANGS, LNAME, BOOL, names as fn_names
 BANKS = BANKS + REST + REST2 + REST3
 BASE = "https://dayinportugal-coder.github.io/netmend"
 MAIL = "dayinportugal@gmail.com"
+GIG = "https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet"
 
 def esc(s: str) -> str:
     return html.escape(s, quote=True)
@@ -140,7 +141,7 @@ def bank_tool(b, depth_from_tool=1):
 
 def render_bank(b, all_banks):
     url = f"{BASE}/statement-to-csv/{b['slug']}/"
-    email = f"mailto:{MAIL}?subject=" + html.escape(f"Netmend - {b['name']} statement conversion", quote=True).replace(" ", "%20")
+    # Paid conversion CTA goes to the live Fiverr gig (minimum $20).
     related = [x for x in all_banks if x["slug"] in b["related"]]
     others = "".join(
         f'<a href="../{esc(x["slug"])}/"><b>{esc(x["name"])}</b> statement to CSV</a>' for x in related
@@ -159,12 +160,12 @@ def render_bank(b, all_banks):
 <script defer src="../app.js"></script>'''
     body = f"""
 <header><div class="wrap"><a href="../../"><img src="../../assets/logo.svg" alt="Netmend"></a>
-<nav><a href="../../#services">Services</a><a href="../">Statement converter</a><a class="cta" href="#done-for-you">From $15</a></nav></div></header>
+<nav><a href="../../#services">Services</a><a href="../">Statement converter</a><a class="cta" href="{GIG}">From $20</a></nav></div></header>
 <div class="hero"><div class="wrap">
 {breadcrumbs([("Netmend","../../"),("Bank statement → CSV","../"),(b["name"], "")])}
 <h1>{b["h1"]}</h1>
 <p>{b["lead"]}</p>
-<div class="pills"><span>{esc(b["region"])}</span><span>100% in your browser</span><span>No account</span><span>From $15 if you want it done</span></div>
+<div class="pills"><span>{esc(b["region"])}</span><span>100% in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
 </div></div>
 <section><div class="wrap">
 <h2>Convert a {esc(b["name"])} PDF now</h2>
@@ -189,12 +190,12 @@ def render_bank(b, all_banks):
 <p class="note"><b>Sources</b> (checked 12/11/2026). {b["sources"]} Banks change layouts without notice: treat the first row of your own file as the authority.</p>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $15</h2>
+<h2>Need it done for you? From $20</h2>
 <p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of statements or a layout that has to match your accounting software, we convert them and check every total against the opening and closing balance.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$15 <small>/ 20 pages</small></div>
-<p>75 pages $39 · 200 pages $79. Totals reconciled. 48h. Pay on Fiverr once the gig is live; until then, email us.</p>
-<a class="btn" href="{email}">Get a quote</a></div>
+<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
+<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
+<a class="btn" href="{GIG}">Need it done for you? From $20</a></div>
 <div class="card"><b>Privacy</b><p>Your statement is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
 <p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:{MAIL}">{MAIL}</a>. No address, phone or national ID is asked for or published.</p></div>
 </div>
