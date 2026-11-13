@@ -10,9 +10,11 @@ from banks import BANKS
 from banks_rest import REST
 from banks_rest2 import REST2
 from banks_rest3 import REST3
+from banks_round2 import BANKS2
 from funcs import FUNCS, LANGS, LNAME, BOOL, names as fn_names
+from guides import HOWTOS, COMPARES
 
-BANKS = BANKS + REST + REST2 + REST3
+BANKS = BANKS + REST + REST2 + REST3 + BANKS2
 BASE = "https://dayinportugal-coder.github.io/netmend"
 MAIL = "dayinportugal@gmail.com"
 GIG = "https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet"
@@ -345,7 +347,7 @@ def patch_statement_index(banks):
     )
     section = f'''
 <section class="alt" id="bank-guides"><div class="wrap">
-<h2>Guides for 18 banks</h2>
+<h2>Guides for {len(banks)} banks</h2>
 <p class="lead">Each page explains that bank’s real columns, date format, decimal separator and where to download the official PDF or CSV — then embeds the same private converter, with the right number format already selected.</p>
 <div class="banklist">{cards}</div>
 </div></section>
@@ -356,7 +358,15 @@ def patch_statement_index(banks):
     marker = '<section><div class="wrap"><h2>More free tools</h2>'
     if marker not in t:
         raise SystemExit("statement index marker missing")
-    path.write_text(t.replace(marker, section + marker, 1))
+    t = t.replace(marker, section + marker, 1)
+    # link how-to guides from the more-tools row
+    if 'href="../guides/"' not in t and 'href="guides/"' not in t:
+        t = t.replace(
+            '<a href="../excel-functions/">Excel functions in 6 languages</a>',
+            '<a href="../guides/">PDF to Excel guides</a><a href="../compare/">Comparisons</a><a href="../excel-functions/">Excel functions in 6 languages</a>',
+            1,
+        )
+    path.write_text(t)
     # FAQ which banks - already exists, leave it
 
 def patch_excel_index(funcs):
@@ -383,27 +393,215 @@ def patch_excel_index(funcs):
 def patch_homepage(banks):
     path = ROOT / "index.html"
     t = path.read_text()
-    # add a short note on the statement card if not present
     old = '<a class="btn" href="statement-to-csv/">Open the converter</a></div>'
-    new = '<a class="btn" href="statement-to-csv/">Open the converter</a><p class="note" style="margin-top:10px"><a href="statement-to-csv/#bank-guides">Guides for Revolut, Wise, N26, Millennium bcp, CGD, Chase and 12 more</a></p></div>'
+    more = max(0, len(banks) - 6)
+    new = (
+        '<a class="btn" href="statement-to-csv/">Open the converter</a>'
+        '<p class="note" style="margin-top:10px"><a href="statement-to-csv/#bank-guides">'
+        f'Guides for Revolut, Wise, N26, Millennium bcp, CGD, Chase and {more} more</a></p></div>'
+    )
     if "bank-guides" not in t and old in t:
         t = t.replace(old, new, 1)
+    else:
+        t = re.sub(
+            r"Guides for Revolut, Wise, N26, Millennium bcp, CGD, Chase and \d+ more",
+            f"Guides for Revolut, Wise, N26, Millennium bcp, CGD, Chase and {more} more",
+            t,
+            count=1,
+        )
     old2 = '<a class="btn" href="excel-functions/">Translate a formula</a></div>'
-    new2 = '<a class="btn" href="excel-functions/">Translate a formula</a><p class="note" style="margin-top:10px"><a href="excel-functions/#function-guides">VLOOKUP = PROCV and 29 other function guides</a></p></div>'
+    new2 = (
+        '<a class="btn" href="excel-functions/">Translate a formula</a>'
+        '<p class="note" style="margin-top:10px"><a href="excel-functions/#function-guides">'
+        "VLOOKUP = PROCV and 29 other function guides</a></p></div>"
+    )
     if "function-guides" not in t and old2 in t:
         t = t.replace(old2, new2, 1)
+    section = (
+        '\n<section id="guides"><div class="wrap">\n'
+        "<h2>PDF to Excel guides and comparisons</h2>\n"
+        '<p class="lead">How to get invoices, receipts and statements into a spreadsheet, '
+        "including the official QuickBooks and Xero import shapes, plus five honest "
+        "comparisons of the formats and tools involved.</p>\n"
+        '<p><a class="btn" href="guides/">How-to guides</a> '
+        '<a class="btn ghost" href="compare/">Comparisons</a></p>\n'
+        "</div></section>\n"
+    )
+    if 'id="guides"' in t:
+        t = re.sub(r'<section id="guides">.*?</section>\n', "", t, count=1, flags=re.S)
+    marker = '<section id="samples"><div class="wrap">'
+    if marker not in t:
+        raise SystemExit("homepage samples marker missing")
+    t = t.replace(marker, section + marker, 1)
     path.write_text(t)
 
-def write_sitemap(banks, funcs):
+
+def embed_tool(fmt="auto", sep=",", demo="../../samples/demo-statement.pdf", note=""):
+    fmt_opts = [
+        ("auto", "Detect automatically", fmt == "auto"),
+        ("eu", "European 1.234,56", fmt == "eu"),
+        ("us", "UK/US 1,234.56", fmt == "us"),
+    ]
+    sep_opts = [
+        (";", "Excel in Europe (; and ,)", sep == ";"),
+        (",", "Excel UK/US, Google Sheets (, and .)", sep == ","),
+    ]
+    def opts(items):
+        bits = []
+        for val, lab, sel in items:
+            bits.append(f'<option value="{val}"{" selected" if sel else ""}>{esc(lab)}</option>')
+        return "".join(bits)
+    extra = f'<p class="lead">{note}</p>' if note else ""
+    return f"""
+{extra}
+<div class="tool">
+<label for="file">PDF (stays on your computer)</label>
+<input id="file" type="file" accept="application/pdf">
+<p class="note">No file at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="{esc(demo)}">Try a demo PDF</button> (fictional data)</p>
+<div class="row">
+<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions / likely rows</option><option value="all">Every text row (raw table)</option></select></div>
+<div><label for="fmt">Number format</label><select id="fmt">{opts(fmt_opts)}</select></div>
+<div><label for="sep">CSV for</label><select id="sep">{opts(sep_opts)}</select></div>
+</div>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div class="scroll"><table id="preview"></table></div>
+<p class="note">Check the totals against the original PDF before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+</div>
+<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+"""
+
+def fiverr_cta():
+    return f"""
+<section id="done-for-you"><div class="wrap">
+<h2>Need it done for you? From $20</h2>
+<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of documents or a layout that has to match QuickBooks or Xero, we convert them and check the totals against each document.</p>
+<div class="grid">
+<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
+<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
+<a class="btn" href="{GIG}">Need it done for you? From $20</a></div>
+<div class="card"><b>Privacy</b><p>Your file is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
+<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:{MAIL}">{MAIL}</a>. No address, phone or national ID is asked for or published.</p></div>
+</div>
+</div></section>
+"""
+
+def _plain(s: str) -> str:
+    return s.replace("<span>", "").replace("</span>", "")
+
+def render_article(page, howtos, compares):
+    is_guide = page["kind"] == "howto"
+    folder = "guides" if is_guide else "compare"
+    url = f"{BASE}/{folder}/{page['slug']}/"
+    parent_name, parent_href = page["crumbs"]
+    related_g = [x for x in howtos if x["slug"] in page.get("related_guides", [])]
+    related_c = [x for x in compares if x["slug"] in page.get("related_compare", [])]
+    links = []
+    for x in related_g:
+        href = f"../{esc(x['slug'])}/" if is_guide else f"../../guides/{esc(x['slug'])}/"
+        links.append(f'<a href="{href}"><b>{esc(_plain(x["h1"]))}</b></a>')
+    for x in related_c:
+        href = f"../../compare/{esc(x['slug'])}/" if is_guide else f"../{esc(x['slug'])}/"
+        links.append(f'<a href="{href}"><b>{esc(_plain(x["h1"]))}</b></a>')
+    if is_guide:
+        links.append('<a href="../"><b>All how-to guides</b></a>')
+        links.append('<a href="../../compare/"><b>Comparisons</b></a>')
+    else:
+        links.append('<a href="../"><b>All comparisons</b></a>')
+        links.append('<a href="../../guides/"><b>How-to guides</b></a>')
+    links.append('<a href="../../statement-to-csv/"><b>Bank statement converter</b> and bank guides</a>')
+    faqs_html = "".join(f"<details><summary>{esc(q)}</summary><p>{a}</p></details>" for q, a in page["faqs"])
+    if page.get("tool") == "invoice":
+        tool = embed_tool(
+            fmt="auto", sep=",", demo="../../samples/sample-invoices.pdf",
+            note="This converter is built for tables. Use it on a digital invoice or receipt with a real text layer. Switch to “Every text row” if the first preview looks short.",
+        )
+        tool_h = "Convert a PDF now"
+    elif page.get("tool") == "statement":
+        tool = embed_tool(
+            fmt="auto", sep=",", demo="../../samples/demo-statement.pdf",
+            note="Defaults are a starting point. Change the number format to match the PDF. The file never leaves your computer.",
+        )
+        tool_h = "Convert a statement PDF now"
+    else:
+        tool, tool_h = "", ""
+    tool_section = ""
+    if tool:
+        tool_section = f'<section><div class="wrap">\n<h2>{tool_h}</h2>\n{tool}\n</div></section>'
+    head = f'''{faq_schema(url, page["faqs"])}
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script defer src="../../statement-to-csv/app.js"></script>'''
+    body = f"""
+<header><div class="wrap"><a href="../../"><img src="../../assets/logo.svg" alt="Netmend"></a>
+<nav><a href="../../#services">Services</a><a href="../../statement-to-csv/">Statement converter</a><a class="cta" href="{GIG}">From $20</a></nav></div></header>
+<div class="hero"><div class="wrap">
+{breadcrumbs([("Netmend","../../"),(parent_name, parent_href),(_plain(page["h1"]), "")])}
+<h1>{page["h1"]}</h1>
+<p>{page["lead"]}</p>
+<div class="pills"><span>Free tool in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+</div></div>
+{tool_section}
+<section class="alt"><div class="wrap">
+{page["sections"]}
+<p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
+</div></section>
+{fiverr_cta()}
+<section class="alt"><div class="wrap"><h2>FAQ</h2>{faqs_html}</div></section>
+<section><div class="wrap">
+<h2>Related guides</h2>
+<div class="banklist">{''.join(links)}</div>
+<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+</div></section>
+"""
+    return page_shell(page["title"], page["meta"], url, head, body, depth=2)
+
+def render_hub(kind, pages, title, meta, h1, lead):
+    folder = "guides" if kind == "howto" else "compare"
+    url = f"{BASE}/{folder}/"
+    cards = "".join(f'<a href="{esc(p["slug"])}/"><b>{p["h1"]}</b></a>' for p in pages)
+    if kind == "howto":
+        other = '<p class="note" style="margin-top:16px"><a href="../compare/">Honest comparisons</a> · <a href="../statement-to-csv/#bank-guides">Bank statement guides</a> · <a href="../">All Netmend services</a></p>'
+    else:
+        other = '<p class="note" style="margin-top:16px"><a href="../guides/">PDF to Excel how-to guides</a> · <a href="../statement-to-csv/#bank-guides">Bank statement guides</a> · <a href="../">All Netmend services</a></p>'
+    cta = f"""
+<section id="done-for-you" class="alt"><div class="wrap">
+<h2>Need it done for you? From $20</h2>
+<p class="lead">Clean, text-based PDFs you can do yourself with the free tool. Scans, packed years and accounting-template work, from $20 on Fiverr.</p>
+<p><a class="btn" href="{GIG}">Need it done for you? From $20</a></p>
+</div></section>
+"""
+    body = f"""
+<header><div class="wrap"><a href="../"><img src="../assets/logo.svg" alt="Netmend"></a>
+<nav><a href="../#services">Services</a><a href="../statement-to-csv/">Statement converter</a><a class="cta" href="{GIG}">From $20</a></nav></div></header>
+<div class="hero"><div class="wrap">
+{breadcrumbs([("Netmend","../"),(_plain(h1), "")])}
+<h1>{h1}</h1>
+<p>{lead}</p>
+</div></div>
+<section><div class="wrap">
+<div class="banklist">{cards}</div>
+{other}
+</div></section>
+{cta}
+"""
+    return page_shell(title, meta, url, "", body, depth=1)
+
+
+def write_sitemap(banks, funcs, howtos=None, compares=None):
+    howtos = howtos or []
+    compares = compares or []
     urls = [
         f"{BASE}/",
         f"{BASE}/statement-to-csv/",
         f"{BASE}/wall-of-love/",
         f"{BASE}/pin-maker/",
         f"{BASE}/excel-functions/",
+        f"{BASE}/guides/",
+        f"{BASE}/compare/",
     ]
     urls += [f"{BASE}/statement-to-csv/{b['slug']}/" for b in banks]
     urls += [f"{BASE}/excel-functions/{f['slug']}/" for f in funcs]
+    urls += [f"{BASE}/guides/{p['slug']}/" for p in howtos]
+    urls += [f"{BASE}/compare/{p['slug']}/" for p in compares]
     body = '<?xml version="1.0" encoding="UTF-8"?>\n'
     body += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     for u in urls:
@@ -423,11 +621,37 @@ def main():
         d = ROOT / "excel-functions" / f["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(render_func(f, FUNCS))
+    for p in HOWTOS:
+        d = ROOT / "guides" / p["slug"]
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(render_article(p, HOWTOS, COMPARES))
+    for p in COMPARES:
+        d = ROOT / "compare" / p["slug"]
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(render_article(p, HOWTOS, COMPARES))
+    (ROOT / "guides").mkdir(parents=True, exist_ok=True)
+    (ROOT / "guides" / "index.html").write_text(render_hub(
+        "howto", HOWTOS,
+        "PDF to Excel how-to guides (invoices, receipts, statements) · Netmend",
+        "Free, private guides for turning PDF invoices, receipts and bank statements into spreadsheets you can import into QuickBooks, Xero or Google Sheets.",
+        "PDF to Excel <span>how-to guides</span>",
+        "Each guide is a working method: the official import shape where it exists, a private in-browser converter for text-based PDFs, and a clear note on what the tool cannot read.",
+    ))
+    (ROOT / "compare").mkdir(parents=True, exist_ok=True)
+    (ROOT / "compare" / "index.html").write_text(render_hub(
+        "compare", COMPARES,
+        "PDF to Excel comparisons: official CSV vs PDF, CSV vs Excel, and more · Netmend",
+        "Honest comparisons of official bank exports versus converting a PDF, CSV versus Excel, in-browser tools versus Acrobat and Excel, QuickBooks versus Xero, and DIY versus done-for-you.",
+        "Honest <span>comparisons</span>",
+        "When the official file is better, when a conversion is the only option, and when it is worth paying someone. Written to help you choose, not to pretend every job needs us.",
+    ))
     patch_statement_index(BANKS)
     patch_excel_index(FUNCS)
     patch_homepage(BANKS)
-    urls = write_sitemap(BANKS, FUNCS)
-    print(f"wrote {len(BANKS)} bank pages, {len(FUNCS)} function pages, sitemap {len(urls)} urls")
+    urls = write_sitemap(BANKS, FUNCS, HOWTOS, COMPARES)
+    print(f"wrote {len(BANKS)} bank pages, {len(FUNCS)} function pages, {len(HOWTOS)} how-tos, {len(COMPARES)} comparisons, sitemap {len(urls)} urls")
+
+
 
 if __name__ == "__main__":
     main()
