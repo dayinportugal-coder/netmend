@@ -14,6 +14,7 @@ document.querySelectorAll('form.waitlist').forEach(function(f){
       '\n\nI want to reserve the launch price ('+price+'), with no payment and no obligation to buy.'+
       (news&&news.checked?'\nI agree to receive one email when it launches (and one if the launch is delayed).':'\nPlease reply only about my request (no launch email).')+
       '\n\nThanks';
-    window.location.href='mailto:dayinportugal@gmail.com?subject='+encodeURIComponent('Netmend - '+prod+' - launch price')+'&body='+encodeURIComponent(body);
+    var subj=f.dataset.subject||('Netmend - '+prod+' - launch price');
+    window.location.href='mailto:dayinportugal@gmail.com?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
   });
 });
