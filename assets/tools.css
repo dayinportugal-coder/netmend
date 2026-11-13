@@ -78,3 +78,20 @@ pre{background:#0B1F33;color:#F4F1EA;padding:10px 12px;border-radius:8px;overflo
 .hooks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:12px}
 .hooks div{border:1px solid #e6e2d8;border-radius:12px;padding:12px 14px;background:#fff}
 .hooks b{display:block;color:var(--navy);margin:0 0 4px}
+
+input[type=datetime-local]{width:100%;font:inherit;padding:9px 10px;border:1px solid #cfcac0;border-radius:8px;background:#fff}
+.warn{color:#8a5a00;font-weight:700}
+.xrc-score{display:flex;align-items:center;gap:18px;margin:4px 0 18px;flex-wrap:wrap}
+.xrc-meter{width:92px;height:92px;flex:0 0 auto}
+.xrc-score .num{font-size:36px;font-weight:700;color:var(--navy);line-height:1}
+.xrc-score .tagline{font-size:16px;font-weight:700;margin:2px 0 4px}
+.xrc-score .lbl{font-size:14px;color:var(--muted);margin:0;max-width:520px}
+.xrc-checks{display:grid;gap:8px;margin:0 0 18px}
+.xrc-check{border:1px solid #e6e2d8;border-radius:12px;padding:12px 14px;background:#fff;display:grid;grid-template-columns:auto 1fr;gap:10px 12px}
+.xrc-check .sev{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:99px;padding:3px 8px;align-self:start;line-height:1.4}
+.xrc-check .sev.pass{background:#e4f5ea;color:#1b7a3d}
+.xrc-check .sev.warn{background:#fff3d6;color:#8a5a00}
+.xrc-check .sev.fail{background:#fde8e6;color:#b3261e}
+.xrc-check h3{margin:0 0 2px;font-size:16px}
+.xrc-check p{margin:0;font-size:14px;color:var(--muted)}
+.xrc-rewrites{margin-top:8px}
