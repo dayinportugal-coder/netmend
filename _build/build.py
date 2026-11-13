@@ -595,6 +595,7 @@ def write_sitemap(banks, funcs, howtos=None, compares=None):
         f"{BASE}/wall-of-love/",
         f"{BASE}/pin-maker/",
         f"{BASE}/excel-functions/",
+        f"{BASE}/x-post-writer/",
         f"{BASE}/guides/",
         f"{BASE}/compare/",
     ]
