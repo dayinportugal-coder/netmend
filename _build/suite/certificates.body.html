@@ -1,0 +1,49 @@
+<section class="alt" id="app"><div class="wrap">
+<h2>Make certificates</h2>
+<div class="tool">
+<label for="names">Names (one per line; optional second column after a comma, used as {extra})</label>
+<textarea id="names" placeholder="Ana Ribeiro&#10;John Smith, Distinction&#10;Mei Tanaka"></textarea>
+<div class="row">
+<div><label for="title">Title</label><input id="title" type="text" value="Certificate of Completion"></div>
+<div><label for="course">Course / event</label><input id="course" type="text" placeholder="e.g. Intro to Data Analysis"></div>
+<div><label for="date">Date</label><input id="date" type="text" placeholder="e.g. 14 November 2026"></div>
+</div>
+<label for="body">Wording ({name}, {course}, {date}, {extra} are replaced)</label>
+<input id="body" type="text" value="has successfully completed {course}">
+<div class="row">
+<div><label for="issuer">Issued by (organisation)</label><input id="issuer" type="text" placeholder="Your school, company or event"></div>
+<div><label for="signer">Signature line (name, role)</label><input id="signer" type="text" placeholder="e.g. Maria Costa, Course Lead"></div>
+<div><label for="design">Design</label><select id="design"><option value="classic">Classic (gold frame)</option><option value="modern">Modern (side band)</option><option value="minimal">Minimal</option><option value="navy">Navy award</option></select></div>
+</div>
+<div class="row">
+<div><label for="logo">Logo image (Pro)</label><input id="logo" type="file" accept="image/png,image/jpeg"></div>
+<div><label for="sig">Signature image (Pro)</label><input id="sig" type="file" accept="image/png,image/jpeg"></div>
+<div><label for="accent">Accent colour (Pro)</label><input id="accent" type="color" value="#b8892d"></div>
+</div>
+<p class="note" id="nm-remain"></p>
+<p class="nm-actions"><button class="btn ghost" type="button" id="preview">Preview first</button><button class="btn" type="button" id="pdfall">Download all (one PDF)</button><button class="btn ghost" type="button" id="zip">Download ZIP (one PDF each)</button></p>
+<p class="note" id="status"></p>
+<iframe id="prev" class="nm-cert-prev" style="aspect-ratio:297/210" hidden title="Certificate preview"></iframe>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<h2>Why it is different</h2>
+<div class="grid">
+<div class="card"><b>No upload</b><p>Your participant list never leaves your computer. The PDFs are drawn in your browser.</p></div>
+<div class="card"><b>Bulk, not one by one</b><p>Paste 10 or 1,000 names from a spreadsheet column and get all of them at once.</p></div>
+<div class="card"><b>Print-ready</b><p>A4 landscape vector PDFs, sharp on paper and on screen. Send them yourself, by email or in your LMS.</p></div>
+</div></div></section>
+
+<section class="alt" id="pro"><div class="wrap">
+<h2>Certificates Pro: $19 once</h2>
+<p class="lead">Certificate platforms charge $10 to $50 a month. Pro is one payment.</p>
+<div id="nm-license"></div>
+</div></section>
+
+<section><div class="wrap"><h2>FAQ</h2>
+<details><summary>Is it free?</summary><p>Yes, up to 10 certificates per batch and 5 batches a day, with a small "Made with Netmend" line at the bottom.</p></details>
+<details><summary>What does Pro add?</summary><p>Unlimited names per batch and batches, your logo and signature image, a custom accent colour, and no Netmend line.</p></details>
+<details><summary>Which characters are supported?</summary><p>Latin alphabets with accents (Portuguese, Spanish, French, German and so on). Non-Latin scripts are not supported in this version.</p></details>
+<details><summary>Can it email the certificates?</summary><p>No, on purpose: nothing leaves your browser. Download the ZIP and send them from your own email or LMS.</p></details>
+</div></section>
