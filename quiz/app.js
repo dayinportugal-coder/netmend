@@ -96,6 +96,7 @@
   $("go").onclick = function () {
     if (!NM.getKey()) return NM.status("status", NM.friendlyError("NOKEY"), "bad");
     if (!NM.canUse()) return NM.status("status", NM.limitMsg(), "bad");
+    NM.status("status", "Preparing your source…");
     source(function (err, req) {
       if (err) return NM.status("status", NM.esc(err), "bad");
       req.json = true; req.temperature = 0.4; req.onModel = function (m) { NM.status("status", "Writing questions with " + m + "…"); };
