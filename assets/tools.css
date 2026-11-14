@@ -183,3 +183,19 @@ footer{font-size:13px;color:var(--faint);padding:24px 0;border-top:1px solid var
 
 @media(max-width:640px){section{padding:52px 0}.hero{padding:52px 0 40px}.wrap{padding:0 18px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Netmend suite additions */
+.bad{color:#ff8a7a}
+.nm-inline{display:flex;gap:10px;align-items:center}.nm-inline input{flex:1}
+.nm-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}.nm-tabs button{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:999px;font:inherit;cursor:pointer}.nm-tabs button.on{background:var(--surface-2);color:#fff;border-color:var(--border-2)}
+.nm-pane[hidden]{display:none}
+.nm-slides{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:16px}
+.nm-slide{aspect-ratio:16/9;border-radius:10px;padding:14px 16px;overflow:hidden;border:1px solid var(--border);font-size:12px;line-height:1.35;position:relative}
+.nm-slide h4{margin:0 0 6px;font-size:14px}.nm-slide ul{margin:0;padding-left:16px}.nm-slide .n{position:absolute;right:10px;bottom:6px;font-size:10px;opacity:.6}
+.nm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.nm-chat{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.nm-msg{padding:12px 14px;border-radius:12px;border:1px solid var(--border);white-space:pre-wrap}.nm-msg.me{background:var(--surface-2);align-self:flex-end;max-width:85%}.nm-msg.ai{background:var(--surface)}
+.nm-q{padding:14px 16px;border:1px solid var(--border);border-radius:12px;margin-top:12px;background:var(--surface)}.nm-q ol{margin:8px 0 0}.nm-q li.right{color:#7be0a0}.nm-q .ex{font-size:13px;color:var(--muted);margin-top:6px}
+.nm-hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}.nm-hub a.card{display:block;text-decoration:none;color:var(--text)}.nm-hub .tag{display:inline-block;font-size:12px;color:var(--teal);margin-bottom:6px}
+.nm-cert-prev{width:100%;max-width:720px;border:1px solid var(--border);border-radius:10px;background:#fff;margin-top:14px}
+@media print{body>header,.hero,.site-footer,.noprint,section:not(.printable){display:none!important}body{background:#fff;color:#000}body::before,body::after{display:none}.printable,.printable *{color:#000!important;background:#fff!important;border-color:#ccc!important}}

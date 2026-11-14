@@ -1,0 +1,42 @@
+<section class="alt" id="app"><div class="wrap">
+<h2>Ask a video</h2>
+<div id="nm-key"></div>
+<div class="tool" style="margin-top:18px">
+<div class="nm-tabs"><button type="button" data-tab="yt" class="on">YouTube link</button><button type="button" data-tab="tr">Paste a transcript</button></div>
+<div class="nm-pane" data-pane="yt"><label for="yt">YouTube URL (public video)</label><input id="yt" type="url" placeholder="https://www.youtube.com/watch?v=… or https://youtu.be/…"></div>
+<div class="nm-pane" data-pane="tr" hidden><label for="tr">Transcript (from YouTube "Show transcript", Vimeo, Loom, Zoom, a podcast…)</label><textarea id="tr" placeholder="Paste the transcript here"></textarea></div>
+<div class="row"><div><label for="lang">Answer language</label><select id="lang"><option>English</option><option>Spanish</option><option>Portuguese</option><option>French</option><option>German</option><option>Italian</option><option>Hindi</option><option>Japanese</option></select></div></div>
+<p class="note" id="nm-remain"></p>
+<p><button class="btn" type="button" id="go">Analyse video</button></p>
+<p class="note" id="status"></p>
+<div id="out"></div>
+<div id="chatbox" hidden>
+<h3>Ask about this video</h3>
+<div class="nm-chat" id="chat"></div>
+<div class="nm-inline" style="margin-top:10px"><input id="q" type="text" placeholder="e.g. What tools did he use, and what did they cost?"><button class="btn" type="button" id="ask">Ask</button></div>
+<p class="note" id="qstatus"></p>
+<div class="nm-actions" id="proacts"></div>
+</div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<h2>What you get</h2>
+<div class="grid">
+<div class="card"><b>Summary in 30 seconds</b><p>The point of the video in a few lines, then the key moments with timestamps that open YouTube at that second.</p></div>
+<div class="card"><b>Ask anything</b><p>"What were the 3 steps?", "Which price did she quote?", "Explain the part at 12:30 like I'm new to this." Answers cite timestamps.</p></div>
+<div class="card"><b>Turn it into content (Pro)</b><p>A blog post, an X thread, LinkedIn post or study notes from the video, ready to edit. Export everything as Markdown.</p></div>
+</div></div></section>
+
+<section class="alt" id="pro"><div class="wrap">
+<h2>AskVideo Pro: $19 once</h2>
+<p class="lead">Video chat tools usually cost $9 to $20 a month. Pro is one payment.</p>
+<div id="nm-license"></div>
+</div></section>
+
+<section><div class="wrap"><h2>FAQ</h2>
+<details><summary>How does it read the video?</summary><p>Your browser asks Google's Gemini API, with your key, to watch the public YouTube video directly (Gemini supports YouTube links). Long videos take longer; a 20-minute video usually takes under a minute. Private and unlisted videos do not work: paste the transcript instead.</p></details>
+<details><summary>Is it free?</summary><p>3 videos a day and 5 questions per video, with your own free Gemini key. Google's free tier has its own daily video limits.</p></details>
+<details><summary>Do you store my videos or questions?</summary><p>No. There is no Netmend server. Your notes stay in this tab until you close it.</p></details>
+<details><summary>What does Pro add?</summary><p>No daily limit, unlimited questions, blog post / X thread / LinkedIn / study-notes generation, and Markdown export.</p></details>
+</div></section>
