@@ -7,7 +7,7 @@
  * Free: NETMEND_AI and NETMEND_TRANSLATE, 50 AI calls a day. Pro (lifetime): every function, no limit,
  * plus "Fill selected cells" which writes plain values (no recalculation, no repeat cost).
  */
-var NM_PRODUCT_ID = ''; // Gumroad product_id for Netmend Sheets AI Pro (filled in by Netmend when it goes on sale)
+var NM_PRODUCT_ID = 'KBC9omd-o9urF_DoRFgHsA=='; // https://portugaldiary.gumroad.com/l/netmend-sheets-ai
 var NM_MODELS = ['gemini-3.5-flash-lite', 'gemini-flash-lite-latest', 'gemini-3.5-flash', 'gemini-flash-latest'];
 var NM_FREE_DAILY = 50;
 
