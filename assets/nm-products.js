@@ -13,5 +13,5 @@ window.NM_PRODUCTS = {
   resume:     { name: "Netmend Resume Pro",     price: 19, productId: "WRdpVCshkjzv0fZiXEDFaA==", url: "https://portugaldiary.gumroad.com/l/netmend-resume" },
   formula:    { name: "Netmend Formula Pro",    price: 19, productId: "X0vmumlS2rBDh4GZv7kp8g==", url: "https://portugaldiary.gumroad.com/l/netmend-formula" },
   /* Shots: productId and url stay empty until the Gumroad product exists (Pro box then says "opens soon"). */
-  shots:      { name: "Netmend Shots Pro",      price: 19, productId: "", url: "" }
+  shots:      { name: "Netmend Shots Pro",      price: 19, productId: "mvgoLsmysqffj_0Ju2_Jcw==", url: "https://portugaldiary.gumroad.com/l/netmend-shots" }
 };
