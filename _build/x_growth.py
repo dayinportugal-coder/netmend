@@ -11,7 +11,7 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-BASE = "https://dayinportugal-coder.github.io/netmend"
+BASE = "https://netmend.app"
 GUMROAD = "https://portugaldiary.gumroad.com/l/leutz"
 # Imported below after this file can also be run as a script.
 PAGES: list[dict] = []
