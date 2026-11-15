@@ -2,7 +2,7 @@
 Each tool: _build/suite/<slug>.json (meta) + _build/suite/<slug>.body.html (main content). JS lives in /<slug>/app.js."""
 import json, html, pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-BASE = "https://dayinportugal-coder.github.io/netmend/"
+BASE = "https://netmend.app/"
 SUITE = [("slides","Netmend Slides"),("sheets-ai","Sheets AI"),("askvideo","AskVideo"),("quiz","Quiz maker"),("chat-pdf","Chat with PDF"),("certificates","Certificates"),("blur","Netmend Blur"),("statement","Statement → Excel"),("resume","Resume tailor"),("formula","Formula AI"),("shots","Shots")]
 
 def head(m, depth):

@@ -15,7 +15,7 @@ from funcs import FUNCS, LANGS, LNAME, BOOL, names as fn_names
 from guides import HOWTOS, COMPARES
 
 BANKS = BANKS + REST + REST2 + REST3 + BANKS2
-BASE = "https://dayinportugal-coder.github.io/netmend"
+BASE = "https://netmend.app"
 MAIL = "dayinportugal@gmail.com"
 GIG = "https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet"
 
