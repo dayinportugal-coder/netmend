@@ -29,6 +29,16 @@
   }
   paintLimits();
 
+  /* Buy links stay on the Gumroad product in assets/nm-products.js (url + product id). */
+  (function paintBuyLinks() {
+    var p = NM.product();
+    document.querySelectorAll("[data-pro-buy]").forEach(function (a) {
+      if (p.url) a.href = p.url;
+      if (p.productId) a.setAttribute("data-product-id", p.productId);
+      if (p.price && a.hasAttribute("data-pro-label")) a.textContent = "Statement Pro · $" + p.price;
+    });
+  })();
+
   function setStatus(msg, kind) { NM.status("status", msg ? NM.esc(msg) : "", kind || ""); }
 
   function rowsToText(rows) {
