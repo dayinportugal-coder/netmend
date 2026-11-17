@@ -12,6 +12,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Wise already export CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — and also XLSX, MT940, QIF and CAMT.053 on the web. Convert a PDF only when that official export is no longer available."}}, {"@type": "Question", "name": "Why are my months wrong after I open the file?", "acceptedAnswer": {"@type": "Answer", "text": "Wise writes 03-09-2026 for 3 September. Excel in a US locale reads that as 9 March. Import the column as text or day-first, or look at a date on the 13th or later to see the real order."}}, {"@type": "Question", "name": "Can I get more than a year in one file?", "acceptedAnswer": {"@type": "Answer", "text": "No. Official statements are capped at 365 days. Create several statements and concatenate them after you have checked each period."}}], "url": "https://netmend.app/statement-to-csv/wise/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script defer src="../app.js"></script>
+<script defer src="/assets/analytics.js"></script>
 </head><body>
 
 <header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>

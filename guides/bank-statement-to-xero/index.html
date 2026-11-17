@@ -11,6 +11,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can Xero import my PDF statement directly?", "acceptedAnswer": {"@type": "Answer", "text": "Sometimes. Xero Central has an official article “Import a PDF bank statement”. Try that first. If it is not available or the file is rejected, convert the PDF to a CSV and use the official CSV import."}}, {"@type": "Question", "name": "Should amounts be positive or negative?", "acceptedAnswer": {"@type": "Answer", "text": "For the usual single-amount CSV, money in is positive and money out is negative. Do not also import a running-balance column as an amount."}}, {"@type": "Question", "name": "Why are the dates a day off or in the wrong month?", "acceptedAnswer": {"@type": "Answer", "text": "The statement is probably day-first and the import was told it is month-first, or the other way around. Pick one format for the whole file and say it on the mapping screen."}}], "url": "https://netmend.app/guides/bank-statement-to-xero/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script defer src="../../statement-to-csv/app.js"></script>
+<script defer src="/assets/analytics.js"></script>
 </head><body>
 
 <header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>

@@ -12,6 +12,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why does my import start with a random total instead of a payment?", "acceptedAnswer": {"@type": "Answer", "text": "The CSV usually has a short summary above the header. Delete those rows so line 1 is Date, Description, Amount, Running Bal."}}, {"@type": "Question", "name": "Is Amount signed?", "acceptedAnswer": {"@type": "Answer", "text": "Yes in the usual checking/savings export: withdrawals are negative."}}, {"@type": "Question", "name": "How far back is the CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Often around 18 months for activity, depending on the account. Older months come from the PDF archive."}}], "url": "https://netmend.app/statement-to-csv/bank-of-america/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script defer src="../app.js"></script>
+<script defer src="/assets/analytics.js"></script>
 </head><body>
 
 <header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
