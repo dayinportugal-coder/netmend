@@ -36,3 +36,36 @@ Files: 2026-11-19-x6-reach-sem-chave.mp4
 Files: 2026-11-20-x7-writer-demo.mp4
 - pena: Jakub Hałun, CC BY 4.0, https://commons.wikimedia.org/wiki/File:Pena_Palace,_Sintra,_Portugal,_20250606_1041_0020.jpg
 - No AI imagery. Background is a real Commons photo (blurred); the app is the real page. In this demo the Gemini reply was replaced by a fixed fictional example (coffee roaster), so no real key or account was used; the video is marked "Exemplo fictício".
+
+
+# Batch 2 X images (week of 23 Nov 2026)
+
+## X draft · formula
+Files: 2026-11-lote2-x-formula.png
+- porto-cores: João Neves, CC0, https://commons.wikimedia.org/wiki/File:Ribeira_(29560714177).jpg
+- No AI imagery. Background is a real Commons photo (blurred); the app is the real page: live page (top of netmend.app/formula/).
+
+## X draft · resume
+Files: 2026-11-lote2-x-resume.png
+- rua-electrico: Deensel, CC BY 2.0, https://commons.wikimedia.org/wiki/File:Lisbon_tram_(36622596060).jpg
+- No AI imagery. Background is a real Commons photo (blurred); the app is the real page: live page (top of netmend.app/resume/).
+
+## X draft · quiz
+Files: 2026-11-lote2-x-quiz.png
+- coimbra-rio: Olarcos, Public domain, https://commons.wikimedia.org/wiki/File:Coimbra_tozu.JPG
+- No AI imagery. Background is a real Commons photo (blurred); the app is the real page: app screenshot with a generated sample quiz (from the existing draft image).
+
+## X draft · askvideo
+Files: 2026-11-lote2-x-askvideo.png
+- nz-farol: Luis Ascenso from Lisbon, Portugal, CC BY 2.0, https://commons.wikimedia.org/wiki/File:Praia_do_Norte,Nazar%C3%A9_-23_(50655732078).jpg
+- No AI imagery. Background is a real Commons photo (blurred); the app is the real page: app screenshot with a sample video summary (from the existing draft image).
+
+## X draft · certificates
+Files: 2026-11-lote2-x-certificates.png
+- uc-patio: Marmontel, CC BY 2.0, https://commons.wikimedia.org/wiki/File:Biblioth%C3%A8que_Joanina_(51543687655)_(cropped).jpg
+- No AI imagery. Background is a real Commons photo (blurred); the app is the real page: app screenshot with a sample name list (from the existing draft image).
+
+## X draft · chat-pdf
+Files: 2026-11-lote2-x-chat-pdf.png
+- azulejo-janela: Rob Oo from NL, CC BY 2.0, https://commons.wikimedia.org/wiki/File:Abstract_(46767604824).jpg
+- No AI imagery. Background is a real Commons photo (blurred); the app is the real page: live page (top of netmend.app/chat-pdf/).
