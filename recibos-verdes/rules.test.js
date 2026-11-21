@@ -92,5 +92,14 @@ assert.strictEqual(anexo.expenseRule, true);
 assert.strictEqual(RV.anexoTaxable(100000, "other").taxableCents, 35000);
 assert.strictEqual(RV.anexoTaxable(100000, "goods").taxableCents, 15000);
 assert.strictEqual(RV.anexoTaxable(100000, "goods").expenseRule, false);
+assert.strictEqual(RV.anexoTaxable(100000, "art151", "y1").taxableCents, 37500);
+assert.strictEqual(RV.deducaoEspecificaCents(), 458709);
+assert.strictEqual(RV.expenseAddBack(1000000, "art151").addCents, 0);
+assert.ok(RV.expenseAddBack(4000000, "art151").addCents > 0);
+assert.strictEqual(RV.firstYearNotice("2019-03-01", "2026-11-21").show, false);
+assert.strictEqual(RV.firstYearNotice("2025-09-15", "2026-11-21").effect, "2026-09-01");
+assert.strictEqual(RV.firstYearNotice("2025-09-15", "2026-11-21").show, true);
+assert.strictEqual(RV.limitFlags({ grossCents: 1500000 }).irsDispensa, true);
+assert.strictEqual(RV.limitFlags({ grossCents: 1499999 }).irsDispensa, false);
 
 console.log("rules.test.js ok");

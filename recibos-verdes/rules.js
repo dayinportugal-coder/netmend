@@ -63,6 +63,8 @@
     /* Art. 31.º n.º 13: for alíneas b) and c), documented expenses are compared
        with 15% of those gross service amounts. */
     expenseFloorPct: 15,
+    /* CIRS art. 25.º n.º 1 a): 8,54 × IAS. Lei n.º 45-A/2024. */
+    deducaoEspecificaFactorBps: 854,
     declarationMonths: [1, 4, 7, 10],
     /* FAQ Q34. Payment from the 10th to the 20th of the following month. */
     paymentDayFrom: 10,
@@ -347,6 +349,45 @@
     return ey + "-" + pad(em) + "-01";
   }
 
+  function addMonthsIso(iso, n) {
+    var y = Number(iso.slice(0, 4));
+    var m = Number(iso.slice(5, 7)) + n;
+    var d = Number(iso.slice(8, 10));
+    while (m > 12) { m -= 12; y += 1; }
+    while (m < 1) { m += 12; y -= 1; }
+    var last = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    if (d > last) d = last;
+    return y + "-" + pad(m) + "-" + pad(d);
+  }
+
+  /* Show the "first year is ending" note only while the effect date is recent:
+     not more than 12 months ago, and not more than 15 months ahead. */
+  function firstYearNotice(startIso, today) {
+    var effect = regimeStartDate(startIso);
+    if (!effect || !today) return { show: false, effect: effect || "" };
+    var from = addMonthsIso(today, -12);
+    var until = addMonthsIso(today, 15);
+    return { show: effect >= from && effect <= until, effect: effect };
+  }
+
+  function deducaoEspecificaCents() {
+    return Math.round(RULES.iasCents * RULES.deducaoEspecificaFactorBps / 100);
+  }
+
+  /* Art. 31 n.º 13 for alíneas b) and c): add-back is max(0, 15% of gross − automatic deduction). */
+  function expenseAddBack(grossCents, kind) {
+    var applies = kind === "art151" || kind === "other" || kind === "al";
+    var auto = deducaoEspecificaCents();
+    if (!applies) return { applies: false, addCents: 0, autoCents: auto, ceilingCents: 0 };
+    var fifteen = Math.round(Math.max(0, grossCents) * RULES.expenseFloorPct / 100);
+    return {
+      applies: true,
+      addCents: Math.max(0, fifteen - auto),
+      autoCents: auto,
+      ceilingCents: Math.round(auto * 100 / RULES.expenseFloorPct)
+    };
+  }
+
   function dateInForce(iso, startIso) {
     if (!startIso) return true;
     var effect = regimeStartDate(startIso);
@@ -391,24 +432,37 @@
       ssCap: !!input.capped,
       ssRemainder: !!input.remainder,
       ssFirstYearEnded: !!input.leftFirstYear,
-      irsDispensa: gross > RULES.ivaLimitCents,
+      irsDispensa: gross >= RULES.ivaLimitCents,
       simplificadoWatch: gross > RULES.simplificadoLimitCents && gross <= RULES.simplificadoForceCents,
       simplificadoForce: gross > RULES.simplificadoForceCents
     };
   }
 
-  /* Art. 31.º n.º 1. kind is art151 (b), other (c) or goods (a, including
-     restaurants and hotels). Does not apply n.º 10 or n.º 13: those need
-     facts this file does not have. */
-  function anexoTaxable(grossCents, kind) {
-    var coef = kind === "art151" ? RULES.coefArt151 : (kind === "other" ? RULES.coefOtherServices : RULES.coefGoodsHospitality);
+  /* Art. 31.º n.º 1. reduction "y1" is −50% and "y2" is −25%, only for
+     alíneas b), c) and the AL case that uses c). n.º 11 can block it. */
+  function anexoTaxable(grossCents, kind, reduction) {
+    var table = {
+      art151: { bps: 7500, expense: true, starter: true },
+      other: { bps: 3500, expense: true, starter: true },
+      goods: { bps: 1500, expense: false, starter: false },
+      al: { bps: 3500, expense: true, starter: true },
+      alContencao: { bps: 5000, expense: false, starter: false },
+      royalties: { bps: 9500, expense: false, starter: false }
+    };
+    var spec = table[kind] || table.goods;
+    var bps = spec.bps;
+    var applied = "none";
+    if (spec.starter && reduction === "y1") { bps = Math.round(bps * 50 / 100); applied = "y1"; }
+    else if (spec.starter && reduction === "y2") { bps = Math.round(bps * 75 / 100); applied = "y2"; }
     var gross = Math.max(0, Math.round(Number(grossCents) || 0));
     return {
-      kind: kind === "art151" || kind === "other" ? kind : "goods",
-      coef: coef,
+      kind: spec === table[kind] ? kind : "goods",
+      coefBps: bps,
+      coef: bps / 100,
       grossCents: gross,
-      taxableCents: Math.round(gross * coef / 100),
-      expenseRule: kind === "art151" || kind === "other"
+      taxableCents: Math.round(gross * bps / 10000),
+      expenseRule: spec.expense,
+      reduction: applied
     };
   }
 
@@ -444,6 +498,9 @@
     clampAdjustment: clampAdjustment,
     googleCalendarUrl: googleCalendarUrl,
     limitFlags: limitFlags,
-    anexoTaxable: anexoTaxable
+    anexoTaxable: anexoTaxable,
+    firstYearNotice: firstYearNotice,
+    expenseAddBack: expenseAddBack,
+    deducaoEspecificaCents: deducaoEspecificaCents
   };
 });

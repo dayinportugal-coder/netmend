@@ -166,7 +166,8 @@
 <button id="resume-year" type="button" class="btn">Continue</button>
 </div>
 <div class="choice"><input id="save-local" type="checkbox"><label for="save-local">Save this year on this device</label></div>
-<p class="note">Off unless you turn it on. Receipts and settings stay in this browser’s IndexedDB. Nothing is uploaded. <button id="forget-local" type="button" class="btn ghost">Delete saved data</button></p>
+<p class="note">Off unless you turn it on. Receipts and settings stay in this browser, on this device. Nothing is uploaded. Saving works from a file. <button id="forget-local" type="button" class="btn ghost" hidden>Delete saved data</button></p>
+<div id="save-choice" class="q-card" hidden></div>
 <div class="actions">
 <button id="download" type="button" class="btn" disabled>Download Excel</button>
 <button id="download-ics" type="button" class="btn ghost" disabled>Download deadlines (.ics)</button>
@@ -273,6 +274,7 @@
 <script src="/assets/pwa.js"></script>
 <script src="../assets/vendor/jszip.min.js"></script>
 <script src="../assets/vendor/xlsx.full.min.js"></script>
+<script src="../recibos-verdes/merge.js"></script>
 <script src="../recibos-verdes/newsletter.js"></script>
 <script src="../recibos-verdes/store.js"></script>
 <script src="../recibos-verdes/rules.js"></script>

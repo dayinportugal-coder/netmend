@@ -1,23 +1,48 @@
-/* Opt-in storage of this device's receipts. IndexedDB only. Nothing is sent. */
+/* Opt-in storage. The database is not created until the person saves. */
 (function (root) {
   "use strict";
   var DB = "netmend-rv";
   var STORE = "years";
 
-  function openDb() {
+  function exists() {
+    if (!root.indexedDB) return Promise.resolve(false);
+    if (root.indexedDB.databases) {
+      return root.indexedDB.databases().then(function (list) {
+        return (list || []).some(function (item) { return item && item.name === DB; });
+      }).catch(function () { return false; });
+    }
+    return openDb(false).then(function (db) { return !!db; });
+  }
+
+  function openDb(create) {
     return new Promise(function (resolve, reject) {
       if (!root.indexedDB) { reject(new Error("no-idb")); return; }
       var req = root.indexedDB.open(DB, 1);
-      req.onupgradeneeded = function () {
+      var created = false;
+      req.onupgradeneeded = function (event) {
+        created = true;
+        if (!create) {
+          event.target.transaction.abort();
+          return;
+        }
         if (!req.result.objectStoreNames.contains(STORE)) req.result.createObjectStore(STORE, { keyPath: "year" });
       };
-      req.onsuccess = function () { resolve(req.result); };
+      req.onsuccess = function () {
+        if (created && !create) {
+          req.result.close();
+          var del = root.indexedDB.deleteDatabase(DB);
+          del.onsuccess = function () { resolve(null); };
+          del.onerror = function () { resolve(null); };
+          return;
+        }
+        resolve(req.result);
+      };
       req.onerror = function () { reject(req.error); };
     });
   }
 
   function saveYear(record) {
-    return openDb().then(function (db) {
+    return openDb(true).then(function (db) {
       return new Promise(function (resolve, reject) {
         var tx = db.transaction(STORE, "readwrite");
         tx.objectStore(STORE).put(record);
@@ -28,30 +53,33 @@
   }
 
   function latest() {
-    return openDb().then(function (db) {
-      return new Promise(function (resolve, reject) {
-        var tx = db.transaction(STORE, "readonly");
-        var req = tx.objectStore(STORE).getAll();
-        req.onsuccess = function () {
-          var rows = req.result || [];
-          rows.sort(function (a, b) { return a.year - b.year; });
-          resolve(rows.length ? rows[rows.length - 1] : null);
-        };
-        req.onerror = function () { reject(req.error); };
+    return exists().then(function (yes) {
+      if (!yes) return null;
+      return openDb(false).then(function (db) {
+        if (!db) return null;
+        return new Promise(function (resolve, reject) {
+          var tx = db.transaction(STORE, "readonly");
+          var req = tx.objectStore(STORE).getAll();
+          req.onsuccess = function () {
+            var rows = req.result || [];
+            rows.sort(function (a, b) { return a.year - b.year; });
+            resolve(rows.length ? rows[rows.length - 1] : null);
+          };
+          req.onerror = function () { reject(req.error); };
+        });
       });
     });
   }
 
-  function clearAll() {
-    return openDb().then(function (db) {
-      return new Promise(function (resolve, reject) {
-        var tx = db.transaction(STORE, "readwrite");
-        tx.objectStore(STORE).clear();
-        tx.oncomplete = function () { resolve(); };
-        tx.onerror = function () { reject(tx.error); };
-      });
+  function deleteDb() {
+    return new Promise(function (resolve) {
+      if (!root.indexedDB) { resolve(); return; }
+      var req = root.indexedDB.deleteDatabase(DB);
+      req.onsuccess = function () { resolve(); };
+      req.onerror = function () { resolve(); };
+      req.onblocked = function () { resolve(); };
     });
   }
 
-  root.NM_RV_STORE = { saveYear: saveYear, latest: latest, clearAll: clearAll };
+  root.NM_RV_STORE = { saveYear: saveYear, latest: latest, deleteDb: deleteDb, exists: exists };
 })(typeof window !== "undefined" ? window : globalThis);
