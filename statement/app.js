@@ -10,8 +10,12 @@
     tool: "statement",
     freeLimit: 1,
     unit: "statements",
-    freeText: "One statement a day, first page only, CSV or Excel export. Parsing stays in your browser.",
-    proText: "Unlimited pages, batch files, and optional AI mode for messy layouts. Pay once.",
+    freeText: (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0
+      ? "One statement a day, first page only, CSV or Excel export. Parsing stays in your browser."
+      : "Um extrato por dia, só a primeira página, exportação CSV ou Excel. A leitura fica no browser.",
+    proText: (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0
+      ? "Unlimited pages, batch files, and optional AI mode for messy layouts."
+      : "Páginas sem limite, vários ficheiros e modo de IA opcional para esquemas difíceis.",
     onLicense: paintLimits
   });
 
@@ -35,7 +39,7 @@
     document.querySelectorAll("[data-pro-buy]").forEach(function (a) {
       if (p.url) a.href = p.url;
       if (p.productId) a.setAttribute("data-product-id", p.productId);
-      if (p.price && a.hasAttribute("data-pro-label")) a.textContent = "Statement Pro · $" + p.price;
+      if (a.hasAttribute("data-pro-label")) a.textContent = (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0 ? "Statement Pro" : "Statement Pro";
     });
   })();
 

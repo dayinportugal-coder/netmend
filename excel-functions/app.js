@@ -21,10 +21,12 @@ function translate(f,from,to){
 function fill(sel,def){LANGS.forEach(function(l){var o=document.createElement('option');o.value=l;o.textContent=LNAME[l];sel.appendChild(o)});sel.value=def}
 fill(document.getElementById('from'),'en');fill(document.getElementById('to'),'pt');
 function run(){var r=translate(document.getElementById('f').value,document.getElementById('from').value,document.getElementById('to').value);
-  document.getElementById('res').value=r.f;document.getElementById('unk').textContent=r.unknown&&r.unknown.length?'Not in our list (left unchanged): '+r.unknown.join(', '):''}
+  var lang=(document.documentElement.lang||'pt').toLowerCase();
+  var unk=lang.indexOf('en')===0?'Not in our list (left unchanged): ':lang.indexOf('es')===0?'No está en la lista (se deja igual): ':'Fora da nossa lista (fica na mesma): ';
+  document.getElementById('res').value=r.f;document.getElementById('unk').textContent=r.unknown&&r.unknown.length?unk+r.unknown.join(', '):''}
 ['f','from','to'].forEach(function(i){document.getElementById(i).addEventListener('input',run)});
 document.getElementById('swap').addEventListener('click',function(){var a=document.getElementById('from'),b=document.getElementById('to'),t=a.value;a.value=b.value;b.value=t;document.getElementById('f').value=document.getElementById('res').value;run()});
-document.getElementById('cp').addEventListener('click',function(){navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('res').value);this.textContent='Copied ✓'});
+document.getElementById('cp').addEventListener('click',function(){navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('res').value);var lang=(document.documentElement.lang||'pt').toLowerCase();this.textContent=lang.indexOf('en')===0?'Copied ✓':lang.indexOf('es')===0?'Copiado ✓':'Copiado ✓'});
 run();
 // table
 var tb=document.getElementById('tb'),q=document.getElementById('q');
