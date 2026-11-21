@@ -6,9 +6,39 @@
   var es = htmlLang.indexOf("es") === 0;
 
   if ("serviceWorker" in navigator) {
+    var hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener("message", function (event) {
+      if (hadController && event.data && event.data.type === "nm-update") showUpdate();
+    });
+    navigator.serviceWorker.addEventListener("controllerchange", function () {
+      if (hadController) showUpdate();
+    });
     window.addEventListener("load", function () {
       navigator.serviceWorker.register("/sw.js").catch(function () {});
     });
+  }
+
+  var toastStyle = document.createElement("style");
+  toastStyle.textContent = ".nm-update{position:fixed;left:12px;right:12px;bottom:12px;z-index:80;display:flex;gap:12px;align-items:center;justify-content:space-between;background:#131419;color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:12px 14px;box-sizing:border-box}.nm-update p{margin:0;font:600 15px/1.4 Inter,system-ui,sans-serif}.nm-update .btn{background:#c2410c;color:#fff;border:0;border-radius:8px;padding:8px 12px;font:600 15px/1.2 Inter,system-ui,sans-serif;cursor:pointer}";
+  document.head.appendChild(toastStyle);
+
+  var updateShown = false;
+  function showUpdate() {
+    if (updateShown) return;
+    updateShown = true;
+    var bar = document.createElement("div");
+    bar.className = "nm-update";
+    bar.setAttribute("role", "status");
+    var text = document.createElement("p");
+    text.textContent = pt ? "Nova versão — atualizar" : "New version — refresh";
+    var go = document.createElement("button");
+    go.type = "button";
+    go.className = "btn";
+    go.textContent = pt ? "Atualizar" : "Refresh";
+    go.addEventListener("click", function () { window.location.reload(); });
+    bar.appendChild(text);
+    bar.appendChild(go);
+    document.body.appendChild(bar);
   }
 
   function standalone() {

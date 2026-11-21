@@ -123,6 +123,10 @@
 <url><loc>https://netmend.app/sepa/</loc></url>
 <url><loc>https://netmend.app/pt/ficheiro-sepa/</loc></url>
 <url><loc>https://netmend.app/es/fichero-sepa/</loc></url>
+<!-- recibos-verdes -->
+<url><loc>https://netmend.app/pt/recibos-verdes/</loc></url>
+<url><loc>https://netmend.app/pt/recibos-verdes/declaracao-trimestral/</loc></url>
+<url><loc>https://netmend.app/freelancer-portugal-quarterly/</loc></url>
 <url><loc>https://netmend.app/statement/</loc></url>
 <url><loc>https://netmend.app/slides/</loc></url>
 <url><loc>https://netmend.app/sheets-ai/</loc></url>

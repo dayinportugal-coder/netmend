@@ -1,6 +1,8 @@
 /* Precaches this site's own pages and their static files.
-   HTML is network-first. Nothing the user opens from their computer is requested or stored. */
-var CACHE = "netmend-static-v2";
+   HTML, CSS and JS are network-first, then cached. Other precached files
+   (fonts, icons) stay cache-first. Nothing the user opens from their
+   computer is requested or stored. Bump CACHE to drop old copies. */
+var CACHE = "netmend-20261121c";
 var PRECACHE = [
   "/",
   "/index.html",
@@ -20,6 +22,17 @@ var PRECACHE = [
   "/pt/ficheiro-sepa/index.html",
   "/es/fichero-sepa/",
   "/es/fichero-sepa/index.html",
+  /* recibos-verdes — keep this block together when rebasing */
+  "/recibos-verdes/rules.js",
+  "/recibos-verdes/app.js",
+  "/recibos-verdes/app.css",
+  "/recibos-verdes/sample/recibos-verdes-exemplo.csv",
+  "/pt/recibos-verdes/",
+  "/pt/recibos-verdes/index.html",
+  "/pt/recibos-verdes/declaracao-trimestral/",
+  "/pt/recibos-verdes/declaracao-trimestral/index.html",
+  "/freelancer-portugal-quarterly/",
+  "/freelancer-portugal-quarterly/index.html",
   "/tools/",
   "/tools/index.html",
   "/assets/tools.css",
@@ -48,8 +61,26 @@ self.addEventListener("install", function (event) {
 self.addEventListener("activate", function (event) {
   event.waitUntil(caches.keys().then(function (keys) {
     return Promise.all(keys.filter(function (key) { return key !== CACHE; }).map(function (key) { return caches.delete(key); }));
-  }).then(function () { return self.clients.claim(); }));
+  }).then(function () { return self.clients.claim(); }).then(function () {
+    return self.clients.matchAll({ type: "window" });
+  }).then(function (clients) {
+    clients.forEach(function (client) { client.postMessage({ type: "nm-update" }); });
+  }));
 });
+
+function isCode(path) {
+  return /\.(?:js|css)$/i.test(path);
+}
+
+function networkFirst(request) {
+  return fetch(request).then(function (response) {
+    if (response && response.ok && response.type === "basic") {
+      var copy = response.clone();
+      caches.open(CACHE).then(function (cache) { return cache.put(request, copy); });
+    }
+    return response;
+  }).catch(function () { return fallback(request); });
+}
 
 function isHtml(request) {
   if (request.mode === "navigate") return true;
@@ -82,13 +113,11 @@ self.addEventListener("fetch", function (event) {
   if (url.origin !== self.location.origin) return;
   if (isHtml(request)) {
     if (!knownPage(url.pathname)) return;
-    event.respondWith(fetch(request).then(function (response) {
-      if (response && response.ok && response.type === "basic") {
-        var copy = response.clone();
-        caches.open(CACHE).then(function (cache) { return cache.put(request, copy); });
-      }
-      return response;
-    }).catch(function () { return fallback(request); }));
+    event.respondWith(networkFirst(request));
+    return;
+  }
+  if (isCode(url.pathname)) {
+    event.respondWith(networkFirst(request));
     return;
   }
   if (PRECACHE.indexOf(url.pathname) === -1) return;
