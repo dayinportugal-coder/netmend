@@ -41,6 +41,19 @@ label.check input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}
 #ben-list li{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 #ben-list .btn{padding:6px 10px;font-size:13px}
 #results:focus{outline:2px solid var(--coral);outline-offset:4px}
+.req{color:var(--coral-2);font-size:12px;font-weight:650}
+.auto-tag{color:var(--teal);font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+p.auto-tag{display:block;margin:4px 0 0}
+span.auto-tag{display:inline;margin-left:6px}
+.auto-tag[hidden]{display:none}
+#preview-body td:nth-child(2) input{min-width:22em}
+#missing-summary{border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin:0 0 12px}
+#missing-summary ul{margin:6px 0 0}
+input[aria-invalid="true"]{border-color:#f87171}
+#preview-body input{width:100%;min-width:7em;box-sizing:border-box;font:inherit;font-size:13px;color:inherit;background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 6px}
+#preview-body input:focus{border-color:var(--border-2);background:rgba(0,0,0,.35)}
+#preview-body .cell-err{display:block;font-size:11px;margin-top:2px}
+button[aria-pressed="true"]{box-shadow:0 0 0 1px var(--coral) inset}
 @media(max-width:860px){
   .counters{grid-template-columns:1fr 1fr}
   .app-grid{grid-template-columns:1fr}

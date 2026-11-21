@@ -256,11 +256,22 @@
     "€": "EUR", "@": "(at)", "&": "+", "_": "-", "\t": " ", "\n": " ", "\r": " "
   };
 
-  var NAME_KEYS = ["nome", "name", "nombre", "beneficiario", "acreedor", "creditor", "fornecedor", "proveedor", "empregado", "empleado", "titular", "payee", "supplier", "nomedobeneficiario", "nombredelbeneficiario"];
-  var IBAN_KEYS = ["iban", "ibanbeneficiario", "ibandelbeneficiario", "conta", "cuenta", "numerodeconta", "numerodecuenta"];
-  var AMOUNT_KEYS = ["montante", "valor", "amount", "importe", "quantia", "montanteeur", "valoreur", "importeeur"];
-  var REF_KEYS = ["referencia", "descricao", "description", "concepto", "motivo", "remittance", "comunicacao", "descritivo", "detalhe", "detalles", "observacoes", "observaciones", "notes", "note", "memo"];
-  var BIC_KEYS = ["bic", "swift", "bicbeneficiario", "codigobic", "biccredor"];
+  var NAME_KEYS = ["nome", "name", "nombre", "beneficiario", "acreedor", "creditor", "fornecedor", "proveedor", "empregado", "empleado", "titular", "payee", "supplier", "nomedobeneficiario", "nombredelbeneficiario", "nomedofornecedor", "nombredelproveedor", "destinatario", "colaborador", "trabalhador", "trabajador", "ordenantebeneficiario", "primeironome", "firstname", "apellido"];
+  var NAME2_KEYS = ["apelido", "apelidos", "sobrenome", "apellidos", "apellido", "surname", "lastname", "last"];
+  var IBAN_KEYS = ["iban", "nib", "ibanbeneficiario", "ibandelbeneficiario", "numerodeiban", "conta", "cuenta", "numerodeconta", "numerodecuenta", "nconta", "ncuenta", "account"];
+  var AMOUNT_KEYS = ["montante", "valor", "amount", "importe", "quantia", "vencimento", "salario", "montanteeur", "valoreur", "importeeur", "valorpagamento", "payment"];
+  var REF_KEYS = ["referencia", "descricao", "description", "concepto", "motivo", "remittance", "comunicacao", "descritivo", "detalhe", "detalles", "observacoes", "observaciones", "notes", "note", "memo", "fatura", "factura", "invoice"];
+  var BIC_KEYS = ["bic", "swift", "bicswift", "bicbeneficiario", "codigobic", "biccredor", "codigoswift"];
+  var UI = {
+    pt: { high: "alta", mid: "média", low: "baixa", detected: "Deteção", auto: "preenchido automaticamente", required: "Obrigatório preencher", missing: "Ainda falta", downloadWhy: "Não é possível descarregar", ref: "Pagamento" },
+    es: { high: "alta", mid: "media", low: "baja", detected: "Detección", auto: "rellenado automáticamente", required: "Obligatorio rellenar", missing: "Aún falta", downloadWhy: "No se puede descargar", ref: "Pago" },
+    en: { high: "high", mid: "medium", low: "low", detected: "Detected", auto: "filled automatically", required: "Must be filled in", missing: "Still missing", downloadWhy: "Cannot download", ref: "Payment" }
+  }[lang];
+  var MONTHS = {
+    pt: ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"],
+    es: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
+    en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  }[lang];
 
   var state = null;
   var lastXml = "";
@@ -287,12 +298,13 @@
   function detectMap(headers) {
     var fields = [
       ["name", NAME_KEYS],
+      ["name2", NAME2_KEYS],
       ["iban", IBAN_KEYS],
       ["amount", AMOUNT_KEYS],
       ["ref", REF_KEYS],
       ["bic", BIC_KEYS]
     ];
-    var map = { name: -1, iban: -1, amount: -1, ref: -1, bic: -1 };
+    var map = { name: -1, name2: -1, iban: -1, amount: -1, ref: -1, bic: -1, confidence: {} };
     var f, c, best, bestI, sc;
     for (f = 0; f < fields.length; f++) {
       best = 0;
@@ -301,8 +313,17 @@
         sc = scoreKey(normKey(headers[c]), fields[f][1]);
         if (sc > best) { best = sc; bestI = c; }
       }
-      if (best > 0) map[fields[f][0]] = bestI;
+      if (best > 0) {
+        map[fields[f][0]] = bestI;
+        map.confidence[fields[f][0]] = best >= 3 ? "high" : "mid";
+      }
     }
+    var used = {};
+    ["iban", "amount", "name", "name2", "ref", "bic"].forEach(function (key) {
+      if (map[key] < 0) return;
+      if (used[map[key]]) { map[key] = -1; delete map.confidence[key]; }
+      else used[map[key]] = 1;
+    });
     return map;
   }
 
@@ -356,7 +377,7 @@
   }
   function checkIban(raw) {
     if (typeof raw === "number" || isScientific(raw)) return { error: "iban-scientific", value: String(raw) };
-    var v = String(raw || "").replace(/\s+/g, "").toUpperCase();
+    var v = String(raw || "").replace(/[\s.\-_/]/g, "").toUpperCase();
     if (!v) return { error: "iban-missing", value: "" };
     if (/^\d{21}$/.test(v)) {
       if (!ptNibOk(v)) return { error: "iban-nib", value: v };
@@ -557,19 +578,28 @@
     return n;
   }
   function sniffDelim(text) {
-    var line = "", inQ = false, i, c;
-    for (i = 0; i < text.length; i++) {
+    var lines = [], line = "", inQ = false, i, c;
+    for (i = 0; i < text.length && lines.length < 20; i++) {
       c = text.charAt(i);
       if (c === '"') {
         if (inQ && text.charAt(i + 1) === '"') { i++; line += c; continue; }
         inQ = !inQ;
       }
-      if (!inQ && (c === "\n" || c === "\r")) break;
+      if (!inQ && (c === "\n" || c === "\r")) {
+        if (c === "\r" && text.charAt(i + 1) === "\n") i++;
+        if (line.trim()) lines.push(line);
+        line = "";
+        continue;
+      }
       line += c;
     }
-    var semi = countDelim(line, ";");
-    var comma = countDelim(line, ",");
-    var tab = countDelim(line, "\t");
+    if (line.trim()) lines.push(line);
+    var semi = 0, comma = 0, tab = 0, n;
+    for (n = 0; n < lines.length; n++) {
+      semi = Math.max(semi, countDelim(lines[n], ";"));
+      comma = Math.max(comma, countDelim(lines[n], ","));
+      tab = Math.max(tab, countDelim(lines[n], "\t"));
+    }
     if (tab > semi && tab > comma) return "\t";
     if (semi > comma) return ";";
     if (comma > semi) return ",";
@@ -641,7 +671,124 @@
       var v = $(id).value;
       return v === "" ? -1 : Number(v);
     }
-    return { name: num("map-name"), iban: num("map-iban"), amount: num("map-amount"), ref: num("map-ref"), bic: num("map-bic") };
+    var prev = state && state.map ? state.map : {};
+    return {
+      name: num("map-name"),
+      name2: prev.name2 >= 0 ? prev.name2 : -1,
+      iban: num("map-iban"),
+      amount: num("map-amount"),
+      ref: num("map-ref"),
+      bic: num("map-bic"),
+      confidence: prev.confidence || {}
+    };
+  }
+  function autofillOn() {
+    var b = $("autofill");
+    return !!(b && b.getAttribute("aria-pressed") === "true");
+  }
+  function markInput(id, on) {
+    var el = $(id);
+    if (!el) return;
+    if (el.dataset.user === "1") on = false;
+    el.dataset.auto = on ? "1" : "";
+    var tag = $(id + "-auto");
+    if (tag) tag.hidden = !on;
+  }
+  function defaultReference(dateIso) {
+    var parts = String(dateIso || nextBusinessDay()).split("-");
+    return UI.ref + " " + (MONTHS[Number(parts[1]) - 1] || "") + "/" + parts[0];
+  }
+  function applyAutofill() {
+    if (!autofillOn() || !state) return;
+    var stored = {};
+    try { stored = JSON.parse(localStorage.getItem(STORE) || "{}") || {}; } catch (e) { stored = {}; }
+    function fillIfEmpty(id, value) {
+      var el = $(id);
+      if (!el || el.dataset.user === "1" || String(el.value || "").trim() || !value) return;
+      el.value = value;
+      markInput(id, true);
+    }
+    fillIfEmpty("dbtr-name", stored.name);
+    fillIfEmpty("dbtr-iban", stored.iban);
+    fillIfEmpty("dbtr-bic", stored.bic || (window.NetmendBic ? NetmendBic.lookup(stored.iban) : ""));
+    if ($("dbtr-date") && !$("dbtr-date").value && $("dbtr-date").dataset.user !== "1") {
+      $("dbtr-date").value = nextBusinessDay();
+      markInput("dbtr-date", true);
+    }
+    var byIban = {};
+    loadBeneficiaries().forEach(function (b) {
+      var key = String(b.iban || "").replace(/[\s.\-]/g, "").toUpperCase();
+      if (key) byIban[key] = b;
+    });
+    var map = state.map || {};
+    if (map.name < 0) {
+      var needsName = state.dataRows.some(function (row) {
+        var iban = map.iban >= 0 ? checkIban(row[map.iban]) : { value: "" };
+        return iban.value && byIban[iban.value];
+      });
+      if (needsName) {
+        state.headers.push(lang === "es" ? "Nombre" : lang === "en" ? "Name" : "Nome");
+        map.name = state.headers.length - 1;
+        state.dataRows.forEach(function (row) { row[map.name] = ""; });
+        fillMapSelects();
+      }
+    }
+    var wantRef = $("autofill-ref") && $("autofill-ref").checked;
+    var dateIso = ($("dbtr-date") && $("dbtr-date").value) || nextBusinessDay();
+    if (wantRef && map.ref < 0) {
+      state.headers.push(lang === "es" ? "Referencia" : lang === "en" ? "Reference" : "Referência");
+      map.ref = state.headers.length - 1;
+      state.dataRows.forEach(function (row) { row[map.ref] = row[map.ref] || ""; });
+      fillMapSelects();
+    }
+    if (map.bic < 0 && window.NetmendBic) {
+      var needsBic = state.dataRows.some(function (row) {
+        var iban = map.iban >= 0 ? checkIban(row[map.iban]) : { value: "" };
+        return iban.value && NetmendBic.lookup(iban.value);
+      });
+      if (needsBic) {
+        state.headers.push("BIC");
+        map.bic = state.headers.length - 1;
+        state.dataRows.forEach(function (row) { row[map.bic] = row[map.bic] || ""; });
+        fillMapSelects();
+      }
+    }
+    state.autoCells = state.autoCells || {};
+    function locked(rowNo, key) { return !!(state.userCells && state.userCells[rowNo + ":" + key]); }
+    state.dataRows.forEach(function (row, idx) {
+      var rowNo = idx + (state.firstRow || 2);
+      var iban = map.iban >= 0 ? checkIban(row[map.iban]) : { value: "" };
+      if (map.bic >= 0 && !locked(rowNo, "bic") && !String(row[map.bic] || "").trim() && iban.value && window.NetmendBic) {
+        var bic = NetmendBic.lookup(iban.value);
+        if (bic) { row[map.bic] = bic; state.autoCells[rowNo + ":bic"] = 1; }
+      }
+      if (map.name >= 0 && !locked(rowNo, "name") && !String(row[map.name] || "").trim() && iban.value && byIban[iban.value]) {
+        row[map.name] = byIban[iban.value].name;
+        state.autoCells[rowNo + ":name"] = 1;
+      }
+      if (wantRef && map.ref >= 0 && !locked(rowNo, "ref") && !String(row[map.ref] || "").trim()) {
+        row[map.ref] = defaultReference(dateIso);
+        state.autoCells[rowNo + ":ref"] = 1;
+      }
+    });
+    if (map.bic >= 0 && window.NetmendBic) {
+      var own = checkIban($("dbtr-iban").value);
+      if (own.value && !$("dbtr-bic").value.trim() && $("dbtr-bic").dataset.user !== "1") {
+        var ownBic = NetmendBic.lookup(own.value);
+        if (ownBic) { $("dbtr-bic").value = ownBic; markInput("dbtr-bic", true); }
+      }
+    }
+  }
+  function setFieldState(id, invalid) {
+    var el = $(id);
+    var err = $(id + "-err");
+    if (!el) return;
+    el.setAttribute("aria-invalid", invalid ? "true" : "false");
+    if (err) {
+      err.hidden = !invalid;
+      err.textContent = invalid ? UI.required : "";
+      el.setAttribute("aria-describedby", id + "-err");
+    }
   }
 
   function buildPayments(rows, map) {
@@ -652,18 +799,21 @@
       cells = rows[r];
         rowNo = r + (state && state.firstRow ? state.firstRow : 2);
       nameRaw = map.name >= 0 ? cells[map.name] : "";
+      if (map.name2 >= 0 && String(cells[map.name2] || "").trim()) nameRaw = (cellStr(nameRaw) + " " + cellStr(cells[map.name2])).trim();
       ibanRaw = map.iban >= 0 ? cells[map.iban] : "";
       amountRaw = map.amount >= 0 ? cells[map.amount] : "";
       refRaw = map.ref >= 0 ? cells[map.ref] : "";
       bicRaw = map.bic >= 0 ? cells[map.bic] : "";
-      nameKey = normKey(cellStr(nameRaw));
-      if ((nameKey === "total" || nameKey === "soma" || nameKey === "sum") && !String(ibanRaw || "").trim()) {
+      nameKey = normKey(cells.map(cellStr).join(" "));
+      var rowIban = cells.some(function (cell) { return /^[A-Z]{2}\d{2}[A-Z0-9]{10,}$/.test(String(cell || "").replace(/[\s.\-]/g, "").toUpperCase()) || /^\d{21}$/.test(String(cell || "").replace(/\s/g, "")); });
+      if (/\b(total|totais|totales|soma|sum|subtotal)\b/.test(nameKey) && !rowIban) {
         notices.push({ level: "warn", who: "", text: fill(T.ignoredTotal, { row: rowNo }) });
         continue;
       }
       if (![nameRaw, ibanRaw, amountRaw, refRaw, bicRaw].some(function (v) { return String(v == null ? "" : v).trim() !== ""; })) continue;
       payments.push({
         row: rowNo,
+        dataIndex: r,
         nameRaw: nameRaw,
         ibanRaw: ibanRaw,
         amountRaw: amountRaw,
@@ -699,6 +849,10 @@
 
     return {
       row: p.row,
+      dataIndex: p.dataIndex,
+      nameEmpty: !String(p.nameRaw || "").trim(),
+      ibanEmpty: !String(p.ibanRaw || "").trim(),
+      amountEmpty: String(p.amountRaw == null ? "" : p.amountRaw).trim() === "",
       name: name.value || "",
       iban: iban.value || String(p.ibanRaw || "").replace(/\s+/g, "").toUpperCase(),
       ibanOk: !iban.error,
@@ -943,12 +1097,75 @@
     $("map-ref").value = map.ref >= 0 ? String(map.ref) : "";
     $("map-bic").value = map.bic >= 0 ? String(map.bic) : "";
     $("mapping").hidden = false;
+    var hint = $("map-confidence");
+    if (hint) {
+      var bits = [];
+      [["name", T.field.name], ["iban", "IBAN"], ["amount", T.field.amount], ["ref", T.field.ref], ["bic", "BIC"]].forEach(function (pair) {
+        var level = map.confidence && map.confidence[pair[0]];
+        if (map[pair[0]] >= 0 && level) bits.push(pair[1] + " (" + (UI[level] || level) + ")");
+      });
+      hint.hidden = !bits.length;
+      hint.textContent = bits.length ? UI.detected + ": " + bits.join(", ") + "." : "";
+    }
   }
 
+  function tagAuto(cell, key, row) {
+    if (!cell || !state.autoCells || !state.autoCells[row + ":" + key]) return;
+    var mark = document.createElement("span");
+    mark.className = "auto-tag";
+    mark.textContent = UI.auto;
+    cell.appendChild(document.createTextNode(" "));
+    cell.appendChild(mark);
+  }
+  function paintMissing(debtorRaw, validated) {
+    var missing = [];
+    setFieldState("dbtr-name", !String(debtorRaw.name || "").trim());
+    setFieldState("dbtr-iban", !String(debtorRaw.iban || "").trim());
+    setFieldState("dbtr-date", !String(debtorRaw.date || "").trim());
+    if (!String(debtorRaw.name || "").trim()) missing.push({ href: "#dbtr-name", label: T.who.debtor + " — " + T.field.name });
+    if (!String(debtorRaw.iban || "").trim()) missing.push({ href: "#dbtr-iban", label: T.who.debtor + " — IBAN" });
+    if (!String(debtorRaw.date || "").trim()) missing.push({ href: "#dbtr-date", label: T.who.debtor + " — " + T.field.date });
+    validated.forEach(function (item) {
+      if (item.nameEmpty) missing.push({ href: "#pay-row-" + item.row, label: fill(T.who.row, { row: item.row }) + " — " + T.field.name });
+      if (item.ibanEmpty) missing.push({ href: "#pay-row-" + item.row, label: fill(T.who.row, { row: item.row }) + " — IBAN" });
+      if (item.amountEmpty) missing.push({ href: "#pay-row-" + item.row, label: fill(T.who.row, { row: item.row }) + " — " + T.field.amount });
+    });
+    var box = $("missing-summary");
+    if (box) {
+      clear(box);
+      box.hidden = !missing.length;
+      if (missing.length) {
+        var p = document.createElement("p");
+        p.textContent = UI.missing;
+        box.appendChild(p);
+        var ul = document.createElement("ul");
+        missing.forEach(function (item) {
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.href = item.href;
+          a.textContent = item.label;
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
+        box.appendChild(ul);
+      }
+    }
+    var reason = $("download-reason");
+    var button = $("download");
+    if (button && !button.getAttribute("data-label")) button.setAttribute("data-label", button.textContent);
+    if (reason && button) {
+      var why = missing.length ? UI.downloadWhy + ": " + missing.map(function (item) { return item.label; }).join(", ") + "." : "";
+      reason.hidden = !why;
+      reason.textContent = why;
+      button.setAttribute("aria-describedby", "download-reason");
+      button.textContent = why ? button.getAttribute("data-label") + " — " + UI.downloadWhy : button.getAttribute("data-label");
+    }
+  }
   function render(announce) {
     clearError();
     syncNif();
     if (!state) { clearResults(); return; }
+    applyAutofill();
     var map = currentMap();
     state.map = map;
     var chosen = [map.name, map.iban, map.amount, map.ref, map.bic].filter(function (n) { return n >= 0; });
@@ -1018,12 +1235,46 @@
         cell.textContent = text;
         tr.appendChild(cell);
       }
+      function fieldCell(opts) {
+        var cell = document.createElement("td");
+        if (opts.numeric) cell.className = "num";
+        var input = document.createElement("input");
+        input.type = "text";
+        input.value = opts.value;
+        input.setAttribute("aria-label", fill(T.who.row, { row: opts.row }) + " " + opts.label);
+        input.setAttribute("aria-invalid", opts.empty ? "true" : "false");
+        var errId = "pay-" + opts.key + "-" + opts.row;
+        if (opts.empty) input.setAttribute("aria-describedby", errId);
+        input.addEventListener("input", function () {
+          if (!state || opts.dataIndex == null) return;
+          var row = state.dataRows[opts.dataIndex];
+          var col = state.map[opts.key];
+          if (!row || col < 0) return;
+          row[col] = input.value;
+          if (opts.key === "name" && state.map.name2 >= 0) row[state.map.name2] = "";
+          state.userCells = state.userCells || {};
+          state.userCells[opts.row + ":" + opts.key] = 1;
+          if (state.autoCells) delete state.autoCells[opts.row + ":" + opts.key];
+        });
+        input.addEventListener("change", function () { if (state) render(false); });
+        cell.appendChild(input);
+        if (opts.empty) {
+          var err = document.createElement("span");
+          err.id = errId;
+          err.className = "bad cell-err";
+          err.textContent = UI.required;
+          cell.appendChild(err);
+        }
+        tagAuto(cell, opts.key, opts.row);
+        tr.appendChild(cell);
+      }
       if (item) {
-        td(item.name || cellStr(src.nameRaw));
-        td(groupIban(item.iban));
-        td(item.amountOk ? formatEUR(item.cents) : cellStr(src.amountRaw), "num");
-        td(item.ref || "");
-        td(item.bic || "");
+        tr.id = "pay-row-" + item.row;
+        fieldCell({ key: "name", label: T.field.name, value: item.name || cellStr(src.nameRaw), empty: item.nameEmpty, row: item.row, dataIndex: item.dataIndex });
+        fieldCell({ key: "iban", label: "IBAN", value: item.iban ? groupIban(item.iban) : cellStr(src.ibanRaw), empty: item.ibanEmpty, row: item.row, dataIndex: item.dataIndex });
+        fieldCell({ key: "amount", label: T.field.amount, value: item.amountOk ? formatEUR(item.cents) : cellStr(src.amountRaw), empty: item.amountEmpty, row: item.row, dataIndex: item.dataIndex, numeric: true });
+        fieldCell({ key: "ref", label: T.field.ref, value: item.ref || "", empty: false, row: item.row, dataIndex: item.dataIndex });
+        fieldCell({ key: "bic", label: "BIC", value: item.bic || "", empty: false, row: item.row, dataIndex: item.dataIndex });
         td(item.e2e || "");
       } else {
         td(cellStr(src.nameRaw));
@@ -1059,6 +1310,7 @@
       lastXml = "";
       $("download").disabled = true;
     }
+    paintMissing(debtorRaw, validated, blocked);
     if (announce) {
       var live = $("live-summary");
       if (live) live.textContent = fill(T.summary, { e: errorCount, w: warnCount });
@@ -1071,7 +1323,7 @@
   }
 
   function setGrid(headers, dataRows, fileName, map, firstRow) {
-    state = { headers: headers, dataRows: dataRows, fileName: fileName, map: map, firstRow: firstRow || 2 };
+    state = { headers: headers, dataRows: dataRows, fileName: fileName, map: map, firstRow: firstRow || 2, userCells: {}, autoCells: {} };
     clearResults();
     fillMapSelects();
     render(true);
@@ -1089,10 +1341,11 @@
       name[c] = 0;
       for (r = 0; r < n; r++) {
         var cell = rows[r][c];
-        var compact = String(cell == null ? "" : cell).replace(/\s+/g, "");
+        var compact = String(cell == null ? "" : cell).replace(/[\s.\-_/]/g, "");
         var ibanLike = /^\d{21}$/.test(compact) || /^[A-Za-z]{2}\d{2}[A-Za-z0-9]{10,30}$/.test(compact);
         if (ibanLike) iban[c]++;
-        if (!ibanLike && (typeof cell === "number" || /^[0-9][0-9.,]*$/.test(compact.replace(/€/g, "")))) amount[c]++;
+        var money = compact.replace(/€/g, "").replace(/eur/ig, "");
+        if (!ibanLike && (typeof cell === "number" || /^[0-9][0-9.,]*$/.test(money))) amount[c]++;
         if (/^[A-Za-z]{6}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$/.test(compact)) bic[c]++;
         if (/[A-Za-zÀ-ÿ]{3,}/.test(String(cell || "")) && !/^[A-Za-z]{2}\d{2}/.test(compact)) name[c]++;
       }
@@ -1113,33 +1366,36 @@
     return map;
   }
 
+  function padRow(row, width) {
+    var out = [], c;
+    for (c = 0; c < width; c++) out.push(c < row.length ? row[c] : "");
+    return out;
+  }
   function rowsFromMatrix(matrix, fileName) {
     if (!matrix.length) { showError(T.emptyFile); return; }
     var width = 0, r, c;
     for (r = 0; r < matrix.length; r++) width = Math.max(width, matrix[r].length);
-    var headerRow = looksLikeHeader(matrix[0].map(cellStr));
+    var best = { i: -1, score: 0, map: null };
+    var limit = Math.min(matrix.length, 15);
+    for (r = 0; r < limit; r++) {
+      var cand = detectMap(matrix[r].map(cellStr));
+      var score = (cand.name >= 0 ? 2 : 0) + (cand.iban >= 0 ? 2 : 0) + (cand.amount >= 0 ? 2 : 0) + (cand.ref >= 0 ? 1 : 0) + (cand.bic >= 0 ? 1 : 0);
+      if (score > best.score) best = { i: r, score: score, map: cand };
+    }
     var headers = [], data, map;
-    if (headerRow) {
-      for (c = 0; c < width; c++) headers.push(cellStr(matrix[0][c]) || fill(T.colLabel, { n: c + 1 }));
-      data = matrix.slice(1).map(function (row) {
-        var out = [];
-        for (c = 0; c < width; c++) out.push(c < row.length ? row[c] : "");
-        return out;
-      }).filter(function (row) {
+    if (best.score >= 4 && best.map.iban >= 0 && best.map.amount >= 0) {
+      for (c = 0; c < width; c++) headers.push(cellStr(matrix[best.i][c]) || fill(T.colLabel, { n: c + 1 }));
+      data = matrix.slice(best.i + 1).map(function (row) { return padRow(row, width); }).filter(function (row) {
         return row.some(function (v) { return String(v == null ? "" : v).trim() !== ""; });
       });
       if (!data.length) { showError(T.headerOnly); return; }
-      map = detectMap(headers);
-      setGrid(headers, data, fileName, map, 2);
+      setGrid(headers, data, fileName, best.map, best.i + 2);
       return;
     }
-    data = matrix.map(function (row) {
-      var out = [];
-      for (c = 0; c < width; c++) out.push(c < row.length ? row[c] : "");
-      return out;
-    });
+    data = matrix.map(function (row) { return padRow(row, width); });
     map = detectContentMap(data);
     if (map.iban < 0 || map.amount < 0) { showError(T.garbage); return; }
+    map.confidence = { iban: "mid", amount: "mid", name: map.name >= 0 ? "low" : undefined };
     for (c = 0; c < width; c++) headers.push(fill(T.colLabel, { n: c + 1 }));
     setGrid(headers, data, fileName, map, 1);
   }
@@ -1328,6 +1584,8 @@
   ["dbtr-name", "dbtr-iban", "dbtr-bic", "dbtr-date", "dbtr-nif"].forEach(function (id) {
     if (!$(id)) return;
     $(id).addEventListener("input", function () {
+      if ($(id)) $(id).dataset.user = "1";
+      markInput(id, false);
       saveDebtor();
       syncNif();
       if (state) render(false);
@@ -1337,6 +1595,12 @@
   $("dbtr-batch").addEventListener("change", function () { saveDebtor(); if (state) render(true); });
   $("pain-version").addEventListener("change", function () { if (state) render(true); });
   if ($("repeat")) $("repeat").addEventListener("click", repeatBatch);
+  if ($("autofill")) $("autofill").addEventListener("click", function () {
+    var on = $("autofill").getAttribute("aria-pressed") !== "true";
+    $("autofill").setAttribute("aria-pressed", on ? "true" : "false");
+    if (state) render(true);
+  });
+  if ($("autofill-ref")) $("autofill-ref").addEventListener("change", function () { if (autofillOn() && state) render(true); });
   $("dbtr-clear").addEventListener("click", function () {
     $("dbtr-name").value = "";
     $("dbtr-iban").value = "";
@@ -1471,6 +1735,8 @@
     $("example-note").textContent = T.benWiped;
   });
 
+  loadDebtor();
+  renderBeneficiaries();
   window.NetmendSepa = {
     lastXml: function () { return lastXml; },
     formatEUR: formatEUR

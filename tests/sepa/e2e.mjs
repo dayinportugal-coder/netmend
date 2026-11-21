@@ -151,7 +151,7 @@ try {
   const badCount = await page.$$eval("#problems li.bad", (els) => els.length);
   assert(badCount === 0, "example has blocking problems:\n" + problems);
   assert((await page.$eval("#c-errors", (el) => el.textContent)) === "0", "example should show 0 errors");
-  const table = await page.$eval("#preview-body", (el) => el.innerText);
+  const table = await page.$eval("#preview-body", (el) => [...el.querySelectorAll("td")].map((td) => ((td.querySelector("input") || {}).value || "") + " " + td.innerText).join(" "));
   assert(table.includes("Jose Exemplo no 2a"), "table still has the original name");
   assert(!table.includes("José") && !table.includes("nº"), "table should show the SEPA name");
 
