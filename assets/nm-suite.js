@@ -236,10 +236,40 @@
     else window.prompt("Copy:", text);
   };
 
+
+  /* ---------- example output, shown before the key is asked for ---------- */
+  var EXAMPLES = {
+    "formula": { ask: "Sum column C when column A is \"Lisbon\" and the date in B is in March 2026.",
+      out: "<pre>=SUMIFS(C:C, A:A, \"Lisbon\", B:B, \"&gt;=\"&amp;DATE(2026,3,1), B:B, \"&lt;\"&amp;DATE(2026,4,1))</pre><p>Adds the values in C only for rows where A is Lisbon and B is on or after 1 March and before 1 April 2026. In European Excel the commas become semicolons.</p>" },
+    "chat-pdf": { ask: "Question about a 12-page rental contract: \"How much notice do I have to give to leave?\"",
+      out: "<p>You must give <b>at least 60 days' written notice</b> before the date you want to leave (page 4, clause 7.2). If you leave in the first 12 months, one month's rent is kept from the deposit (page 5, clause 8.1).</p>" },
+    "askvideo": { ask: "A 14-minute YouTube tutorial on pivot tables.",
+      out: "<p><b>Summary:</b> how to build a pivot table from a sales list, group dates by month and add a percentage column.</p><ul><li><b>01:10</b> Turn the range into a table first</li><li><b>04:35</b> Group dates by month and year</li><li><b>09:20</b> Show values as % of the grand total</li></ul>" },
+    "quiz": { ask: "A one-page text about the water cycle, 3 questions.",
+      out: "<ol><li>What process turns liquid water into vapour? <i>a) Condensation b) <b>Evaporation</b> c) Precipitation</i></li><li>Clouds form mainly through… <i>a) <b>Condensation</b> b) Infiltration c) Runoff</i></li><li>True or false: groundwater is part of the water cycle. <i><b>True</b></i></li></ol><p>Exports: Google Form (self-grading), CSV, Kahoot sheet, Moodle GIFT, printable test.</p>" },
+    "slides": { ask: "Topic: \"Onboarding plan for a new bookkeeper\", 5 slides.",
+      out: "<ol><li>Welcome and first-week goals</li><li>Tools and access: accounting software, bank feeds, shared drive</li><li>Monthly close checklist</li><li>Who to ask: contacts and response times</li><li>30-60-90 day milestones</li></ol><p>Each slide comes with 3 to 5 bullet points and speaker notes, in an editable .pptx file.</p>" },
+    "sheets-ai": { ask: "=NETMEND_AI(\"Category of this expense\", A2) on a column of card transactions.",
+      out: "<table><tr><th>A (your data)</th><th>Result</th></tr><tr><td>UBER *TRIP LISBOA</td><td>Transport</td></tr><tr><td>CONTINENTE MATOSINHOS</td><td>Groceries</td></tr><tr><td>ADOBE *CREATIVE CLD</td><td>Software</td></tr></table>" },
+    "resume": { ask: "A CV for an accounts assistant and a job ad that asks for \"reconciliations, SAP, VAT returns\".",
+      out: "<p><b>Keyword match: 6 of 10.</b> Missing: <i>SAP</i>, <i>VAT returns</i>, <i>month-end close</i>, <i>accruals</i>.</p><p>Rewritten bullet: \"Reconciled 14 bank and supplier accounts every month and prepared quarterly VAT returns, cutting month-end close from 6 to 4 days.\"</p>" }
+  };
+  function renderExample(beforeEl) {
+    var e = EXAMPLES[cfg.tool];
+    if (!e || !beforeEl || $("nm-example")) return;
+    var d = document.createElement("div");
+    d.id = "nm-example"; d.className = "example nm-example";
+    d.innerHTML = '<p class="lbl" style="margin:0 0 6px;font-weight:600">Example of what you get (no key needed to look)</p>' +
+      '<p class="note" style="margin:0 0 10px">Input: ' + NM.esc(e.ask) + '</p>' + e.out +
+      '<p class="note" style="margin:10px 0 0">To run it on your own content, add a free Gemini key below. It stays in this browser.</p>';
+    d.style.padding = "18px 20px"; d.style.marginBottom = "16px";
+    beforeEl.parentNode.insertBefore(d, beforeEl);
+  }
+
   /* opts: {tool, freeLimit, unit, freeText, proText, onLicense} */
   NM.init = function (opts) {
     cfg = opts;
-    var k = $("nm-key"); if (k) renderKeyBox(k);
+    var k = $("nm-key"); if (k) { renderExample(k); renderKeyBox(k); }
     var l = $("nm-license"); if (l) renderLicenseBox(l);
     NM.paintRemain(); reverify();
   };
