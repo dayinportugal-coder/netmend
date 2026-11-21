@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gerador grátis de respostas a avaliações do Google, para pequenas empresas · Netmend</title>
+<meta name="description" content="Cole uma avaliação do Google, escolha as estrelas e um tom, e obtenha 3 rascunhos de resposta para copiar e colar. Grátis: 3 avaliações por dia. Corre no browser, nada é enviado para lado nenhum.">
+<link rel="canonical" href="https://netmend.app/review-replies/">
+<meta property="og:url" content="https://netmend.app/review-replies/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/review-replies/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/review-replies/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/review-replies/">
+<meta property="og:title" content="Gerador grátis de respostas a avaliações do Google · Netmend">
+<meta property="og:description" content="Cole uma avaliação e obtenha 3 rascunhos de resposta para copiar e colar. 3 grátis por dia, sem conta, nada sai do browser.">
+<meta property="og:image" content="https://netmend.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#07080b">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+.rr-stars{display:flex;gap:6px;flex-wrap:wrap}
+.rr-stars label{margin:0;font-weight:600;border:1px solid var(--border-2);border-radius:999px;padding:6px 12px;cursor:pointer;background:var(--surface)}
+.rr-stars input{position:absolute;opacity:0;pointer-events:none}
+.rr-stars input:checked+span{color:#fbbf24}
+.rr-stars label:has(input:checked){border-color:rgba(255,90,54,.7);background:var(--surface-2)}
+.rr-tips{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:14px}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Netmend Review Replies","url":"https://netmend.app/review-replies/","applicationCategory":"BusinessApplication","operatingSystem":"Qualquer (browser)","inLanguage":"pt-PT","publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/"}}</script>
+
+</head><body>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/tools/">Todas as ferramentas</a><a class="cta" href="#pro">Lista de espera Pro</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/review-replies/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/review-replies/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
+
+<div class="hero"><div class="wrap">
+<p class="crumbs"><a href="/">Netmend</a> · Review Replies</p>
+<h1>Responda a avaliações do Google <span>em 30 segundos</span></h1>
+<p>Cole uma avaliação, escolha as estrelas e um tom. Obtém 3 rascunhos de resposta que mencionam o que o cliente escreveu de facto. Copie um, ajuste uma palavra e cole-o no Perfil da Empresa no Google.</p>
+<div class="pills"><span>3 avaliações grátis por dia</span><span>Sem conta</span><span>Nada sai do browser</span><span>Restaurantes, lojas, clínicas, alojamento</span></div>
+</div></div>
+
+<section id="tool"><div class="wrap">
+<h2>Escrever 3 rascunhos de resposta</h2>
+<p class="lead">Versão grátis: 3 avaliações por dia, por browser. Os rascunhos são feitos nesta página a partir de estruturas de resposta testadas, não por um servidor, por isso as avaliações nunca são enviadas para lado nenhum.</p>
+<div class="tool">
+<label for="review">A avaliação (cole-a como aparece no Google)</label>
+<textarea id="review" placeholder="ex.: A comida era ótima e a equipa simpática, mas esperámos 40 minutos pelos pratos principais."></textarea>
+<div class="row">
+<div><label for="reviewer">Primeiro nome de quem avaliou (opcional)</label><input id="reviewer" type="text" placeholder="ex.: Sara" autocomplete="off"></div>
+<div><label for="biz">Nome do negócio</label><input id="biz" type="text" placeholder="ex.: Casa do Mar" autocomplete="organization"></div>
+<div><label for="sign">Assinar como (opcional)</label><input id="sign" type="text" placeholder="ex.: Ana, proprietária" autocomplete="off"></div>
+</div>
+<label>Classificação em estrelas</label>
+<div class="rr-stars" role="radiogroup" aria-label="Classificação em estrelas">
+<label><input type="radio" name="stars" value="5" checked><span>★★★★★</span></label>
+<label><input type="radio" name="stars" value="4"><span>★★★★</span></label>
+<label><input type="radio" name="stars" value="3"><span>★★★</span></label>
+<label><input type="radio" name="stars" value="2"><span>★★</span></label>
+<label><input type="radio" name="stars" value="1"><span>★</span></label>
+</div>
+<div class="row">
+<div><label for="tone">Tom</label>
+<select id="tone">
+<option value="warm">Caloroso e pessoal</option>
+<option value="pro">Profissional</option>
+<option value="short">Curto e simples</option>
+</select></div>
+<div><label for="contact">Como é que clientes insatisfeitos o podem contactar (opcional)</label><input id="contact" type="text" placeholder="ex.: ola@onegocio.pt" autocomplete="off"></div>
+<div><label>Limite diário</label><p class="note" id="remain" style="margin:8px 0 0"></p></div>
+</div>
+<p style="margin-top:14px"><button class="btn" type="button" id="generate">Escrever 3 respostas</button></p>
+<p class="note" id="status"></p>
+<div id="out" class="xpw-out"></div>
+<ul class="rr-tips">
+<li>Leia sempre um rascunho à luz dos factos antes de publicar. Nunca prometa reembolsos ou mudanças que não vai fazer.</li>
+<li>Não repita dados pessoais ou de saúde da avaliação numa resposta pública.</li>
+</ul>
+</div>
+</div></section>
+
+<section class="alt" id="pro"><div class="wrap">
+<h2>Netmend Review Replies Pro: mensalidade</h2>
+<p class="lead">Para negócios que recebem avaliações todas as semanas. O Pro está em preparação. Entre na lista e fica com o preço de lançamento, sem pagamento agora.</p>
+<div class="grid">
+<div class="card"><b>Grátis, no browser</b><div class="price">Grátis</div><p>3 avaliações por dia, 3 rascunhos cada, 3 tons. Sem conta.</p></div>
+<div class="card"><b>Pro</b><div class="price">Mensalidade</div><p>Avaliações sem limite, respostas também em português, espanhol e francês, os dados do negócio e a assinatura guardados, e um “relatório de avaliações” mensal com o que os clientes elogiam e criticam. Cancele quando quiser.</p></div>
+</div>
+<h3>Entrar na lista de espera do Pro</h3>
+<form class="waitlist" data-product="Review Replies Pro" data-price="preço de lançamento" data-subject="Netmend - Review Replies Pro - lista de espera">
+<label for="wl-name">O nome ou o negócio</label><input id="wl-name" name="name" type="text" required autocomplete="organization">
+<label for="wl-site">Ligação do Google Maps ou do sítio (opcional)</label><input id="wl-site" name="site" type="url" placeholder="https://">
+<div class="check"><input id="wl-res" name="reserve" type="checkbox" value="yes" required><label for="wl-res"><b>Reservar o preço de lançamento</b> do Review Replies Pro. Sem pagamento agora, sem obrigação de comprar.</label></div>
+<div class="check"><input id="wl-news" name="news" type="checkbox" value="yes"><label for="wl-news"><b>Aceito receber um e-mail quando lançar</b> (e outro se o lançamento atrasar). Sem outras campanhas.</label></div>
+<p><button class="btn" type="submit">Entrar na lista de espera por e-mail</button></p>
+<p class="note">Abre a aplicação de e-mail com uma mensagem pronta para dayinportugal@gmail.com. Quando o Pro lançar, o pagamento é no Gumroad, nunca neste sítio.</p>
+</form>
+<p class="note"><b>Privacidade.</b> Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Esta página não envia nem guarda as avaliações: os rascunhos são feitos no browser, e só um contador diário fica no localStorage do browser. O botão da lista só abre a aplicação de e-mail. Se nos escrever, usamos o nome e o e-mail só para responder e, se marcou a segunda caixa, para enviar um e-mail de lançamento. Fundamento: diligências que pediu antes de um eventual contrato (RGPD, art. 6.º, n.º 1, al. b)) e, para o e-mail de lançamento, o consentimento (art. 6.º, n.º 1, al. a)), que pode retirar a qualquer momento. Apagamos os e-mails da lista 14 dias depois do lançamento, ou em 30/06/2027 se não houver lançamento. Responda REMOVER para sair da lista ou para pedir acesso, retificação ou apagamento. Pode queixar-se à autoridade portuguesa de proteção de dados (CNPD).</p>
+</div></section>
+
+<section id="faq"><div class="wrap"><h2>Perguntas frequentes</h2>
+<details><summary>Isto é IA? Para onde vão as avaliações?</summary><p>A versão grátis constrói os rascunhos no browser a partir de estruturas de resposta que escrevemos e testámos, e apanha o que a avaliação menciona (comida, equipa, tempo de espera, preço, limpeza e por aí fora). Nada é enviado para a Netmend nem para qualquer serviço de IA. Não há servidor para esta ferramenta.</p></details>
+<details><summary>Devo mesmo responder a todas as avaliações?</summary><p>Responder às boas e às más mostra a futuros clientes que alguém está a ouvir. Seja breve, agradeça, mencione uma coisa concreta e, nas queixas, ofereça uma forma de continuar a conversa em privado.</p></details>
+<details><summary>O que conta como uma utilização?</summary><p>Um clique em “Escrever 3 respostas”. A versão grátis permite 3 por dia neste browser. O contador fica no localStorage, por isso é por browser.</p></details>
+<details><summary>Publica a resposta por mim?</summary><p>Não. Copia o rascunho que gostar e cola-o no Perfil da Empresa no Google (Avaliações → Responder).</p></details>
+<details><summary>Que idiomas?</summary><p>A versão grátis escreve em inglês. Português, espanhol e francês estão previstos para o Pro.</p></details>
+</div></section>
+
+<section><div class="wrap"><h2>Mais ferramentas grátis</h2><div class="toolsnav"><a href="/wall-of-love/">Mural de testemunhos</a><a href="/x-post-writer/">X Post Writer</a><a href="/statement-to-csv/">Extrato bancário → CSV</a><a href="/pin-maker/">Criador de pins para o Pinterest</a><a href="/tools/">Todas as ferramentas</a></div></div></section>
+<footer class="site-footer"><div class="wrap">
+<div class="f-grid">
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/review-replies/">Review Replies</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Netmend</h4><a href="/tools/">Todas as ferramentas</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
+</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Um cookie lembra só o idioma. Sem conta. As avaliações ficam no browser.</div>
+</div></footer>
+<script src="/assets/waitlist.js"></script>
+<script src="/review-replies/app.js"></script>
+<script src="/assets/lang.js"></script>
+</body></html>
