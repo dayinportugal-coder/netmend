@@ -1,76 +1,81 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SUMIFS in Portuguese = SOMA.SE.S (Spanish SUMAR.SI.CONJUNTO, French SOMME.SI.ENS, German SUMMEWENNS, Italian SOMMA.PIÙ.SE) · Netmend</title>
-<meta name="description" content="What is SUMIFS in Portuguese? SOMA.SE.S. Also SUMAR.SI.CONJUNTO, SOMME.SI.ENS, SUMMEWENNS, SOMMA.PIÙ.SE. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SUMIFS em português = SOMA.SE.S (espanhol SUMAR.SI.CONJUNTO, francês SOMME.SI.ENS, alemão SUMMEWENNS, italiano SOMMA.PIÙ.SE) · Netmend</title>
+<meta name="description" content="O que é SUMIFS em português? SOMA.SE.S. Também SUMAR.SI.CONJUNTO, SOMME.SI.ENS, SUMMEWENNS, SOMMA.PIÙ.SE. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <link rel="canonical" href="https://netmend.app/excel-functions/sumifs/">
-<meta property="og:title" content="SUMIFS in Portuguese = SOMA.SE.S (Spanish SUMAR.SI.CONJUNTO, French SOMME.SI.ENS, German SUMMEWENNS, Italian SOMMA.PIÙ.SE) · Netmend"><meta property="og:description" content="What is SUMIFS in Portuguese? SOMA.SE.S. Also SUMAR.SI.CONJUNTO, SOMME.SI.ENS, SUMMEWENNS, SOMMA.PIÙ.SE. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<meta property="og:url" content="https://netmend.app/excel-functions/sumifs/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/excel-functions/sumifs/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/excel-functions/sumifs/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/excel-functions/sumifs/">
+<meta property="og:title" content="SUMIFS em português = SOMA.SE.S (espanhol SUMAR.SI.CONJUNTO, francês SOMME.SI.ENS, alemão SUMMEWENNS, italiano SOMMA.PIÙ.SE) · Netmend"><meta property="og:description" content="O que é SUMIFS em português? SOMA.SE.S. Também SUMAR.SI.CONJUNTO, SOMME.SI.ENS, SUMMEWENNS, SOMMA.PIÙ.SE. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "SUMIFS in Portuguese = SOMA.SE.S (Spanish SUMAR.SI.CONJUNTO, French SOMME.SI.ENS, German SUMMEWENNS, Italian SOMMA.PIÙ.SE) · Netmend", "url": "https://netmend.app/excel-functions/sumifs/", "inLanguage": ["en", "pt", "es", "fr", "de", "it"], "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "What is SUMIFS in Portuguese? SOMA.SE.S. Also SUMAR.SI.CONJUNTO, SOMME.SI.ENS, SUMMEWENNS, SOMMA.PIÙ.SE. Syntax and a worked example in all 6 languages, plus a free formula translator."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is SUMIFS in Portuguese?", "acceptedAnswer": {"@type": "Answer", "text": "SOMA.SE.S. Spanish SUMAR.SI.CONJUNTO, French SOMME.SI.ENS, German SUMMEWENNS, Italian SOMMA.PIÙ.SE."}}, {"@type": "Question", "name": "Why is the argument order different from SUMIF?", "acceptedAnswer": {"@type": "Answer", "text": "Historical accident. Remember: SUMIFS starts with the numbers you are adding."}}, {"@type": "Question", "name": "How do I do a running balance by account?", "acceptedAnswer": {"@type": "Answer", "text": "Add a row-number helper column, then SUMIFS of Money in minus SUMIFS of Money out, both filtered to that account and to rows up to the current one. Transfers between accounts should be two rows (out of A, into B), not one."}}], "url": "https://netmend.app/excel-functions/sumifs/"}</script>
-<script src="../data.js"></script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "SUMIFS em português = SOMA.SE.S (espanhol SUMAR.SI.CONJUNTO, francês SOMME.SI.ENS, alemão SUMMEWENNS, italiano SOMMA.PIÙ.SE) · Netmend", "url": "https://netmend.app/excel-functions/sumifs/", "inLanguage": "pt-PT", "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "O que é SUMIFS em português? SOMA.SE.S. Também SUMAR.SI.CONJUNTO, SOMME.SI.ENS, SUMMEWENNS, SOMMA.PIÙ.SE. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O que é SUMIFS em português?", "acceptedAnswer": {"@type": "Answer", "text": "SOMA.SE.S. Espanhol SUMAR.SI.CONJUNTO, francês SOMME.SI.ENS, alemão SUMMEWENNS, italiano SOMMA.PIÙ.SE."}}, {"@type": "Question", "name": "Porque é que a ordem dos argumentos é diferente de SUMIF?", "acceptedAnswer": {"@type": "Answer", "text": "Um acidente histórico. Lembre-se: SUMIFS começa pelos números que está a somar."}}, {"@type": "Question", "name": "Como se faz um saldo acumulado por conta?", "acceptedAnswer": {"@type": "Answer", "text": "Acrescente uma coluna auxiliar com o número da linha e faça o SUMIFS das entradas menos o SUMIFS das saídas, ambos filtrados a essa conta e às linhas até à atual. As transferências entre contas devem ser duas linhas (saída de A, entrada em B), não uma."}}], "url": "https://netmend.app/excel-functions/sumifs/"}</script>
+<script src="/excel-functions/data.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Formula translator</a><a class="cta" href="#done-for-you">Sheet fix $25</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/excel-functions/">Tradutor de fórmulas</a><a class="cta" href="#done-for-you">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/excel-functions/sumifs/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/excel-functions/sumifs/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Excel functions</a> · SUMIFS = SOMA.SE.S</p>
-<h1>SUMIFS in Portuguese = <span>SOMA.SE.S</span></h1>
-<p>SUMIFS = SOMA.SE.S = SUMAR.SI.CONJUNTO = SOMME.SI.ENS = SUMMEWENNS = SOMMA.PIÙ.SE. Adds numbers that meet several conditions at once.</p>
-<div class="pills"><span>6 languages</span><span>Syntax + example</span><span>Fixes , vs ;</span><span>Free translator</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/excel-functions/">Funções do Excel</a> · SUMIFS = SOMA.SE.S</p>
+<h1>SUMIFS em português = <span>SOMA.SE.S</span></h1>
+<p>SUMIFS = SOMA.SE.S = SUMAR.SI.CONJUNTO = SOMME.SI.ENS = SUMMEWENNS = SOMMA.PIÙ.SE. Soma números que cumprem várias condições ao mesmo tempo.</p>
+<div class="pills"><span>6 línguas</span><span>Sintaxe + exemplo</span><span>Corrige , e ;</span><span>Tradutor gratuito</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>What SUMIFS does</h2>
-<p class="lead">The standard way to total by category and date, or by account and row number (for a running balance). The argument order is not the same as SUMIF.</p>
-<p>Adds numbers that meet several conditions at once.</p>
-<h2>Syntax and a worked example in 6 languages</h2>
-<p class="lead">English Excel uses commas between arguments and a dot decimal. Most European Excel versions use semicolons and a decimal comma. TRUE / FALSE also change name. The translator below applies all three.</p>
-<div class="facts"><div><b>English — SUMIFS</b><pre>=SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], …)</pre><pre>=SUMIFS(C:C,B:B,&quot;Rent&quot;,A:A,&quot;&gt;=&quot;&amp;DATE(2026,1,1))</pre></div><div><b>Português (PT) — SOMA.SE.S</b><pre>=SOMA.SE.S(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SOMA.SE.S(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;DATA(2026;1;1))</pre></div><div><b>Español — SUMAR.SI.CONJUNTO</b><pre>=SUMAR.SI.CONJUNTO(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SUMAR.SI.CONJUNTO(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;FECHA(2026;1;1))</pre></div><div><b>Français — SOMME.SI.ENS</b><pre>=SOMME.SI.ENS(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SOMME.SI.ENS(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;DATE(2026;1;1))</pre></div><div><b>Deutsch — SUMMEWENNS</b><pre>=SUMMEWENNS(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SUMMEWENNS(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;DATUM(2026;1;1))</pre></div><div><b>Italiano — SOMMA.PIÙ.SE</b><pre>=SOMMA.PIÙ.SE(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SOMMA.PIÙ.SE(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;DATA(2026;1;1))</pre></div></div>
-<h2>Common mistakes</h2>
+<h2>O que faz SUMIFS</h2>
+<p class="lead">A forma habitual de totalizar por categoria e data, ou por conta e número de linha (para um saldo acumulado). A ordem dos argumentos não é a mesma de SUMIF.</p>
+<p>Soma números que cumprem várias condições ao mesmo tempo.</p>
+<h2>Sintaxe e um exemplo resolvido em 6 línguas</h2>
+<p class="lead">O Excel em inglês separa os argumentos com vírgula e usa ponto decimal. Na maior parte das versões europeias, o separador é ponto e vírgula e a vírgula é o decimal. TRUE e FALSE também mudam de nome. O tradutor em baixo aplica as três alterações.</p>
+<div class="facts"><div><b>Inglês — SUMIFS</b><pre>=SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], …)</pre><pre>=SUMIFS(C:C,B:B,&quot;Rent&quot;,A:A,&quot;&gt;=&quot;&amp;DATE(2026,1,1))</pre></div><div><b>Português (PT) — SOMA.SE.S</b><pre>=SOMA.SE.S(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SOMA.SE.S(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;DATA(2026;1;1))</pre></div><div><b>Espanhol — SUMAR.SI.CONJUNTO</b><pre>=SUMAR.SI.CONJUNTO(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SUMAR.SI.CONJUNTO(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;FECHA(2026;1;1))</pre></div><div><b>Francês — SOMME.SI.ENS</b><pre>=SOMME.SI.ENS(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SOMME.SI.ENS(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;DATE(2026;1;1))</pre></div><div><b>Alemão — SUMMEWENNS</b><pre>=SUMMEWENNS(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SUMMEWENNS(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;DATUM(2026;1;1))</pre></div><div><b>Italiano — SOMMA.PIÙ.SE</b><pre>=SOMMA.PIÙ.SE(sum_range; criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=SOMMA.PIÙ.SE(C:C;B:B;&quot;Rent&quot;;A:A;&quot;&gt;=&quot;&amp;DATA(2026;1;1))</pre></div></div>
+<h2>Erros frequentes</h2>
 <ul>
-<li>SUMIFS puts the <b>sum range first</b>. SUMIF puts it last (and makes it optional). Mixing the two is the usual #VALUE! or a plausible but wrong total.</li>
-<li>Every criteria range must be the same size as the sum range.</li>
-<li>A running balance per account in older Excel is often two SUMIFS (money in minus money out) with a “row number &lt;= this row” condition. It works, but it gets heavy on very long lists; a helper column per account can be faster.</li>
+<li>SUMIFS põe o <b>intervalo da soma em primeiro</b>. SUMIF põe-no no fim (e torna-o opcional). Trocar as duas é a causa habitual de #VALOR!, ou de um total plausível mas errado.</li>
+<li>Cada intervalo de critérios tem de ter o mesmo tamanho que o intervalo da soma.</li>
+<li>Um saldo acumulado por conta, em Excel mais antigo, são muitas vezes dois SUMIFS (entradas menos saídas) com a condição «número da linha &lt;= esta linha». Funciona, mas fica pesado em listas muito longas; uma coluna auxiliar por conta pode ser mais rápida.</li>
 </ul>
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>Translate a formula with SUMIFS</h2>
-<p class="lead">Paste any formula. Function names and separators are converted between English, Portuguese, Spanish, French, German and Italian.</p>
+<h2>Traduzir uma fórmula com SUMIFS</h2>
+<p class="lead">Cole qualquer fórmula. Os nomes das funções e os separadores são convertidos entre inglês, português, espanhol, francês, alemão e italiano.</p>
 <div class="tool">
-<label for="f">Formula</label>
+<label for="f">Fórmula</label>
 <textarea id="f" style="min-height:70px;font-family:monospace">=SUMIFS(C:C,B:B,&quot;Rent&quot;,A:A,&quot;&gt;=&quot;&amp;DATE(2026,1,1))</textarea>
-<div class="row"><div><label for="from">From</label><select id="from"></select></div><div><label for="to">To</label><select id="to"></select></div></div>
-<p><button class="btn ghost" id="swap" type="button">⇄ Swap</button></p>
-<label for="res">Result</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
-<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copy result</button></p>
-<p class="note">Sheet names and cell references are not translated. Google Sheets accepts English function names, but uses your locale’s separators.</p>
+<div class="row"><div><label for="from">De</label><select id="from"></select></div><div><label for="to">Para</label><select id="to"></select></div></div>
+<p><button class="btn ghost" id="swap" type="button">⇄ Trocar</button></p>
+<label for="res">Resultado</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
+<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copiar resultado</button></p>
+<p class="note">Os nomes das folhas e as referências das células não são traduzidos. O Google Sheets aceita nomes de funções em inglês, mas usa os separadores da sua região.</p>
 </div>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Stuck with a spreadsheet? We fix it. From $25</h2>
-<p class="lead">Broken lookups, a running balance that will not stay still, a translated workbook full of #NAME? errors. Fixed price after we see the file. 48h.</p>
-<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(SUMIFS)">Send the sheet</a></p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Files are used only for the order and deleted after delivery. No address, phone or national ID is asked for or published.</p>
-<p>If you just need the function names and 20 practice exercises, the <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">Excel cheat sheet is $5 on Gumroad</a>. Payment is on Gumroad, not on this site.</p>
+<h2>Folha de cálculo emperrada? Tratamos disso.</h2>
+<p class="lead">Fórmulas de procura que falham, um saldo acumulado que não fica quieto, um livro traduzido cheio de erros #NOME?. Vemos o ficheiro e respondemos em 48 h.</p>
+<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(SUMIFS)">Contacto</a></p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Os ficheiros servem só para a encomenda e são apagados depois da entrega. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p>
+<p>Se só precisar dos nomes das funções e de 20 exercícios, a <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">folha de consulta do Excel está no Gumroad</a>. O pagamento é no Gumroad, não neste site.</p>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>What is SUMIFS in Portuguese?</summary><p>SOMA.SE.S. Spanish SUMAR.SI.CONJUNTO, French SOMME.SI.ENS, German SUMMEWENNS, Italian SOMMA.PIÙ.SE.</p></details><details><summary>Why is the argument order different from SUMIF?</summary><p>Historical accident. Remember: SUMIFS starts with the numbers you are adding.</p></details><details><summary>How do I do a running balance by account?</summary><p>Add a row-number helper column, then SUMIFS of Money in minus SUMIFS of Money out, both filtered to that account and to rows up to the current one. Transfers between accounts should be two rows (out of A, into B), not one.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O que é SUMIFS em português?</summary><p>SOMA.SE.S. Espanhol SUMAR.SI.CONJUNTO, francês SOMME.SI.ENS, alemão SUMMEWENNS, italiano SOMMA.PIÙ.SE.</p></details><details><summary>Porque é que a ordem dos argumentos é diferente de SUMIF?</summary><p>Um acidente histórico. Lembre-se: SUMIFS começa pelos números que está a somar.</p></details><details><summary>Como se faz um saldo acumulado por conta?</summary><p>Acrescente uma coluna auxiliar com o número da linha e faça o SUMIFS das entradas menos o SUMIFS das saídas, ambos filtrados a essa conta e às linhas até à atual. As transferências entre contas devem ser duas linhas (saída de A, entrada em B), não uma.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related functions</h2>
-<div class="fnlist"><a href="../sumif/"><b>SUMIF</b> = SOMA.SE</a><a href="../countifs/"><b>COUNTIFS</b> = CONTAR.SE.S</a><a href="../if/"><b>IF</b> = SE</a><a href="../sumproduct/"><b>SUMPRODUCT</b> = SOMARPRODUTO</a><a href="../"><b>All 30 guides</b> and the translator</a></div>
-<p class="note" style="margin-top:16px"><a href="../../statement-to-csv/">Bank statement → CSV</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Funções relacionadas</h2>
+<div class="fnlist"><a href="/excel-functions/sumif/"><b>SUMIF</b> = SOMA.SE</a><a href="/excel-functions/countifs/"><b>COUNTIFS</b> = CONTAR.SE.S</a><a href="/excel-functions/if/"><b>IF</b> = SE</a><a href="/excel-functions/sumproduct/"><b>SUMPRODUCT</b> = SOMARPRODUTO</a><a href="/excel-functions/"><b>Os 30 guias</b> e o tradutor</a></div>
+<p class="note" style="margin-top:16px"><a href="/statement-to-csv/">Extrato bancário → CSV</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços da Netmend</a></p>
 </div></section>
-<script src="../app.js"></script>
+<script src="/excel-functions/app.js"></script>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no seu browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços por encomenda</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem criar conta. As ferramentas grátis correm no seu browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

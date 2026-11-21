@@ -25,14 +25,27 @@ b,strong{color:#fff;font-weight:650}
 
 /* header */
 body>header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border)}
-body>header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+body>header .wrap{display:flex;align-items:center;justify-content:space-between;height:auto;min-height:64px;gap:12px;padding-top:8px;padding-bottom:8px}
 body>header img{height:30px;width:auto;display:block}
-nav{display:flex;align-items:center;gap:4px;flex-wrap:nowrap}
+nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:flex-end;min-width:0}
 nav a{color:var(--muted);text-decoration:none;font-weight:500;font-size:14.5px;padding:7px 12px;border-radius:8px;transition:color .15s,background .15s;white-space:nowrap}
 nav a:hover{color:#fff;background:var(--surface-2)}
 nav a.cta{margin-left:8px;color:#fff;font-weight:600;background:var(--coral)}
 nav a.cta:hover{background:#e84c2b}
-@media(max-width:760px){nav a:not(.cta){display:none}body>header img{height:26px}}
+.lang-switch{display:inline-flex;align-items:center;gap:1px;margin-left:6px;flex:0 0 auto}
+.lang-switch a{font-size:12.5px;font-weight:750;letter-spacing:.04em;padding:6px 5px;color:var(--muted)}
+.lang-switch a[aria-current="true"]{color:#fff}
+.lang-switch span{color:var(--faint);font-size:12px;padding:0 1px}
+#nm-lang-banner{position:sticky;top:64px;z-index:40;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;background:#1b1d24;color:#eceef2;border-bottom:1px solid rgba(255,255,255,.12);padding:8px 16px;font-size:14px}
+#nm-lang-banner p{margin:0}
+#nm-lang-banner a{color:#fff;font-weight:650}
+#nm-lang-banner button{background:transparent;color:#9aa1ad;border:0;font-size:20px;line-height:1;cursor:pointer;padding:0 4px}
+@media(max-width:760px){
+  nav a:not(.cta):not([data-lang]){display:none}
+  .lang-switch{display:inline-flex}
+  body>header img{height:26px}
+  nav a.cta{margin-left:4px;padding:7px 10px}
+}
 
 /* hero (tool & SEO pages) */
 .hero{position:relative;padding:72px 0 56px;isolation:isolate;overflow:hidden;border-bottom:1px solid var(--border)}

@@ -1,77 +1,82 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VLOOKUP in Portuguese = PROCV (Spanish BUSCARV, French RECHERCHEV, German SVERWEIS, Italian CERCA.VERT) · Netmend</title>
-<meta name="description" content="What is VLOOKUP in Portuguese? PROCV. Also BUSCARV, RECHERCHEV, SVERWEIS, CERCA.VERT. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VLOOKUP em português = PROCV (espanhol BUSCARV, francês RECHERCHEV, alemão SVERWEIS, italiano CERCA.VERT) · Netmend</title>
+<meta name="description" content="O que é VLOOKUP em português? PROCV. Também BUSCARV, RECHERCHEV, SVERWEIS, CERCA.VERT. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <link rel="canonical" href="https://netmend.app/excel-functions/vlookup/">
-<meta property="og:title" content="VLOOKUP in Portuguese = PROCV (Spanish BUSCARV, French RECHERCHEV, German SVERWEIS, Italian CERCA.VERT) · Netmend"><meta property="og:description" content="What is VLOOKUP in Portuguese? PROCV. Also BUSCARV, RECHERCHEV, SVERWEIS, CERCA.VERT. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<meta property="og:url" content="https://netmend.app/excel-functions/vlookup/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/excel-functions/vlookup/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/excel-functions/vlookup/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/excel-functions/vlookup/">
+<meta property="og:title" content="VLOOKUP em português = PROCV (espanhol BUSCARV, francês RECHERCHEV, alemão SVERWEIS, italiano CERCA.VERT) · Netmend"><meta property="og:description" content="O que é VLOOKUP em português? PROCV. Também BUSCARV, RECHERCHEV, SVERWEIS, CERCA.VERT. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "VLOOKUP in Portuguese = PROCV (Spanish BUSCARV, French RECHERCHEV, German SVERWEIS, Italian CERCA.VERT) · Netmend", "url": "https://netmend.app/excel-functions/vlookup/", "inLanguage": ["en", "pt", "es", "fr", "de", "it"], "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "What is VLOOKUP in Portuguese? PROCV. Also BUSCARV, RECHERCHEV, SVERWEIS, CERCA.VERT. Syntax and a worked example in all 6 languages, plus a free formula translator."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is VLOOKUP in Portuguese?", "acceptedAnswer": {"@type": "Answer", "text": "PROCV, in both Portugal and Brazil. Spanish BUSCARV, French RECHERCHEV, German SVERWEIS, Italian CERCA.VERT."}}, {"@type": "Question", "name": "Why do I get the wrong row?", "acceptedAnswer": {"@type": "Answer", "text": "You probably omitted FALSE, so Excel is doing an approximate match on an unsorted first column."}}, {"@type": "Question", "name": "VLOOKUP vs XLOOKUP?", "acceptedAnswer": {"@type": "Answer", "text": "XLOOKUP can look left or right, has a built-in “not found” value, and does not break when you insert columns. Use it if your Excel has it; keep VLOOKUP when you need to share with older Excel."}}], "url": "https://netmend.app/excel-functions/vlookup/"}</script>
-<script src="../data.js"></script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "VLOOKUP em português = PROCV (espanhol BUSCARV, francês RECHERCHEV, alemão SVERWEIS, italiano CERCA.VERT) · Netmend", "url": "https://netmend.app/excel-functions/vlookup/", "inLanguage": "pt-PT", "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "O que é VLOOKUP em português? PROCV. Também BUSCARV, RECHERCHEV, SVERWEIS, CERCA.VERT. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O que é VLOOKUP em português?", "acceptedAnswer": {"@type": "Answer", "text": "PROCV, em Portugal e no Brasil. Espanhol BUSCARV, francês RECHERCHEV, alemão SVERWEIS, italiano CERCA.VERT."}}, {"@type": "Question", "name": "Porque é que aparece a linha errada?", "acceptedAnswer": {"@type": "Answer", "text": "O mais certo é FALSE ter ficado de fora, e o Excel faz uma correspondência aproximada numa primeira coluna que não está ordenada."}}, {"@type": "Question", "name": "VLOOKUP ou XLOOKUP?", "acceptedAnswer": {"@type": "Answer", "text": "XLOOKUP pode procurar à esquerda ou à direita, tem um valor de «não encontrado» incluído e não se parte quando se inserem colunas. Use-o se o seu Excel o tiver; mantenha VLOOKUP quando for preciso partilhar com um Excel mais antigo."}}], "url": "https://netmend.app/excel-functions/vlookup/"}</script>
+<script src="/excel-functions/data.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Formula translator</a><a class="cta" href="#done-for-you">Sheet fix $25</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/excel-functions/">Tradutor de fórmulas</a><a class="cta" href="#done-for-you">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/excel-functions/vlookup/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/excel-functions/vlookup/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Excel functions</a> · VLOOKUP = PROCV</p>
-<h1>VLOOKUP in Portuguese = <span>PROCV</span></h1>
-<p>VLOOKUP = PROCV = BUSCARV = RECHERCHEV = SVERWEIS = CERCA.VERT. Looks up a value in the first column of a range and returns a value from a column to its right.</p>
-<div class="pills"><span>6 languages</span><span>Syntax + example</span><span>Fixes , vs ;</span><span>Free translator</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/excel-functions/">Funções do Excel</a> · VLOOKUP = PROCV</p>
+<h1>VLOOKUP em português = <span>PROCV</span></h1>
+<p>VLOOKUP = PROCV = BUSCARV = RECHERCHEV = SVERWEIS = CERCA.VERT. Procura um valor na primeira coluna de um intervalo e devolve um valor de uma coluna à direita.</p>
+<div class="pills"><span>6 línguas</span><span>Sintaxe + exemplo</span><span>Corrige , e ;</span><span>Tradutor gratuito</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>What VLOOKUP does</h2>
-<p class="lead">It is still the lookup most tutorials teach, and the name everyone searches: PROCV, BUSCARV, RECHERCHEV, SVERWEIS, CERCA.VERT.</p>
-<p>Looks up a value in the first column of a range and returns a value from a column to its right.</p>
-<h2>Syntax and a worked example in 6 languages</h2>
-<p class="lead">English Excel uses commas between arguments and a dot decimal. Most European Excel versions use semicolons and a decimal comma. TRUE / FALSE also change name. The translator below applies all three.</p>
-<div class="facts"><div><b>English — VLOOKUP</b><pre>=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])</pre><pre>=VLOOKUP(A2,Prices!A:C,3,FALSE)</pre></div><div><b>Português (PT) — PROCV</b><pre>=PROCV(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=PROCV(A2;Prices!A:C;3;FALSO)</pre></div><div><b>Español — BUSCARV</b><pre>=BUSCARV(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=BUSCARV(A2;Prices!A:C;3;FALSO)</pre></div><div><b>Français — RECHERCHEV</b><pre>=RECHERCHEV(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=RECHERCHEV(A2;Prices!A:C;3;FAUX)</pre></div><div><b>Deutsch — SVERWEIS</b><pre>=SVERWEIS(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=SVERWEIS(A2;Prices!A:C;3;FALSCH)</pre></div><div><b>Italiano — CERCA.VERT</b><pre>=CERCA.VERT(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=CERCA.VERT(A2;Prices!A:C;3;FALSO)</pre></div></div>
-<h2>Common mistakes</h2>
+<h2>O que faz VLOOKUP</h2>
+<p class="lead">Continua a ser a procura que a maior parte dos tutoriais ensina, e o nome que toda a gente procura: PROCV, BUSCARV, RECHERCHEV, SVERWEIS, CERCA.VERT.</p>
+<p>Procura um valor na primeira coluna de um intervalo e devolve um valor de uma coluna à direita.</p>
+<h2>Sintaxe e um exemplo resolvido em 6 línguas</h2>
+<p class="lead">O Excel em inglês separa os argumentos com vírgula e usa ponto decimal. Na maior parte das versões europeias, o separador é ponto e vírgula e a vírgula é o decimal. TRUE e FALSE também mudam de nome. O tradutor em baixo aplica as três alterações.</p>
+<div class="facts"><div><b>Inglês — VLOOKUP</b><pre>=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])</pre><pre>=VLOOKUP(A2,Prices!A:C,3,FALSE)</pre></div><div><b>Português (PT) — PROCV</b><pre>=PROCV(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=PROCV(A2;Prices!A:C;3;FALSO)</pre></div><div><b>Espanhol — BUSCARV</b><pre>=BUSCARV(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=BUSCARV(A2;Prices!A:C;3;FALSO)</pre></div><div><b>Francês — RECHERCHEV</b><pre>=RECHERCHEV(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=RECHERCHEV(A2;Prices!A:C;3;FAUX)</pre></div><div><b>Alemão — SVERWEIS</b><pre>=SVERWEIS(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=SVERWEIS(A2;Prices!A:C;3;FALSCH)</pre></div><div><b>Italiano — CERCA.VERT</b><pre>=CERCA.VERT(lookup_value; table_array; col_index_num; [range_lookup])</pre><pre>=CERCA.VERT(A2;Prices!A:C;3;FALSO)</pre></div></div>
+<h2>Erros frequentes</h2>
 <ul>
-<li>The fourth argument defaults to approximate match if you omit it. For an exact product code always pass FALSE (FALSO / FAUX / FALSCH / FALSO).</li>
-<li>VLOOKUP can only look to the <b>right</b> of the first column. If the return column is to the left, use INDEX/MATCH or XLOOKUP.</li>
-<li>Inserting a column inside the table silently shifts col_index_num. INDEX/MATCH and XLOOKUP do not have that problem.</li>
-<li>Copied from an English tutorial into Portuguese Excel, the formula fails because of both the name and the comma separators.</li>
+<li>O quarto argumento, se o omitir, fica em correspondência aproximada. Para um código de produto exato, passe sempre FALSE (FALSO / FAUX / FALSCH / FALSO).</li>
+<li>VLOOKUP só procura à <b>direita</b> da primeira coluna. Se a coluna a devolver está à esquerda, use INDEX/MATCH ou XLOOKUP.</li>
+<li>Inserir uma coluna dentro da tabela desloca col_index_num em silêncio. INDEX/MATCH e XLOOKUP não têm esse problema.</li>
+<li>Copiada de um tutorial em inglês para o Excel em português, a fórmula falha pelo nome e pelos separadores de vírgula.</li>
 </ul>
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>Translate a formula with VLOOKUP</h2>
-<p class="lead">Paste any formula. Function names and separators are converted between English, Portuguese, Spanish, French, German and Italian.</p>
+<h2>Traduzir uma fórmula com VLOOKUP</h2>
+<p class="lead">Cole qualquer fórmula. Os nomes das funções e os separadores são convertidos entre inglês, português, espanhol, francês, alemão e italiano.</p>
 <div class="tool">
-<label for="f">Formula</label>
+<label for="f">Fórmula</label>
 <textarea id="f" style="min-height:70px;font-family:monospace">=VLOOKUP(A2,Prices!A:C,3,FALSE)</textarea>
-<div class="row"><div><label for="from">From</label><select id="from"></select></div><div><label for="to">To</label><select id="to"></select></div></div>
-<p><button class="btn ghost" id="swap" type="button">⇄ Swap</button></p>
-<label for="res">Result</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
-<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copy result</button></p>
-<p class="note">Sheet names and cell references are not translated. Google Sheets accepts English function names, but uses your locale’s separators.</p>
+<div class="row"><div><label for="from">De</label><select id="from"></select></div><div><label for="to">Para</label><select id="to"></select></div></div>
+<p><button class="btn ghost" id="swap" type="button">⇄ Trocar</button></p>
+<label for="res">Resultado</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
+<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copiar resultado</button></p>
+<p class="note">Os nomes das folhas e as referências das células não são traduzidos. O Google Sheets aceita nomes de funções em inglês, mas usa os separadores da sua região.</p>
 </div>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Stuck with a spreadsheet? We fix it. From $25</h2>
-<p class="lead">Broken lookups, a running balance that will not stay still, a translated workbook full of #NAME? errors. Fixed price after we see the file. 48h.</p>
-<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(VLOOKUP)">Send the sheet</a></p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Files are used only for the order and deleted after delivery. No address, phone or national ID is asked for or published.</p>
-<p>If you just need the function names and 20 practice exercises, the <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">Excel cheat sheet is $5 on Gumroad</a>. Payment is on Gumroad, not on this site.</p>
+<h2>Folha de cálculo emperrada? Tratamos disso.</h2>
+<p class="lead">Fórmulas de procura que falham, um saldo acumulado que não fica quieto, um livro traduzido cheio de erros #NOME?. Vemos o ficheiro e respondemos em 48 h.</p>
+<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(VLOOKUP)">Contacto</a></p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Os ficheiros servem só para a encomenda e são apagados depois da entrega. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p>
+<p>Se só precisar dos nomes das funções e de 20 exercícios, a <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">folha de consulta do Excel está no Gumroad</a>. O pagamento é no Gumroad, não neste site.</p>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>What is VLOOKUP in Portuguese?</summary><p>PROCV, in both Portugal and Brazil. Spanish BUSCARV, French RECHERCHEV, German SVERWEIS, Italian CERCA.VERT.</p></details><details><summary>Why do I get the wrong row?</summary><p>You probably omitted FALSE, so Excel is doing an approximate match on an unsorted first column.</p></details><details><summary>VLOOKUP vs XLOOKUP?</summary><p>XLOOKUP can look left or right, has a built-in “not found” value, and does not break when you insert columns. Use it if your Excel has it; keep VLOOKUP when you need to share with older Excel.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O que é VLOOKUP em português?</summary><p>PROCV, em Portugal e no Brasil. Espanhol BUSCARV, francês RECHERCHEV, alemão SVERWEIS, italiano CERCA.VERT.</p></details><details><summary>Porque é que aparece a linha errada?</summary><p>O mais certo é FALSE ter ficado de fora, e o Excel faz uma correspondência aproximada numa primeira coluna que não está ordenada.</p></details><details><summary>VLOOKUP ou XLOOKUP?</summary><p>XLOOKUP pode procurar à esquerda ou à direita, tem um valor de «não encontrado» incluído e não se parte quando se inserem colunas. Use-o se o seu Excel o tiver; mantenha VLOOKUP quando for preciso partilhar com um Excel mais antigo.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related functions</h2>
-<div class="fnlist"><a href="../xlookup/"><b>XLOOKUP</b> = PROCX</a><a href="../index-indice/"><b>INDEX</b> = ÍNDICE</a><a href="../match/"><b>MATCH</b> = CORRESP</a><a href="../iferror/"><b>IFERROR</b> = SE.ERRO</a><a href="../"><b>All 30 guides</b> and the translator</a></div>
-<p class="note" style="margin-top:16px"><a href="../../statement-to-csv/">Bank statement → CSV</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Funções relacionadas</h2>
+<div class="fnlist"><a href="/excel-functions/xlookup/"><b>XLOOKUP</b> = PROCX</a><a href="/excel-functions/index-indice/"><b>INDEX</b> = ÍNDICE</a><a href="/excel-functions/match/"><b>MATCH</b> = CORRESP</a><a href="/excel-functions/iferror/"><b>IFERROR</b> = SE.ERRO</a><a href="/excel-functions/"><b>Os 30 guias</b> e o tradutor</a></div>
+<p class="note" style="margin-top:16px"><a href="/statement-to-csv/">Extrato bancário → CSV</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços da Netmend</a></p>
 </div></section>
-<script src="../app.js"></script>
+<script src="/excel-functions/app.js"></script>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no seu browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços por encomenda</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem criar conta. As ferramentas grátis correm no seu browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

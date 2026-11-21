@@ -1,75 +1,80 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EOMONTH in Portuguese = FIMMÊS (Spanish FIN.MES, French FIN.MOIS, German MONATSENDE, Italian FINE.MESE) · Netmend</title>
-<meta name="description" content="What is EOMONTH in Portuguese? FIMMÊS. Also FIN.MES, FIN.MOIS, MONATSENDE, FINE.MESE. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EOMONTH em português = FIMMÊS (espanhol FIN.MES, francês FIN.MOIS, alemão MONATSENDE, italiano FINE.MESE) · Netmend</title>
+<meta name="description" content="O que é EOMONTH em português? FIMMÊS. Também FIN.MES, FIN.MOIS, MONATSENDE, FINE.MESE. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <link rel="canonical" href="https://netmend.app/excel-functions/eomonth/">
-<meta property="og:title" content="EOMONTH in Portuguese = FIMMÊS (Spanish FIN.MES, French FIN.MOIS, German MONATSENDE, Italian FINE.MESE) · Netmend"><meta property="og:description" content="What is EOMONTH in Portuguese? FIMMÊS. Also FIN.MES, FIN.MOIS, MONATSENDE, FINE.MESE. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<meta property="og:url" content="https://netmend.app/excel-functions/eomonth/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/excel-functions/eomonth/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/excel-functions/eomonth/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/excel-functions/eomonth/">
+<meta property="og:title" content="EOMONTH em português = FIMMÊS (espanhol FIN.MES, francês FIN.MOIS, alemão MONATSENDE, italiano FINE.MESE) · Netmend"><meta property="og:description" content="O que é EOMONTH em português? FIMMÊS. Também FIN.MES, FIN.MOIS, MONATSENDE, FINE.MESE. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "EOMONTH in Portuguese = FIMMÊS (Spanish FIN.MES, French FIN.MOIS, German MONATSENDE, Italian FINE.MESE) · Netmend", "url": "https://netmend.app/excel-functions/eomonth/", "inLanguage": ["en", "pt", "es", "fr", "de", "it"], "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "What is EOMONTH in Portuguese? FIMMÊS. Also FIN.MES, FIN.MOIS, MONATSENDE, FINE.MESE. Syntax and a worked example in all 6 languages, plus a free formula translator."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is EOMONTH in Portuguese?", "acceptedAnswer": {"@type": "Answer", "text": "FIMMÊS. Spanish FIN.MES, French FIN.MOIS, German MONATSENDE, Italian FINE.MESE."}}, {"@type": "Question", "name": "First day of next month?", "acceptedAnswer": {"@type": "Answer", "text": "=EOMONTH(A2,0)+1."}}], "url": "https://netmend.app/excel-functions/eomonth/"}</script>
-<script src="../data.js"></script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "EOMONTH em português = FIMMÊS (espanhol FIN.MES, francês FIN.MOIS, alemão MONATSENDE, italiano FINE.MESE) · Netmend", "url": "https://netmend.app/excel-functions/eomonth/", "inLanguage": "pt-PT", "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "O que é EOMONTH em português? FIMMÊS. Também FIN.MES, FIN.MOIS, MONATSENDE, FINE.MESE. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O que é EOMONTH em português?", "acceptedAnswer": {"@type": "Answer", "text": "FIMMÊS. Espanhol FIN.MES, francês FIN.MOIS, alemão MONATSENDE, italiano FINE.MESE."}}, {"@type": "Question", "name": "Primeiro dia do mês seguinte?", "acceptedAnswer": {"@type": "Answer", "text": "=EOMONTH(A2,0)+1."}}], "url": "https://netmend.app/excel-functions/eomonth/"}</script>
+<script src="/excel-functions/data.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Formula translator</a><a class="cta" href="#done-for-you">Sheet fix $25</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/excel-functions/">Tradutor de fórmulas</a><a class="cta" href="#done-for-you">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/excel-functions/eomonth/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/excel-functions/eomonth/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Excel functions</a> · EOMONTH = FIMMÊS</p>
-<h1>EOMONTH in Portuguese = <span>FIMMÊS</span></h1>
-<p>EOMONTH = FIMMÊS = FIN.MES = FIN.MOIS = MONATSENDE = FINE.MESE. Returns the last day of a month, a given number of months before or after a start date.</p>
-<div class="pills"><span>6 languages</span><span>Syntax + example</span><span>Fixes , vs ;</span><span>Free translator</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/excel-functions/">Funções do Excel</a> · EOMONTH = FIMMÊS</p>
+<h1>EOMONTH em português = <span>FIMMÊS</span></h1>
+<p>EOMONTH = FIMMÊS = FIN.MES = FIN.MOIS = MONATSENDE = FINE.MESE. Devolve o último dia de um mês, um dado número de meses antes ou depois de uma data de início.</p>
+<div class="pills"><span>6 línguas</span><span>Sintaxe + exemplo</span><span>Corrige , e ;</span><span>Tradutor gratuito</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>What EOMONTH does</h2>
-<p class="lead">Month-end close, invoice due dates, D7-style “last day of the month” rules. Names: FIMMÊS, FIN.MES, FIN.MOIS, MONATSENDE, FINE.MESE.</p>
-<p>Returns the last day of a month, a given number of months before or after a start date.</p>
-<h2>Syntax and a worked example in 6 languages</h2>
-<p class="lead">English Excel uses commas between arguments and a dot decimal. Most European Excel versions use semicolons and a decimal comma. TRUE / FALSE also change name. The translator below applies all three.</p>
-<div class="facts"><div><b>English — EOMONTH</b><pre>=EOMONTH(start_date, months)</pre><pre>=EOMONTH(A2,0)</pre></div><div><b>Português (PT) — FIMMÊS</b><pre>=FIMMÊS(start_date; months)</pre><pre>=FIMMÊS(A2;0)</pre></div><div><b>Español — FIN.MES</b><pre>=FIN.MES(start_date; months)</pre><pre>=FIN.MES(A2;0)</pre></div><div><b>Français — FIN.MOIS</b><pre>=FIN.MOIS(start_date; months)</pre><pre>=FIN.MOIS(A2;0)</pre></div><div><b>Deutsch — MONATSENDE</b><pre>=MONATSENDE(start_date; months)</pre><pre>=MONATSENDE(A2;0)</pre></div><div><b>Italiano — FINE.MESE</b><pre>=FINE.MESE(start_date; months)</pre><pre>=FINE.MESE(A2;0)</pre></div></div>
-<h2>Common mistakes</h2>
+<h2>O que faz EOMONTH</h2>
+<p class="lead">Fecho de mês, vencimento de faturas e regras do «último dia do mês», como no visto D7. Nomes: FIMMÊS, FIN.MES, FIN.MOIS, MONATSENDE, FINE.MESE.</p>
+<p>Devolve o último dia de um mês, um dado número de meses antes ou depois de uma data de início.</p>
+<h2>Sintaxe e um exemplo resolvido em 6 línguas</h2>
+<p class="lead">O Excel em inglês separa os argumentos com vírgula e usa ponto decimal. Na maior parte das versões europeias, o separador é ponto e vírgula e a vírgula é o decimal. TRUE e FALSE também mudam de nome. O tradutor em baixo aplica as três alterações.</p>
+<div class="facts"><div><b>Inglês — EOMONTH</b><pre>=EOMONTH(start_date, months)</pre><pre>=EOMONTH(A2,0)</pre></div><div><b>Português (PT) — FIMMÊS</b><pre>=FIMMÊS(start_date; months)</pre><pre>=FIMMÊS(A2;0)</pre></div><div><b>Espanhol — FIN.MES</b><pre>=FIN.MES(start_date; months)</pre><pre>=FIN.MES(A2;0)</pre></div><div><b>Francês — FIN.MOIS</b><pre>=FIN.MOIS(start_date; months)</pre><pre>=FIN.MOIS(A2;0)</pre></div><div><b>Alemão — MONATSENDE</b><pre>=MONATSENDE(start_date; months)</pre><pre>=MONATSENDE(A2;0)</pre></div><div><b>Italiano — FINE.MESE</b><pre>=FINE.MESE(start_date; months)</pre><pre>=FINE.MESE(A2;0)</pre></div></div>
+<h2>Erros frequentes</h2>
 <ul>
-<li><code>EOMONTH(A2,0)</code> is the last day of the month of A2. <code>EOMONTH(A2,1)</code> is the last day of the following month.</li>
-<li>The result is a date, not text. Format the cell as a date, or wrap TEXT if you need a label.</li>
+<li><code>EOMONTH(A2,0)</code> é o último dia do mês de A2. <code>EOMONTH(A2,1)</code> é o último dia do mês seguinte.</li>
+<li>O resultado é uma data, não texto. Formate a célula como data ou envolva com TEXT se precisar de uma etiqueta.</li>
 </ul>
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>Translate a formula with EOMONTH</h2>
-<p class="lead">Paste any formula. Function names and separators are converted between English, Portuguese, Spanish, French, German and Italian.</p>
+<h2>Traduzir uma fórmula com EOMONTH</h2>
+<p class="lead">Cole qualquer fórmula. Os nomes das funções e os separadores são convertidos entre inglês, português, espanhol, francês, alemão e italiano.</p>
 <div class="tool">
-<label for="f">Formula</label>
+<label for="f">Fórmula</label>
 <textarea id="f" style="min-height:70px;font-family:monospace">=EOMONTH(A2,0)</textarea>
-<div class="row"><div><label for="from">From</label><select id="from"></select></div><div><label for="to">To</label><select id="to"></select></div></div>
-<p><button class="btn ghost" id="swap" type="button">⇄ Swap</button></p>
-<label for="res">Result</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
-<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copy result</button></p>
-<p class="note">Sheet names and cell references are not translated. Google Sheets accepts English function names, but uses your locale’s separators.</p>
+<div class="row"><div><label for="from">De</label><select id="from"></select></div><div><label for="to">Para</label><select id="to"></select></div></div>
+<p><button class="btn ghost" id="swap" type="button">⇄ Trocar</button></p>
+<label for="res">Resultado</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
+<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copiar resultado</button></p>
+<p class="note">Os nomes das folhas e as referências das células não são traduzidos. O Google Sheets aceita nomes de funções em inglês, mas usa os separadores da sua região.</p>
 </div>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Stuck with a spreadsheet? We fix it. From $25</h2>
-<p class="lead">Broken lookups, a running balance that will not stay still, a translated workbook full of #NAME? errors. Fixed price after we see the file. 48h.</p>
-<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(EOMONTH)">Send the sheet</a></p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Files are used only for the order and deleted after delivery. No address, phone or national ID is asked for or published.</p>
-<p>If you just need the function names and 20 practice exercises, the <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">Excel cheat sheet is $5 on Gumroad</a>. Payment is on Gumroad, not on this site.</p>
+<h2>Folha de cálculo emperrada? Tratamos disso.</h2>
+<p class="lead">Fórmulas de procura que falham, um saldo acumulado que não fica quieto, um livro traduzido cheio de erros #NOME?. Vemos o ficheiro e respondemos em 48 h.</p>
+<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(EOMONTH)">Contacto</a></p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Os ficheiros servem só para a encomenda e são apagados depois da entrega. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p>
+<p>Se só precisar dos nomes das funções e de 20 exercícios, a <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">folha de consulta do Excel está no Gumroad</a>. O pagamento é no Gumroad, não neste site.</p>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>What is EOMONTH in Portuguese?</summary><p>FIMMÊS. Spanish FIN.MES, French FIN.MOIS, German MONATSENDE, Italian FINE.MESE.</p></details><details><summary>First day of next month?</summary><p><code>=EOMONTH(A2,0)+1</code>.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O que é EOMONTH em português?</summary><p>FIMMÊS. Espanhol FIN.MES, francês FIN.MOIS, alemão MONATSENDE, italiano FINE.MESE.</p></details><details><summary>Primeiro dia do mês seguinte?</summary><p><code>=EOMONTH(A2,0)+1</code>.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related functions</h2>
-<div class="fnlist"><a href="../text/"><b>TEXT</b> = TEXTO</a><a href="../date/"><b>DATE</b> = DATA</a><a href="../networkdays/"><b>NETWORKDAYS</b> = DIATRABALHOTOTAL</a><a href="../"><b>All 30 guides</b> and the translator</a></div>
-<p class="note" style="margin-top:16px"><a href="../../statement-to-csv/">Bank statement → CSV</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Funções relacionadas</h2>
+<div class="fnlist"><a href="/excel-functions/text/"><b>TEXT</b> = TEXTO</a><a href="/excel-functions/date/"><b>DATE</b> = DATA</a><a href="/excel-functions/networkdays/"><b>NETWORKDAYS</b> = DIATRABALHOTOTAL</a><a href="/excel-functions/"><b>Os 30 guias</b> e o tradutor</a></div>
+<p class="note" style="margin-top:16px"><a href="/statement-to-csv/">Extrato bancário → CSV</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços da Netmend</a></p>
 </div></section>
-<script src="../app.js"></script>
+<script src="/excel-functions/app.js"></script>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no seu browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços por encomenda</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem criar conta. As ferramentas grátis correm no seu browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

@@ -1,60 +1,64 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Free Bank Statement to CSV / Excel Converter (private, in your browser) · Netmend</title>
-<meta name="description" content="Convert PDF bank statements to CSV for Excel or Google Sheets for free. Runs in your browser: no upload, no sign-up, no page limit. European number formats supported.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conversor grátis de extrato bancário para CSV e Excel (privado, no browser) · Netmend</title>
+<meta name="description" content="Converta extratos bancários em PDF para CSV, para Excel ou Google Sheets, grátis. Corre no browser: sem envio, sem registo, sem limite de páginas. Formatos de números europeus incluídos.">
 <link rel="canonical" href="https://netmend.app/statement-to-csv/">
-<meta property="og:title" content="Free Bank Statement to CSV / Excel Converter (private, in your browser) · Netmend"><meta property="og:description" content="Convert PDF bank statements to CSV for Excel or Google Sheets for free. Runs in your browser: no upload, no sign-up, no page limit. European number formats supported.">
+<meta property="og:url" content="https://netmend.app/statement-to-csv/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/statement-to-csv/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/statement-to-csv/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/statement-to-csv/">
+<meta property="og:title" content="Conversor grátis de extrato bancário para CSV e Excel (privado, no browser) · Netmend"><meta property="og:description" content="Converta extratos bancários em PDF para CSV, para Excel ou Google Sheets, grátis. Corre no browser: sem envio, sem registo, sem limite de páginas. Formatos de números europeus incluídos.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../assets/tools.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Bank statement PDF → CSV, free and private","url":"https://netmend.app/statement-to-csv/","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/"}}</script>
-<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script><script defer src="app.js"></script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Extrato bancário em PDF para CSV, grátis e privado","url":"https://netmend.app/statement-to-csv/","applicationCategory":"BusinessApplication","operatingSystem":"Qualquer (browser)","inLanguage":"pt-PT","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/"}}</script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script><script defer src="/statement-to-csv/app.js"></script>
 </head><body>
-<header><div class="wrap"><a href="../"><img src="../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../#services">Services</a><a href="../#free-tools">Free tools</a><a class="cta" href="#waitlist">Done for you</a></nav></div></header>
-<div class="hero"><div class="wrap"><h1>Bank statement PDF → <span>CSV, free and private</span></h1><p>No upload, no sign-up, no page limit. Your statement never leaves your computer.</p><div class="pills"><span>100% in your browser</span><span>No account</span><span>EU formats: 1.234,56</span><span>Excel & Google Sheets</span></div></div></div>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/#free-tools">Ferramentas</a><a class="cta" href="#waitlist">Feito por nós</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/statement-to-csv/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/statement-to-csv/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
+<div class="hero"><div class="wrap"><h1>Extrato bancário em PDF → <span>CSV, grátis e privado</span></h1><p>Sem envio, sem registo, sem limite de páginas. O extrato nunca sai do computador.</p><div class="pills"><span>100% no browser</span><span>Sem conta</span><span>Formatos da UE: 1.234,56</span><span>Excel e Google Sheets</span></div></div></div>
 <section><div class="wrap">
-<h2>Convert a PDF bank statement now</h2>
-<p class="lead">Need Excel <code>.xlsx</code>, several files at once, or help with a messy layout? Try <a href="../statement/">Netmend Statement → Excel</a> (free first page, Pro $29 lifetime). This page stays the simple, unlimited CSV converter, with guides for 30 banks.</p>
-<p class="lead">Pick a PDF statement. We read the text <b>in your browser</b>, find the transactions (date, description, amount, balance) and give you a CSV that opens in Excel, Google Sheets, Numbers or LibreOffice. Works with European formats like <code>1.234,56</code> and <code>12/11/2026</code>.</p>
+<h2>Converter um extrato bancário em PDF agora</h2>
+<p class="lead">Precisa de Excel <code>.xlsx</code>, de vários ficheiros de uma vez, ou de ajuda com uma disposição confusa? Experimente o <a href="/statement/">Netmend Extrato → Excel</a> (primeira página grátis). Esta página continua a ser o conversor de CSV simples, sem limite, com guias para 30 bancos.</p>
+<p class="lead">Escolha um extrato em PDF. Lemos o texto <b>no browser</b>, encontramos os movimentos (data, descrição, montante, saldo) e devolvemos um CSV que abre no Excel, no Google Sheets, no Numbers ou no LibreOffice. Funciona com formatos europeus como <code>1.234,56</code> e <code>12/11/2026</code>.</p>
 <div class="tool">
-<label for="file">PDF statement (stays on your computer)</label><input id="file" type="file" accept="application/pdf"> <p class="note">No statement at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../samples/demo-statement.pdf">Try our demo statement</button> (fictional data)</p>
+<label for="file">Extrato em PDF (fica no computador)</label><input id="file" type="file" accept="application/pdf"> <p class="note">Não tem um extrato à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar o extrato de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions only</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto">Detect automatically</option><option value="eu">European 1.234,56</option><option value="us">UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value=",">Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Só movimentos</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto">Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us">Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value=",">Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against your statement before you use the file. Bank layouts differ: if a column is in the wrong place, try "Every text row", or send it to us.</p></div>
+<p class="note">Confira os totais com o extrato antes de usar o ficheiro. As disposições dos bancos diferem: se uma coluna estiver no sítio errado, experimente «Todas as linhas de texto» ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro neste computador. Não há servidor nem envio. Pode desligar a internet depois de a página carregar: continua a funcionar.</p>
 </div></section>
 <section class="alt" id="waitlist"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">Free tool for clean PDFs. For scans, photos, many accounts or a specific layout for your accounting software, our team converts them and checks every total.</p>
+<h2>Precisa que façamos por si?</h2>
+<p class="lead">A ferramenta grátis serve para PDF limpos. Para digitalizações, fotografias, várias contas ou uma disposição específica do software de contabilidade, convertemos e conferimos cada total.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div><p>75 pages $40 · 200 pages $80. Totals reconciled with the opening and closing balance. 48h. Pay on Fiverr.</p><a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Excel cheat sheet</b><div class="price">$5 <small>one-time</small></div><p>Once the statement is in Excel, a 2-page PDF of the 55 functions small businesses use most, in 6 languages, plus a practice workbook. Pay on Gumroad, not on this site.</p><a class="btn" href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">Buy the Excel cheat sheet ($5)</a></div>
-<div class="card"><b>Statement Pro</b><div class="price">$29 <small>one-time</small></div><p>Reads every page and several statements at once in this browser, instead of the free first page of one statement a day. Pay on Gumroad, not on this site. 14-day refund.</p><a class="btn" href="https://portugaldiary.gumroad.com/l/netmend-statement" target="_blank" rel="noopener noreferrer">Buy Statement Pro ($29)</a></div>
-<div class="card"><b>Bookkeeper pack (launch)</b><div class="price">$49 <small>one-time, launch price</small> <s>$79</s></div><p>A saved template for your clients' bank layouts + 300 pages converted by us in the first 3 months. For accountants and bookkeepers.</p></div>
+<div class="card"><b>Conversão feita por nós</b><p>Totais conferidos com o saldo inicial e o saldo final. 48 horas. O pagamento é na Fiverr.</p><a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a></div>
+<div class="card"><b>Folha de fórmulas do Excel</b><p>Com o extrato já em Excel, um PDF de 2 páginas com as 55 funções que as pequenas empresas mais usam, em 6 línguas, mais um livro de exercícios. O pagamento é na Gumroad, não neste site.</p><a class="btn" href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">Contacto</a></div>
+<div class="card"><b>Pro de extratos</b><p>Lê todas as páginas e vários extratos de uma vez neste browser, em vez da primeira página grátis de um extrato por dia. O pagamento é na Gumroad, não neste site. Reembolso em 14 dias.</p><a class="btn" href="https://portugaldiary.gumroad.com/l/netmend-statement" target="_blank" rel="noopener noreferrer">Contacto</a></div>
+<div class="card"><b>Pacote para contabilistas (lançamento)</b><p>Um modelo guardado para as disposições dos bancos dos clientes, mais páginas convertidas por nós nos primeiros 3 meses. Para contabilistas e técnicos de contas.</p></div>
 </div>
-<h3>Reserve the bookkeeper pack</h3>
-<form class="waitlist" data-product="Bookkeeper pack (statement conversion)" data-price="$49">
-<label for="wl-name">Your name or business</label><input id="wl-name" name="name" type="text" required autocomplete="organization">
-<label for="wl-site">Website (optional)</label><input id="wl-site" name="site" type="url" placeholder="https://">
-<div class="check"><input id="wl-res" name="reserve" type="checkbox" value="yes" required><label for="wl-res"><b>Reserve the launch price</b> ($49) for the bookkeeper pack. No payment now, no obligation to buy.</label></div>
-<div class="check"><input id="wl-news" name="news" type="checkbox" value="yes"><label for="wl-news"><b>I agree to receive one email when it launches</b> (and one if the launch is delayed). No other campaigns.</label></div>
-<p><button class="btn" type="submit">Join the waitlist by email</button></p>
-<p class="note">Opens your email app with a ready message to dayinportugal@gmail.com. We reply within 24h (Mon–Fri). When you order, you pay on Fiverr, Contra or Gumroad, never on this site.</p>
-</form><p class="note"><b>Privacy.</b> Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. This page does not send or store anything: the button only opens your own email app. If you email us, we use your name and email only to answer and, if you ticked the second box, to send one launch email. Legal basis: steps you asked for before a possible contract (GDPR art. 6(1)(b)) and, for the launch email, your consent (art. 6(1)(a)), which you can withdraw at any time. We delete waitlist emails 14 days after launch, or on 30/06/2027 if there is no launch. Reply REMOVE to leave the list or to ask for access, correction or deletion. You can complain to the Portuguese data protection authority (CNPD).</p>
+<h3>Reservar o pacote para contabilistas</h3>
+<form class="waitlist" data-product="Pacote para contabilistas (conversão de extratos)">
+<label for="wl-name">O seu nome ou a empresa</label><input id="wl-name" name="name" type="text" required autocomplete="organization">
+<label for="wl-site">Site (opcional)</label><input id="wl-site" name="site" type="url" placeholder="https://">
+<div class="check"><input id="wl-res" name="reserve" type="checkbox" value="yes" required><label for="wl-res"><b>Quero reservar o lançamento</b> do pacote para contabilistas. Sem pagamento agora e sem obrigação de compra.</label></div>
+<div class="check"><input id="wl-news" name="news" type="checkbox" value="yes"><label for="wl-news"><b>Aceito receber um email quando abrir</b> (e outro se o lançamento atrasar). Sem outras campanhas.</label></div>
+<p><button class="btn" type="submit">Entrar na lista de espera por email</button></p>
+<p class="note">Abre a aplicação de email com uma mensagem pronta para dayinportugal@gmail.com. Respondemos em 24 horas (segunda a sexta). Quando encomendar, o pagamento é na Fiverr, na Contra ou na Gumroad, nunca neste site.</p>
+</form><p class="note"><b>Privacidade.</b> Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Esta página não envia nem guarda nada: o botão só abre a sua aplicação de email. Se nos escrever, usamos o nome e o email só para responder e, se marcou a segunda caixa, para enviar um email de lançamento. Base legal: diligências pedidas antes de um eventual contrato (RGPD, art. 6.º, n.º 1, al. b)) e, para o email de lançamento, o consentimento (art. 6.º, n.º 1, al. a)), que pode retirar a qualquer momento. Apagamos os emails da lista 14 dias depois do lançamento, ou em 30/06/2027 se não houver lançamento. Responda REMOVE para sair da lista ou para pedir acesso, retificação ou apagamento. Pode apresentar queixa à Comissão Nacional de Proteção de Dados (CNPD).</p>
 </div></section>
-<section><div class="wrap"><h2>FAQ</h2>
-<details><summary>Is it really free?</summary><p>Yes. No account, no page limit, no watermark. We pay nothing to run it because it runs on your computer.</p></details>
-<details><summary>Which banks work?</summary><p>Any statement that is a real text PDF (you can select the text with the mouse). We built it with Portuguese, Spanish, French, German, UK and US layouts in mind. Scans need OCR: we do those by hand in the paid service.</p></details>
-<details><summary>How is this different from other converters?</summary><p>Most converters upload your statement to a server and charge per page after a small free allowance (for example 1 page per 24h without an account on bankstatementconverter.com, checked 12/11/2026). Here the file never leaves your browser and there is no limit.</p></details>
-<details><summary>Can I convert to Excel .xlsx?</summary><p>The CSV opens directly in Excel. Pick "Excel in Europe" if your Excel uses commas for decimals.</p></details>
+<section><div class="wrap"><h2>Perguntas frequentes</h2>
+<details><summary>É mesmo grátis?</summary><p>Sim. Sem conta, sem limite de páginas, sem marca de água. Não nos custa a correr, porque corre no seu computador.</p></details>
+<details><summary>Que bancos funcionam?</summary><p>Qualquer extrato que seja um PDF com texto verdadeiro (consegue selecionar o texto com o rato). Foi feito a pensar em disposições de Portugal, Espanha, França, Alemanha, Reino Unido e EUA. As digitalizações precisam de OCR: essas fazemo-las à mão no serviço por encomenda.</p></details>
+<details><summary>Em que é que isto difere de outros conversores?</summary><p>A maior parte dos conversores envia o extrato para um servidor e cobra por página depois de uma parte grátis pequena (por exemplo, 1 página por 24 horas sem conta no bankstatementconverter.com, consultado em 12/11/2026). Aqui o ficheiro nunca sai do browser e não há limite.</p></details>
+<details><summary>Posso converter para Excel .xlsx?</summary><p>O CSV abre diretamente no Excel. Escolha «Excel na Europa» se o Excel usar vírgulas nos decimais.</p></details>
 </div></section>
 
 
@@ -62,18 +66,19 @@
 
 
 <section class="alt" id="bank-guides"><div class="wrap">
-<h2>Guides for 30 banks</h2>
-<p class="lead">Each page explains that bank’s real columns, date format, decimal separator and where to download the official PDF or CSV — then embeds the same private converter, with the right number format already selected.</p>
-<div class="banklist"><a href="revolut/"><b>Revolut</b> PDF → CSV</a><a href="wise/"><b>Wise</b> PDF → CSV</a><a href="n26/"><b>N26</b> PDF → CSV</a><a href="millennium-bcp/"><b>Millennium bcp</b> PDF → CSV</a><a href="cgd/"><b>Caixa Geral de Depósitos</b> PDF → CSV</a><a href="santander/"><b>Santander UK</b> PDF → CSV</a><a href="bbva/"><b>BBVA</b> PDF → CSV</a><a href="caixabank/"><b>CaixaBank</b> PDF → CSV</a><a href="ing/"><b>ING</b> PDF → CSV</a><a href="barclays/"><b>Barclays</b> PDF → CSV</a><a href="hsbc/"><b>HSBC UK</b> PDF → CSV</a><a href="monzo/"><b>Monzo</b> PDF → CSV</a><a href="lloyds/"><b>Lloyds Bank</b> PDF → CSV</a><a href="natwest/"><b>NatWest</b> PDF → CSV</a><a href="chase/"><b>Chase</b> PDF → CSV</a><a href="bank-of-america/"><b>Bank of America</b> PDF → CSV</a><a href="wells-fargo/"><b>Wells Fargo</b> PDF → CSV</a><a href="deutsche-bank/"><b>Deutsche Bank</b> PDF → CSV</a><a href="starling/"><b>Starling</b> PDF → CSV</a><a href="halifax/"><b>Halifax</b> PDF → CSV</a><a href="nationwide/"><b>Nationwide</b> PDF → CSV</a><a href="tsb/"><b>TSB</b> PDF → CSV</a><a href="capital-one/"><b>Capital One</b> PDF → CSV</a><a href="citibank/"><b>Citibank</b> PDF → CSV</a><a href="us-bank/"><b>U.S. Bank</b> PDF → CSV</a><a href="pnc/"><b>PNC</b> PDF → CSV</a><a href="american-express/"><b>American Express</b> PDF → CSV</a><a href="bunq/"><b>bunq</b> PDF → CSV</a><a href="abn-amro/"><b>ABN AMRO</b> PDF → CSV</a><a href="commerzbank/"><b>Commerzbank</b> PDF → CSV</a></div>
+<h2>Guias para 30 bancos</h2>
+<p class="lead">Cada página explica as colunas reais desse banco, o formato da data, o separador decimal e onde transferir o PDF ou o CSV oficial. Depois inclui o mesmo conversor privado, com o formato dos números já escolhido.</p>
+<div class="banklist"><a href="/statement-to-csv/revolut/"><b>Revolut</b> PDF para CSV</a><a href="/statement-to-csv/wise/"><b>Wise</b> PDF para CSV</a><a href="/statement-to-csv/n26/"><b>N26</b> PDF para CSV</a><a href="/statement-to-csv/millennium-bcp/"><b>Millennium bcp</b> PDF para CSV</a><a href="/statement-to-csv/cgd/"><b>Caixa Geral de Depósitos</b> PDF para CSV</a><a href="/statement-to-csv/santander/"><b>Santander UK</b> PDF para CSV</a><a href="/statement-to-csv/bbva/"><b>BBVA</b> PDF para CSV</a><a href="/statement-to-csv/caixabank/"><b>CaixaBank</b> PDF para CSV</a><a href="/statement-to-csv/ing/"><b>ING</b> PDF para CSV</a><a href="/statement-to-csv/barclays/"><b>Barclays</b> PDF para CSV</a><a href="/statement-to-csv/hsbc/"><b>HSBC UK</b> PDF para CSV</a><a href="/statement-to-csv/monzo/"><b>Monzo</b> PDF para CSV</a><a href="/statement-to-csv/lloyds/"><b>Lloyds Bank</b> PDF para CSV</a><a href="/statement-to-csv/natwest/"><b>NatWest</b> PDF para CSV</a><a href="/statement-to-csv/chase/"><b>Chase</b> PDF para CSV</a><a href="/statement-to-csv/bank-of-america/"><b>Bank of America</b> PDF para CSV</a><a href="/statement-to-csv/wells-fargo/"><b>Wells Fargo</b> PDF para CSV</a><a href="/statement-to-csv/deutsche-bank/"><b>Deutsche Bank</b> PDF para CSV</a><a href="/statement-to-csv/starling/"><b>Starling</b> PDF para CSV</a><a href="/statement-to-csv/halifax/"><b>Halifax</b> PDF para CSV</a><a href="/statement-to-csv/nationwide/"><b>Nationwide</b> PDF para CSV</a><a href="/statement-to-csv/tsb/"><b>TSB</b> PDF para CSV</a><a href="/statement-to-csv/capital-one/"><b>Capital One</b> PDF para CSV</a><a href="/statement-to-csv/citibank/"><b>Citibank</b> PDF para CSV</a><a href="/statement-to-csv/us-bank/"><b>U.S. Bank</b> PDF para CSV</a><a href="/statement-to-csv/pnc/"><b>PNC</b> PDF para CSV</a><a href="/statement-to-csv/american-express/"><b>American Express</b> PDF para CSV</a><a href="/statement-to-csv/bunq/"><b>bunq</b> PDF para CSV</a><a href="/statement-to-csv/abn-amro/"><b>ABN AMRO</b> PDF para CSV</a><a href="/statement-to-csv/commerzbank/"><b>Commerzbank</b> PDF para CSV</a></div>
 </div></section>
-<section><div class="wrap"><h2>More free tools</h2><div class="toolsnav"><a href="../wall-of-love/">Testimonial wall</a><a href="../pin-maker/">Pinterest pin maker</a><a href="../guides/">PDF to Excel guides</a><a href="../compare/">Comparisons</a><a href="../excel-functions/">Excel functions in 6 languages</a><a href="../">All Netmend services</a></div></div></section>
+<section><div class="wrap"><h2>Mais ferramentas grátis</h2><div class="toolsnav"><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="/excel-functions/">Funções de Excel em 6 línguas</a><a href="/">Todos os serviços Netmend</a></div></div></section>
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../"><img src="../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../x-post-writer/">X Post Writer</a><a href="../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="https://portugaldiary.gumroad.com/l/xxuuqg" target="_blank" rel="noopener noreferrer">X Reach Checker licence $19</a><a href="../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../statement-to-csv/">Statement PDF to CSV</a><a href="../excel-functions/">Excel formula translator</a><a href="../wall-of-love/">Testimonial wall</a><a href="../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../x-growth/">X growth guides</a><a href="../guides/">PDF to Excel guides</a><a href="../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="https://portugaldiary.gumroad.com/l/xxuuqg" target="_blank" rel="noopener noreferrer">Licença do X Reach Checker</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas de Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias de crescimento no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem rastreadores e sem registo. As ferramentas grátis correm no browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
-<script src="../assets/waitlist.js"></script></body></html>
+<script src="/assets/waitlist.js"></script><script src="/assets/lang.js"></script>
+</body></html>

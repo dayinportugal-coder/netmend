@@ -1,123 +1,127 @@
 <!doctype html>
-<html lang="en"><head>
+<html lang="pt-PT"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>How to write an X thread (a practical structure) · Netmend</title>
-<meta name="description" content="How to write an X thread: when to use one, how to structure it, and original examples. Shorter than your enthusiasm. No virality promises.">
+<title>Como escrever um thread no X (uma estrutura prática) · Netmend</title>
+<meta name="description" content="Como escrever um thread no X: quando usar um, como o estruturar, e exemplos originais. Mais curto do que o entusiasmo. Sem promessas de viralidade.">
 <link rel="canonical" href="https://netmend.app/x-growth/how-to-write-an-x-thread/">
-<meta property="og:title" content="How to write an X thread (a practical structure) · Netmend">
-<meta property="og:description" content="How to write an X thread: when to use one, how to structure it, and original examples. Shorter than your enthusiasm. No virality promises.">
+<meta property="og:url" content="https://netmend.app/x-growth/how-to-write-an-x-thread/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/x-growth/how-to-write-an-x-thread/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/x-growth/how-to-write-an-x-thread/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/x-growth/how-to-write-an-x-thread/">
+<meta property="og:title" content="Como escrever um thread no X (uma estrutura prática) · Netmend">
+<meta property="og:description" content="Como escrever um thread no X: quando usar um, como o estruturar, e exemplos originais. Mais curto do que o entusiasmo. Sem promessas de viralidade.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Single post or thread?", "acceptedAnswer": {"@type": "Answer", "text": "If one screen can hold the idea without cramping, use a single post. Threads cost the reader a click. Spend that click only when the sequence needs it."}}, {"@type": "Question", "name": "Can I add images to each post?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, if each image earns its place (a diagram, a screenshot you are allowed to show). Decorative images on every post slow people down."}}, {"@type": "Question", "name": "Should I pin a thread?", "acceptedAnswer": {"@type": "Answer", "text": "Pin one that still describes the work you do. A dated fight or a one-week promotion is a poor pin."}}], "url": "https://netmend.app/x-growth/how-to-write-an-x-thread/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Publicação única ou thread?", "acceptedAnswer": {"@type": "Answer", "text": "Se um ecrã consegue conter a ideia sem a apertar, use uma publicação única. Os threads custam um clique ao leitor. Gaste esse clique só quando a sequência precisar dele."}}, {"@type": "Question", "name": "Posso acrescentar imagens a cada publicação?", "acceptedAnswer": {"@type": "Answer", "text": "Sim, se cada imagem ganhar o lugar (um diagrama, uma captura que tenha autorização para mostrar). Imagens decorativas em cada publicação atrasam as pessoas."}}, {"@type": "Question", "name": "Devo fixar um thread?", "acceptedAnswer": {"@type": "Answer", "text": "Fixe um que ainda descreva o trabalho que faz. Uma discussão datada ou uma promoção de uma semana é uma má fixação."}}], "url": "https://netmend.app/x-growth/how-to-write-an-x-thread/"}</script>
 
 </head><body>
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../../x-post-writer/">X Post Writer</a>
-<a class="cta" href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime $19</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/x-post-writer/">X Post Writer</a>
+<a class="cta" href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/x-growth/how-to-write-an-x-thread/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/x-growth/how-to-write-an-x-thread/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">X growth guides</a> · How to write an X thread</p>
-<h1>How to write an <span>X thread</span></h1>
-<p>A thread is a good shape when you have a sequence: a method, a story with more than one turn, or a list that would be cramped in a single post. It is a bad shape when you have one idea and you are stretching it so it looks like a “thread”.</p>
-<div class="pills"><span>Example posts you can adapt</span><span>Free writer in your browser</span><span>Lifetime license $19 for the first 50</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/x-growth/">Guias de crescimento no X</a> · Como escrever um thread no X</p>
+<h1>Como escrever um <span>thread no X</span></h1>
+<p>Um thread é uma boa forma quando tem uma sequência: um método, uma história com mais do que uma volta, ou uma lista que ficaria apertada numa só publicação. É uma má forma quando tem uma ideia e a está a esticar para parecer um «thread».</p>
+<div class="pills"><span>Publicações de exemplo para adaptar</span><span>Escritor grátis no browser</span><span>Licença vitalícia</span></div>
 </div></div>
 <section><div class="wrap">
-<p>If you came here because you want a thread to travel widely, read the companion page on writing a so-called viral thread as well. The craft is the same. The honest limit is the same: you can make a thread easy to read, you cannot order it to spread.</p>
-<p>Standard accounts still work in a short character budget per post; longer posts exist on paid X plans. Check the counter in your own composer. Either way, one idea per post is easier to read on a phone than a wall of text split at random.</p>
-<h2>Build it in this order</h2><ul>
-<li><b>Write the point in one sentence.</b> If you cannot, you are not ready to thread it.</li>
-<li><b>List the posts as headings</b> (five to eight at most, often fewer). Each heading is one idea.</li>
-<li><b>Write the first post last.</b> It has to stand alone in the feed, with a concrete hook.</li>
-<li><b>Write the middle in order.</b> Steps, examples, a failed attempt, a limit. Number them if the sequence matters.</li>
-<li><b>Write a finish</b> that is a takeaway or a next step, not a cliff-hanger for “part 2” you have not written.</li>
-<li><b>Cut.</b> Read it once without mercy. Any post that only says “as I mentioned” goes.</li>
+<p>Se chegou aqui porque quer que um thread viaje longe, leia também a página companheira sobre escrever um chamado thread viral. O ofício é o mesmo. O limite honesto é o mesmo: pode tornar um thread fácil de ler, não pode ordenar que se espalhe.</p>
+<p>As contas habituais continuam a trabalhar com um orçamento curto de caracteres por publicação; publicações mais longas existem em planos pagos do X. Veja o contador no seu próprio compositor. De uma forma ou de outra, uma ideia por publicação lê-se melhor no telemóvel do que uma parede de texto partida ao acaso.</p>
+<h2>Construa-o por esta ordem</h2><ul>
+<li><b>Escreva o ponto numa frase.</b> Se não conseguir, não está pronto para o pôr em thread.</li>
+<li><b>Liste as publicações como títulos</b> (cinco a oito no máximo, muitas vezes menos). Cada título é uma ideia.</li>
+<li><b>Escreva a primeira publicação no fim.</b> Tem de se aguentar sozinha no feed, com um gancho concreto.</li>
+<li><b>Escreva o meio por ordem.</b> Passos, exemplos, uma tentativa falhada, um limite. Numere se a sequência importar.</li>
+<li><b>Escreva um fecho</b> que seja uma conclusão ou um passo seguinte, não um suspense para uma «parte 2» que ainda não escreveu.</li>
+<li><b>Corte.</b> Leia uma vez sem piedade. Qualquer publicação que só diga «como referi» sai.</li>
 </ul>
-<h2>Example threads and shapes</h2><div class="xpw-out">
-<article class="xpw-card"><header><span class="fmt">Method thread, 5 posts · example</span></header>
-<pre>1/ A freelance project I will not start without a written brief any more. The brief is four lines.
+<h2>Threads e formas de exemplo</h2><div class="xpw-out">
+<article class="xpw-card"><header><span class="fmt">Thread de método, 5 publicações · exemplo</span></header>
+<pre>1/ Um projeto de freelancer que já não começo sem um briefing escrito. O briefing são quatro linhas.
 
-2/ What already exists: files, logins, brand, earlier drafts.
+2/ O que já existe: ficheiros, acessos, marca, rascunhos anteriores.
 
-3/ What “done” looks like, in deliverable files, not in a feeling.
+3/ Como é o «feito», em ficheiros entregáveis, não num sentimento.
 
-4/ The drop-dead date, and why it is that date.
+4/ A data limite, e porque é essa data.
 
-5/ Who signs off — one name. If those four lines cannot be written, we do not book a kickoff call. That is the whole method.</pre></article>
-<article class="xpw-card"><header><span class="fmt">Story thread, 4 posts · example</span></header>
-<pre>1/ We had a ticket we answered 40 times in October, and it was not a bug.
+5/ Quem aprova — um nome. Se essas quatro linhas não puderem ser escritas, não marcamos uma chamada de arranque. É o método todo.</pre></article>
+<article class="xpw-card"><header><span class="fmt">Thread de história, 4 publicações · exemplo</span></header>
+<pre>1/ Tivemos um pedido a que respondemos 40 vezes em outubro, e não era um erro.
 
-2/ People were pasting an API token into the workspace ID field. The docs said not to. The docs were not being read at that moment.
+2/ As pessoas colavam um token de API no campo do ID do espaço de trabalho. A documentação dizia para não o fazer. A documentação não estava a ser lida naquele momento.
 
-3/ We relabelled the field, put an example value in the box, and rejected tokens with a specific error.
+3/ Mudámos o nome do campo, pusemos um valor de exemplo na caixa, e passámos a rejeitar tokens com um erro específico.
 
-4/ Tickets dropped. The lesson I kept: if a mistake repeats, change the interface, not only the help article.</pre></article>
-<article class="xpw-card"><header><span class="fmt">List thread, 4 posts · example</span></header>
-<pre>1/ Four things I put in a product page before any adjective.
+4/ Os pedidos desceram. A lição que fiquei: se um erro se repete, mude a interface, não só o artigo de ajuda.</pre></article>
+<article class="xpw-card"><header><span class="fmt">Thread de lista, 4 publicações · exemplo</span></header>
+<pre>1/ Quatro coisas que ponho numa ficha de produto antes de qualquer adjectivo.
 
-2/ What it is made of, and a limit of the material (this jumper shrinks if you tumble it).
+2/ De que é feito, e um limite do material (esta camisola encolhe na máquina de secar).
 
-3/ When it ships, in dates I can keep, not “ASAP”.
+3/ Quando sai, em datas que consigo cumprir, não «o mais rápido possível».
 
-4/ How a return works, in the same words as the official policy. The adjectives can come after those four, or not at all.</pre></article>
-<article class="xpw-card"><header><span class="fmt">When not to thread · example</span></header>
-<pre>If the second post is only a punchline, you have a single post.
-If you are repeating the same idea in new words, you have a single post.
-If the useful part is a link, write one post and the link, not a runway of empty posts.</pre></article>
-<article class="xpw-card"><header><span class="fmt">First post, weak vs stronger · example</span></header>
-<pre>Weak: “Some thoughts on briefing, a thread.”
+4/ Como funciona uma devolução, nas mesmas palavras da política oficial. Os adjectivos podem vir depois destas quatro, ou não vir.</pre></article>
+<article class="xpw-card"><header><span class="fmt">Quando não fazer thread · exemplo</span></header>
+<pre>Se a segunda publicação é só um remate, tem uma publicação única.
+Se está a repetir a mesma ideia com palavras novas, tem uma publicação única.
+Se a parte útil é um link, escreva uma publicação e o link, não uma pista de publicações vazias.</pre></article>
+<article class="xpw-card"><header><span class="fmt">Primeira publicação, fraca e mais forte · exemplo</span></header>
+<pre>Fraca: «Umas ideias sobre briefings, um thread.»
 
-Stronger: “I will not start a freelance project without a four-line brief any more. Here are the four lines, and what I do if they cannot be written.”</pre></article>
-<article class="xpw-card"><header><span class="fmt">Numbering · example</span></header>
-<pre>Numbering helps when the order matters (a method, a timeline). It is optional when you are offering a set of examples. If you number, keep the count honest: do not write “1/17” and then run out of material at 6.</pre></article>
-<article class="xpw-card"><header><span class="fmt">A finish · example</span></header>
-<pre>Useful: “That is the whole method. I use it on website projects; your trade may need different lines.”
+Mais forte: «Já não começo um projeto de freelancer sem um briefing de quatro linhas. Aqui estão as quatro linhas, e o que faço se não puderem ser escritas.»</pre></article>
+<article class="xpw-card"><header><span class="fmt">Numeração · exemplo</span></header>
+<pre>Numerar ajuda quando a ordem importa (um método, uma linha de tempo). É opcional quando está a oferecer um conjunto de exemplos. Se numerar, mantenha a contagem honesta: não escreva «1/17» e fique sem matéria no 6.</pre></article>
+<article class="xpw-card"><header><span class="fmt">Um fecho · exemplo</span></header>
+<pre>Útil: «É o método todo. Uso-o em projetos de sites; o seu ofício pode precisar de outras linhas.»
 
-Less useful: “Follow me for part 2, where I reveal the template.” If the template is the point, it belongs in this thread, or in a linked page.</pre></article>
-<article class="xpw-card"><header><span class="fmt">Editing pass · example</span></header>
-<pre>Read only post 1. Would you open the rest?
-Read only the last post. Does it close, or does it fade out?
-Read the middle on a phone preview. Cut a post. If nothing breaks, leave it cut.</pre></article>
+Menos útil: «Siga-me para a parte 2, onde revelo o modelo.» Se o modelo é o ponto, pertence a este thread, ou a uma página ligada.</pre></article>
+<article class="xpw-card"><header><span class="fmt">Passagem de edição · exemplo</span></header>
+<pre>Leia só a publicação 1. Abriria o resto?
+Leia só a última. Fecha, ou esmorece?
+Leia o meio na pré-visualização do telemóvel. Corte uma publicação. Se nada partir, deixe-a cortada.</pre></article>
 </div>
-<p class="note">These are original example drafts, written for this page, for a fictional professional. They are not real posts from a real account, and they are not a promise of reach, clients or sales. Adapt the structure; replace every fact with one you can stand behind.</p>
-<p>If you want 10 short-thread drafts in your tone, choose “short threads” in the free X Post Writer, paste a few of your old posts and the outline, and then cut. The tool will happily invent a sixth step you do not use. Remove it.</p>
-
+<p class="note">Estes são rascunhos originais, escritos para esta página, de um profissional fictício. Não são publicações de uma conta real, nem uma promessa de alcance, clientes ou vendas. Adapte a estrutura e substitua cada facto por um que consiga defender.</p>
+<p>Se quiser 10 rascunhos de threads curtos no seu tom, escolha «threads curtos» no X Post Writer grátis, cole algumas publicações antigas e o índice, e depois corte. A ferramenta inventa com gosto um sexto passo que não usa. Retire-o.</p>
 </div></section>
 
 <section id="try-the-writer" class="alt"><div class="wrap">
-<h2>Turn one of these ideas into 10 drafts, in your voice</h2>
-<p class="lead">The free <a href="../../x-post-writer/">X Post Writer</a> runs in your browser. Paste a few of your old posts and a rough idea. It writes 10 drafts that follow hook structures like the ones on this page. 3 generations a day, with your own Gemini API key. Nothing is sent to Netmend: there is no server on this tool.</p>
+<h2>Passe uma destas ideias a 10 rascunhos, na sua voz</h2>
+<p class="lead">O <a href="/x-post-writer/">X Post Writer</a> grátis corre no browser. Cole algumas das suas publicações antigas e uma ideia em bruto. Escreve 10 rascunhos com estruturas de gancho como as desta página. 3 gerações por dia, com a sua chave da API Gemini. Nada é enviado à Netmend: esta ferramenta não tem servidor.</p>
 <div class="grid">
-<div class="card"><b>Free, in your browser</b><div class="price">$0</div><p>3 generations a day, 10 drafts each time, your own Gemini key. No account.</p>
-<p><a class="btn" href="../../x-post-writer/">Open the free writer</a></p></div>
-<div class="card"><b>Lifetime license</b><div class="price">$19 <small>founding, first 50</small> <s>$29</s></div>
-<p>Pay once on Gumroad. Founding price $19 for the first 50 licenses, then $29. The free 3-a-day tool remains.</p>
-<p><a class="btn sec" href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Pre-order on Gumroad ($19)</a></p></div>
+<div class="card"><b>Grátis, no browser</b><p>3 gerações por dia, 10 rascunhos de cada vez, com a sua chave Gemini. Sem conta.</p>
+<p><a class="btn" href="/x-post-writer/">Abrir o escritor grátis</a></p></div>
+<div class="card"><b>Licença vitalícia</b>
+<p>Pagamento único no Gumroad. A ferramenta grátis, com 3 gerações por dia, mantém-se.</p>
+<p><a class="btn sec" href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia no Gumroad</a></p></div>
 </div>
-<p class="note">Payment is handled by Gumroad, not on this site. Questions: <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. This is a writing aid. It will not post for you, and it cannot promise impressions, followers or sales.</p>
+<p class="note">O pagamento é tratado pelo Gumroad, não neste site. Dúvidas: <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Isto é uma ajuda à escrita. Não publica por si e não pode prometer impressões, seguidores ou vendas.</p>
 </div></section>
 
-<section id="faq"><div class="wrap"><h2>FAQ</h2>
-<details><summary>Single post or thread?</summary><p>If one screen can hold the idea without cramping, use a single post. Threads cost the reader a click. Spend that click only when the sequence needs it.</p></details>
-<details><summary>Can I add images to each post?</summary><p>Yes, if each image earns its place (a diagram, a screenshot you are allowed to show). Decorative images on every post slow people down.</p></details>
-<details><summary>Should I pin a thread?</summary><p>Pin one that still describes the work you do. A dated fight or a one-week promotion is a poor pin.</p></details>
+<section id="faq"><div class="wrap"><h2>Perguntas frequentes</h2>
+<details><summary>Publicação única ou thread?</summary><p>Se um ecrã consegue conter a ideia sem a apertar, use uma publicação única. Os threads custam um clique ao leitor. Gaste esse clique só quando a sequência precisar dele.</p></details>
+<details><summary>Posso acrescentar imagens a cada publicação?</summary><p>Sim, se cada imagem ganhar o lugar (um diagrama, uma captura que tenha autorização para mostrar). Imagens decorativas em cada publicação atrasam as pessoas.</p></details>
+<details><summary>Devo fixar um thread?</summary><p>Fixe um que ainda descreva o trabalho que faz. Uma discussão datada ou uma promoção de uma semana é uma má fixação.</p></details>
 </div></section>
 
-<section class="alt"><div class="wrap"><h2>Related guides</h2>
+<section class="alt"><div class="wrap"><h2>Guias relacionados</h2>
 <div class="banklist">
-<a href="../how-to-write-a-viral-x-thread/"><b>How to write a viral X thread</b></a><a href="../x-hook-formulas/"><b>X hook formulas</b></a><a href="../x-post-ideas-for-consultants/"><b>X post ideas for consultants</b></a><a href="../how-to-write-x-posts-in-your-own-voice/"><b>How to write X posts in your own voice</b></a><a href="../"><b>All X growth guides</b></a><a href="../../x-post-writer/"><b>Free X Post Writer</b></a></div>
-<p class="note" style="margin-top:16px"><a href="../../">All Netmend services</a></p>
+<a href="/x-growth/how-to-write-a-viral-x-thread/"><b>Como escrever um thread viral no X</b></a><a href="/x-growth/x-hook-formulas/"><b>Fórmulas de gancho no X</b></a><a href="/x-growth/x-post-ideas-for-consultants/"><b>Ideias de publicações no X para consultores</b></a><a href="/x-growth/how-to-write-x-posts-in-your-own-voice/"><b>Como escrever publicações no X na sua voz</b></a><a href="/x-growth/"><b>Todos os guias de crescimento no X</b></a><a href="/x-post-writer/"><b>X Post Writer grátis</b></a></div>
+<p class="note" style="margin-top:16px"><a href="/">Todos os serviços da Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho de back-office para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas de Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias de crescimento no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem conta. As ferramentas grátis correm no browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

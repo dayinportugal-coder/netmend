@@ -1,77 +1,82 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>XLOOKUP in Portuguese = PROCX (Spanish BUSCARX, French RECHERCHEX, German XVERWEIS, Italian CERCA.X) · Netmend</title>
-<meta name="description" content="What is XLOOKUP in Portuguese? PROCX. Also BUSCARX, RECHERCHEX, XVERWEIS, CERCA.X. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>XLOOKUP em português = PROCX (espanhol BUSCARX, francês RECHERCHEX, alemão XVERWEIS, italiano CERCA.X) · Netmend</title>
+<meta name="description" content="O que é XLOOKUP em português? PROCX. Também BUSCARX, RECHERCHEX, XVERWEIS, CERCA.X. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <link rel="canonical" href="https://netmend.app/excel-functions/xlookup/">
-<meta property="og:title" content="XLOOKUP in Portuguese = PROCX (Spanish BUSCARX, French RECHERCHEX, German XVERWEIS, Italian CERCA.X) · Netmend"><meta property="og:description" content="What is XLOOKUP in Portuguese? PROCX. Also BUSCARX, RECHERCHEX, XVERWEIS, CERCA.X. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<meta property="og:url" content="https://netmend.app/excel-functions/xlookup/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/excel-functions/xlookup/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/excel-functions/xlookup/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/excel-functions/xlookup/">
+<meta property="og:title" content="XLOOKUP em português = PROCX (espanhol BUSCARX, francês RECHERCHEX, alemão XVERWEIS, italiano CERCA.X) · Netmend"><meta property="og:description" content="O que é XLOOKUP em português? PROCX. Também BUSCARX, RECHERCHEX, XVERWEIS, CERCA.X. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "XLOOKUP in Portuguese = PROCX (Spanish BUSCARX, French RECHERCHEX, German XVERWEIS, Italian CERCA.X) · Netmend", "url": "https://netmend.app/excel-functions/xlookup/", "inLanguage": ["en", "pt", "es", "fr", "de", "it"], "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "What is XLOOKUP in Portuguese? PROCX. Also BUSCARX, RECHERCHEX, XVERWEIS, CERCA.X. Syntax and a worked example in all 6 languages, plus a free formula translator."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is XLOOKUP in Portuguese?", "acceptedAnswer": {"@type": "Answer", "text": "PROCX. Spanish BUSCARX, French RECHERCHEX, German XVERWEIS, Italian CERCA.X."}}, {"@type": "Question", "name": "How do I return the last two columns before a Total heading?", "acceptedAnswer": {"@type": "Answer", "text": "Do not hard-code column L. Use MATCH or XMATCH on the header row to find “Total”, then return the two columns to its left, or use a table with structured names."}}, {"@type": "Question", "name": "Can it look to the left?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The lookup array and the return array are separate, unlike VLOOKUP."}}], "url": "https://netmend.app/excel-functions/xlookup/"}</script>
-<script src="../data.js"></script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "XLOOKUP em português = PROCX (espanhol BUSCARX, francês RECHERCHEX, alemão XVERWEIS, italiano CERCA.X) · Netmend", "url": "https://netmend.app/excel-functions/xlookup/", "inLanguage": "pt-PT", "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "O que é XLOOKUP em português? PROCX. Também BUSCARX, RECHERCHEX, XVERWEIS, CERCA.X. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O que é XLOOKUP em português?", "acceptedAnswer": {"@type": "Answer", "text": "PROCX. Espanhol BUSCARX, francês RECHERCHEX, alemão XVERWEIS, italiano CERCA.X."}}, {"@type": "Question", "name": "Como se devolvem as duas colunas antes de um cabeçalho Total?", "acceptedAnswer": {"@type": "Answer", "text": "Não fixe a coluna L. Use MATCH ou XMATCH na linha de cabeçalhos para encontrar «Total» e devolva as duas colunas à esquerda, ou use uma tabela com nomes estruturados."}}, {"@type": "Question", "name": "Pode procurar à esquerda?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. O intervalo de procura e o intervalo a devolver são separados, ao contrário de VLOOKUP."}}], "url": "https://netmend.app/excel-functions/xlookup/"}</script>
+<script src="/excel-functions/data.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Formula translator</a><a class="cta" href="#done-for-you">Sheet fix $25</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/excel-functions/">Tradutor de fórmulas</a><a class="cta" href="#done-for-you">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/excel-functions/xlookup/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/excel-functions/xlookup/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Excel functions</a> · XLOOKUP = PROCX</p>
-<h1>XLOOKUP in Portuguese = <span>PROCX</span></h1>
-<p>XLOOKUP = PROCX = BUSCARX = RECHERCHEX = XVERWEIS = CERCA.X. Looks up a value in one range and returns the matching value from another range, in any direction.</p>
-<div class="pills"><span>6 languages</span><span>Syntax + example</span><span>Fixes , vs ;</span><span>Free translator</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/excel-functions/">Funções do Excel</a> · XLOOKUP = PROCX</p>
+<h1>XLOOKUP em português = <span>PROCX</span></h1>
+<p>XLOOKUP = PROCX = BUSCARX = RECHERCHEX = XVERWEIS = CERCA.X. Procura um valor num intervalo e devolve o valor correspondente de outro intervalo, em qualquer direção.</p>
+<div class="pills"><span>6 línguas</span><span>Sintaxe + exemplo</span><span>Corrige , e ;</span><span>Tradutor gratuito</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>What XLOOKUP does</h2>
-<p class="lead">It replaces most VLOOKUP and INDEX/MATCH work, but the name is still new in other languages (PROCX, BUSCARX, RECHERCHEX, XVERWEIS, CERCA.X).</p>
-<p>Looks up a value in one range and returns the matching value from another range, in any direction.</p>
-<h2>Syntax and a worked example in 6 languages</h2>
-<p class="lead">English Excel uses commas between arguments and a dot decimal. Most European Excel versions use semicolons and a decimal comma. TRUE / FALSE also change name. The translator below applies all three.</p>
-<div class="facts"><div><b>English — XLOOKUP</b><pre>=XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])</pre><pre>=XLOOKUP(A2,Prices!A:A,Prices!C:C,&quot;not found&quot;)</pre></div><div><b>Português (PT) — PROCX</b><pre>=PROCX(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=PROCX(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div><div><b>Español — BUSCARX</b><pre>=BUSCARX(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=BUSCARX(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div><div><b>Français — RECHERCHEX</b><pre>=RECHERCHEX(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=RECHERCHEX(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div><div><b>Deutsch — XVERWEIS</b><pre>=XVERWEIS(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=XVERWEIS(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div><div><b>Italiano — CERCA.X</b><pre>=CERCA.X(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=CERCA.X(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div></div>
-<h2>Common mistakes</h2>
+<h2>O que faz XLOOKUP</h2>
+<p class="lead">Substitui a maior parte do trabalho de VLOOKUP e de INDEX/MATCH, mas o nome ainda é recente nas outras línguas (PROCX, BUSCARX, RECHERCHEX, XVERWEIS, CERCA.X).</p>
+<p>Procura um valor num intervalo e devolve o valor correspondente de outro intervalo, em qualquer direção.</p>
+<h2>Sintaxe e um exemplo resolvido em 6 línguas</h2>
+<p class="lead">O Excel em inglês separa os argumentos com vírgula e usa ponto decimal. Na maior parte das versões europeias, o separador é ponto e vírgula e a vírgula é o decimal. TRUE e FALSE também mudam de nome. O tradutor em baixo aplica as três alterações.</p>
+<div class="facts"><div><b>Inglês — XLOOKUP</b><pre>=XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])</pre><pre>=XLOOKUP(A2,Prices!A:A,Prices!C:C,&quot;not found&quot;)</pre></div><div><b>Português (PT) — PROCX</b><pre>=PROCX(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=PROCX(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div><div><b>Espanhol — BUSCARX</b><pre>=BUSCARX(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=BUSCARX(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div><div><b>Francês — RECHERCHEX</b><pre>=RECHERCHEX(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=RECHERCHEX(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div><div><b>Alemão — XVERWEIS</b><pre>=XVERWEIS(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=XVERWEIS(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div><div><b>Italiano — CERCA.X</b><pre>=CERCA.X(lookup_value; lookup_array; return_array; [if_not_found]; [match_mode]; [search_mode])</pre><pre>=CERCA.X(A2;Prices!A:A;Prices!C:C;&quot;not found&quot;)</pre></div></div>
+<h2>Erros frequentes</h2>
 <ul>
-<li>lookup_array and return_array must be the same size. A mismatch returns #VALUE!.</li>
-<li>match_mode 0 (or omitted) is exact. Use -1 for exact or next smaller (useful for commission tiers). 1 is exact or next larger. 2 is a wildcard match.</li>
-<li>If the return array is a whole row or several columns, XLOOKUP spills. When monthly columns are inserted, a hard-coded range such as L:L will not move — look up the header (for example the last heading before “Total”) instead of a fixed column letter.</li>
-<li>Not available in very old Excel (Excel 2019 and earlier without Microsoft 365). Have a VLOOKUP or INDEX/MATCH fallback if you share the file.</li>
+<li>lookup_array e return_array têm de ter o mesmo tamanho. Se não tiverem, o resultado é #VALOR!.</li>
+<li>match_mode 0 (ou omitido) é correspondência exata. Use -1 para exata ou a seguinte mais pequena (útil em escalões de comissão). 1 é exata ou a seguinte maior. 2 é correspondência com caracteres universais.</li>
+<li>Se o intervalo a devolver for uma linha inteira ou várias colunas, XLOOKUP ocupa as células ao lado. Quando se inserem colunas mensais, um intervalo fixo como L:L não se mexe — procure o cabeçalho (por exemplo o último antes de «Total») em vez de uma letra de coluna fixa.</li>
+<li>Não existe em Excel muito antigo (Excel 2019 e anteriores, sem Microsoft 365). Se partilhar o ficheiro, tenha uma alternativa com VLOOKUP ou INDEX/MATCH.</li>
 </ul>
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>Translate a formula with XLOOKUP</h2>
-<p class="lead">Paste any formula. Function names and separators are converted between English, Portuguese, Spanish, French, German and Italian.</p>
+<h2>Traduzir uma fórmula com XLOOKUP</h2>
+<p class="lead">Cole qualquer fórmula. Os nomes das funções e os separadores são convertidos entre inglês, português, espanhol, francês, alemão e italiano.</p>
 <div class="tool">
-<label for="f">Formula</label>
+<label for="f">Fórmula</label>
 <textarea id="f" style="min-height:70px;font-family:monospace">=XLOOKUP(A2,Prices!A:A,Prices!C:C,&quot;not found&quot;)</textarea>
-<div class="row"><div><label for="from">From</label><select id="from"></select></div><div><label for="to">To</label><select id="to"></select></div></div>
-<p><button class="btn ghost" id="swap" type="button">⇄ Swap</button></p>
-<label for="res">Result</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
-<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copy result</button></p>
-<p class="note">Sheet names and cell references are not translated. Google Sheets accepts English function names, but uses your locale’s separators.</p>
+<div class="row"><div><label for="from">De</label><select id="from"></select></div><div><label for="to">Para</label><select id="to"></select></div></div>
+<p><button class="btn ghost" id="swap" type="button">⇄ Trocar</button></p>
+<label for="res">Resultado</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
+<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copiar resultado</button></p>
+<p class="note">Os nomes das folhas e as referências das células não são traduzidos. O Google Sheets aceita nomes de funções em inglês, mas usa os separadores da sua região.</p>
 </div>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Stuck with a spreadsheet? We fix it. From $25</h2>
-<p class="lead">Broken lookups, a running balance that will not stay still, a translated workbook full of #NAME? errors. Fixed price after we see the file. 48h.</p>
-<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(XLOOKUP)">Send the sheet</a></p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Files are used only for the order and deleted after delivery. No address, phone or national ID is asked for or published.</p>
-<p>If you just need the function names and 20 practice exercises, the <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">Excel cheat sheet is $5 on Gumroad</a>. Payment is on Gumroad, not on this site.</p>
+<h2>Folha de cálculo emperrada? Tratamos disso.</h2>
+<p class="lead">Fórmulas de procura que falham, um saldo acumulado que não fica quieto, um livro traduzido cheio de erros #NOME?. Vemos o ficheiro e respondemos em 48 h.</p>
+<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(XLOOKUP)">Contacto</a></p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Os ficheiros servem só para a encomenda e são apagados depois da entrega. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p>
+<p>Se só precisar dos nomes das funções e de 20 exercícios, a <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">folha de consulta do Excel está no Gumroad</a>. O pagamento é no Gumroad, não neste site.</p>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>What is XLOOKUP in Portuguese?</summary><p>PROCX. Spanish BUSCARX, French RECHERCHEX, German XVERWEIS, Italian CERCA.X.</p></details><details><summary>How do I return the last two columns before a Total heading?</summary><p>Do not hard-code column L. Use MATCH or XMATCH on the header row to find “Total”, then return the two columns to its left, or use a table with structured names.</p></details><details><summary>Can it look to the left?</summary><p>Yes. The lookup array and the return array are separate, unlike VLOOKUP.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O que é XLOOKUP em português?</summary><p>PROCX. Espanhol BUSCARX, francês RECHERCHEX, alemão XVERWEIS, italiano CERCA.X.</p></details><details><summary>Como se devolvem as duas colunas antes de um cabeçalho Total?</summary><p>Não fixe a coluna L. Use MATCH ou XMATCH na linha de cabeçalhos para encontrar «Total» e devolva as duas colunas à esquerda, ou use uma tabela com nomes estruturados.</p></details><details><summary>Pode procurar à esquerda?</summary><p>Sim. O intervalo de procura e o intervalo a devolver são separados, ao contrário de VLOOKUP.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related functions</h2>
-<div class="fnlist"><a href="../vlookup/"><b>VLOOKUP</b> = PROCV</a><a href="../index-indice/"><b>INDEX</b> = ÍNDICE</a><a href="../match/"><b>MATCH</b> = CORRESP</a><a href="../iferror/"><b>IFERROR</b> = SE.ERRO</a><a href="../"><b>All 30 guides</b> and the translator</a></div>
-<p class="note" style="margin-top:16px"><a href="../../statement-to-csv/">Bank statement → CSV</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Funções relacionadas</h2>
+<div class="fnlist"><a href="/excel-functions/vlookup/"><b>VLOOKUP</b> = PROCV</a><a href="/excel-functions/index-indice/"><b>INDEX</b> = ÍNDICE</a><a href="/excel-functions/match/"><b>MATCH</b> = CORRESP</a><a href="/excel-functions/iferror/"><b>IFERROR</b> = SE.ERRO</a><a href="/excel-functions/"><b>Os 30 guias</b> e o tradutor</a></div>
+<p class="note" style="margin-top:16px"><a href="/statement-to-csv/">Extrato bancário → CSV</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços da Netmend</a></p>
 </div></section>
-<script src="../app.js"></script>
+<script src="/excel-functions/app.js"></script>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no seu browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços por encomenda</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem criar conta. As ferramentas grátis correm no seu browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

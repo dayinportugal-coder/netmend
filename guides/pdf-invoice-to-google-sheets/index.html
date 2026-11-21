@@ -1,95 +1,100 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Convert PDF invoices to Google Sheets (free, private) · Netmend</title>
-<meta name="description" content="Turn a PDF invoice into a Google Sheet: extract the table in your browser, import the CSV, fix dates and decimals, and tick each invoice total before you share the file.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Converter faturas em PDF para o Google Sheets (grátis, em privado) · Netmend</title>
+<meta name="description" content="Transforme uma fatura em PDF numa Google Sheet: extraia a tabela no browser, importe o CSV, corrija datas e decimais, e confira o total de cada fatura antes de partilhar o ficheiro.">
 <link rel="canonical" href="https://netmend.app/guides/pdf-invoice-to-google-sheets/">
-<meta property="og:title" content="Convert PDF invoices to Google Sheets (free, private) · Netmend"><meta property="og:description" content="Turn a PDF invoice into a Google Sheet: extract the table in your browser, import the CSV, fix dates and decimals, and tick each invoice total before you share the file.">
+<meta property="og:url" content="https://netmend.app/guides/pdf-invoice-to-google-sheets/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/guides/pdf-invoice-to-google-sheets/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/guides/pdf-invoice-to-google-sheets/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/guides/pdf-invoice-to-google-sheets/">
+<meta property="og:title" content="Converter faturas em PDF para o Google Sheets (grátis, em privado) · Netmend"><meta property="og:description" content="Transforme uma fatura em PDF numa Google Sheet: extraia a tabela no browser, importe o CSV, corrija datas e decimais, e confira o total de cada fatura antes de partilhar o ficheiro.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I open a PDF directly in Google Sheets?", "acceptedAnswer": {"@type": "Answer", "text": "No usefully. Sheets opens CSVs and Excel files. Convert the PDF on your computer first, then import the CSV. A Drive OCR step on a scan is a separate, error-prone process — tick every total if you use it."}}, {"@type": "Question", "name": "Why did 03/04 become the wrong day?", "acceptedAnswer": {"@type": "Answer", "text": "The spreadsheet locale decided whether that is 3 April or 4 March. Import dates as text first, or set the locale to match the invoice, then confirm the first few rows against the PDF."}}, {"@type": "Question", "name": "Should I pick comma or semicolon in the tool?", "acceptedAnswer": {"@type": "Answer", "text": "Comma for typical Google Sheets and UK/US Excel (dot decimals). Semicolon for most mainland-European Excel. You can change this on the converter before you download, and again on the Sheets import dialog."}}], "url": "https://netmend.app/guides/pdf-invoice-to-google-sheets/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "Posso abrir um PDF diretamente no Google Sheets?", "acceptedAnswer": {"@type": "Answer", "text": "Não de forma útil. O Sheets abre CSV e ficheiros Excel. Converta o PDF no computador primeiro e depois importe o CSV. Um passo de OCR no Drive sobre uma digitalização é outro processo, sujeito a erros — confira todos os totais se o usar."}}, {"@type": "Question", "name": "Porque é que 03/04 passou para o dia errado?", "acceptedAnswer": {"@type": "Answer", "text": "A região da folha decidiu se isso é 3 de abril ou 4 de março. Importe as datas primeiro como texto, ou defina a região para coincidir com a fatura, e confirme as primeiras linhas com o PDF."}}, {"@type": "Question", "name": "Devo escolher vírgula ou ponto e vírgula na ferramenta?", "acceptedAnswer": {"@type": "Answer", "text": "Vírgula para o Google Sheets habitual e para o Excel do Reino Unido/EUA (decimais com ponto). Ponto e vírgula para a maior parte do Excel da Europa continental. Pode mudar isto no conversor antes de transferir, e outra vez no diálogo de importação do Sheets."}}], "url": "https://netmend.app/guides/pdf-invoice-to-google-sheets/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../../statement-to-csv/app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../../statement-to-csv/">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Feito por nós</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/guides/pdf-invoice-to-google-sheets/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/guides/pdf-invoice-to-google-sheets/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Guides</a> · Convert PDF invoices to Google Sheets</p>
-<h1>Convert PDF invoices to <span>Google Sheets</span></h1>
-<p>Google Sheets will open a CSV, but it will not read a PDF invoice for you. Extract the line items on your computer, import the CSV into a Sheet, then fix the date and decimal traps that Sheets applies automatically — especially if you work in Europe or paste a US invoice into a European spreadsheet.</p>
-<div class="pills"><span>Free tool in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/guides/">Guias</a> · Converter faturas em PDF para o Google Sheets</p>
+<h1>Converter faturas em PDF para o <span>Google Sheets</span></h1>
+<p>O Google Sheets abre um CSV, mas não lê uma fatura em PDF por si. Extraia as linhas no computador, importe o CSV para uma Sheet e depois corrija as armadilhas de data e de decimais que o Sheets aplica sozinho — sobretudo se trabalha na Europa ou cola uma fatura dos EUA numa folha europeia.</p>
+<div class="pills"><span>Ferramenta grátis no browser</span><span>Sem conta</span><span>Feito por nós, se quiser</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a PDF now</h2>
+<h2>Converter um PDF agora</h2>
 
-<p class="lead">This converter is built for tables. Use it on a digital invoice or receipt with a real text layer. Switch to “Every text row” if the first preview looks short.</p>
+<p class="lead">Este conversor foi feito para tabelas. Use-o numa fatura ou num recibo digital com uma camada de texto real. Mude para “Todas as linhas de texto” se a primeira pré-visualização parecer curta.</p>
 <div class="tool">
-<label for="file">PDF (stays on your computer)</label>
+<label for="file">PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No file at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/sample-invoices.pdf">Try a demo PDF</button> (fictional data)</p>
+<p class="note">Não tem um ficheiro à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/sample-invoices.pdf">Experimentar um PDF de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions / likely rows</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto" selected>Detect automatically</option><option value="eu">European 1.234,56</option><option value="us">UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Movimentos / linhas prováveis</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto" selected>Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us">Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against the original PDF before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o PDF original antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto”, ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro localmente. Não há servidor nem envio. Pode desligar a internet depois de a página carregar e continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
 
-<h2>Extract first, then import</h2>
-<p>The converter below runs in your browser and never uploads the invoice. It is useful when the PDF is a digital file with a line-item table. It is not useful on a scan or a photograph — see <a href="../scanned-pdf-invoices-to-excel/">scanned invoices</a>. Use “Every text row” if the first preview drops a wrapped description. Download the CSV to your computer, then in Google Sheets: File → Import → Upload, and import as a new sheet or a new tab.</p>
-<p>On the import dialog, be deliberate:</p>
+<h2>Extrair primeiro, importar depois</h2>
+<p>O conversor abaixo corre no browser e nunca envia a fatura. Serve quando o PDF é um ficheiro digital com uma tabela de linhas. Não serve numa digitalização nem numa fotografia — veja <a href="/guides/scanned-pdf-invoices-to-excel/">faturas digitalizadas</a>. Use “Todas as linhas de texto” se a primeira pré-visualização deixar cair uma descrição partida. Transfira o CSV para o computador e, no Google Sheets: Ficheiro → Importar → Carregar, e importe como folha nova ou como separador novo.</p>
+<p>No diálogo de importação, seja deliberado:</p>
 <ul>
-<li>Choose the separator that matches the file (comma for a UK/US export from our tool, semicolon if you picked the European Excel option).</li>
-<li>Convert text to numbers, dates and formulas only if you have already looked at a sample row. Sheets is helpful, and that is the problem: <b>03/04/2026</b> will become 3 April or 4 March depending on the locale of the spreadsheet, and <b>1,25</b> may become a thousand-and-twenty-five or a quarter.</li>
-<li>If in doubt, import the columns as plain text, then use a helper column with <code>DATE</code>, <code>VALUE</code> or <code>SUBSTITUTE</code> to build real dates and numbers you can check. Our <a href="../../excel-functions/">formula translator</a> has the equivalent function names if your Sheets locale is not English (Google Sheets often still accepts English names, but it uses your locale’s separators).</li>
+<li>Escolha o separador que coincide com o ficheiro (vírgula para uma exportação Reino Unido/EUA da nossa ferramenta, ponto e vírgula se escolheu a opção de Excel europeu).</li>
+<li>Converta texto em números, datas e fórmulas só depois de olhar para uma linha de amostra. O Sheets ajuda, e esse é o problema: <b>03/04/2026</b> passa a 3 de abril ou a 4 de março conforme a região da folha, e <b>1,25</b> pode passar a mil e vinte e cinco ou a um quarto.</li>
+<li>Na dúvida, importe as colunas como texto simples e use uma coluna auxiliar com <code>DATE</code>, <code>VALUE</code> ou <code>SUBSTITUTE</code> para construir datas e números reais que possa conferir. O nosso <a href="/excel-functions/">tradutor de fórmulas</a> tem os nomes equivalentes se a região do Sheets não for inglês (o Google Sheets aceita muitas vezes os nomes em inglês, mas usa os separadores da região).</li>
 </ul>
-<h2>A working sheet that you can tick</h2>
-<p>Once the raw extract is in, build a clean tab rather than editing the import in place:</p>
+<h2>Uma folha de trabalho que se pode conferir</h2>
+<p>Quando o extrato em bruto estiver lá, construa um separador limpo em vez de editar a importação no sítio:</p>
 <ol>
-<li>One row per line item, with the invoice number repeated, plus a header row you type yourself (invoice number, date, supplier, description, quantity, unit price, net, tax, gross).</li>
-<li>A second tab that lists one row per invoice: invoice number, the printed total from the PDF, and a <code>SUMIF</code> (or <code>SOMA.SE</code> in Portuguese Excel) of the line grosses. Every row on that tab should match. If it does not, stop and fix the extract before you share the file.</li>
-<li>Keep a column with the original PDF file name, so a mismatch can be opened and checked.</li>
+<li>Uma linha por artigo, com o número da fatura repetido, mais uma linha de cabeçalho que escreve (número da fatura, data, fornecedor, descrição, quantidade, preço unitário, líquido, imposto, bruto).</li>
+<li>Um segundo separador com uma linha por fatura: número da fatura, o total impresso no PDF, e um <code>SUMIF</code> (ou <code>SOMA.SE</code> no Excel em português) dos brutos das linhas. Cada linha desse separador deve coincidir. Se não coincidir, pare e corrija o extrato antes de partilhar o ficheiro.</li>
+<li>Mantenha uma coluna com o nome do PDF original, para poder abrir e conferir um desvio.</li>
 </ol>
-<p>If the destination is QuickBooks or Xero, this Sheet is a working file, not the import file. Copy the checked rows into that product’s official template — see the <a href="../pdf-invoice-to-excel-quickbooks/">QuickBooks</a> and <a href="../pdf-invoice-to-excel-xero/">Xero</a> guides. Sheets is a fine place to clean the data; it is not a substitute for their column names.</p>
+<p>Se o destino for o QuickBooks ou o Xero, esta Sheet é um ficheiro de trabalho, não o ficheiro de importação. Copie as linhas conferidas para o modelo oficial desse produto — veja os guias do <a href="/guides/pdf-invoice-to-excel-quickbooks/">QuickBooks</a> e do <a href="/guides/pdf-invoice-to-excel-xero/">Xero</a>. O Sheets é um bom sítio para limpar os dados; não substitui os nomes das colunas deles.</p>
 
-<p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
+<p class="note"><b>Fontes</b> (verificadas a 13/11/2026). A ajuda oficial dos produtos está ligada no texto. Os menus e os modelos mudam: o ecrã atual do QuickBooks, do Xero ou do banco é a referência.</p>
 </div></section>
 
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of documents or a layout that has to match QuickBooks or Xero, we convert them and check the totals against each document.</p>
+<h2>Precisa que façamos nós?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de documentos ou um esquema que tenha de coincidir com o QuickBooks ou o Xero, convertemos e conferimos os totais de cada documento.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your file is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Totais reconciliados. 48 h. Pagamento no Fiverr.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Precisa que façamos nós?</a></div>
+<div class="card"><b>Privacidade</b><p>O seu ficheiro é tratado só para a encomenda e apagado depois da entrega. Esta página em si nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos morada, telefone nem número de identificação.</p></div>
 </div>
 </div></section>
 
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Can I open a PDF directly in Google Sheets?</summary><p>No usefully. Sheets opens CSVs and Excel files. Convert the PDF on your computer first, then import the CSV. A Drive OCR step on a scan is a separate, error-prone process — tick every total if you use it.</p></details><details><summary>Why did 03/04 become the wrong day?</summary><p>The spreadsheet locale decided whether that is 3 April or 4 March. Import dates as text first, or set the locale to match the invoice, then confirm the first few rows against the PDF.</p></details><details><summary>Should I pick comma or semicolon in the tool?</summary><p>Comma for typical Google Sheets and UK/US Excel (dot decimals). Semicolon for most mainland-European Excel. You can change this on the converter before you download, and again on the Sheets import dialog.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>Posso abrir um PDF diretamente no Google Sheets?</summary><p>Não de forma útil. O Sheets abre CSV e ficheiros Excel. Converta o PDF no computador primeiro e depois importe o CSV. Um passo de OCR no Drive sobre uma digitalização é outro processo, sujeito a erros — confira todos os totais se o usar.</p></details><details><summary>Porque é que 03/04 passou para o dia errado?</summary><p>A região da folha decidiu se isso é 3 de abril ou 4 de março. Importe as datas primeiro como texto, ou defina a região para coincidir com a fatura, e confirme as primeiras linhas com o PDF.</p></details><details><summary>Devo escolher vírgula ou ponto e vírgula na ferramenta?</summary><p>Vírgula para o Google Sheets habitual e para o Excel do Reino Unido/EUA (decimais com ponto). Ponto e vírgula para a maior parte do Excel da Europa continental. Pode mudar isto no conversor antes de transferir, e outra vez no diálogo de importação do Sheets.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related guides</h2>
-<div class="banklist"><a href="../pdf-invoice-to-excel-quickbooks/"><b>Convert PDF invoices to Excel for QuickBooks</b></a><a href="../pdf-invoice-to-excel-xero/"><b>Convert PDF invoices to Excel for Xero</b></a><a href="../pdf-receipts-to-excel/"><b>Convert PDF receipts to Excel or CSV</b></a><a href="../scanned-pdf-invoices-to-excel/"><b>Convert scanned PDF invoices to Excel — honestly</b></a><a href="../../compare/csv-vs-excel/"><b>CSV vs Excel for bank statements</b></a><a href="../"><b>All how-to guides</b></a><a href="../../compare/"><b>Comparisons</b></a><a href="../../statement-to-csv/"><b>Bank statement converter</b> and bank guides</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Guias relacionados</h2>
+<div class="banklist"><a href="/guides/pdf-invoice-to-excel-quickbooks/"><b>Converter faturas em PDF para Excel, para o QuickBooks</b></a><a href="/guides/pdf-invoice-to-excel-xero/"><b>Converter faturas em PDF para Excel, para o Xero</b></a><a href="/guides/pdf-receipts-to-excel/"><b>Converter recibos em PDF para Excel ou CSV</b></a><a href="/guides/scanned-pdf-invoices-to-excel/"><b>Converter faturas digitalizadas em PDF para Excel — com franqueza</b></a><a href="/compare/csv-vs-excel/"><b>CSV ou Excel para extratos bancários</b></a><a href="/guides/"><b>Todos os guias</b></a><a href="/compare/"><b>Comparações</b></a><a href="/statement-to-csv/"><b>Conversor de extratos bancários</b> e guias por banco</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins para o Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins para o Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem trackers e sem registo. As ferramentas grátis correm no browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

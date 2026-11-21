@@ -66,7 +66,7 @@ assert.strictEqual(RV.ivaPosition(1875001).state, "over-now");
 var gUrl = RV.googleCalendarUrl({
   start: "2027-02-01",
   text: "Declaração trimestral Segurança Social",
-  details: "Entregar a declaração. https://netmend.app/pt/recibos-verdes/declaracao-trimestral/"
+  details: "Entregar a declaração. https://netmend.app/recibos-verdes/declaracao-trimestral/"
 });
 assert.ok(gUrl.indexOf("https://calendar.google.com/calendar/render?action=TEMPLATE") === 0);
 assert.ok(gUrl.indexOf("dates=20270201/20270202") !== -1);

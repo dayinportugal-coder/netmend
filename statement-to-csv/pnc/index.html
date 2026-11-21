@@ -1,99 +1,104 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Convert PNC bank statement PDF to CSV/Excel (free, private) · Netmend</title>
-<meta name="description" content="Convert a PNC PDF statement to CSV in your browser. Official online statements (up to 7 years for checking), plus official QFX and QBO exports for Quicken and QuickBooks.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Converter extrato PNC de PDF para CSV/Excel (grátis e privado) · Netmend</title>
+<meta name="description" content="Converta um extrato PNC em PDF para CSV no browser. Extratos online oficiais (até 7 anos na conta à ordem) e exportações oficiais QFX e QBO para o Quicken e o QuickBooks.">
 <link rel="canonical" href="https://netmend.app/statement-to-csv/pnc/">
-<meta property="og:title" content="Convert PNC bank statement PDF to CSV/Excel (free, private) · Netmend"><meta property="og:description" content="Convert a PNC PDF statement to CSV in your browser. Official online statements (up to 7 years for checking), plus official QFX and QBO exports for Quicken and QuickBooks.">
+<meta property="og:url" content="https://netmend.app/statement-to-csv/pnc/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/statement-to-csv/pnc/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/statement-to-csv/pnc/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/statement-to-csv/pnc/">
+<meta property="og:title" content="Converter extrato PNC de PDF para CSV/Excel (grátis e privado) · Netmend"><meta property="og:description" content="Converta um extrato PNC em PDF para CSV no browser. Extratos online oficiais (até 7 anos na conta à ordem) e exportações oficiais QFX e QBO para o Quicken e o QuickBooks.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Convert PNC bank statement PDF to CSV", "url": "https://netmend.app/statement-to-csv/pnc/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does PNC give me a CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Not in any public official guide we could cite. PNC does officially let you export .QFX for Quicken and .QBO for QuickBooks from Online Banking. For a spreadsheet, convert the official PDF."}}, {"@type": "Question", "name": "How far back are PNC statements?", "acceptedAnswer": {"@type": "Answer", "text": "Up to 7 years for checking and savings, 4 years for credit cards, 5 years for mortgage and home equity, 10 years for investment accounts, according to PNC’s notes on the Online Statements page."}}, {"@type": "Question", "name": "Where do I find the PDF in the app?", "acceptedAnswer": {"@type": "Answer", "text": "More menu → Statements and Documents, then the document type, the account and the year."}}], "url": "https://netmend.app/statement-to-csv/pnc/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Converter extrato bancário PNC de PDF para CSV", "url": "https://netmend.app/statement-to-csv/pnc/", "applicationCategory": "BusinessApplication", "operatingSystem": "Qualquer (browser)", "inLanguage": "pt-PT", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O PNC dá um CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Não, em nenhum guia oficial público que se pudesse citar. O PNC deixa oficialmente exportar .QFX para o Quicken e .QBO para o QuickBooks a partir do Online Banking. Para uma folha de cálculo, converta o PDF oficial."}}, {"@type": "Question", "name": "Até onde recuam os extratos do PNC?", "acceptedAnswer": {"@type": "Answer", "text": "Até 7 anos na conta à ordem e na poupança, 4 anos nos cartões de crédito, 5 anos no crédito habitação e no home equity, 10 anos nas contas de investimento, segundo as notas do PNC na página Online Statements."}}, {"@type": "Question", "name": "Onde encontro o PDF na app?", "acceptedAnswer": {"@type": "Answer", "text": "Menu More → Statements and Documents, depois o tipo de documento, a conta e o ano."}}], "url": "https://netmend.app/statement-to-csv/pnc/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/statement-to-csv/pnc/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/statement-to-csv/pnc/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Bank statement → CSV</a> · PNC</p>
-<h1>Convert a PNC bank statement PDF to <span>CSV or Excel</span></h1>
-<p>PNC’s official statements are PDFs in Online Banking and the app — up to seven years for checking and savings. PNC also offers QFX and QBO exports for Quicken and QuickBooks. This page shows both official paths and how to convert a PDF when you need a plain spreadsheet, or when the history you need is only on the statement.</p>
-<div class="pills"><span>United States (PNC Bank, National Association)</span><span>100% in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/statement-to-csv/">Extrato bancário → CSV</a> · PNC</p>
+<h1>Converter um extrato PNC em PDF para <span>CSV ou Excel</span></h1>
+<p>Os extratos oficiais do PNC são PDF no Online Banking e na app, até sete anos na conta à ordem e na poupança. O PNC também oferece exportações QFX e QBO para o Quicken e o QuickBooks. Esta página mostra os dois caminhos oficiais e como converter um PDF quando precisa de uma folha simples, ou quando o histórico de que precisa só está no extrato.</p>
+<div class="pills"><span>Estados Unidos (PNC Bank, National Association)</span><span>100% no seu browser</span><span>Sem conta</span><span>Contacto, se quiser que façamos</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a PNC PDF now</h2>
-<p class="lead">The defaults below are set for a typical PNC file. You can still change them. The file never leaves your computer.</p>
+<h2>Converter um PDF do PNC agora</h2>
+<p class="lead">As predefinições abaixo estão pensadas para um ficheiro típico do PNC. Pode alterá-las. O ficheiro nunca sai do seu computador.</p>
 
 <div class="tool">
-<label for="file">PDF statement (stays on your computer)</label>
+<label for="file">Extrato em PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No statement at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/demo-statement.pdf">Try our demo statement</button> (fictional data)</p>
+<p class="note">Não tem um extrato à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar o extrato de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions only</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto">Detect automatically</option><option value="eu">European 1.234,56</option><option value="us" selected>UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Só movimentos</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto">Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us" selected>Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against your statement before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o extrato antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto” ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro neste computador. Não há servidor nem envio. Pode desligar a internet depois de a página carregar: continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>The PNC statement format</h2>
+<h2>O formato do extrato PNC</h2>
 <div class="facts">
-<div><b>Dates</b>US month-first dates (MM/DD/YYYY). Set the date column to that format or to text before importing into a day-first spreadsheet.</div>
-<div><b>Numbers</b>US dollar, dot decimal, comma thousands. Prefer PNC’s official QBO or QFX when you use QuickBooks or Quicken.</div>
-<div><b>Region</b>United States (PNC Bank, National Association)</div>
+<div><b>Datas</b>Datas dos EUA, com o mês primeiro (MM/DD/YYYY). Defina a coluna da data nesse formato, ou como texto, antes de importar para uma folha com o dia primeiro.</div>
+<div><b>Números</b>Dólar dos EUA, ponto decimal, vírgula nos milhares. Prefira o QBO ou o QFX oficial do PNC se usar o QuickBooks ou o Quicken.</div>
+<div><b>Região</b>Estados Unidos (PNC Bank, National Association)</div>
 </div>
-<h3>Where to download the official file</h3>
-Official PDF statements, from PNC “Online Statements and Documents”:</p>
-<p><b>In Online Banking:</b> sign on, select <b>Accounts</b>, open the account, select <b>Account Quick View</b>, then <b>Statements and Documents</b>, then <b>View PDF</b>.</p>
-<p><b>In the PNC Mobile app:</b> sign in, open the More menu, then <b>Statements and Documents</b>. Choose Online statements, Account documents or Other documents, select the account, then the year.</p>
-<p>How far back, from PNC’s legal notes on that page: up to <b>7 years</b> for checking and savings, auto loans and unsecured instalment loans; up to <b>4 years</b> for credit cards; up to <b>5 years</b> for mortgage and home equity; up to <b>10 years</b> for investment accounts. Online history may not be available for closed accounts. Paperless enrolment is per account (Profile and Settings → Alerts and Communication → Paperless in Online Banking, or Paperless Settings in the app).</p>
-<p><b>Quicken and QuickBooks:</b> PNC documents a live bank feed, and also a manual Web Connect export. In PNC Online Banking you can export transactions and choose <b>.QFX</b> for Quicken or <b>.QBO</b> for QuickBooks. PNC does not publish a public official CSV guide on those pages — if you need a spreadsheet, convert the official PDF, or open the QFX/QBO in the software it was made for.</p>
-<h3>What the PDF contains</h3>
-<p>The official statement is the PDF under Statements and Documents. Checking, savings, card and loan statements have different layouts and retention periods — do not mix a card PDF with a checking conversion. The PDF is also the file PNC points former FirstBank customers to when transactions around a conversion are missing from Quicken or QuickBooks.</p>
-<h3>Official CSV or Excel, when the bank offers one</h3>
-<p>PNC’s officially documented download formats for software are .QFX (Quicken) and .QBO (QuickBooks), not a public CSV specification. If you need columns in Excel, convert the PDF and keep date, description, amount or debit/credit, and the running balance where it is printed. Tick the opening and closing balances before you use the file.</p>
-<p>If you already use QuickBooks or Quicken, the official QBO or QFX export (or the bank feed) is the cleaner path — you should not need a PDF conversion for recent activity.</p></p>
-<h3>What to watch for</h3>
+<h3>Onde transferir o ficheiro oficial</h3>
+<p>Extratos oficiais em PDF, a partir de PNC “Online Statements and Documents”:</p>
+<p><b>No Online Banking:</b> inicie sessão, escolha <b>Accounts</b>, abra a conta, escolha <b>Account Quick View</b>, depois <b>Statements and Documents</b> e <b>View PDF</b>.</p>
+<p><b>Na app PNC Mobile:</b> inicie sessão, abra o menu More e depois <b>Statements and Documents</b>. Escolha Online statements, Account documents ou Other documents, selecione a conta e depois o ano.</p>
+<p>Até onde recua, segundo as notas legais do PNC nessa página: até <b>7 anos</b> para conta à ordem, poupança, crédito automóvel e empréstimos pessoais a prestações; até <b>4 anos</b> para cartões de crédito; até <b>5 anos</b> para crédito habitação e home equity; até <b>10 anos</b> para contas de investimento. O histórico online pode não estar disponível em contas encerradas. A adesão ao papel zero é por conta (Profile and Settings → Alerts and Communication → Paperless no Online Banking, ou Paperless Settings na app).</p>
+<p><b>Quicken e QuickBooks:</b> o PNC documenta uma ligação bancária em direto e também uma exportação manual Web Connect. No PNC Online Banking pode exportar movimentos e escolher <b>.QFX</b> para o Quicken ou <b>.QBO</b> para o QuickBooks. O PNC não publica um guia oficial público de CSV nessas páginas. Se precisar de uma folha de cálculo, converta o PDF oficial, ou abra o QFX/QBO no programa para o qual foi feito.</p>
+<h3>O que contém o PDF</h3>
+<p>O extrato oficial é o PDF em Statements and Documents. Conta à ordem, poupança, cartão e empréstimos têm formatos e prazos de conservação diferentes. Não misture um PDF de cartão com uma conversão de conta à ordem. O PDF é também o ficheiro para o qual o PNC encaminha antigos clientes do FirstBank quando faltam movimentos à volta de uma migração no Quicken ou no QuickBooks.</p>
+<h3>CSV ou Excel oficial, quando o banco o oferece</h3>
+<p>Os formatos de transferência que o PNC documenta oficialmente para software são .QFX (Quicken) e .QBO (QuickBooks), não uma especificação pública de CSV. Se precisar de colunas no Excel, converta o PDF e fique com data, descrição, montante ou débito/crédito, e o saldo acumulado quando estiver impresso. Confira os saldos inicial e final antes de usar o ficheiro.</p>
+<p>Se já usa o QuickBooks ou o Quicken, a exportação oficial QBO ou QFX (ou a ligação ao banco) é o caminho mais limpo. Não deve precisar de converter o PDF para a atividade recente.</p></p>
+<h3>O que convém verificar</h3>
 <ul>
-<li>For QuickBooks, use PNC’s official .QBO export or the bank feed. For Quicken, use .QFX.</li>
-<li>For a plain spreadsheet, or for months that only exist as PDFs, convert the statement and check the printed totals.</li>
-<li>Card statements are kept for fewer years (up to 4) than checking (up to 7). Do not assume a 2019 card statement is still online.</li>
+<li>Para o QuickBooks, use a exportação oficial .QBO do PNC ou a ligação ao banco. Para o Quicken, use .QFX.</li>
+<li>Para uma folha simples, ou para meses que só existem em PDF, converta o extrato e confira os totais impressos.</li>
+<li>Os extratos de cartão ficam guardados menos anos (até 4) do que a conta à ordem (até 7). Não assuma que um extrato de cartão de 2019 ainda está online.</li>
 </ul>
-<p class="note"><b>Sources</b> (checked 12/11/2026). PNC, “Online Statements and Documents” (pnc.com) and “Online Banking with Quicken & QuickBooks” (including the official note that customers can export .QFX or .QBO via Web Connect), checked 13/11/2026. Banks change layouts without notice: treat the first row of your own file as the authority.</p>
+<p class="note"><b>Fontes</b> (consultado em 12/11/2026). PNC, “Online Statements and Documents” (pnc.com) e “Online Banking with Quicken & QuickBooks” (incluindo a nota oficial de que os clientes podem exportar .QFX ou .QBO via Web Connect), consultado em 13/11/2026. Os bancos mudam o formato sem aviso: a primeira linha do seu ficheiro é que manda.</p>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of statements or a layout that has to match your accounting software, we convert them and check every total against the opening and closing balance.</p>
+<h2>Precisa que façamos por si?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto, limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de extratos ou um formato que tem de coincidir com o software de contabilidade, convertemos e conferimos cada total com o saldo inicial e o saldo final.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your statement is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Conferimos os totais. Escreva-nos.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a></div>
+<div class="card"><b>Privacidade</b><p>O extrato só é tratado para a encomenda e é apagado depois da entrega. Esta página nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p></div>
 </div>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Does PNC give me a CSV?</summary><p>Not in any public official guide we could cite. PNC does officially let you export .QFX for Quicken and .QBO for QuickBooks from Online Banking. For a spreadsheet, convert the official PDF.</p></details><details><summary>How far back are PNC statements?</summary><p>Up to 7 years for checking and savings, 4 years for credit cards, 5 years for mortgage and home equity, 10 years for investment accounts, according to PNC’s notes on the Online Statements page.</p></details><details><summary>Where do I find the PDF in the app?</summary><p>More menu → Statements and Documents, then the document type, the account and the year.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O PNC dá um CSV?</summary><p>Não, em nenhum guia oficial público que se pudesse citar. O PNC deixa oficialmente exportar .QFX para o Quicken e .QBO para o QuickBooks a partir do Online Banking. Para uma folha de cálculo, converta o PDF oficial.</p></details><details><summary>Até onde recuam os extratos do PNC?</summary><p>Até 7 anos na conta à ordem e na poupança, 4 anos nos cartões de crédito, 5 anos no crédito habitação e no home equity, 10 anos nas contas de investimento, segundo as notas do PNC na página Online Statements.</p></details><details><summary>Onde encontro o PDF na app?</summary><p>Menu More → Statements and Documents, depois o tipo de documento, a conta e o ano.</p></details></div></section>
 <section><div class="wrap">
-<h2>Other bank guides</h2>
-<div class="banklist"><a href="../chase/"><b>Chase</b> statement to CSV</a><a href="../bank-of-america/"><b>Bank of America</b> statement to CSV</a><a href="../wells-fargo/"><b>Wells Fargo</b> statement to CSV</a><a href="../capital-one/"><b>Capital One</b> statement to CSV</a><a href="../us-bank/"><b>U.S. Bank</b> statement to CSV</a><a href="../"><b>All banks</b> and the main converter</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Outros guias de bancos</h2>
+<div class="banklist"><a href="/statement-to-csv/chase/"><b>Chase</b> extrato para CSV</a><a href="/statement-to-csv/bank-of-america/"><b>Bank of America</b> extrato para CSV</a><a href="/statement-to-csv/wells-fargo/"><b>Wells Fargo</b> extrato para CSV</a><a href="/statement-to-csv/capital-one/"><b>Capital One</b> extrato para CSV</a><a href="/statement-to-csv/us-bank/"><b>U.S. Bank</b> extrato para CSV</a><a href="/statement-to-csv/"><b>Todos os bancos</b> e o conversor principal</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho de back-office para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias de crescimento no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Um cookie guarda só o idioma. Sem rastreio e sem registo. As ferramentas grátis correm no browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

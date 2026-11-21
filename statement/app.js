@@ -1,6 +1,12 @@
 /* Netmend Statement → Excel. Heuristic parse is 100% local (pdf.js). Optional AI mode uses the user's Gemini key only. */
 (function () {
   var $ = NM.$;
+  function tr(en, pt) {
+    var l = (document.documentElement.lang || "pt").toLowerCase();
+    if (l.indexOf("en") === 0) return en;
+    if (l.indexOf("es") === 0) return en;
+    return pt;
+  }
   pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
 
   var P = NMStatement;
@@ -10,8 +16,12 @@
     tool: "statement",
     freeLimit: 1,
     unit: "statements",
-    freeText: "One statement a day, first page only, CSV or Excel export. Parsing stays in your browser.",
-    proText: "Unlimited pages, batch files, and optional AI mode for messy layouts. Pay once.",
+    freeText: (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0
+      ? "One statement a day, first page only, CSV or Excel export. Parsing stays in your browser."
+      : "Um extrato por dia, só a primeira página, exportação CSV ou Excel. A leitura fica no browser.",
+    proText: (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0
+      ? "Unlimited pages, batch files, and optional AI mode for messy layouts."
+      : "Páginas sem limite, vários ficheiros e modo de IA opcional para esquemas difíceis.",
     onLicense: paintLimits
   });
 
@@ -35,7 +45,7 @@
     document.querySelectorAll("[data-pro-buy]").forEach(function (a) {
       if (p.url) a.href = p.url;
       if (p.productId) a.setAttribute("data-product-id", p.productId);
-      if (p.price && a.hasAttribute("data-pro-label")) a.textContent = "Statement Pro · $" + p.price;
+      if (a.hasAttribute("data-pro-label")) a.textContent = (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0 ? "Statement Pro" : "Statement Pro";
     });
   })();
 
@@ -123,7 +133,7 @@
     if (tx.length > 300) {
       var extra = document.createElement("p");
       extra.className = "note";
-      extra.textContent = "Preview shows the first 300 rows. The download includes every row.";
+      extra.textContent = tr("Preview shows the first 300 rows. The download includes every row.", "A pré-visualização mostra as primeiras 300 linhas. A transferência inclui todas.");
       stats.appendChild(document.createTextNode(" Preview limited to 300 rows."));
     }
     $("dl-xlsx").disabled = !tx.length;
@@ -143,7 +153,7 @@
       NM.download(new Blob([P.toCsv(table, sep)], { type: "text/csv;charset=utf-8" }), base + ".csv");
       return;
     }
-    if (typeof XLSX === "undefined") { setStatus("Excel library did not load. Try CSV, or reload the page.", "bad"); return; }
+    if (typeof XLSX === "undefined") { setStatus(tr("Excel library did not load. Try CSV, or reload the page.", "A biblioteca de Excel não carregou. Tente CSV ou recarregue a página."), "bad"); return; }
     var wb = XLSX.utils.book_new();
     if (multi) {
       state.results.forEach(function (r) {
@@ -159,32 +169,32 @@
 
   async function handleFiles(list) {
     var files = Array.prototype.slice.call(list || []).filter(function (f) { return f && /\.pdf$/i.test(f.name) || (f && f.type === "application/pdf"); });
-    if (!files.length) { setStatus("Choose a PDF bank statement.", "bad"); return; }
+    if (!files.length) { setStatus(tr("Choose a PDF bank statement.", "Escolha um extrato bancário em PDF."), "bad"); return; }
     if (!NM.isPro() && files.length > 1) {
       files = files.slice(0, 1);
-      setStatus("Free plan converts one statement at a time, first page only. Extra files were ignored. Unlock Pro for batch files.", "bad");
+      setStatus(tr("Free plan converts one statement at a time, first page only. Extra files were ignored. Unlock Pro for batch files.", "O plano grátis converte um extrato de cada vez, só a primeira página. Os outros ficheiros foram ignorados. O Pro trata vários ficheiros."), "bad");
     } else {
       setStatus("");
     }
     if (!NM.canUse()) { setStatus(NM.limitMsg(), "bad"); return; }
     var ai = $("ai-mode").checked;
-    if (ai && !NM.isPro()) { setStatus("AI mode is part of Pro.", "bad"); return; }
+    if (ai && !NM.isPro()) { setStatus(tr("AI mode is part of Pro.", "O modo IA faz parte do Pro."), "bad"); return; }
     if (ai && !NM.getKey()) { setStatus(NM.friendlyError("NOKEY"), "bad"); return; }
     state.busy = true;
     $("run").disabled = true;
     state.results = [];
     try {
       for (var i = 0; i < files.length; i++) {
-        setStatus("Reading " + files[i].name + " in your browser…");
+        setStatus(tr("Reading " + files[i].name + " in your browser…", "A ler " + files[i].name + " neste browser…"));
         var rec = await parseFile(files[i], { maxPages: NM.isPro() ? 0 : 1, ai: ai });
         if (!rec.rows.length) {
-          setStatus("No text found in " + files[i].name + ". This PDF is probably a scan. Pro AI mode can try messy layouts if the pages have some text; photographed statements may still fail.", "bad");
+          setStatus(tr("No text found in " + files[i].name + ". This PDF is probably a scan. Pro AI mode can try messy layouts if the pages have some text; photographed statements may still fail.", "Não há texto em " + files[i].name + ". Este PDF é provavelmente uma digitalização. O modo IA do Pro tenta esquemas difíceis se as páginas tiverem algum texto; extratos fotografados podem falhar."), "bad");
         }
         state.results.push(rec);
       }
       var total = allTx().length;
       if (!total && state.results.some(function (r) { return r.rows.length; })) {
-        setStatus("Text was found, but no transactions were detected. Try another number format, or unlock Pro and tick AI mode for messy layouts.", "bad");
+        setStatus(tr("Text was found, but no transactions were detected. Try another number format, or unlock Pro and tick AI mode for messy layouts.", "Há texto, mas não foram detetados movimentos. Tente outro formato de números, ou use o Pro e o modo IA para esquemas difíceis."), "bad");
       } else if (total) {
         NM.consume();
         var trunc = state.results.some(function (r) { return r.truncated; });
@@ -192,7 +202,7 @@
       }
       render();
     } catch (err) {
-      setStatus("Could not read this PDF (" + ((err && err.message) || err) + "). If it is password-protected, open it and print to PDF first.", "bad");
+      setStatus(tr("Could not read this PDF (" + ((err && err.message) || err) + "). If it is password-protected, open it and print to PDF first.", "Não foi possível ler este PDF (" + ((err && err.message) || err) + "). Se tiver palavra-passe, abra-o e imprima para PDF primeiro."), "bad");
     } finally {
       state.busy = false;
       $("run").disabled = false;
@@ -218,19 +228,19 @@
     });
   });
   $("ai-mode").addEventListener("change", function () {
-    if (this.checked && !NM.isPro()) { this.checked = false; setStatus("AI mode is part of Pro.", "bad"); }
+    if (this.checked && !NM.isPro()) { this.checked = false; setStatus(tr("AI mode is part of Pro.", "O modo IA faz parte do Pro."), "bad"); }
   });
 
   document.querySelectorAll("[data-demo]").forEach(function (btn) {
     btn.addEventListener("click", async function () {
       var src = btn.getAttribute("data-demo");
-      setStatus("Loading the sample statement…");
+      setStatus(tr("Loading the sample statement…", "A carregar o extrato de exemplo…"));
       try {
         var res = await fetch(src);
         var blob = await res.blob();
         var file = new File([blob], src.split("/").pop(), { type: "application/pdf" });
         handleFiles([file]);
-      } catch (e) { setStatus("Could not load the sample PDF.", "bad"); }
+      } catch (e) { setStatus(tr("Could not load the sample PDF.", "Não foi possível carregar o PDF de exemplo."), "bad"); }
     });
   });
 
