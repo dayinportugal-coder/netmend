@@ -1,76 +1,81 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PMT in Portuguese = PGTO (Spanish PAGO, French VPM, German RMZ, Italian RATA) · Netmend</title>
-<meta name="description" content="What is PMT in Portuguese? PGTO. Also PAGO, VPM, RMZ, RATA. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PMT em português = PGTO (espanhol PAGO, francês VPM, alemão RMZ, italiano RATA) · Netmend</title>
+<meta name="description" content="O que é PMT em português? PGTO. Também PAGO, VPM, RMZ, RATA. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <link rel="canonical" href="https://netmend.app/excel-functions/pmt/">
-<meta property="og:title" content="PMT in Portuguese = PGTO (Spanish PAGO, French VPM, German RMZ, Italian RATA) · Netmend"><meta property="og:description" content="What is PMT in Portuguese? PGTO. Also PAGO, VPM, RMZ, RATA. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<meta property="og:url" content="https://netmend.app/excel-functions/pmt/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/excel-functions/pmt/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/excel-functions/pmt/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/excel-functions/pmt/">
+<meta property="og:title" content="PMT em português = PGTO (espanhol PAGO, francês VPM, alemão RMZ, italiano RATA) · Netmend"><meta property="og:description" content="O que é PMT em português? PGTO. Também PAGO, VPM, RMZ, RATA. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "PMT in Portuguese = PGTO (Spanish PAGO, French VPM, German RMZ, Italian RATA) · Netmend", "url": "https://netmend.app/excel-functions/pmt/", "inLanguage": ["en", "pt", "es", "fr", "de", "it"], "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "What is PMT in Portuguese? PGTO. Also PAGO, VPM, RMZ, RATA. Syntax and a worked example in all 6 languages, plus a free formula translator."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is PMT in Portuguese?", "acceptedAnswer": {"@type": "Answer", "text": "PGTO. Spanish PAGO, French VPM, German RMZ, Italian RATA."}}, {"@type": "Question", "name": "Why is the result negative?", "acceptedAnswer": {"@type": "Answer", "text": "Excel treats the loan (pv) as cash you received and the payment as cash you pay out. Use ABS, or enter pv as negative, and stay consistent."}}, {"@type": "Question", "name": "European decimal?", "acceptedAnswer": {"@type": "Answer", "text": "In Portuguese or German Excel write 0,05/12, not 0.05/12."}}], "url": "https://netmend.app/excel-functions/pmt/"}</script>
-<script src="../data.js"></script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "PMT em português = PGTO (espanhol PAGO, francês VPM, alemão RMZ, italiano RATA) · Netmend", "url": "https://netmend.app/excel-functions/pmt/", "inLanguage": "pt-PT", "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "O que é PMT em português? PGTO. Também PAGO, VPM, RMZ, RATA. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "O que é PMT em português?", "acceptedAnswer": {"@type": "Answer", "text": "PGTO. Espanhol PAGO, francês VPM, alemão RMZ, italiano RATA."}}, {"@type": "Question", "name": "Porque é que o resultado é negativo?", "acceptedAnswer": {"@type": "Answer", "text": "O Excel trata o empréstimo (pv) como dinheiro que entrou e a prestação como dinheiro que sai. Use ABS, ou introduza pv como negativo, e mantenha a coerência."}}, {"@type": "Question", "name": "E o decimal europeu?", "acceptedAnswer": {"@type": "Answer", "text": "No Excel em português ou em alemão escreva 0,05/12, não 0.05/12."}}], "url": "https://netmend.app/excel-functions/pmt/"}</script>
+<script src="/excel-functions/data.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Formula translator</a><a class="cta" href="#done-for-you">Sheet fix $25</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/excel-functions/">Tradutor de fórmulas</a><a class="cta" href="#done-for-you">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/excel-functions/pmt/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/excel-functions/pmt/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Excel functions</a> · PMT = PGTO</p>
-<h1>PMT in Portuguese = <span>PGTO</span></h1>
-<p>PMT = PGTO = PAGO = VPM = RMZ = RATA. Returns the payment for a loan based on a constant interest rate and a constant payment schedule.</p>
-<div class="pills"><span>6 languages</span><span>Syntax + example</span><span>Fixes , vs ;</span><span>Free translator</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/excel-functions/">Funções do Excel</a> · PMT = PGTO</p>
+<h1>PMT em português = <span>PGTO</span></h1>
+<p>PMT = PGTO = PAGO = VPM = RMZ = RATA. Devolve a prestação de um empréstimo com taxa de juro constante e plano de pagamentos constante.</p>
+<div class="pills"><span>6 línguas</span><span>Sintaxe + exemplo</span><span>Corrige , e ;</span><span>Tradutor gratuito</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>What PMT does</h2>
-<p class="lead">Mortgage and loan calculators. Names: PGTO, PAGO, VPM, RMZ, RATA. The rate and the period must be in the same unit, and European decimals matter.</p>
-<p>Returns the payment for a loan based on a constant interest rate and a constant payment schedule.</p>
-<h2>Syntax and a worked example in 6 languages</h2>
-<p class="lead">English Excel uses commas between arguments and a dot decimal. Most European Excel versions use semicolons and a decimal comma. TRUE / FALSE also change name. The translator below applies all three.</p>
-<div class="facts"><div><b>English — PMT</b><pre>=PMT(rate, nper, pv, [fv], [type])</pre><pre>=PMT(0.05/12,360,200000)</pre></div><div><b>Português (PT) — PGTO</b><pre>=PGTO(rate; nper; pv; [fv]; [type])</pre><pre>=PGTO(0,05/12;360;200000)</pre></div><div><b>Español — PAGO</b><pre>=PAGO(rate; nper; pv; [fv]; [type])</pre><pre>=PAGO(0,05/12;360;200000)</pre></div><div><b>Français — VPM</b><pre>=VPM(rate; nper; pv; [fv]; [type])</pre><pre>=VPM(0,05/12;360;200000)</pre></div><div><b>Deutsch — RMZ</b><pre>=RMZ(rate; nper; pv; [fv]; [type])</pre><pre>=RMZ(0,05/12;360;200000)</pre></div><div><b>Italiano — RATA</b><pre>=RATA(rate; nper; pv; [fv]; [type])</pre><pre>=RATA(0,05/12;360;200000)</pre></div></div>
-<h2>Common mistakes</h2>
+<h2>O que faz PMT</h2>
+<p class="lead">Calculadoras de crédito habitação e de empréstimos. Nomes: PGTO, PAGO, VPM, RMZ, RATA. A taxa e o período têm de estar na mesma unidade, e os decimais europeus contam.</p>
+<p>Devolve a prestação de um empréstimo com taxa de juro constante e plano de pagamentos constante.</p>
+<h2>Sintaxe e um exemplo resolvido em 6 línguas</h2>
+<p class="lead">O Excel em inglês separa os argumentos com vírgula e usa ponto decimal. Na maior parte das versões europeias, o separador é ponto e vírgula e a vírgula é o decimal. TRUE e FALSE também mudam de nome. O tradutor em baixo aplica as três alterações.</p>
+<div class="facts"><div><b>Inglês — PMT</b><pre>=PMT(rate, nper, pv, [fv], [type])</pre><pre>=PMT(0.05/12,360,200000)</pre></div><div><b>Português (PT) — PGTO</b><pre>=PGTO(rate; nper; pv; [fv]; [type])</pre><pre>=PGTO(0,05/12;360;200000)</pre></div><div><b>Espanhol — PAGO</b><pre>=PAGO(rate; nper; pv; [fv]; [type])</pre><pre>=PAGO(0,05/12;360;200000)</pre></div><div><b>Francês — VPM</b><pre>=VPM(rate; nper; pv; [fv]; [type])</pre><pre>=VPM(0,05/12;360;200000)</pre></div><div><b>Alemão — RMZ</b><pre>=RMZ(rate; nper; pv; [fv]; [type])</pre><pre>=RMZ(0,05/12;360;200000)</pre></div><div><b>Italiano — RATA</b><pre>=RATA(rate; nper; pv; [fv]; [type])</pre><pre>=RATA(0,05/12;360;200000)</pre></div></div>
+<h2>Erros frequentes</h2>
 <ul>
-<li>If the annual rate is 5% and payments are monthly, use <code>5%/12</code> (or <code>0,05/12</code> in European Excel), not 5%.</li>
-<li>nper is the number of payments (30 years monthly = 360), not the number of years.</li>
-<li>PMT returns a negative number if the present value is a positive loan amount (cash-flow sign convention). Wrap it in ABS or enter the loan as negative, consistently.</li>
+<li>Se a taxa anual é 5% e as prestações são mensais, use <code>5%/12</code> (ou <code>0,05/12</code> no Excel europeu), e não 5%.</li>
+<li>nper é o número de prestações (30 anos com prestações mensais = 360), não o número de anos.</li>
+<li>PMT devolve um número negativo se o valor atual for um montante de empréstimo positivo (convenção de sinais dos fluxos de caixa). Envolva com ABS ou introduza o empréstimo como negativo, sempre da mesma maneira.</li>
 </ul>
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>Translate a formula with PMT</h2>
-<p class="lead">Paste any formula. Function names and separators are converted between English, Portuguese, Spanish, French, German and Italian.</p>
+<h2>Traduzir uma fórmula com PMT</h2>
+<p class="lead">Cole qualquer fórmula. Os nomes das funções e os separadores são convertidos entre inglês, português, espanhol, francês, alemão e italiano.</p>
 <div class="tool">
-<label for="f">Formula</label>
+<label for="f">Fórmula</label>
 <textarea id="f" style="min-height:70px;font-family:monospace">=PMT(0.05/12,360,200000)</textarea>
-<div class="row"><div><label for="from">From</label><select id="from"></select></div><div><label for="to">To</label><select id="to"></select></div></div>
-<p><button class="btn ghost" id="swap" type="button">⇄ Swap</button></p>
-<label for="res">Result</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
-<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copy result</button></p>
-<p class="note">Sheet names and cell references are not translated. Google Sheets accepts English function names, but uses your locale’s separators.</p>
+<div class="row"><div><label for="from">De</label><select id="from"></select></div><div><label for="to">Para</label><select id="to"></select></div></div>
+<p><button class="btn ghost" id="swap" type="button">⇄ Trocar</button></p>
+<label for="res">Resultado</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
+<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copiar resultado</button></p>
+<p class="note">Os nomes das folhas e as referências das células não são traduzidos. O Google Sheets aceita nomes de funções em inglês, mas usa os separadores da sua região.</p>
 </div>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Stuck with a spreadsheet? We fix it. From $25</h2>
-<p class="lead">Broken lookups, a running balance that will not stay still, a translated workbook full of #NAME? errors. Fixed price after we see the file. 48h.</p>
-<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(PMT)">Send the sheet</a></p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Files are used only for the order and deleted after delivery. No address, phone or national ID is asked for or published.</p>
-<p>If you just need the function names and 20 practice exercises, the <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">Excel cheat sheet is $5 on Gumroad</a>. Payment is on Gumroad, not on this site.</p>
+<h2>Folha de cálculo emperrada? Tratamos disso.</h2>
+<p class="lead">Fórmulas de procura que falham, um saldo acumulado que não fica quieto, um livro traduzido cheio de erros #NOME?. Vemos o ficheiro e respondemos em 48 h.</p>
+<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(PMT)">Enviar a folha</a></p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Os ficheiros servem só para a encomenda e são apagados depois da entrega. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p>
+<p>Se só precisar dos nomes das funções e de 20 exercícios, a <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">folha de consulta do Excel está no Gumroad</a>. O pagamento é no Gumroad, não neste site.</p>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>What is PMT in Portuguese?</summary><p>PGTO. Spanish PAGO, French VPM, German RMZ, Italian RATA.</p></details><details><summary>Why is the result negative?</summary><p>Excel treats the loan (pv) as cash you received and the payment as cash you pay out. Use ABS, or enter pv as negative, and stay consistent.</p></details><details><summary>European decimal?</summary><p>In Portuguese or German Excel write <code>0,05/12</code>, not <code>0.05/12</code>.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O que é PMT em português?</summary><p>PGTO. Espanhol PAGO, francês VPM, alemão RMZ, italiano RATA.</p></details><details><summary>Porque é que o resultado é negativo?</summary><p>O Excel trata o empréstimo (pv) como dinheiro que entrou e a prestação como dinheiro que sai. Use ABS, ou introduza pv como negativo, e mantenha a coerência.</p></details><details><summary>E o decimal europeu?</summary><p>No Excel em português ou em alemão escreva <code>0,05/12</code>, não <code>0.05/12</code>.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related functions</h2>
-<div class="fnlist"><a href="../if/"><b>IF</b> = SE</a><a href="../date/"><b>DATE</b> = DATA</a><a href="../"><b>All 30 guides</b> and the translator</a></div>
-<p class="note" style="margin-top:16px"><a href="../../statement-to-csv/">Bank statement → CSV</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Funções relacionadas</h2>
+<div class="fnlist"><a href="/excel-functions/if/"><b>IF</b> = SE</a><a href="/excel-functions/date/"><b>DATE</b> = DATA</a><a href="/excel-functions/"><b>Os 30 guias</b> e o tradutor</a></div>
+<p class="note" style="margin-top:16px"><a href="/statement-to-csv/">Extrato bancário → CSV</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços da Netmend</a></p>
 </div></section>
-<script src="../app.js"></script>
+<script src="/excel-functions/app.js"></script>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no seu browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços por encomenda</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem criar conta. As ferramentas grátis correm no seu browser.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

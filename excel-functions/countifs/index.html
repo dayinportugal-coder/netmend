@@ -1,76 +1,81 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>COUNTIFS in Portuguese = CONTAR.SE.S (Spanish CONTAR.SI.CONJUNTO, French NB.SI.ENS, German ZÄHLENWENNS, Italian CONTA.PIÙ.SE) · Netmend</title>
-<meta name="description" content="What is COUNTIFS in Portuguese? CONTAR.SE.S. Also CONTAR.SI.CONJUNTO, NB.SI.ENS, ZÄHLENWENNS, CONTA.PIÙ.SE. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>COUNTIFS em português = CONTAR.SE.S (espanhol CONTAR.SI.CONJUNTO, francês NB.SI.ENS, alemão ZÄHLENWENNS, italiano CONTA.PIÙ.SE) · Netmend</title>
+<meta name="description" content="O que é COUNTIFS em português? CONTAR.SE.S. Também CONTAR.SI.CONJUNTO, NB.SI.ENS, ZÄHLENWENNS, CONTA.PIÙ.SE. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <link rel="canonical" href="https://netmend.app/excel-functions/countifs/">
-<meta property="og:title" content="COUNTIFS in Portuguese = CONTAR.SE.S (Spanish CONTAR.SI.CONJUNTO, French NB.SI.ENS, German ZÄHLENWENNS, Italian CONTA.PIÙ.SE) · Netmend"><meta property="og:description" content="What is COUNTIFS in Portuguese? CONTAR.SE.S. Also CONTAR.SI.CONJUNTO, NB.SI.ENS, ZÄHLENWENNS, CONTA.PIÙ.SE. Syntax and a worked example in all 6 languages, plus a free formula translator.">
+<meta property="og:url" content="https://netmend.app/excel-functions/countifs/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/excel-functions/countifs/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/excel-functions/countifs/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/excel-functions/countifs/">
+<meta property="og:title" content="COUNTIFS em português = CONTAR.SE.S (espanhol CONTAR.SI.CONJUNTO, francês NB.SI.ENS, alemão ZÄHLENWENNS, italiano CONTA.PIÙ.SE) · Netmend"><meta property="og:description" content="O que é COUNTIFS em português? CONTAR.SE.S. Também CONTAR.SI.CONJUNTO, NB.SI.ENS, ZÄHLENWENNS, CONTA.PIÙ.SE. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "COUNTIFS in Portuguese = CONTAR.SE.S (Spanish CONTAR.SI.CONJUNTO, French NB.SI.ENS, German ZÄHLENWENNS, Italian CONTA.PIÙ.SE) · Netmend", "url": "https://netmend.app/excel-functions/countifs/", "inLanguage": ["en", "pt", "es", "fr", "de", "it"], "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "What is COUNTIFS in Portuguese? CONTAR.SE.S. Also CONTAR.SI.CONJUNTO, NB.SI.ENS, ZÄHLENWENNS, CONTA.PIÙ.SE. Syntax and a worked example in all 6 languages, plus a free formula translator."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is COUNTIFS in Portuguese?", "acceptedAnswer": {"@type": "Answer", "text": "CONTAR.SE.S. Spanish CONTAR.SI.CONJUNTO, French NB.SI.ENS, German ZÄHLENWENNS, Italian CONTA.PIÙ.SE."}}, {"@type": "Question", "name": "Can I count with OR, not AND?", "acceptedAnswer": {"@type": "Answer", "text": "Add two COUNTIFS, and subtract the overlap if a row could meet both."}}], "url": "https://netmend.app/excel-functions/countifs/"}</script>
-<script src="../data.js"></script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "COUNTIFS em português = CONTAR.SE.S (espanhol CONTAR.SI.CONJUNTO, francês NB.SI.ENS, alemão ZÄHLENWENNS, italiano CONTA.PIÙ.SE) · Netmend", "url": "https://netmend.app/excel-functions/countifs/", "inLanguage": "pt-PT", "author": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}, "description": "O que é COUNTIFS em português? CONTAR.SE.S. Também CONTAR.SI.CONJUNTO, NB.SI.ENS, ZÄHLENWENNS, CONTA.PIÙ.SE. Sintaxe e um exemplo resolvido nas 6 línguas, mais um tradutor de fórmulas gratuito."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "O que é COUNTIFS em português?", "acceptedAnswer": {"@type": "Answer", "text": "CONTAR.SE.S. Espanhol CONTAR.SI.CONJUNTO, francês NB.SI.ENS, alemão ZÄHLENWENNS, italiano CONTA.PIÙ.SE."}}, {"@type": "Question", "name": "Posso contar com OR, em vez de AND?", "acceptedAnswer": {"@type": "Answer", "text": "Some dois COUNTIFS e subtraia a sobreposição se uma linha puder cumprir as duas condições."}}], "url": "https://netmend.app/excel-functions/countifs/"}</script>
+<script src="/excel-functions/data.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Formula translator</a><a class="cta" href="#done-for-you">Sheet fix $25</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/excel-functions/">Tradutor de fórmulas</a><a class="cta" href="#done-for-you">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/excel-functions/countifs/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/excel-functions/countifs/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Excel functions</a> · COUNTIFS = CONTAR.SE.S</p>
-<h1>COUNTIFS in Portuguese = <span>CONTAR.SE.S</span></h1>
-<p>COUNTIFS = CONTAR.SE.S = CONTAR.SI.CONJUNTO = NB.SI.ENS = ZÄHLENWENNS = CONTA.PIÙ.SE. Counts cells that meet several conditions at once.</p>
-<div class="pills"><span>6 languages</span><span>Syntax + example</span><span>Fixes , vs ;</span><span>Free translator</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/excel-functions/">Funções do Excel</a> · COUNTIFS = CONTAR.SE.S</p>
+<h1>COUNTIFS em português = <span>CONTAR.SE.S</span></h1>
+<p>COUNTIFS = CONTAR.SE.S = CONTAR.SI.CONJUNTO = NB.SI.ENS = ZÄHLENWENNS = CONTA.PIÙ.SE. Conta células que cumprem várias condições ao mesmo tempo.</p>
+<div class="pills"><span>6 línguas</span><span>Sintaxe + exemplo</span><span>Corrige , e ;</span><span>Tradutor gratuito</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>What COUNTIFS does</h2>
-<p class="lead">The multi-condition version of COUNTIF. Names: CONTAR.SE.S, CONTAR.SI.CONJUNTO, NB.SI.ENS, ZÄHLENWENNS, CONTA.PIÙ.SE.</p>
-<p>Counts cells that meet several conditions at once.</p>
-<h2>Syntax and a worked example in 6 languages</h2>
-<p class="lead">English Excel uses commas between arguments and a dot decimal. Most European Excel versions use semicolons and a decimal comma. TRUE / FALSE also change name. The translator below applies all three.</p>
-<div class="facts"><div><b>English — COUNTIFS</b><pre>=COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2], …)</pre><pre>=COUNTIFS(B:B,&quot;Rent&quot;,C:C,&quot;&gt;100&quot;)</pre></div><div><b>Português (PT) — CONTAR.SE.S</b><pre>=CONTAR.SE.S(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=CONTAR.SE.S(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div><div><b>Español — CONTAR.SI.CONJUNTO</b><pre>=CONTAR.SI.CONJUNTO(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=CONTAR.SI.CONJUNTO(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div><div><b>Français — NB.SI.ENS</b><pre>=NB.SI.ENS(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=NB.SI.ENS(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div><div><b>Deutsch — ZÄHLENWENNS</b><pre>=ZÄHLENWENNS(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=ZÄHLENWENNS(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div><div><b>Italiano — CONTA.PIÙ.SE</b><pre>=CONTA.PIÙ.SE(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=CONTA.PIÙ.SE(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div></div>
-<h2>Common mistakes</h2>
+<h2>O que faz COUNTIFS</h2>
+<p class="lead">A versão de COUNTIF com várias condições. Nomes: CONTAR.SE.S, CONTAR.SI.CONJUNTO, NB.SI.ENS, ZÄHLENWENNS, CONTA.PIÙ.SE.</p>
+<p>Conta células que cumprem várias condições ao mesmo tempo.</p>
+<h2>Sintaxe e um exemplo resolvido em 6 línguas</h2>
+<p class="lead">O Excel em inglês separa os argumentos com vírgula e usa ponto decimal. Na maior parte das versões europeias, o separador é ponto e vírgula e a vírgula é o decimal. TRUE e FALSE também mudam de nome. O tradutor em baixo aplica as três alterações.</p>
+<div class="facts"><div><b>Inglês — COUNTIFS</b><pre>=COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2], …)</pre><pre>=COUNTIFS(B:B,&quot;Rent&quot;,C:C,&quot;&gt;100&quot;)</pre></div><div><b>Português (PT) — CONTAR.SE.S</b><pre>=CONTAR.SE.S(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=CONTAR.SE.S(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div><div><b>Espanhol — CONTAR.SI.CONJUNTO</b><pre>=CONTAR.SI.CONJUNTO(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=CONTAR.SI.CONJUNTO(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div><div><b>Francês — NB.SI.ENS</b><pre>=NB.SI.ENS(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=NB.SI.ENS(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div><div><b>Alemão — ZÄHLENWENNS</b><pre>=ZÄHLENWENNS(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=ZÄHLENWENNS(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div><div><b>Italiano — CONTA.PIÙ.SE</b><pre>=CONTA.PIÙ.SE(criteria_range1; criteria1; [criteria_range2; criteria2]; …)</pre><pre>=CONTA.PIÙ.SE(B:B;&quot;Rent&quot;;C:C;&quot;&gt;100&quot;)</pre></div></div>
+<h2>Erros frequentes</h2>
 <ul>
-<li>All ranges must be the same size.</li>
-<li>The same operator and concatenation rules as COUNTIF apply: <code>"&gt;="&amp;F1</code>, never a typographic ≥.</li>
-<li>AND is implicit (every condition at once). For OR, add two COUNTIFS, or use SUMPRODUCT.</li>
+<li>Todos os intervalos têm de ter o mesmo tamanho.</li>
+<li>Aplicam-se as mesmas regras de operador e de concatenação que em COUNTIF: <code>"&gt;="&amp;F1</code>, nunca um ≥ tipográfico.</li>
+<li>O AND está implícito (todas as condições ao mesmo tempo). Para OR, some dois COUNTIFS ou use SUMPRODUCT.</li>
 </ul>
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>Translate a formula with COUNTIFS</h2>
-<p class="lead">Paste any formula. Function names and separators are converted between English, Portuguese, Spanish, French, German and Italian.</p>
+<h2>Traduzir uma fórmula com COUNTIFS</h2>
+<p class="lead">Cole qualquer fórmula. Os nomes das funções e os separadores são convertidos entre inglês, português, espanhol, francês, alemão e italiano.</p>
 <div class="tool">
-<label for="f">Formula</label>
+<label for="f">Fórmula</label>
 <textarea id="f" style="min-height:70px;font-family:monospace">=COUNTIFS(B:B,&quot;Rent&quot;,C:C,&quot;&gt;100&quot;)</textarea>
-<div class="row"><div><label for="from">From</label><select id="from"></select></div><div><label for="to">To</label><select id="to"></select></div></div>
-<p><button class="btn ghost" id="swap" type="button">⇄ Swap</button></p>
-<label for="res">Result</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
-<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copy result</button></p>
-<p class="note">Sheet names and cell references are not translated. Google Sheets accepts English function names, but uses your locale’s separators.</p>
+<div class="row"><div><label for="from">De</label><select id="from"></select></div><div><label for="to">Para</label><select id="to"></select></div></div>
+<p><button class="btn ghost" id="swap" type="button">⇄ Trocar</button></p>
+<label for="res">Resultado</label><textarea id="res" readonly style="min-height:70px;font-family:monospace"></textarea>
+<p class="note" id="unk"></p><p><button class="btn" id="cp" type="button">Copiar resultado</button></p>
+<p class="note">Os nomes das folhas e as referências das células não são traduzidos. O Google Sheets aceita nomes de funções em inglês, mas usa os separadores da sua região.</p>
 </div>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Stuck with a spreadsheet? We fix it. From $25</h2>
-<p class="lead">Broken lookups, a running balance that will not stay still, a translated workbook full of #NAME? errors. Fixed price after we see the file. 48h.</p>
-<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(COUNTIFS)">Send the sheet</a></p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Files are used only for the order and deleted after delivery. No address, phone or national ID is asked for or published.</p>
-<p>If you just need the function names and 20 practice exercises, the <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">Excel cheat sheet is $5 on Gumroad</a>. Payment is on Gumroad, not on this site.</p>
+<h2>Folha de cálculo emperrada? Tratamos disso.</h2>
+<p class="lead">Fórmulas de procura que falham, um saldo acumulado que não fica quieto, um livro traduzido cheio de erros #NOME?. Vemos o ficheiro e respondemos em 48 h.</p>
+<p><a class="btn" href="mailto:dayinportugal@gmail.com?subject=Netmend%20-%20Excel%20help%20(COUNTIFS)">Enviar a folha</a></p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Os ficheiros servem só para a encomenda e são apagados depois da entrega. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p>
+<p>Se só precisar dos nomes das funções e de 20 exercícios, a <a href="https://portugaldiary.gumroad.com/l/xjtmyf" target="_blank" rel="noopener noreferrer">folha de consulta do Excel está no Gumroad</a>. O pagamento é no Gumroad, não neste site.</p>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>What is COUNTIFS in Portuguese?</summary><p>CONTAR.SE.S. Spanish CONTAR.SI.CONJUNTO, French NB.SI.ENS, German ZÄHLENWENNS, Italian CONTA.PIÙ.SE.</p></details><details><summary>Can I count with OR, not AND?</summary><p>Add two COUNTIFS, and subtract the overlap if a row could meet both.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O que é COUNTIFS em português?</summary><p>CONTAR.SE.S. Espanhol CONTAR.SI.CONJUNTO, francês NB.SI.ENS, alemão ZÄHLENWENNS, italiano CONTA.PIÙ.SE.</p></details><details><summary>Posso contar com OR, em vez de AND?</summary><p>Some dois COUNTIFS e subtraia a sobreposição se uma linha puder cumprir as duas condições.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related functions</h2>
-<div class="fnlist"><a href="../sumifs/"><b>SUMIFS</b> = SOMA.SE.S</a><a href="../countif/"><b>COUNTIF</b> = CONTAR.SE</a><a href="../"><b>All 30 guides</b> and the translator</a></div>
-<p class="note" style="margin-top:16px"><a href="../../statement-to-csv/">Bank statement → CSV</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Funções relacionadas</h2>
+<div class="fnlist"><a href="/excel-functions/sumifs/"><b>SUMIFS</b> = SOMA.SE.S</a><a href="/excel-functions/countif/"><b>COUNTIF</b> = CONTAR.SE</a><a href="/excel-functions/"><b>Os 30 guias</b> e o tradutor</a></div>
+<p class="note" style="margin-top:16px"><a href="/statement-to-csv/">Extrato bancário → CSV</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços da Netmend</a></p>
 </div></section>
-<script src="../app.js"></script>
+<script src="/excel-functions/app.js"></script>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no seu browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços por encomenda</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem criar conta. As ferramentas grátis correm no seu browser.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>
