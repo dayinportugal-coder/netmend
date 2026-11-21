@@ -16,6 +16,12 @@
 <meta name="twitter:title" content="Netmend · Free, private tools for PDF, Excel and bank statements">
 <meta name="twitter:description" content="Bank statement PDF to CSV, Excel formula translator and more. Runs in your browser: no upload, no sign-up.">
 <meta name="theme-color" content="#0b0c0f">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Netmend">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -58,7 +64,7 @@
 <body>
 <header><div class="wrap">
 <a href="./"><img src="assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="statement-to-csv/">Bank statements</a><a href="excel-functions/">Excel formulas</a><a href="guides/">Guides</a><a class="cta" href="tools/">All tools</a></nav>
+<nav><a href="statement-to-csv/">Bank statements</a><a href="excel-functions/">Excel formulas</a><a href="guides/">Guides</a><a class="cta" href="tools/">Tools</a></nav>
 </div></header>
 
 <main>
@@ -109,6 +115,8 @@
 <h2>More free tools</h2>
 <div class="list">
 <a href="statement/"><b>Statement → Excel</b><span>Bank statement PDF to .xlsx, several files at once.</span></a>
+<a href="efatura/"><b>e-fatura → Excel</b><span>Portuguese e-fatura CSVs into one spreadsheet. In your browser.</span></a>
+<a href="pt/efatura/"><b>e-fatura para Excel</b><span>Em português, para empresas e ENI: IVA por fornecedor e por trimestre.</span></a>
 <a href="statement-to-csv/"><b>Statement PDF to CSV, by bank</b><span>Notes for CGD, Millennium, Santander, Revolut and 26 more.</span></a>
 <a href="excel-functions/"><b>Excel formula translator</b><span>Function names in 6 languages, side by side.</span></a>
 <a href="guides/"><b>PDF to Excel guides</b><span>Invoices, receipts, QuickBooks and Xero imports.</span></a>
@@ -150,12 +158,13 @@
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
 <div class="f-brand"><a href="./"><img src="assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Free, private tools for PDF, Excel and bank statements. Everything runs in your browser.</p></div>
-<div><h4>Free tools</h4><a href="statement-to-csv/">Statement PDF to CSV</a><a href="statement/">Statement → Excel</a><a href="excel-functions/">Excel formula translator</a><a href="wall-of-love/">Testimonial wall</a><a href="tools/">All tools</a></div>
+<div><h4>Free tools</h4><a href="statement-to-csv/">Statement PDF to CSV</a><a href="statement/">Statement → Excel</a><a href="efatura/">e-fatura → Excel</a><a href="pt/efatura/">e-fatura para Excel (PT)</a><a href="excel-functions/">Excel formula translator</a><a href="wall-of-love/">Testimonial wall</a><a href="tools/">Tools</a></div>
 <div><h4>For X</h4><a href="x-post-writer/">X Post Writer</a><a href="x-reach-checker/">X Reach Checker</a><a href="x-growth/">X growth guides</a></div>
 <div><h4>Learn</h4><a href="guides/">PDF to Excel guides</a><a href="compare/">Comparisons</a><a href="#services">Done-for-you services</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
 </div>
 <div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · We only use your email to answer you. No cookies, no trackers on this site.</div>
 </div></footer>
+<script src="/assets/pwa.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
 <script src="statement-to-csv/app.js"></script>
 <script src="excel-functions/data.js"></script>

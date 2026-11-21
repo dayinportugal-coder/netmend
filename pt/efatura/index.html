@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>e-fatura para Excel grátis: exportar faturas e o IVA · Netmend</title>
+<meta name="description" content="e-fatura para Excel grátis, no browser. Exportar faturas do Portal das Finanças e ver o IVA por fornecedor e por trimestre. Para empresas, ENI e contabilistas. Nada é enviado.">
+<link rel="canonical" href="https://netmend.app/pt/efatura/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/efatura/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/pt/efatura/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/pt/efatura/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://netmend.app/pt/efatura/">
+<meta property="og:site_name" content="Netmend">
+<meta property="og:title" content="e-fatura para Excel grátis: exportar faturas e o IVA · Netmend">
+<meta property="og:description" content="Exportar faturas do e-fatura para Excel grátis. IVA por fornecedor e por trimestre, no browser. Nada é enviado.">
+<meta property="og:image" content="https://netmend.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="e-fatura para Excel grátis: exportar faturas e o IVA · Netmend">
+<meta name="twitter:description" content="Exportar faturas do e-fatura para Excel grátis. IVA por fornecedor e por trimestre. Nada é enviado.">
+<meta name="twitter:image" content="https://netmend.app/assets/og-image.png">
+<meta name="theme-color" content="#0b0c0f">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Netmend">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/favicon.png" type="image/png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/tools.css">
+<style>
+.hero{padding:20px 0 8px}
+.hero h1{font-size:clamp(28px,4.2vw,44px);margin-bottom:8px}
+section.tight{padding:12px 0 56px}
+.app-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:16px;align-items:start;margin:0 0 22px}
+.preview-card{border:1px solid var(--border);border-radius:var(--radius);background:#131419;padding:14px 16px;min-width:0}
+.preview-card .lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-2);margin:0 0 6px}
+.preview-card p{margin:0 0 8px;color:var(--muted);font-size:14px}
+.sheet-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.sheet-tabs span{border:1px solid var(--border);border-radius:8px;padding:2px 8px;font-size:12px;color:var(--muted)}
+.sheet-tabs span.on{color:#fff;border-color:var(--border-2)}
+.preview-card table{font-size:13px}
+.preview-card th,.preview-card td{padding:5px 6px}
+caption{caption-side:top;text-align:left;font-weight:650;font-size:18px;color:#fff;padding:0 0 8px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 16px}
+.step{border:1px solid var(--border);border-radius:var(--radius);background:#131419;padding:14px 16px;min-width:0}
+.step .n{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-2);margin:0 0 6px}
+.step p{margin:0;color:var(--muted);font-size:14.5px}
+#drop{border:1.5px dashed var(--border-2);border-radius:12px;padding:18px;background:rgba(255,255,255,.02)}
+#drop.on{border-color:var(--coral);background:rgba(255,90,54,.06)}
+.pick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.pick input[type=file]{max-width:100%;min-width:0}
+.actions .btn,.pick .btn{max-width:100%;white-space:normal;text-align:center}
+.counters{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:16px 0}
+.counter{border:1px solid var(--border);border-radius:var(--radius);background:#131419;padding:14px 16px;min-width:0}
+.counter b{display:block;font-size:clamp(20px,2.6vw,28px);letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.counter span{color:var(--muted);font-size:13.5px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}
+.files{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.files li{border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:13px;color:var(--muted);overflow-wrap:anywhere;max-width:100%}
+.disclaimer{border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;color:var(--muted);font-size:14px;margin-top:16px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.block-h{margin:22px 0 8px}
+.lang a{color:var(--muted);text-decoration:none}
+.lang a[aria-current]{color:#fff}
+@media(max-width:860px){
+  .counters{grid-template-columns:1fr 1fr}
+  .app-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  nav a.nav-tools{display:inline-flex}
+}
+@media(max-width:560px){.steps{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"e-fatura para Excel grátis","applicationCategory":"FinanceApplication","operatingSystem":"Any (web browser)","url":"https://netmend.app/pt/efatura/","inLanguage":"pt-PT","isAccessibleForFree":true,"description":"Exportar faturas do e-fatura para Excel grátis, no browser. IVA por fornecedor e por trimestre para empresas, ENI e contabilistas.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"browserRequirements":"Precisa de JavaScript. Os ficheiros são tratados no browser e não são enviados.","publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"O ficheiro do e-fatura sai do meu computador?","acceptedAnswer":{"@type":"Answer","text":"Não. O CSV ou o ZIP é lido neste browser. O Excel é feito no seu computador. Nada é enviado para a Netmend."}},{"@type":"Question","name":"O que são faturas pendentes e como se validam?","acceptedAnswer":{"@type":"Answer","text":"No portal, uma fatura fica pendente quando ainda não tem setor de atividade. Isto acontece, por exemplo, quando o emitente tem mais do que uma atividade registada e o portal não escolhe uma. Para a validar, abra Consultar faturas ou Verificar faturas, escolha o setor dessa fatura e grave. Esta página só lista essas linhas. Não altera nada no portal."}},{"@type":"Question","name":"Porque não abrir o CSV do e-fatura diretamente no Excel?","acceptedAnswer":{"@type":"Answer","text":"A exportação do portal é um CSV separado por ponto e vírgula, muitas vezes em Windows-1252. As notas de crédito vêm com valor positivo, o NIF do emitente vem colado ao nome, e os valores acima de 1.000 euros usam ponto como separador de milhares, pelo que o Excel os trata como texto. Cada exportação para nas 300 linhas. Esta página junta até 12 ficheiros e grava o IVA por fornecedor, mês e trimestre."}},{"@type":"Question","name":"Isto é aconselhamento fiscal?","acceptedAnswer":{"@type":"Answer","text":"Não. A página só organiza o ficheiro que exportou. Não diz o que pode deduzir. Confirme os valores com o seu contabilista ou no Portal das Finanças antes de os usar numa declaração."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Netmend","item":"https://netmend.app/"},{"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://netmend.app/tools/"},{"@type":"ListItem","position":3,"name":"e-fatura para Excel grátis","item":"https://netmend.app/pt/efatura/"}]}</script>
+</head>
+<body>
+<header><div class="wrap">
+<a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a class="nav-tools" href="../../tools/">Ferramentas</a><a href="#guide">Como exportar</a><a class="cta" href="#app">Usar grátis</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+<p class="crumbs"><a href="../../">Netmend</a> · <a href="../../tools/">Ferramentas</a> · e-fatura <span class="lang">· <a href="../../efatura/">English</a> · <a href="./" aria-current="page">Português</a></span></p>
+<h1>e-fatura para Excel <span>grátis</span></h1>
+<p>Para empresas, ENI e contabilistas: exportar faturas e ver o IVA por fornecedor e por trimestre. O ficheiro fica neste computador.</p>
+<div class="pills"><span>Nada é enviado</span><span>Até 12 ficheiros</span><span>Funciona offline depois de instalar</span></div>
+</div></div>
+
+<section class="tight" id="app"><div class="wrap">
+<div class="app-grid">
+<div class="tool" id="drop">
+<label for="file" style="margin-top:0">CSV ou ZIP do e-fatura</label>
+<p class="note" style="margin:0">Serve o CSV com ponto e vírgula, decimais portugueses (1.234,56) e Windows-1252. A versão grátis junta 12 ficheiros. Num ZIP conta cada CSV lá dentro.</p>
+<div class="pick">
+<input id="file" type="file" accept=".csv,.zip,text/csv,application/zip,application/x-zip-compressed" multiple>
+<button id="example" type="button" class="btn" data-sample="../../efatura/sample/efatura-exemplo.zip">Experimentar com o exemplo</button>
+</div>
+<p class="note" style="margin:10px 0 0">Não tem uma exportação à mão? O exemplo é fictício (os nomes dizem EXEMPLO e os NIF não são de empresas reais). <a href="../../efatura/sample/efatura-exemplo.zip" download>Descarregar o ZIP de exemplo</a></p>
+<ul class="files" id="file-list"></ul>
+<p id="error" class="bad" role="alert" hidden></p>
+<p id="limit-note" class="warn" hidden></p>
+<p id="warn-note" class="warn" hidden></p>
+<div class="actions">
+<button id="download" type="button" class="btn" disabled>Descarregar Excel</button>
+<button id="pro" type="button" class="btn ghost">Pro em breve</button>
+</div>
+<p id="pro-note" class="note" hidden></p>
+</div>
+<div class="preview-card">
+<p class="lbl">O Excel</p>
+<p>Um ficheiro com o IVA por fornecedor, mês e trimestre. As datas ficam como datas do Excel.</p>
+<div class="sheet-tabs"><span class="on">Faturas</span><span>Por NIF</span><span>Por mês</span><span>Por trimestre</span><span>Problemas</span></div>
+<table>
+<caption class="note" style="caption-side:bottom;padding-top:8px">Exemplo do ficheiro. Linhas inventadas, não são uma exportação real.</caption>
+<thead><tr><th>Data</th><th>Emitente</th><th class="num">Total</th><th class="num">IVA</th></tr></thead>
+<tbody>
+<tr><td>03/02/2025</td><td>ESCOLA AMOSTRA</td><td class="num">1.234,56</td><td class="num">0,00</td></tr>
+<tr><td>20/03/2025</td><td>RESTAURANTE EXEMPLO</td><td class="num">−10,00</td><td class="num">−1,87</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<h2 id="guide">Como exportar da e-fatura</h2>
+<p class="lead">No portal o botão chama-se “Obter dados para Excel”. O ficheiro é na mesma um CSV, e cada pesquisa só traz os 300 documentos mais recentes. Para o agregado familiar, junte os CSV de cada NIF e veja as pendentes antes de as classificar.</p>
+<div class="steps">
+<div class="step"><p class="n">Passo 1</p><p>Entre em <a href="https://faturas.portaldasfinancas.gov.pt/" rel="noopener noreferrer">faturas.portaldasfinancas.gov.pt</a> e abra Faturação como <b>Adquirente</b>.</p></div>
+<div class="step"><p class="n">Passo 2</p><p>Abra <b>Consultar faturas</b>. Escolha as datas e clique em Pesquisar. Para a empresa ou a atividade, filtre as faturas <b>afetas à atividade</b> antes de exportar. Se tiver mais de 300 faturas, exporte mês a mês.</p></div>
+<div class="step"><p class="n">Passo 3</p><p>Clique em <b>Obter dados para Excel</b> e arraste para aqui o CSV, ou um ZIP com vários. Não abra o ficheiro no Excel para o gravar de novo antes.</p></div>
+</div>
+
+<div id="results" hidden>
+<div class="counters" aria-live="polite">
+<div class="counter"><b id="c-docs">0</b><span id="c-docs-l">Documentos</span></div>
+<div class="counter"><b id="c-total">0</b><span id="c-total-l">Total líquido</span></div>
+<div class="counter"><b id="c-iva">0</b><span id="c-iva-l">IVA total</span></div>
+<div class="counter"><b id="c-pending">0</b><span id="c-pending-l">Pendentes</span></div>
+<div class="counter"><b id="c-invalid">0</b><span id="c-invalid-l">NIF inválidos</span></div>
+</div>
+<p id="empty-note" class="note" hidden></p>
+
+<div id="sector-wrap">
+<div class="scroll"><table>
+<caption>Por setor</caption>
+<thead><tr><th>Setor</th><th class="num">Documentos</th><th class="num">Base (s/ IVA)</th><th class="num">IVA</th><th class="num">Total</th></tr></thead>
+<tbody id="sector-body"></tbody>
+</table></div>
+</div>
+
+<div id="pending-wrap" hidden>
+<p class="note">Estas linhas ainda precisam de um setor no e-fatura, quando a exportação traz essa coluna. <a href="https://faturas.portaldasfinancas.gov.pt/" rel="noopener noreferrer">Abrir o e-fatura para classificar</a></p>
+<div class="scroll"><table>
+<caption>Pendentes</caption>
+<thead><tr><th>Data</th><th>Emitente</th><th>NIF</th><th>Número</th><th>Situação</th><th class="num">Total</th></tr></thead>
+<tbody id="pending-body"></tbody>
+</table></div>
+</div>
+
+<div class="scroll"><table>
+<caption>Faturas</caption>
+<thead><tr><th>Data</th><th>Emitente</th><th>NIF</th><th>Tipo</th><th class="col-sector">Setor</th><th>Situação</th><th class="num">Total</th></tr></thead>
+<tbody id="preview-body"></tbody>
+</table></div>
+<p id="preview-note" class="note" hidden></p>
+<p class="disclaimer"><b>Isto não é aconselhamento fiscal.</b> A página só organiza o ficheiro que exportou. Não diz o que pode deduzir. Confirme os valores com o seu contabilista ou no Portal das Finanças antes de os usar numa declaração.</p>
+</div>
+</div></section>
+
+<section class="alt" id="why"><div class="wrap">
+<h2>O que o CSV do portal traz torto</h2>
+<p class="lead">O Excel abre o ficheiro e mesmo assim soma uma nota de crédito por cima da fatura que ela anula. São limites da própria exportação, descritos por quem a converte, não uma garantia de que todos os ficheiros futuros serão iguais.</p>
+<div class="grid">
+<div class="card"><b>Notas de crédito positivas</b><p>Uma nota de crédito é uma devolução. No CSV o valor vem muitas vezes positivo, e uma soma simples fica alta demais. Aqui o tipo “Nota de crédito” (ou NC) muda o sinal.</p></div>
+<div class="card"><b>NIF colado ao nome</b><p>Uma coluna aparece muitas vezes como os nove dígitos, um traço e depois o nome. O NIF é separado e verificado com o dígito de controlo (mod 11). Se falhar, fica na folha Problemas.</p></div>
+<div class="card"><b>1.234,56 vira texto</b><p>Acima de 1.000 € o ponto marca os milhares e a vírgula os cêntimos, por vezes com € à frente. O Excel deixa de somar. A folha guarda números a sério.</p></div>
+<div class="card"><b>300 linhas e para</b><p>Cada pesquisa fica pelas 300 faturas mais recentes. Exporte vários períodos, ou um ZIP. A junção grátis aceita 12 ficheiros; a mesma fatura em dois deles conta uma vez.</p></div>
+</div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+<h2>Perguntas</h2>
+<details><summary>O ficheiro sai do meu computador?</summary><p>Não. A leitura, a verificação do NIF e o Excel acontecem neste browser. Não há conta nem envio. Fechar o separador apaga os dados.</p></details>
+<details><summary>Que exportação é que lê?</summary><p>O CSV do Portal das Finanças, e-fatura, Consultar faturas (Adquirente), em “Obter dados para Excel”. Os cabeçalhos variam (Setor ou Sector, Situação ou Estado, NIF à parte ou colado ao nome). Um ZIP desses CSV também serve. Não é um ficheiro SAF-T.</p></details>
+<details><summary>O que são faturas pendentes?</summary><p>No portal, uma fatura fica pendente quando ainda não tem setor. Isso acontece, por exemplo, quando o emitente tem mais do que uma atividade registada e o portal não escolhe uma. Abra Consultar faturas ou Verificar faturas, escolha o setor e grave. Esta página só as lista.</p></details>
+<details><summary>O que vem no Excel?</summary><p>Várias folhas: Faturas, Por NIF, Por mês, Por trimestre e Problemas. A folha Por setor só aparece quando a exportação traz essa coluna. Em cada resumo há a base sem IVA, o IVA e o total.</p></details>
+<details><summary>O que é que o Pro acrescenta?</summary><p>Pro em breve. O botão não cobra nada. A versão grátis já junta 12 ficheiros neste computador.</p></details>
+<p class="note" style="margin-top:18px">Também na Netmend: <a href="../../statement/">extrato PDF para Excel</a> · <a href="../../tools/">todas as ferramentas</a>. Dúvidas: <a href="mailto:dayinportugal@gmail.com?subject=Netmend%20e-fatura">dayinportugal@gmail.com</a></p>
+</div></section>
+
+<footer class="site-footer"><div class="wrap">
+<div class="f-grid">
+<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas grátis e privadas para PDF, Excel e extratos. Tudo corre no browser.</p></div>
+<div><h4>Ferramentas</h4><a href="../../statement-to-csv/">Extrato PDF para CSV</a><a href="../../statement/">Extrato → Excel</a><a href="./">e-fatura → Excel</a><a href="../../excel-functions/">Tradutor de fórmulas</a><a href="../../tools/">Ferramentas</a></div>
+<div><h4>Ler</h4><a href="../../guides/">Guias PDF para Excel</a><a href="../../efatura/">This page in English</a></div>
+<div><h4>Netmend</h4><a href="../../tools/">Ferramentas</a><a href="../../#services">Serviços</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
+</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Esta página não é aconselhamento fiscal. Sem cookies nem trackers. O seu CSV não é enviado.</div>
+</div></footer>
+<script src="/assets/pwa.js"></script>
+<script src="../../assets/vendor/jszip.min.js"></script>
+<script src="../../assets/vendor/xlsx.mini.min.js"></script>
+<script src="../../efatura/app.js"></script>
+</body>
+</html>
