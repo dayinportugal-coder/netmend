@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Criar ficheiro SEPA XML grátis: transferências em lote · Netmend</title>
+<meta name="description" content="Criar ficheiro SEPA XML grátis no browser. Excel ou CSV para transferências em lote (pain.001) a fornecedores e ordenados. Nada é enviado.">
+<link rel="canonical" href="https://netmend.app/pt/ficheiro-sepa/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/sepa/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/pt/ficheiro-sepa/">
+<link rel="alternate" hreflang="es-ES" href="https://netmend.app/es/fichero-sepa/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/pt/ficheiro-sepa/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://netmend.app/pt/ficheiro-sepa/">
+<meta property="og:site_name" content="Netmend">
+<meta property="og:title" content="Criar ficheiro SEPA XML grátis: transferências em lote · Netmend">
+<meta property="og:description" content="Ficheiro SEPA XML a partir de Excel ou CSV. Transferências em lote no browser. Nada é enviado.">
+<meta property="og:image" content="https://netmend.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Criar ficheiro SEPA XML grátis: transferências em lote · Netmend">
+<meta name="twitter:description" content="Ficheiro SEPA XML a partir de Excel ou CSV. Transferências em lote no browser. Nada é enviado.">
+<meta name="twitter:image" content="https://netmend.app/assets/og-image.png">
+<meta name="theme-color" content="#0b0c0f">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Netmend">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/favicon.png" type="image/png">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/tools.css">
+<link rel="stylesheet" href="../../sepa/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Criar ficheiro SEPA XML grátis","applicationCategory":"FinanceApplication","operatingSystem":"Any (web browser)","url":"https://netmend.app/pt/ficheiro-sepa/","inLanguage":"pt-PT","isAccessibleForFree":true,"description":"Criar ficheiro SEPA XML grátis no browser, para transferências em lote a fornecedores e ordenados.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"browserRequirements":"Precisa de JavaScript. Os ficheiros são tratados no browser e não são enviados.","publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"O ficheiro sai do meu computador?","acceptedAnswer":{"@type":"Answer","text":"Não. O Excel ou o CSV é lido neste browser. O XML é feito no seu computador. Nada é enviado para a Netmend nem para o banco."}},{"@type":"Question","name":"O que é este ficheiro SEPA?","acceptedAnswer":{"@type":"Answer","text":"É um XML de transferências a crédito, norma ISO 20022, pain.001.001.09, a versão do manual C2PSP 06.01 em vigor desde 28 de agosto de 2025. Serve para pagar fornecedores ou ordenados em lote, em euros, para IBAN da área SEPA. A versão 03 continua disponível: alguns bancos, por exemplo a CGD no Canal Multibancário, ainda a pedem."}},{"@type":"Question","name":"Como é que o banco importa o ficheiro?","acceptedAnswer":{"@type":"Answer","text":"No homebanking, procure a importação de ficheiros de transferências ou de pagamentos em lote. A Caixa Geral de Depósitos, na página do Canal Multibancário, indica o formato Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03 (cgd.pt, consultada em 21 de novembro de 2026). Noutros bancos o nome do menu é outro."}},{"@type":"Question","name":"O que é validado antes de descarregar?","acceptedAnswer":{"@type":"Answer","text":"O IBAN (dígito mod 97 e o comprimento do país), o NIB nas contas portuguesas, o formato do BIC quando existe, o montante (maior que zero, no máximo duas casas decimais), o conjunto de caracteres SEPA e o tamanho do nome (70) e da referência (140). Os acentos são convertidos (á passa a a) e a alteração fica na lista Problemas. Um EndToEndId repetido é tornado único. O mesmo IBAN com o mesmo montante gera um aviso."}},{"@type":"Question","name":"Quantos pagamentos entram no ficheiro?","acceptedAnswer":{"@type":"Answer","text":"O ficheiro leva todas as linhas. Não há limite. Pro em breve. O botão não cobra nada e não mostra preço."}},{"@type":"Question","name":"Isto substitui o banco ou o contabilista?","acceptedAnswer":{"@type":"Answer","text":"Não. A página só monta o ficheiro. Não envia pagamentos. Confirme os IBAN, o montante e a data no seu banco antes de autorizar o débito."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Netmend","item":"https://netmend.app/"},{"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://netmend.app/tools/"},{"@type":"ListItem","position":3,"name":"Ficheiro SEPA","item":"https://netmend.app/pt/ficheiro-sepa/"}]}</script>
+</head>
+<body>
+<header><div class="wrap">
+<a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a class="nav-tools" href="../../tools/">Ferramentas</a><a href="#guide">Como fazer</a><a class="cta" href="#app">Usar grátis</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+<p class="crumbs"><a href="../../">Netmend</a> · <a href="../../tools/">Ferramentas</a> · Ficheiro SEPA <span class="lang">· <a href="../../sepa/">English</a> · <a href="./" aria-current="page">Português</a> · <a href="../../es/fichero-sepa/">Español</a></span></p>
+<h1>Criar ficheiro SEPA XML <span>grátis</span></h1>
+<p>Ficheiro SEPA para transferências em lote: fornecedores e ordenados, a partir de Excel ou CSV. O ficheiro fica neste computador.</p>
+<div class="pills"><span>Nada é enviado</span><span>Todas as linhas</span><span>pain.001.001.09</span></div>
+</div></div>
+
+<section class="tight" id="app"><div class="wrap">
+<div class="app-grid">
+<div class="tool" id="drop">
+<label for="file" style="margin-top:0">Excel ou CSV com os pagamentos</label>
+<p class="note" style="margin:0">Arraste um .xlsx ou um CSV (ponto e vírgula ou vírgula; 1.234,56 ou 1234.56). Entram todas as linhas. Nada sai deste browser.</p>
+<div class="pick">
+<input id="file" type="file" accept=".xlsx,.xls,.csv,.txt,text/csv,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+<button id="example" type="button" class="btn">Experimentar com o exemplo</button>
+<button id="repeat" type="button" class="btn ghost">Repetir o último lote</button>
+<button id="template" type="button" class="btn ghost">Descarregar o modelo Excel</button>
+</div>
+<p class="note" style="margin:10px 0 0">O exemplo é fictício: os nomes dizem EXEMPLO e os IBAN só servem para testar o formato. Não são contas reais.</p>
+<details>
+<summary>Colar CSV</summary>
+<label for="paste">Texto separado por ponto e vírgula ou vírgula</label>
+<textarea id="paste" spellcheck="false" autocomplete="off"></textarea>
+<button id="parse-paste" type="button" class="btn ghost">Ler o texto</button>
+</details>
+
+<h2 style="font-size:20px;margin:18px 0 0">Ordenante</h2>
+<p class="note" style="margin:4px 0 0">A conta de onde sai o dinheiro. Fica guardada só neste browser, até a limpar.</p>
+<div class="row">
+<div><label for="dbtr-name">Nome</label><input id="dbtr-name" type="text" autocomplete="off" maxlength="80"></div>
+<div><label for="dbtr-iban">IBAN</label><input id="dbtr-iban" type="text" autocomplete="off" spellcheck="false" inputmode="text"></div>
+</div>
+<div class="row">
+<div><label for="dbtr-bic">BIC (opcional)</label><input id="dbtr-bic" type="text" autocomplete="off" spellcheck="false"></div>
+<div><label for="dbtr-date">Data de execução</label><input id="dbtr-date" type="date" autocomplete="off"></div>
+</div>
+<label class="check" for="dbtr-batch"><input id="dbtr-batch" type="checkbox" checked> Movimento agrupado (um débito na conta)</label>
+<div id="nif-wrap" hidden>
+<label for="dbtr-nif">NIF-sufijo (12 caracteres)</label>
+<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false">
+<p class="note">Obrigatório quando o IBAN do ordenante é espanhol. A guia AEB/CECA põe estes 12 caracteres em InitgPty/Id/OrgId/Othr.</p>
+</div>
+<p style="margin:12px 0 0"><button id="dbtr-clear" type="button" class="btn ghost">Limpar dados deste browser</button></p>
+<details id="beneficiaries">
+<summary>Beneficiários neste aparelho</summary>
+<p class="note">A lista fica só neste browser. Pode exportá-la ou apagá-la.</p>
+<div class="row">
+<div><label for="ben-name">Nome</label><input id="ben-name" type="text" autocomplete="off"></div>
+<div><label for="ben-iban">IBAN</label><input id="ben-iban" type="text" autocomplete="off" spellcheck="false"></div>
+<div><label for="ben-bic">BIC</label><input id="ben-bic" type="text" autocomplete="off" spellcheck="false"></div>
+</div>
+<div class="actions">
+<button id="ben-save" type="button" class="btn">Guardar beneficiário</button>
+<button id="ben-export" type="button" class="btn ghost">Exportar JSON</button>
+<button id="ben-import-btn" type="button" class="btn ghost">Importar JSON</button>
+<input id="ben-import" type="file" accept="application/json,.json" hidden>
+<button id="ben-wipe" type="button" class="btn ghost">Apagar tudo</button>
+</div>
+<ul class="files" id="ben-list"></ul>
+</details>
+<label for="pain-version">Versão do XML</label>
+<select id="pain-version">
+<option value="09" selected>pain.001.001.09</option>
+<option value="03">pain.001.001.03</option>
+</select>
+<p class="note">A versão 09 é a do <a href="https://www.santander.pt/pdfs/pdfs-empresas/netbanco-empresas-ajuda-online/netbanco-empresas-ajuda-online-documentos/sepa/manual_c2b.pdf" rel="noopener noreferrer">manual C2PSP 06.01</a>, em vigor desde 28 de agosto de 2025 (o mesmo texto está no <a href="https://www.bancomontepio.pt/content/dam/montepio/partilhado/documentos/pt_PT/pdf-pmc/SEPA0001.pdf" rel="noopener noreferrer">Montepio</a>). Alguns bancos, por exemplo a CGD no <a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">Canal Multibancário</a> (EBICS), ainda pedem a 03.</p>
+
+<div id="mapping" hidden>
+<p class="note" style="margin-bottom:0">Colunas detetadas. Corrija se o nome não estiver no sítio certo.</p>
+<div class="row">
+<div><label for="map-name">Coluna do nome</label><select id="map-name"></select></div>
+<div><label for="map-iban">Coluna do IBAN</label><select id="map-iban"></select></div>
+<div><label for="map-amount">Coluna do montante</label><select id="map-amount"></select></div>
+<div><label for="map-ref">Coluna da referência</label><select id="map-ref"></select></div>
+<div><label for="map-bic">Coluna do BIC</label><select id="map-bic"></select></div>
+</div>
+</div>
+<ul class="files" id="file-list"></ul>
+<p id="error" class="bad" role="alert" hidden></p>
+<p id="limit-note" class="warn" role="status" hidden></p>
+<p id="example-note" class="note" hidden></p>
+<div class="actions">
+<button id="download" type="button" class="btn" disabled>Descarregar XML</button>
+<button id="pro" type="button" class="btn ghost">Pro em breve</button>
+</div>
+<p id="pro-note" class="note" hidden></p>
+<p id="live-summary" class="note" aria-live="polite"></p>
+</div>
+<div class="preview-card">
+<p class="lbl">O XML</p>
+<p>Transferências a crédito SEPA. A soma de controlo tem de bater certo com as linhas. Os montantes no XML usam ponto decimal.</p>
+<table>
+<caption>Pagamentos do exemplo</caption>
+<thead><tr><th>Nome</th><th class="num">Montante</th></tr></thead>
+<tbody>
+<tr><td>FORNECEDOR EXEMPLO LDA</td><td class="num">1.234,56 €</td></tr>
+<tr><td>José Exemplo</td><td class="num">1.500,00 €</td></tr>
+</tbody>
+</table>
+<p class="note" style="margin:8px 0 0">Linhas inventadas. Os IBAN de teste não são contas reais.</p>
+</div>
+</div>
+
+<div id="results" hidden tabindex="-1">
+<div class="counters">
+<div class="counter"><b id="c-count">0</b><span>Pagamentos</span></div>
+<div class="counter"><b id="c-sum">0,00 €</b><span>Soma de controlo</span></div>
+<div class="counter"><b id="c-errors">0</b><span>Erros</span></div>
+<div class="counter"><b id="c-warnings">0</b><span>Avisos</span></div>
+</div>
+<p id="sum-note" class="note" hidden></p>
+<h2 id="problems-title">Problemas</h2>
+<p id="problems-none">Nenhum problema nestas linhas.</p>
+<ul id="problems" aria-labelledby="problems-title"></ul>
+<div class="scroll"><table>
+<caption>Pagamentos</caption>
+<thead><tr><th>Nome</th><th>IBAN</th><th class="num">Montante</th><th>Referência</th><th>BIC</th><th>EndToEndId</th></tr></thead>
+<tbody id="preview-body"></tbody>
+</table></div>
+<p id="preview-note" class="note" hidden></p>
+<p class="disclaimer"><b>Isto não envia dinheiro.</b> A página só monta o ficheiro. Confirme os IBAN, os montantes e a data no seu banco antes de autorizar o débito. Não é aconselhamento financeiro.</p>
+</div>
+
+<h2 id="guide">Como criar ficheiro SEPA</h2>
+<p class="lead">Uma folha com um pagamento por linha. O nome do beneficiário, o IBAN e o montante chegam. A referência e o BIC são opcionais.</p>
+<div class="steps">
+<div class="step"><p class="n">Passo 1</p><p>Descarregue o modelo ou use a sua folha. Cabeçalhos que a página reconhece: Nome, IBAN, Montante, Referência, BIC.</p></div>
+<div class="step"><p class="n">Passo 2</p><p>Preencha o ordenante. O nome, o IBAN, o BIC, a data e o movimento agrupado ficam só neste aparelho.</p></div>
+<div class="step"><p class="n">Passo 3</p><p>Leia a lista Problemas e a soma de controlo. Descarregue o XML e importe-o no homebanking. Daqui não é enviado.</p></div>
+</div>
+</div></section>
+
+<section class="alt" id="checks"><div class="wrap">
+<h2>O que a lista Problemas verifica</h2>
+<p class="lead">Um erro impede o XML. Um aviso deixa descarregar, mas convém lê-lo. Os acentos são convertidos segundo o conjunto de caracteres SEPA (á passa a a, ç a c, ñ a n) e a alteração fica escrita.</p>
+<div class="grid">
+<div class="card"><b>IBAN e NIB</b><p>O IBAN tem de passar no mod 97 e ter o comprimento do país. Num IBAN português, os 21 dígitos do NIB também passam no dígito de controlo.</p></div>
+<div class="card"><b>Montante</b><p>Maior que zero, no máximo duas casas decimais, até 999.999.999,99 €. A soma de controlo é a soma das linhas, em cêntimos, sem arredondar à parte.</p></div>
+<div class="card"><b>Nome e referência</b><p>O nome cabe em 70 caracteres e a referência em 140, já depois da conversão. Um EndToEndId repetido é substituído por um identificador único.</p></div>
+<div class="card"><b>BIC opcional</b><p>Se o deixar vazio, o banco do ordenante vai como NOTPROVIDED, como admite o manual C2B do Banco de Portugal. Se o preencher, tem de ter 8 ou 11 caracteres.</p></div>
+</div>
+</div></section>
+
+<section id="bank"><div class="wrap">
+<h2>Onde importar no banco</h2>
+<p class="lead">O menu não tem o mesmo nome em todos os bancos. Procure a importação de ficheiros de transferências, de pagamentos em lote ou de ficheiros SEPA, em XML.</p>
+<p>Para transferências em lote na CGD, no Millennium BCP ou no Santander, o ficheiro é o mesmo XML. O <a href="https://www.santander.pt/pdfs/pdfs-empresas/netbanco-empresas-ajuda-online/netbanco-empresas-ajuda-online-documentos/sepa/manual_c2b.pdf" rel="noopener noreferrer">Santander</a> e o <a href="https://www.bancomontepio.pt/content/dam/montepio/partilhado/documentos/pt_PT/pdf-pmc/SEPA0001.pdf" rel="noopener noreferrer">Montepio</a> publicam o manual C2PSP 06.01 (pain.001.001.09, em vigor desde 28 de agosto de 2025). A CGD, no Canal Multibancário, ainda lista «Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03» (<a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">cgd.pt</a>, consultada em 21 de novembro de 2026). O nome do menu no Millennium BCP é o que aparecer no ecrã.</p>
+<p class="note">A verificação do beneficiário (VOP) confirma se o nome coincide com o titular do IBAN. No manual C2PSP 06.01, Authstn/Prtry pode ser VOP ou NVOP; se a tag não for usada, o manual diz que isso se lê como dispensa de VOP. Este ficheiro não inclui essa tag.</p>
+</div></section>
+
+<section class="alt" id="faq"><div class="wrap">
+<h2>Perguntas</h2>
+<details><summary>O ficheiro sai do meu computador?</summary><p>Não. A leitura, a validação e o XML acontecem neste browser. Não há conta nem envio. Fechar o separador não apaga o ordenante guardado neste aparelho: para isso use Limpar dados deste browser.</p></details>
+<details><summary>O que é este ficheiro SEPA?</summary><p>É um XML de transferências a crédito, norma ISO 20022, pain.001.001.09, a versão do manual C2PSP 06.01 em vigor desde 28 de agosto de 2025. Serve para pagar fornecedores ou ordenados em lote, em euros, para IBAN da área SEPA. A versão 03 continua disponível: alguns bancos, por exemplo a CGD no Canal Multibancário, ainda a pedem.</p></details>
+<details><summary>Como é que o banco importa o ficheiro?</summary><p>No homebanking, procure a importação de ficheiros de transferências ou de pagamentos em lote. A Caixa Geral de Depósitos, na página do Canal Multibancário, indica o formato «Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03» (cgd.pt, consultada em 21 de novembro de 2026). Noutros bancos o nome do menu é outro.</p></details>
+<details><summary>O que é validado antes de descarregar?</summary><p>O IBAN (dígito mod 97 e o comprimento do país), o NIB nas contas portuguesas, o formato do BIC quando existe, o montante (maior que zero, no máximo duas casas decimais), o conjunto de caracteres SEPA e o tamanho do nome (70) e da referência (140). Os acentos são convertidos (á passa a a) e a alteração fica na lista Problemas. Um EndToEndId repetido é tornado único. O mesmo IBAN com o mesmo montante gera um aviso.</p></details>
+<details><summary>Quantos pagamentos entram no ficheiro?</summary><p>O ficheiro leva todas as linhas. Não há limite. Pro em breve. O botão não cobra nada e não mostra preço.</p></details>
+<details><summary>Como criar um ficheiro SEPA para transferências em lote na CGD, no BCP ou no Santander?</summary><p>Arraste o Excel ou o CSV, confirme a lista Problemas e descarregue o XML pain.001.001.09. O Santander publica o manual C2PSP 06.01. A CGD, no Canal Multibancário, ainda indica a versão 03, que pode escolher na lista. No Millennium BCP use o menu de ficheiros que o banco mostrar.</p></details>
+<details><summary>Isto substitui o banco ou o contabilista?</summary><p>Não. A página só monta o ficheiro. Não envia pagamentos. Confirme os IBAN, o montante e a data no seu banco antes de autorizar o débito.</p></details>
+<p class="note" style="margin-top:18px">Também na Netmend: <a href="../efatura/">e-fatura para Excel</a> · <a href="../../statement/">extrato PDF para Excel</a> · <a href="../../tools/">todas as ferramentas</a>. Dúvidas: <a href="mailto:dayinportugal@gmail.com?subject=Netmend%20ficheiro%20SEPA">dayinportugal@gmail.com</a></p>
+</div></section>
+
+<footer class="site-footer"><div class="wrap">
+<div class="f-grid">
+<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas grátis e privadas para PDF, Excel e extratos. Tudo corre no browser.</p></div>
+<div><h4>Ferramentas</h4><a href="../../statement-to-csv/">Extrato PDF para CSV</a><a href="../../statement/">Extrato → Excel</a><a href="../efatura/">e-fatura → Excel</a><a href="./">Ficheiro SEPA</a><a href="../../tools/">Ferramentas</a></div>
+<div><h4>Ler</h4><a href="../../sepa/">This page in English</a><a href="../../es/fichero-sepa/">Esta página en español</a></div>
+<div><h4>Netmend</h4><a href="../../tools/">Ferramentas</a><a href="../../#services">Serviços</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
+</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Esta página não envia pagamentos. Sem cookies nem trackers. O seu ficheiro não é enviado.</div>
+</div></footer>
+<script src="/assets/pwa.js"></script>
+<script src="../../assets/vendor/xlsx.mini.min.js"></script>
+<script src="../../sepa/app.js"></script>
+</body>
+</html>

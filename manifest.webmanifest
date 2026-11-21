@@ -1,7 +1,7 @@
 {
   "name": "Netmend",
   "short_name": "Netmend",
-  "description": "Free, private tools for PDF, Excel and e-fatura. They run in the browser.",
+  "description": "Free, private tools for PDF, Excel, e-fatura and SEPA files. They run in the browser.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
