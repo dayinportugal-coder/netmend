@@ -66,17 +66,23 @@ function build(){
   }else{out.push(['Page','Cells…']);RES.rows.forEach(function(r){out.push([r.page].concat(r.cells))})}
   return {table:out,csv:'\ufeff'+out.map(function(r){return r.map(function(v){return csvEsc(v,sep)}).join(sep)}).join('\r\n')};
 }
+function nmLang(){var l=(document.documentElement.lang||'pt').toLowerCase();return l.indexOf('en')===0?'en':l.indexOf('es')===0?'es':'pt'}
 function render(){
   var b=build(),t=document.getElementById('preview');t.innerHTML='';
   b.table.slice(0,201).forEach(function(r,i){var tr=document.createElement('tr');r.forEach(function(v){var c=document.createElement(i?'td':'th');c.textContent=v;tr.appendChild(c)});t.appendChild(tr)});
-  document.getElementById('stats').textContent=(document.getElementById('mode').value==='tx'?RES.tx.length+' transactions found':RES.rows.length+' text rows')+' · '+RES.pages+' page(s). Nothing was uploaded.';
+  var lang=nmLang();
+  var tx=lang==='en'?RES.tx.length+' transactions found':lang==='es'?RES.tx.length+' transacciones encontradas':RES.tx.length+' movimentos encontrados';
+  var rows=lang==='en'?RES.rows.length+' text rows':lang==='es'?RES.rows.length+' filas de texto':RES.rows.length+' linhas de texto';
+  var pages=lang==='en'?' page(s). Nothing was uploaded.':lang==='es'?' página(s). No se envió nada.':' página(s). Nada foi enviado.';
+  document.getElementById('stats').textContent=(document.getElementById('mode').value==='tx'?tx:rows)+' · '+RES.pages+pages;
   document.getElementById('dl').disabled=false;document.getElementById('out').hidden=false;
 }
-async function handle(f){if(!f)return;var st=document.getElementById('stats');document.getElementById('out').hidden=false;st.textContent='Reading '+f.name+'…';
+async function handle(f){if(!f)return;var st=document.getElementById('stats');document.getElementById('out').hidden=false;var lang=nmLang();
+  st.textContent=(lang==='en'?'Reading ':lang==='es'?'Leyendo ':'A ler ')+f.name+'…';
   try{RES.rows=await readPdf(f);RES.pages=RES.rows.length?RES.rows[RES.rows.length-1].page:0;RES.tx=toTransactions(RES.rows,document.getElementById('fmt').value);
-    if(!RES.rows.length){st.textContent='No text found. This PDF is probably a scan (an image). Send it to us and we convert it by hand: see below.';return}
+    if(!RES.rows.length){st.textContent=lang==='en'?'No text found. This PDF is probably a scan (an image). Send it to us and we convert it by hand: see below.':lang==='es'?'No hay texto. Este PDF es probablemente un escaneo (una imagen). Envíenoslo y lo convertimos a mano: vea abajo.':'Não há texto. Este PDF é provavelmente uma digitalização (uma imagem). Envie-o e convertemo-lo à mão: veja abaixo.';return}
     if(!RES.tx.length)document.getElementById('mode').value='all';render();
-  }catch(err){st.textContent='Could not read this PDF ('+err.message+'). If it is password-protected, open it and "print to PDF" first.'}
+  }catch(err){st.textContent=(lang==='en'?'Could not read this PDF (':lang==='es'?'No se pudo leer este PDF (':'Não foi possível ler este PDF (')+err.message+(lang==='en'?'). If it is password-protected, open it and "print to PDF" first.':lang==='es'?'). Si tiene contraseña, ábralo e «imprima a PDF» primero.':'). Se tiver palavra-passe, abra-o e use «imprimir para PDF» primeiro.')}
 }
 document.getElementById('file').addEventListener('change',function(e){handle(e.target.files[0])});
 document.getElementById('demo').addEventListener('click',async function(){var src=this.getAttribute('data-src')||'../samples/demo-statement.pdf';var r=await fetch(src);var b=await r.blob();b.name='demo-statement.pdf';handle(b)});

@@ -1,0 +1,114 @@
+# Language routing. Portuguese (pt-PT) is the default and x-default.
+# English lives at /en/… . A 301 from the old English URL to /en/ would make
+# that URL unreachable as Portuguese, so those paths are NOT redirected.
+# Netlify Language= reads Accept-Language (first tag only) and the nf_lang
+# cookie, which overrides it. Country= is Netlify GeoIP (no permission prompt).
+# nf_country overrides GeoIP when the visitor picks a language.
+# Rules are entry pages only, 302, forced because the file exists.
+# Order: pt language, then PT/BR country, then es, then ES country, then en,
+# then other languages. No Accept-Language and no PT/BR/ES country → the
+# Portuguese file (bots).
+
+/pt/efatura  /efatura/  301!
+/pt/ficheiro-sepa  /sepa/  301!
+/pt/recibos-verdes/irs-anexo-b  /recibos-verdes/irs-anexo-b/  301!
+/pt/recibos-verdes/declaracao-trimestral  /recibos-verdes/declaracao-trimestral/  301!
+/pt/recibos-verdes  /recibos-verdes/  301!
+/freelancer-portugal-quarterly  /en/freelancer-portugal-quarterly/  301!
+
+# /
+/  /index.html  200!  Language=pt
+/  /index.html  200!  Country=pt,br
+/  /es/  302!  Language=es
+/  /es/  302!  Country=es
+/  /en/  302!  Language=en
+/  /en/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /tools/
+/tools/  /tools/index.html  200!  Language=pt
+/tools/  /tools/index.html  200!  Country=pt,br
+/tools/  /en/tools/  302!  Language=es
+/tools/  /en/tools/  302!  Country=es
+/tools/  /en/tools/  302!  Language=en
+/tools/  /en/tools/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /statement/
+/statement/  /statement/index.html  200!  Language=pt
+/statement/  /statement/index.html  200!  Country=pt,br
+/statement/  /en/statement/  302!  Language=es
+/statement/  /en/statement/  302!  Country=es
+/statement/  /en/statement/  302!  Language=en
+/statement/  /en/statement/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /statement-to-csv/
+/statement-to-csv/  /statement-to-csv/index.html  200!  Language=pt
+/statement-to-csv/  /statement-to-csv/index.html  200!  Country=pt,br
+/statement-to-csv/  /en/statement-to-csv/  302!  Language=es
+/statement-to-csv/  /en/statement-to-csv/  302!  Country=es
+/statement-to-csv/  /en/statement-to-csv/  302!  Language=en
+/statement-to-csv/  /en/statement-to-csv/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /excel-functions/
+/excel-functions/  /excel-functions/index.html  200!  Language=pt
+/excel-functions/  /excel-functions/index.html  200!  Country=pt,br
+/excel-functions/  /en/excel-functions/  302!  Language=es
+/excel-functions/  /en/excel-functions/  302!  Country=es
+/excel-functions/  /en/excel-functions/  302!  Language=en
+/excel-functions/  /en/excel-functions/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /guides/
+/guides/  /guides/index.html  200!  Language=pt
+/guides/  /guides/index.html  200!  Country=pt,br
+/guides/  /en/guides/  302!  Language=es
+/guides/  /en/guides/  302!  Country=es
+/guides/  /en/guides/  302!  Language=en
+/guides/  /en/guides/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /compare/
+/compare/  /compare/index.html  200!  Language=pt
+/compare/  /compare/index.html  200!  Country=pt,br
+/compare/  /en/compare/  302!  Language=es
+/compare/  /en/compare/  302!  Country=es
+/compare/  /en/compare/  302!  Language=en
+/compare/  /en/compare/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /x-growth/
+/x-growth/  /x-growth/index.html  200!  Language=pt
+/x-growth/  /x-growth/index.html  200!  Country=pt,br
+/x-growth/  /en/x-growth/  302!  Language=es
+/x-growth/  /en/x-growth/  302!  Country=es
+/x-growth/  /en/x-growth/  302!  Language=en
+/x-growth/  /en/x-growth/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /sepa/
+/sepa/  /sepa/index.html  200!  Language=pt
+/sepa/  /sepa/index.html  200!  Country=pt,br
+/sepa/  /es/fichero-sepa/  302!  Language=es
+/sepa/  /es/fichero-sepa/  302!  Country=es
+/sepa/  /en/sepa/  302!  Language=en
+/sepa/  /en/sepa/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /efatura/
+/efatura/  /efatura/index.html  200!  Language=pt
+/efatura/  /efatura/index.html  200!  Country=pt,br
+/efatura/  /en/efatura/  302!  Language=es
+/efatura/  /en/efatura/  302!  Country=es
+/efatura/  /en/efatura/  302!  Language=en
+/efatura/  /en/efatura/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /formula/
+/formula/  /formula/index.html  200!  Language=pt
+/formula/  /formula/index.html  200!  Country=pt,br
+/formula/  /en/formula/  302!  Language=es
+/formula/  /en/formula/  302!  Country=es
+/formula/  /en/formula/  302!  Language=en
+/formula/  /en/formula/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+
+# /recibos-verdes/
+/recibos-verdes/  /recibos-verdes/index.html  200!  Language=pt
+/recibos-verdes/  /recibos-verdes/index.html  200!  Country=pt,br
+/recibos-verdes/  /en/recibos-verdes/  302!  Language=es
+/recibos-verdes/  /en/recibos-verdes/  302!  Country=es
+/recibos-verdes/  /en/recibos-verdes/  302!  Language=en
+/recibos-verdes/  /en/recibos-verdes/  302!  Language=fr,de,it,nl,pl,sv,da,no,nb,nn,fi,cs,sk,sl,hr,hu,ro,bg,el,ru,uk,tr,ar,he,fa,hi,th,vi,id,ms,zh,ja,ko,ca,gl,eu,ga,cy,is,lt,lv,et,sq,mk,sr,bs,mt,af,sw,hy,ka,az,kk,uz,bn,ta,te,ur,pa,ne,si,my,km,lo,am
+

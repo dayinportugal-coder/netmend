@@ -1,100 +1,103 @@
 <!doctype html>
-<html lang="en"><head>
-<meta http-equiv="refresh" content="0;url=https://netmend.app/guides/bank-statement-to-xero/">
-<script>location.replace('https://netmend.app/guides/bank-statement-to-xero/'+location.search+location.hash);</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Import a PDF bank statement into Xero (CSV guide) · Netmend</title>
-<meta name="description" content="Get a PDF bank statement into Xero: official CSV import, Xero’s own PDF-statement import, date and sign rules, and a private converter when you need a clean CSV.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Importar um extrato bancário em PDF para o Xero (guia de CSV) · Netmend</title>
+<meta name="description" content="Leve um extrato bancário em PDF para o Xero: a importação oficial de CSV, a importação de extrato em PDF do próprio Xero, as regras de datas e de sinal, e um conversor privado quando precisar de um CSV limpo.">
 <link rel="canonical" href="https://netmend.app/guides/bank-statement-to-xero/">
-<meta property="og:title" content="Import a PDF bank statement into Xero (CSV guide) · Netmend"><meta property="og:description" content="Get a PDF bank statement into Xero: official CSV import, Xero’s own PDF-statement import, date and sign rules, and a private converter when you need a clean CSV.">
+<meta property="og:url" content="https://netmend.app/guides/bank-statement-to-xero/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/guides/bank-statement-to-xero/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/guides/bank-statement-to-xero/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/guides/bank-statement-to-xero/">
+<meta property="og:title" content="Importar um extrato bancário em PDF para o Xero (guia de CSV) · Netmend"><meta property="og:description" content="Leve um extrato bancário em PDF para o Xero: a importação oficial de CSV, a importação de extrato em PDF do próprio Xero, as regras de datas e de sinal, e um conversor privado quando precisar de um CSV limpo.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can Xero import my PDF statement directly?", "acceptedAnswer": {"@type": "Answer", "text": "Sometimes. Xero Central has an official article “Import a PDF bank statement”. Try that first. If it is not available or the file is rejected, convert the PDF to a CSV and use the official CSV import."}}, {"@type": "Question", "name": "Should amounts be positive or negative?", "acceptedAnswer": {"@type": "Answer", "text": "For the usual single-amount CSV, money in is positive and money out is negative. Do not also import a running-balance column as an amount."}}, {"@type": "Question", "name": "Why are the dates a day off or in the wrong month?", "acceptedAnswer": {"@type": "Answer", "text": "The statement is probably day-first and the import was told it is month-first, or the other way around. Pick one format for the whole file and say it on the mapping screen."}}], "url": "https://netmend.app/guides/bank-statement-to-xero/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O Xero importa o meu extrato em PDF diretamente?", "acceptedAnswer": {"@type": "Answer", "text": "Às vezes. O Xero Central tem um artigo oficial, “Import a PDF bank statement”. Experimente esse primeiro. Se não estiver disponível ou o ficheiro for rejeitado, converta o PDF para CSV e use a importação oficial de CSV."}}, {"@type": "Question", "name": "Os valores devem ser positivos ou negativos?", "acceptedAnswer": {"@type": "Answer", "text": "No CSV habitual, de um só valor, as entradas são positivas e as saídas são negativas. Não importe também uma coluna de saldo acumulado como se fosse um valor."}}, {"@type": "Question", "name": "Porque é que as datas ficam um dia ao lado, ou no mês errado?", "acceptedAnswer": {"@type": "Answer", "text": "O extrato está provavelmente com o dia primeiro e a importação foi informada de que o mês vem primeiro, ou o contrário. Escolha um formato para o ficheiro inteiro e indique-o no ecrã de associação."}}], "url": "https://netmend.app/guides/bank-statement-to-xero/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../../statement-to-csv/app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
+
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../../statement-to-csv/">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Feito por nós</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/guides/bank-statement-to-xero/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/guides/bank-statement-to-xero/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Guides</a> · Import a PDF bank statement into Xero</p>
-<h1>Import a PDF bank statement into <span>Xero</span></h1>
-<p>Xero can import a bank statement as CSV, and it also documents a PDF bank-statement import. Start with those official tools. Convert the PDF yourself when Xero will not accept the file, or when you want to tick every total before the lines land in the account.</p>
-<div class="pills"><span>Free tool in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/guides/">Guias</a> · Importar um extrato bancário em PDF para o Xero</p>
+<h1>Importar um extrato bancário em PDF para o <span>Xero</span></h1>
+<p>O Xero importa um extrato bancário em CSV, e também documenta uma importação de extrato em PDF. Comece por essas ferramentas oficiais. Converta o PDF quando o Xero não aceitar o ficheiro, ou quando quiser conferir cada total antes de as linhas entrarem na conta.</p>
+<div class="pills"><span>Ferramenta grátis no browser</span><span>Sem conta</span><span>Feito por nós, se quiser</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a statement PDF now</h2>
+<h2>Converter um extrato em PDF agora</h2>
 
-<p class="lead">Defaults are a starting point. Change the number format to match the PDF. The file never leaves your computer.</p>
+<p class="lead">Os valores por defeito são um ponto de partida. Mude o formato dos números para coincidir com o PDF. O ficheiro não sai do computador.</p>
 <div class="tool">
-<label for="file">PDF (stays on your computer)</label>
+<label for="file">PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No file at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/demo-statement.pdf">Try a demo PDF</button> (fictional data)</p>
+<p class="note">Não tem um ficheiro à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar um PDF de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions / likely rows</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto" selected>Detect automatically</option><option value="eu">European 1.234,56</option><option value="us">UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Movimentos / linhas prováveis</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto" selected>Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us">Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against the original PDF before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o PDF original antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto”, ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro localmente. Não há servidor nem envio. Pode desligar a internet depois de a página carregar e continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
 
-<h2>Try Xero’s official imports first</h2>
-<p>Xero Central documents two relevant articles: <b>Import a bank statement in CSV format</b> and <b>Import a PDF bank statement</b>. If your organisation offers the PDF import for that account and it accepts your file, use it — there is no reason to convert a statement Xero already reads. When the PDF import is not offered, or it rejects the layout, prepare a CSV and import that instead (Accounting → Bank accounts → the account → Import a statement, then map the columns and review the lines).</p>
-<p>A live bank feed is still the better everyday path. Several banks in our <a href="../../statement-to-csv/#bank-guides">bank guides</a> already offer an official CSV or XLS for recent activity (for example Starling feed exports, bunq CSV, ABN AMRO XLS for 18 months, Commerzbank Umsatz CSV). Use those when they cover the dates. Convert a PDF when they do not.</p>
-<h2>The CSV Xero expects</h2>
-<p>On the official CSV import you map columns on screen. In practice the file that goes through cleanly has:</p>
+<h2>Experimente primeiro as importações oficiais do Xero</h2>
+<p>O Xero Central documenta dois artigos relevantes: <b>Import a bank statement in CSV format</b> e <b>Import a PDF bank statement</b>. Se a organização oferecer a importação de PDF para essa conta e aceitar o ficheiro, use-a — não há razão para converter um extrato que o Xero já lê. Quando a importação de PDF não é oferecida, ou rejeita o esquema, prepare um CSV e importe esse (Accounting → Bank accounts → a conta → Import a statement, depois associe as colunas e reveja as linhas).</p>
+<p>Uma ligação bancária em direto continua a ser o caminho melhor no dia a dia. Vários bancos nos nossos <a href="/statement-to-csv/#bank-guides">guias por banco</a> já oferecem um CSV ou XLS oficial para movimentos recentes (por exemplo, exportações do feed da Starling, CSV do bunq, XLS do ABN AMRO de 18 meses, CSV de Umsatz do Commerzbank). Use esses quando cobrirem as datas. Converta um PDF quando não cobrirem.</p>
+<h2>O CSV que o Xero espera</h2>
+<p>Na importação oficial de CSV associa as colunas no ecrã. Na prática, o ficheiro que passa limpo tem:</p>
 <ul>
-<li>A <b>Date</b> column, in one format only (for example DD/MM/YYYY, MM/DD/YYYY or YYYY-MM-DD — pick the one you will also select in Xero).</li>
-<li>An <b>Amount</b> column, with money in as a positive number and money out as a negative number, and with no currency symbols or thousands separators that Xero will misread (1,234.56 in a European locale is a trap).</li>
-<li>A <b>Description</b> (and, if you have them and the mapper offers them, payee or reference). Extra columns are fine if you can leave them unmapped.</li>
+<li>Uma coluna de <b>data</b>, num só formato (por exemplo DD/MM/AAAA, MM/DD/AAAA ou AAAA-MM-DD — o mesmo que vai escolher no Xero).</li>
+<li>Uma coluna de <b>valor</b>, com as entradas positivas e as saídas negativas, e sem símbolos de moeda nem separadores de milhares que o Xero leia mal (1,234.56 numa configuração europeia é uma armadilha).</li>
+<li>Uma <b>descrição</b> (e, se as tiver e o mapeamento as oferecer, o beneficiário ou a referência). Colunas extra não incomodam se as puder deixar por associar.</li>
 </ul>
-<p>Treat the mapping screen and Xero’s current article as the authority if a heading has changed. The usual failures are mixed date formats, a European decimal comma in a file Xero is reading as US, or a “balance” column imported as if it were an amount — that last mistake posts the running total as a transaction.</p>
-<h2>Convert the PDF, then check it</h2>
-<p>The tool below runs in your browser. Choose a European or UK/US number format to match the statement. Then:</p>
+<p>Se um cabeçalho tiver mudado, o ecrã de associação e o artigo atual do Xero é que mandam. As falhas habituais são formatos de data misturados, uma vírgula decimal europeia num ficheiro que o Xero lê como dos EUA, ou uma coluna de “saldo” importada como se fosse um valor — esse último erro lança o saldo acumulado como movimento.</p>
+<h2>Converter o PDF e depois conferi-lo</h2>
+<p>A ferramenta abaixo corre no browser. Escolha o formato de números europeu ou do Reino Unido/EUA, conforme o extrato. Depois:</p>
 <ol>
-<li>Delete header and footer rows. Keep only actual movements.</li>
-<li>Build a single signed Amount column if the PDF had money in and money out separately (in minus out).</li>
-<li>Prove the file: opening balance + sum of amounts = closing balance on the PDF. If that identity fails, do not import.</li>
-<li>Import in Xero, map Date and Amount (and Description), review the statement lines, and only then complete the import. Do not import a period that is already on the bank feed.</li>
+<li>Apague as linhas de cabeçalho e de rodapé. Fique só com os movimentos reais.</li>
+<li>Construa uma coluna Amount única, com sinal, se o PDF tinha entradas e saídas em separado (entradas menos saídas).</li>
+<li>Prove o ficheiro: saldo inicial + soma dos valores = saldo final no PDF. Se essa igualdade falhar, não importe.</li>
+<li>Importe no Xero, associe Date e Amount (e Description), reveja as linhas do extrato e só então conclua a importação. Não importe um período que já esteja na ligação ao banco.</li>
 </ol>
 
-<p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
+<p class="note"><b>Fontes</b> (verificadas a 13/11/2026). A ajuda oficial dos produtos está ligada no texto. Os menus e os modelos mudam: o ecrã atual do QuickBooks, do Xero ou do banco é a referência.</p>
 </div></section>
 
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of documents or a layout that has to match QuickBooks or Xero, we convert them and check the totals against each document.</p>
+<h2>Precisa que façamos nós?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de documentos ou um esquema que tenha de coincidir com o QuickBooks ou o Xero, convertemos e conferimos os totais de cada documento.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your file is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Totais reconciliados. 48 h. Pagamento no Fiverr.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Precisa que façamos nós?</a></div>
+<div class="card"><b>Privacidade</b><p>O seu ficheiro é tratado só para a encomenda e apagado depois da entrega. Esta página em si nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos morada, telefone nem número de identificação.</p></div>
 </div>
 </div></section>
 
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Can Xero import my PDF statement directly?</summary><p>Sometimes. Xero Central has an official article “Import a PDF bank statement”. Try that first. If it is not available or the file is rejected, convert the PDF to a CSV and use the official CSV import.</p></details><details><summary>Should amounts be positive or negative?</summary><p>For the usual single-amount CSV, money in is positive and money out is negative. Do not also import a running-balance column as an amount.</p></details><details><summary>Why are the dates a day off or in the wrong month?</summary><p>The statement is probably day-first and the import was told it is month-first, or the other way around. Pick one format for the whole file and say it on the mapping screen.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O Xero importa o meu extrato em PDF diretamente?</summary><p>Às vezes. O Xero Central tem um artigo oficial, “Import a PDF bank statement”. Experimente esse primeiro. Se não estiver disponível ou o ficheiro for rejeitado, converta o PDF para CSV e use a importação oficial de CSV.</p></details><details><summary>Os valores devem ser positivos ou negativos?</summary><p>No CSV habitual, de um só valor, as entradas são positivas e as saídas são negativas. Não importe também uma coluna de saldo acumulado como se fosse um valor.</p></details><details><summary>Porque é que as datas ficam um dia ao lado, ou no mês errado?</summary><p>O extrato está provavelmente com o dia primeiro e a importação foi informada de que o mês vem primeiro, ou o contrário. Escolha um formato para o ficheiro inteiro e indique-o no ecrã de associação.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related guides</h2>
-<div class="banklist"><a href="../pdf-invoice-to-excel-xero/"><b>Convert PDF invoices to Excel for Xero</b></a><a href="../bank-statement-to-quickbooks/"><b>Import a PDF bank statement into QuickBooks</b></a><a href="../credit-card-statement-to-excel/"><b>Convert a credit card statement PDF to Excel or CSV</b></a><a href="../../compare/official-csv-vs-pdf/"><b>Official bank CSV vs converting the PDF</b></a><a href="../../compare/quickbooks-vs-xero-pdf/"><b>QuickBooks vs Xero when the source is a PDF</b></a><a href="../"><b>All how-to guides</b></a><a href="../../compare/"><b>Comparisons</b></a><a href="../../statement-to-csv/"><b>Bank statement converter</b> and bank guides</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Guias relacionados</h2>
+<div class="banklist"><a href="/guides/pdf-invoice-to-excel-xero/"><b>Converter faturas em PDF para Excel, para o Xero</b></a><a href="/guides/bank-statement-to-quickbooks/"><b>Importar um extrato bancário em PDF para o QuickBooks</b></a><a href="/guides/credit-card-statement-to-excel/"><b>Converter um extrato de cartão de crédito em PDF para Excel ou CSV</b></a><a href="/compare/official-csv-vs-pdf/"><b>CSV oficial do banco face à conversão do PDF</b></a><a href="/compare/quickbooks-vs-xero-pdf/"><b>QuickBooks ou Xero quando a origem é um PDF</b></a><a href="/guides/"><b>Todos os guias</b></a><a href="/compare/"><b>Comparações</b></a><a href="/statement-to-csv/"><b>Conversor de extratos bancários</b> e guias por banco</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins para o Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins para o Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · run by Pedro Carvalho · EU-based · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem trackers e sem registo. As ferramentas grátis correm no browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

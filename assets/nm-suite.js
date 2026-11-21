@@ -19,6 +19,16 @@
   }
   function lsGet(k, def) { try { var v = localStorage.getItem(k); return v == null ? def : JSON.parse(v); } catch (e) { return def; } }
   function lsSet(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
+  function nmLang() {
+    var l = (document.documentElement.lang || "pt").toLowerCase();
+    if (l.indexOf("en") === 0) return "en";
+    if (l.indexOf("es") === 0) return "es";
+    return "pt";
+  }
+  function t(en, pt, es) {
+    var l = nmLang();
+    return l === "en" ? en : l === "es" ? (es || en) : pt;
+  }
 
   /* ---------- key ---------- */
   NM.getKey = function () {
@@ -28,34 +38,34 @@
     var st = $("nm-key-status"), inp = $("nm-key-input");
     if (!st) return;
     if (NM.getKey()) {
-      inp.value = ""; inp.placeholder = "Key saved in this browser (paste a new one to replace it)";
-      st.innerHTML = '<span class="ok">Gemini key saved on this device only.</span> It goes only to Google, never to Netmend.';
+      inp.value = ""; inp.placeholder = t("Key saved in this browser (paste a new one to replace it)", "Chave guardada neste browser (cole outra para a substituir)", "Clave guardada en este navegador (pega otra para sustituirla)");
+      st.innerHTML = '<span class="ok">' + t("Gemini key saved on this device only.", "Chave Gemini guardada só neste aparelho.", "Clave de Gemini guardada solo en este dispositivo.") + "</span> " + t("It goes only to Google, never to Netmend.", "Vai só para a Google, nunca para a Netmend.", "Va solo a Google, nunca a Netmend.");
     } else {
-      inp.placeholder = "Paste your Gemini API key";
-      st.textContent = "No key saved yet. A free key from Google AI Studio is enough.";
+      inp.placeholder = t("Paste your Gemini API key", "Cole a chave da API Gemini", "Pega tu clave de la API de Gemini");
+      st.textContent = t("No key saved yet. A free key from Google AI Studio is enough.", "Ainda não há chave. Uma chave grátis do Google AI Studio chega.", "Aún no hay clave. Basta una clave gratuita de Google AI Studio.");
     }
   }
   function renderKeyBox(el) {
     el.className = "xpw-key nm-key";
     el.innerHTML =
-      '<h3 style="margin:0 0 6px">Your Gemini API key (free)</h3>' +
-      '<ol><li>Open <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com</a> and sign in with any Google account.</li>' +
-      '<li>Click <b>Create API key</b>. The free tier is enough.</li>' +
-      '<li>Paste it here and click Save. It is stored only in this browser and shared by all Netmend tools on this device.</li></ol>' +
-      '<label for="nm-key-input">Gemini API key</label>' +
+      '<h3 style="margin:0 0 6px">' + t("Your Gemini API key (free)", "A sua chave da API Gemini (grátis)", "Tu clave de la API de Gemini (gratis)") + "</h3>" +
+      "<ol><li>" + t("Open <a href=\"https://aistudio.google.com/app/apikey\" target=\"_blank\" rel=\"noopener noreferrer\">aistudio.google.com</a> and sign in with any Google account.", "Abra <a href=\"https://aistudio.google.com/app/apikey\" target=\"_blank\" rel=\"noopener noreferrer\">aistudio.google.com</a> e entre com uma conta Google.", "Abra <a href=\"https://aistudio.google.com/app/apikey\" target=\"_blank\" rel=\"noopener noreferrer\">aistudio.google.com</a> e inicie sesión con una cuenta de Google.") + "</li>" +
+      "<li>" + t("Click <b>Create API key</b>. The free tier is enough.", "Clique em <b>Create API key</b>. O plano grátis chega.", "Pulse <b>Create API key</b>. El plan gratuito basta.") + "</li>" +
+      "<li>" + t("Paste it here and click Save. It is stored only in this browser and shared by all Netmend tools on this device.", "Cole-a aqui e clique em Guardar. Fica só neste browser e serve a todas as ferramentas Netmend neste aparelho.", "Pégala aquí y pulsa Guardar. Se queda solo en este navegador y la comparten las herramientas de Netmend en este dispositivo.") + "</li></ol>" +
+      '<label for="nm-key-input">' + t("Gemini API key", "Chave da API Gemini", "Clave de la API de Gemini") + "</label>" +
       '<input id="nm-key-input" type="password" autocomplete="off" spellcheck="false">' +
-      '<p style="margin-top:12px"><button class="btn" type="button" id="nm-key-save">Save key</button> ' +
-      '<button class="btn ghost" type="button" id="nm-key-show">Show</button> ' +
-      '<button class="btn ghost" type="button" id="nm-key-clear">Remove key</button></p>' +
+      '<p style="margin-top:12px"><button class="btn" type="button" id="nm-key-save">' + t("Save key", "Guardar chave", "Guardar clave") + "</button> " +
+      '<button class="btn ghost" type="button" id="nm-key-show">' + t("Show", "Mostrar", "Mostrar") + "</button> " +
+      '<button class="btn ghost" type="button" id="nm-key-clear">' + t("Remove key", "Apagar chave", "Borrar clave") + "</button></p>" +
       '<p class="note" id="nm-key-status"></p>';
     $("nm-key-save").onclick = function () {
       var v = ($("nm-key-input").value || "").trim();
-      if (!v) { $("nm-key-status").innerHTML = '<span class="bad">Paste a key first.</span>'; return; }
+      if (!v) { $("nm-key-status").innerHTML = '<span class="bad">' + t("Paste a key first.", "Cole primeiro uma chave.", "Pega primero una clave.") + "</span>"; return; }
       localStorage.setItem(KEY_LS, v); paintKey();
     };
     $("nm-key-show").onclick = function () {
       var i = $("nm-key-input"); i.type = i.type === "password" ? "text" : "password";
-      this.textContent = i.type === "password" ? "Show" : "Hide";
+      this.textContent = i.type === "password" ? t("Show", "Mostrar", "Mostrar") : t("Hide", "Esconder", "Ocultar");
     };
     $("nm-key-clear").onclick = function () {
       localStorage.removeItem(KEY_LS); localStorage.removeItem("netmend-xpw-gemini-key"); paintKey();
@@ -81,12 +91,20 @@
   };
   NM.paintRemain = function () {
     var el = $("nm-remain"); if (!el) return;
-    if (NM.isPro()) { el.innerHTML = '<span class="ok">Pro active: no daily limit.</span>'; return; }
+    if (NM.isPro()) { el.innerHTML = '<span class="ok">' + t("Pro active: no daily limit.", "Pro ativo: sem limite diário.", "Pro activo: sin límite diario.") + "</span>"; return; }
     var n = NM.remaining();
-    el.textContent = n + " of " + cfg.freeLimit + " free " + (cfg.unit || "uses") + " left today in this browser.";
+    el.textContent = t(
+      n + " of " + cfg.freeLimit + " free " + (cfg.unit || "uses") + " left today in this browser.",
+      n + " de " + cfg.freeLimit + " grátis (" + (cfg.unit || "utilizações") + ") hoje neste browser.",
+      n + " de " + cfg.freeLimit + " gratis (" + (cfg.unit || "usos") + ") hoy en este navegador."
+    );
   };
   NM.limitMsg = function () {
-    return "You have used the " + cfg.freeLimit + " free " + (cfg.unit || "uses") + " for today. Come back tomorrow, or unlock Pro (lifetime, one payment) below.";
+    return t(
+      "You have used the " + cfg.freeLimit + " free " + (cfg.unit || "uses") + " for today. Come back tomorrow, or unlock Pro below.",
+      "Já usou as " + cfg.freeLimit + " utilizações grátis de hoje. Volte amanhã ou ative o Pro em baixo.",
+      "Ya usó los " + cfg.freeLimit + " usos gratis de hoy. Vuelva mañana o active Pro abajo."
+    );
   };
 
   /* ---------- licence (Gumroad) ---------- */
@@ -95,20 +113,20 @@
   NM.isPro = function () { var l = lsGet(licKey(cfg.tool), null); return !!(l && l.pro); };
   NM.verifyLicense = function (key, increment) {
     var p = NM.product();
-    if (!p.productId) return Promise.resolve({ valid: false, message: "Pro licences for this tool are not on sale yet. Email us and we will tell you when they open." });
+    if (!p.productId) return Promise.resolve({ valid: false, message: t("Pro licences for this tool are not on sale yet. Email us and we will tell you when they open.", "As licenças Pro desta ferramenta ainda não estão à venda. Escreva-nos e dizemos quando abrirem.", "Las licencias Pro de esta herramienta aún no están a la venta. Escríbanos y diremos cuándo se abren.") });
     var body = new URLSearchParams({ product_id: p.productId, license_key: String(key).trim(), increment_uses_count: increment ? "true" : "false" });
     return fetch("https://api.gumroad.com/v2/licenses/verify", { method: "POST", body: body }).then(function (r) {
       return r.json().catch(function () { return {}; });
     }).then(function (d) {
       var pu = d.purchase || {};
       var valid = !!d.success && !pu.refunded && !pu.chargebacked && !pu.disputed;
-      return { valid: valid, message: d.message || (valid ? "ok" : "Invalid licence key"), uses: d.uses };
+      return { valid: valid, message: d.message || (valid ? "ok" : t("Invalid licence key", "Chave de licença inválida", "Clave de licencia no válida")), uses: d.uses };
     });
   };
   function paintLicense() {
     var st = $("nm-lic-status"); if (!st) return;
     var l = lsGet(licKey(cfg.tool), null);
-    if (l && l.pro) st.innerHTML = '<span class="ok">Pro is active in this browser.</span> <button class="btn ghost" type="button" id="nm-lic-remove">Remove licence</button>';
+    if (l && l.pro) st.innerHTML = '<span class="ok">' + t("Pro is active in this browser.", "O Pro está ativo neste browser.", "Pro está activo en este navegador.") + '</span> <button class="btn ghost" type="button" id="nm-lic-remove">' + t("Remove licence", "Remover licença", "Quitar licencia") + "</button>";
     else st.textContent = (l && l.message) ? l.message : "";
     var rm = $("nm-lic-remove");
     if (rm) rm.onclick = function () { localStorage.removeItem(licKey(cfg.tool)); paintLicense(); NM.paintRemain(); if (cfg.onLicense) cfg.onLicense(false); };
@@ -116,29 +134,29 @@
   function renderLicenseBox(el) {
     var p = NM.product();
     var buy = p.url
-      ? '<a class="btn" id="nm-buy" href="' + NM.esc(p.url) + '" target="_blank" rel="noopener noreferrer">Get ' + NM.esc(p.name) + " · $" + p.price + " lifetime</a>"
-      : '<a class="btn" id="nm-buy" href="mailto:dayinportugal@gmail.com?subject=' + encodeURIComponent((p.name || "Netmend Pro") + " - tell me when it opens") + '">Pro opens soon · $' + (p.price || 19) + " lifetime · get notified</a>";
+      ? '<a class="btn" id="nm-buy" href="' + NM.esc(p.url) + '" target="_blank" rel="noopener noreferrer">' + t("Get ", "Obter ", "Conseguir ") + NM.esc(p.name) + "</a>"
+      : '<a class="btn" id="nm-buy" href="mailto:dayinportugal@gmail.com?subject=' + encodeURIComponent((p.name || "Netmend Pro") + " - tell me when it opens") + '">' + t("Pro opens soon · get notified", "Pro em breve · avise-me", "Pro pronto · avísame") + "</a>";
     el.innerHTML =
       '<div class="grid nm-plans">' +
-      '<div class="card"><b>Free</b><div class="price">$0</div><p>' + NM.esc(cfg.freeText || "") + "</p></div>" +
-      '<div class="card"><b>Pro, lifetime</b><div class="price">$' + (p.price || 19) + ' <small>one payment</small></div><p>' + NM.esc(cfg.proText || "") + "</p></div></div>" +
+      '<div class="card"><b>' + t("Free", "Grátis", "Gratis") + "</b><p>" + NM.esc(cfg.freeText || "") + "</p></div>" +
+      '<div class="card"><b>' + t("Pro, lifetime", "Pro, vitalício", "Pro, de por vida") + "</b><p>" + NM.esc(cfg.proText || "") + "</p></div></div>" +
       '<p style="margin-top:18px">' + buy + "</p>" +
-      '<p class="note">Payment and the licence key email are handled by Gumroad, not this site. 14-day refund.</p>' +
-      '<label for="nm-lic-input">Already bought? Paste your licence key</label>' +
+      '<p class="note">' + t("Payment and the licence key email are handled by Gumroad, not this site.", "O pagamento e o email da chave são tratados pelo Gumroad, não por este site.", "El pago y el correo de la clave los gestiona Gumroad, no este sitio.") + "</p>" +
+      '<label for="nm-lic-input">' + t("Already bought? Paste your licence key", "Já comprou? Cole a chave da licença", "¿Ya lo compró? Pegue la clave de la licencia") + "</label>" +
       '<div class="nm-inline"><input id="nm-lic-input" type="text" autocomplete="off" spellcheck="false" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX">' +
-      '<button class="btn sec" type="button" id="nm-lic-go">Activate</button></div>' +
+      '<button class="btn sec" type="button" id="nm-lic-go">' + t("Activate", "Ativar", "Activar") + "</button></div>" +
       '<p class="note" id="nm-lic-status"></p>';
     $("nm-lic-go").onclick = function () {
       var k = ($("nm-lic-input").value || "").trim();
       var st = $("nm-lic-status");
-      if (!k) { st.innerHTML = '<span class="bad">Paste the licence key from your Gumroad receipt.</span>'; return; }
-      st.textContent = "Checking with Gumroad…";
+      if (!k) { st.innerHTML = '<span class="bad">' + t("Paste the licence key from your Gumroad receipt.", "Cole a chave da licença do recibo Gumroad.", "Pegue la clave de la licencia del recibo de Gumroad.") + "</span>"; return; }
+      st.textContent = t("Checking with Gumroad…", "A confirmar com o Gumroad…", "Comprobando con Gumroad…");
       NM.verifyLicense(k, true).then(function (r) {
         if (r.valid) lsSet(licKey(cfg.tool), { key: k, pro: true, verifiedAt: Date.now() });
         else lsSet(licKey(cfg.tool), { pro: false, message: r.message });
         paintLicense(); NM.paintRemain(); if (cfg.onLicense) cfg.onLicense(r.valid);
         if (!r.valid) st.innerHTML = '<span class="bad">' + NM.esc(r.message) + "</span>";
-      }).catch(function () { st.innerHTML = '<span class="bad">Could not reach Gumroad. Check your connection and try again.</span>'; });
+      }).catch(function () { st.innerHTML = '<span class="bad">' + t("Could not reach Gumroad. Check your connection and try again.", "Não foi possível contactar o Gumroad. Verifique a ligação e tente outra vez.", "No se pudo contactar con Gumroad. Compruebe la conexión e inténtelo de nuevo.") + "</span>"; });
     };
     paintLicense();
   }
@@ -147,7 +165,7 @@
     if (!l || !l.pro || !l.key || Date.now() - (l.verifiedAt || 0) < REVERIFY_MS) return;
     NM.verifyLicense(l.key, false).then(function (r) {
       if (r.valid) { l.verifiedAt = Date.now(); lsSet(licKey(cfg.tool), l); }
-      else { lsSet(licKey(cfg.tool), { pro: false, message: "Licence no longer valid: " + r.message }); paintLicense(); NM.paintRemain(); }
+      else { lsSet(licKey(cfg.tool), { pro: false, message: t("Licence no longer valid: ", "A licença já não é válida: ", "La licencia ya no es válida: ") + r.message }); paintLicense(); NM.paintRemain(); }
     }).catch(function () {});
   }
 
@@ -231,15 +249,45 @@
   };
   NM.slug = function (s) { return String(s || "netmend").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || "netmend"; };
   NM.copy = function (text, btn) {
-    function done() { if (!btn) return; var o = btn.textContent; btn.textContent = "Copied"; setTimeout(function () { btn.textContent = o; }, 1200); }
+    function done() { if (!btn) return; var o = btn.textContent; btn.textContent = t("Copied", "Copiado", "Copiado"); setTimeout(function () { btn.textContent = o; }, 1200); }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(function () { window.prompt("Copy:", text); });
     else window.prompt("Copy:", text);
   };
 
+
+  /* ---------- example output, shown before the key is asked for ---------- */
+  var EXAMPLES = {
+    "formula": { ask: "Sum column C when column A is \"Lisbon\" and the date in B is in March 2026.",
+      out: "<pre>=SUMIFS(C:C, A:A, \"Lisbon\", B:B, \"&gt;=\"&amp;DATE(2026,3,1), B:B, \"&lt;\"&amp;DATE(2026,4,1))</pre><p>Adds the values in C only for rows where A is Lisbon and B is on or after 1 March and before 1 April 2026. In European Excel the commas become semicolons.</p>" },
+    "chat-pdf": { ask: "Question about a 12-page rental contract: \"How much notice do I have to give to leave?\"",
+      out: "<p>You must give <b>at least 60 days' written notice</b> before the date you want to leave (page 4, clause 7.2). If you leave in the first 12 months, one month's rent is kept from the deposit (page 5, clause 8.1).</p>" },
+    "askvideo": { ask: "A 14-minute YouTube tutorial on pivot tables.",
+      out: "<p><b>Summary:</b> how to build a pivot table from a sales list, group dates by month and add a percentage column.</p><ul><li><b>01:10</b> Turn the range into a table first</li><li><b>04:35</b> Group dates by month and year</li><li><b>09:20</b> Show values as % of the grand total</li></ul>" },
+    "quiz": { ask: "A one-page text about the water cycle, 3 questions.",
+      out: "<ol><li>What process turns liquid water into vapour? <i>a) Condensation b) <b>Evaporation</b> c) Precipitation</i></li><li>Clouds form mainly through… <i>a) <b>Condensation</b> b) Infiltration c) Runoff</i></li><li>True or false: groundwater is part of the water cycle. <i><b>True</b></i></li></ol><p>Exports: Google Form (self-grading), CSV, Kahoot sheet, Moodle GIFT, printable test.</p>" },
+    "slides": { ask: "Topic: \"Onboarding plan for a new bookkeeper\", 5 slides.",
+      out: "<ol><li>Welcome and first-week goals</li><li>Tools and access: accounting software, bank feeds, shared drive</li><li>Monthly close checklist</li><li>Who to ask: contacts and response times</li><li>30-60-90 day milestones</li></ol><p>Each slide comes with 3 to 5 bullet points and speaker notes, in an editable .pptx file.</p>" },
+    "sheets-ai": { ask: "=NETMEND_AI(\"Category of this expense\", A2) on a column of card transactions.",
+      out: "<table><tr><th>A (your data)</th><th>Result</th></tr><tr><td>UBER *TRIP LISBOA</td><td>Transport</td></tr><tr><td>CONTINENTE MATOSINHOS</td><td>Groceries</td></tr><tr><td>ADOBE *CREATIVE CLD</td><td>Software</td></tr></table>" },
+    "resume": { ask: "A CV for an accounts assistant and a job ad that asks for \"reconciliations, SAP, VAT returns\".",
+      out: "<p><b>Keyword match: 6 of 10.</b> Missing: <i>SAP</i>, <i>VAT returns</i>, <i>month-end close</i>, <i>accruals</i>.</p><p>Rewritten bullet: \"Reconciled 14 bank and supplier accounts every month and prepared quarterly VAT returns, cutting month-end close from 6 to 4 days.\"</p>" }
+  };
+  function renderExample(beforeEl) {
+    var e = EXAMPLES[cfg.tool];
+    if (!e || !beforeEl || $("nm-example")) return;
+    var d = document.createElement("div");
+    d.id = "nm-example"; d.className = "example nm-example";
+    d.innerHTML = '<p class="lbl" style="margin:0 0 6px;font-weight:600">Example of what you get (no key needed to look)</p>' +
+      '<p class="note" style="margin:0 0 10px">Input: ' + NM.esc(e.ask) + '</p>' + e.out +
+      '<p class="note" style="margin:10px 0 0">To run it on your own content, add a free Gemini key below. It stays in this browser.</p>';
+    d.style.padding = "18px 20px"; d.style.marginBottom = "16px";
+    beforeEl.parentNode.insertBefore(d, beforeEl);
+  }
+
   /* opts: {tool, freeLimit, unit, freeText, proText, onLicense} */
   NM.init = function (opts) {
     cfg = opts;
-    var k = $("nm-key"); if (k) renderKeyBox(k);
+    var k = $("nm-key"); if (k) { renderExample(k); renderKeyBox(k); }
     var l = $("nm-license"); if (l) renderLicenseBox(l);
     NM.paintRemain(); reverify();
   };

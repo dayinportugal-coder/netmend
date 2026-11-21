@@ -1,103 +1,106 @@
 <!doctype html>
-<html lang="en"><head>
-<meta http-equiv="refresh" content="0;url=https://netmend.app/statement-to-csv/bunq/">
-<script>location.replace('https://netmend.app/statement-to-csv/bunq/'+location.search+location.hash);</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Convert bunq bank statement PDF to CSV/Excel (free, private) · Netmend</title>
-<meta name="description" content="Convert a bunq PDF statement to CSV in your browser. Official exports already include PDF, CSV and MT940 — plus card, annual and single-payment statements.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Converter extrato bunq de PDF para CSV/Excel (grátis e privado) · Netmend</title>
+<meta name="description" content="Converta um extrato bunq em PDF para CSV no browser. As exportações oficiais já incluem PDF, CSV e MT940, além de extratos de cartão, anuais e de um só pagamento.">
 <link rel="canonical" href="https://netmend.app/statement-to-csv/bunq/">
-<meta property="og:title" content="Convert bunq bank statement PDF to CSV/Excel (free, private) · Netmend"><meta property="og:description" content="Convert a bunq PDF statement to CSV in your browser. Official exports already include PDF, CSV and MT940 — plus card, annual and single-payment statements.">
+<meta property="og:url" content="https://netmend.app/statement-to-csv/bunq/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/statement-to-csv/bunq/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/statement-to-csv/bunq/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/statement-to-csv/bunq/">
+<meta property="og:title" content="Converter extrato bunq de PDF para CSV/Excel (grátis e privado) · Netmend"><meta property="og:description" content="Converta um extrato bunq em PDF para CSV no browser. As exportações oficiais já incluem PDF, CSV e MT940, além de extratos de cartão, anuais e de um só pagamento.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Convert bunq bank statement PDF to CSV", "url": "https://netmend.app/statement-to-csv/bunq/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does bunq already give me a CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Export Statement lets you choose PDF, CSV or MT940, in the app and on web.bunq.com, once the account is verified."}}, {"@type": "Question", "name": "Can I get a signed statement myself?", "acceptedAnswer": {"@type": "Answer", "text": "No. Self-exports have no signature or stamp. bunq Help says to message Support for a signed and stamped statement, and that they will not change its layout or filter out payments."}}, {"@type": "Question", "name": "What language is the statement in?", "acceptedAnswer": {"@type": "Answer", "text": "Help says documents other than the French RIB are currently available in English only."}}], "url": "https://netmend.app/statement-to-csv/bunq/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Converter extrato bancário bunq de PDF para CSV", "url": "https://netmend.app/statement-to-csv/bunq/", "applicationCategory": "BusinessApplication", "operatingSystem": "Qualquer (browser)", "inLanguage": "pt-PT", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O bunq já dá um CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. Export Statement deixa escolher PDF, CSV ou MT940, na app e em web.bunq.com, depois de a conta estar verificada."}}, {"@type": "Question", "name": "Consigo obter um extrato assinado sozinho?", "acceptedAnswer": {"@type": "Answer", "text": "Não. As exportações próprias não têm assinatura nem carimbo. A ajuda do bunq diz para escrever ao Support para um extrato assinado e carimbado, e que não alteram o formato nem retiram pagamentos."}}, {"@type": "Question", "name": "Em que língua está o extrato?", "acceptedAnswer": {"@type": "Answer", "text": "A ajuda diz que os documentos, à exceção do RIB francês, estão de momento só disponíveis em inglês."}}], "url": "https://netmend.app/statement-to-csv/bunq/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
+
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/statement-to-csv/bunq/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/statement-to-csv/bunq/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Bank statement → CSV</a> · bunq</p>
-<h1>Convert a bunq statement PDF to <span>CSV or Excel</span></h1>
-<p>bunq already exports statements as PDF, CSV or MT940, from the app and from web.bunq.com. Use that official CSV when you can. This page shows the official paths, the other statement types bunq offers, and how to convert a PDF when that is the file you were sent.</p>
-<div class="pills"><span>EEA (bunq). Documents are exported in English (the French RIB is the documented exception).</span><span>100% in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/statement-to-csv/">Extrato bancário → CSV</a> · bunq</p>
+<h1>Converter um extrato bunq em PDF para <span>CSV ou Excel</span></h1>
+<p>O bunq já exporta extratos em PDF, CSV ou MT940, a partir da app e de web.bunq.com. Use esse CSV oficial quando puder. Esta página mostra os caminhos oficiais, os outros tipos de extrato que o bunq oferece e como converter um PDF quando é esse o ficheiro que recebeu.</p>
+<div class="pills"><span>EEE (bunq). Os documentos são exportados em inglês (o RIB francês é a exceção documentada).</span><span>100% no seu browser</span><span>Sem conta</span><span>Contacto, se quiser que façamos</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a bunq PDF now</h2>
-<p class="lead">The defaults below are set for a typical bunq file. You can still change them. The file never leaves your computer.</p>
+<h2>Converter um PDF do bunq agora</h2>
+<p class="lead">As predefinições abaixo estão pensadas para um ficheiro típico do bunq. Pode alterá-las. O ficheiro nunca sai do seu computador.</p>
 
 <div class="tool">
-<label for="file">PDF statement (stays on your computer)</label>
+<label for="file">Extrato em PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No statement at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/demo-statement.pdf">Try our demo statement</button> (fictional data)</p>
+<p class="note">Não tem um extrato à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar o extrato de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions only</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto">Detect automatically</option><option value="eu" selected>European 1.234,56</option><option value="us">UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";" selected>Excel in Europe (; and ,)</option><option value=",">Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Só movimentos</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto">Detetar automaticamente</option><option value="eu" selected>Europeu 1.234,56</option><option value="us">Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";" selected>Excel na Europa (; e ,)</option><option value=",">Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against your statement before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o extrato antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto” ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro neste computador. Não há servidor nem envio. Pode desligar a internet depois de a página carregar: continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>The bunq statement format</h2>
+<h2>O formato do extrato bunq</h2>
 <div class="facts">
-<div><b>Dates</b>Confirm the first dated line on your own file. bunq’s public Help does not fix a single printed date format, and the app language does not change most documents (Help says documents other than the French RIB are currently English only).</div>
-<div><b>Numbers</b>Euro amounts. European Excel usually wants a semicolon separator and a decimal comma; US/UK Excel and Google Sheets usually want a comma separator and a dot decimal. Try both if a total looks ten times too large.</div>
-<div><b>Region</b>EEA (bunq). Documents are exported in English (the French RIB is the documented exception).</div>
+<div><b>Datas</b>Confirme a primeira linha com data no seu ficheiro. A ajuda pública do bunq não fixa um único formato de data impresso, e a língua da app não muda a maior parte dos documentos (a ajuda diz que os documentos, à exceção do RIB francês, estão de momento só em inglês).</div>
+<div><b>Números</b>Montantes em euros. O Excel europeu costuma querer separador de ponto e vírgula e vírgula decimal; o Excel dos EUA/Reino Unido e o Google Sheets costumam querer separador de vírgula e ponto decimal. Experimente os dois se um total parecer dez vezes demasiado grande.</div>
+<div><b>Região</b>EEE (bunq). Os documentos são exportados em inglês (o RIB francês é a exceção documentada).</div>
 </div>
-<h3>Where to download the official file</h3>
-Official path, from bunq Help (“How do I export a bank statement?”). Your account must be verified or bunq will not export a statement.</p>
-<p><b>From Profile:</b> tap Profile (top left) → <b>Accounting</b> → <b>Export Statement</b>. Choose the bank account, the period and the format (<b>PDF, CSV or MT940</b>), then Export Statement.</p>
-<p><b>From a specific account:</b> Home → the account → Settings → Export statement → period and format.</p>
-<p><b>On the web:</b> sign in at web.bunq.com, open the account, Settings → Export statement, choose the date and format, then export.</p>
-<p><b>Closed accounts:</b> Home → Profile → Archive → Bank Accounts → the account → Export Statement.</p>
-<p>Other official documents, from “What types of bank statements can I export?”: a <b>card statement</b> (Profile → Accounting → Card Statements, or from the card’s settings); a <b>single-transaction</b> statement (open the payment → Export); an <b>annual overview</b> (available each January for the previous year, under Accounting → Annual Overview, as PDF); and a <b>statement of fees</b> for the previous year, listed there too. A signed and stamped statement is not the self-export — message bunq Support for that. Self-exports carry no signature or stamp. Image attachments can be included on a PDF export only (toggle “Include Attachments”).</p>
-<h3>What the PDF contains</h3>
-<p>A bunq bank-statement PDF is generated from your payment history for one IBAN and period. It shows your name and IBAN (bunq notes it can be used as proof of ownership). bunq cannot filter the official file to incoming-only, or remove individual payments, or change the layout — those limits also apply to signed copies from Support. A card statement is a different document (name, last four digits, the name on the card, and the IBAN used for each payment).</p>
-<h3>Official CSV or Excel, when the bank offers one</h3>
-<p>If you can still generate the official CSV, use it and skip the PDF. bunq does not publish the CSV column names on those Help articles — open the first row of your own export. Prefer that official CSV for accounting imports; use MT940 if your accountant asked for it.</p>
-<p>Convert the PDF when someone sent you only the PDF, when you need to tick rows against a signed paper copy, or when you want a spreadsheet from a card statement that you only have as a PDF. After conversion, check the totals against the PDF before you import the file.</p></p>
-<h3>What to watch for</h3>
+<h3>Onde transferir o ficheiro oficial</h3>
+Caminho oficial, a partir da ajuda do bunq (“How do I export a bank statement?”). A conta tem de estar verificada, senão o bunq não exporta um extrato.</p>
+<p><b>A partir de Profile:</b> toque em Profile (canto superior esquerdo) → <b>Accounting</b> → <b>Export Statement</b>. Escolha a conta, o período e o formato (<b>PDF, CSV ou MT940</b>) e depois Export Statement.</p>
+<p><b>A partir de uma conta:</b> Home → a conta → Settings → Export statement → período e formato.</p>
+<p><b>Na web:</b> inicie sessão em web.bunq.com, abra a conta, Settings → Export statement, escolha a data e o formato e exporte.</p>
+<p><b>Contas encerradas:</b> Home → Profile → Archive → Bank Accounts → a conta → Export Statement.</p>
+<p>Outros documentos oficiais, a partir de “What types of bank statements can I export?”: um <b>extrato de cartão</b> (Profile → Accounting → Card Statements, ou nas definições do cartão); um extrato de <b>um só movimento</b> (abra o pagamento → Export); um <b>resumo anual</b> (disponível em janeiro, do ano anterior, em Accounting → Annual Overview, em PDF); e um <b>extrato de comissões</b> do ano anterior, também nessa lista. Um extrato assinado e carimbado não é a exportação feita por si: peça-o ao Support do bunq. As exportações próprias não trazem assinatura nem carimbo. Anexos de imagem só entram numa exportação em PDF (opção “Include Attachments”).</p>
+<h3>O que contém o PDF</h3>
+<p>Um PDF de extrato bunq é gerado a partir do histórico de pagamentos de um IBAN e de um período. Mostra o nome e o IBAN (o bunq nota que pode servir como prova de titularidade). O bunq não consegue filtrar o ficheiro oficial só para entradas, nem retirar pagamentos individuais, nem mudar o formato. Esses limites também valem para as cópias assinadas do Support. Um extrato de cartão é outro documento (nome, últimos quatro dígitos, o nome no cartão e o IBAN usado em cada pagamento).</p>
+<h3>CSV ou Excel oficial, quando o banco o oferece</h3>
+<p>Se ainda puder gerar o CSV oficial, use-o e deixe o PDF. O bunq não publica os nomes das colunas do CSV nesses artigos de ajuda. Abra a primeira linha da sua exportação. Prefira esse CSV oficial para importar na contabilidade; use MT940 se o contabilista o pediu.</p>
+<p>Converta o PDF quando só lhe enviaram o PDF, quando precisa de conferir as linhas com uma cópia em papel assinada, ou quando quer uma folha de cálculo de um extrato de cartão que só tem em PDF. Depois da conversão, confira os totais com o PDF antes de importar o ficheiro.</p></p>
+<h3>O que convém verificar</h3>
 <ul>
-<li>Verify the account first. Unverified accounts cannot export a statement.</li>
-<li>Need a stamp or signature? Do not convert a self-export and hope — ask bunq Support for the signed document, then convert that PDF if you also need columns.</li>
-<li>Annual overviews and fee statements are year-end documents, not a substitute for a period statement.</li>
-<li>Keep one IBAN per file. bunq statements are per bank account.</li>
+<li>Verifique primeiro a conta. Contas por verificar não conseguem exportar um extrato.</li>
+<li>Precisa de carimbo ou assinatura? Não converta uma exportação própria à espera que chegue. Peça o documento assinado ao Support do bunq e depois converta esse PDF se também precisar de colunas.</li>
+<li>Os resumos anuais e os extratos de comissões são documentos de fim de ano, não substituem um extrato de um período.</li>
+<li>Mantenha um IBAN por ficheiro. Os extratos bunq são por conta bancária.</li>
 </ul>
-<p class="note"><b>Sources</b> (checked 12/11/2026). bunq Help, “How do I export a bank statement?” and “What types of bank statements can I export?” (help.bunq.com), checked 13/11/2026. Banks change layouts without notice: treat the first row of your own file as the authority.</p>
+<p class="note"><b>Fontes</b> (consultado em 12/11/2026). Ajuda do bunq, “How do I export a bank statement?” e “What types of bank statements can I export?” (help.bunq.com), consultado em 13/11/2026. Os bancos mudam o formato sem aviso: a primeira linha do seu ficheiro é que manda.</p>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of statements or a layout that has to match your accounting software, we convert them and check every total against the opening and closing balance.</p>
+<h2>Precisa que façamos por si?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto, limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de extratos ou um formato que tem de coincidir com o software de contabilidade, convertemos e conferimos cada total com o saldo inicial e o saldo final.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your statement is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Conferimos os totais. Escreva-nos.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a></div>
+<div class="card"><b>Privacidade</b><p>O extrato só é tratado para a encomenda e é apagado depois da entrega. Esta página nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p></div>
 </div>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Does bunq already give me a CSV?</summary><p>Yes. Export Statement lets you choose PDF, CSV or MT940, in the app and on web.bunq.com, once the account is verified.</p></details><details><summary>Can I get a signed statement myself?</summary><p>No. Self-exports have no signature or stamp. bunq Help says to message Support for a signed and stamped statement, and that they will not change its layout or filter out payments.</p></details><details><summary>What language is the statement in?</summary><p>Help says documents other than the French RIB are currently available in English only.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O bunq já dá um CSV?</summary><p>Sim. Export Statement deixa escolher PDF, CSV ou MT940, na app e em web.bunq.com, depois de a conta estar verificada.</p></details><details><summary>Consigo obter um extrato assinado sozinho?</summary><p>Não. As exportações próprias não têm assinatura nem carimbo. A ajuda do bunq diz para escrever ao Support para um extrato assinado e carimbado, e que não alteram o formato nem retiram pagamentos.</p></details><details><summary>Em que língua está o extrato?</summary><p>A ajuda diz que os documentos, à exceção do RIB francês, estão de momento só disponíveis em inglês.</p></details></div></section>
 <section><div class="wrap">
-<h2>Other bank guides</h2>
-<div class="banklist"><a href="../revolut/"><b>Revolut</b> statement to CSV</a><a href="../wise/"><b>Wise</b> statement to CSV</a><a href="../n26/"><b>N26</b> statement to CSV</a><a href="../ing/"><b>ING</b> statement to CSV</a><a href="../abn-amro/"><b>ABN AMRO</b> statement to CSV</a><a href="../"><b>All banks</b> and the main converter</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Outros guias de bancos</h2>
+<div class="banklist"><a href="/statement-to-csv/revolut/"><b>Revolut</b> extrato para CSV</a><a href="/statement-to-csv/wise/"><b>Wise</b> extrato para CSV</a><a href="/statement-to-csv/n26/"><b>N26</b> extrato para CSV</a><a href="/statement-to-csv/ing/"><b>ING</b> extrato para CSV</a><a href="/statement-to-csv/abn-amro/"><b>ABN AMRO</b> extrato para CSV</a><a href="/statement-to-csv/"><b>Todos os bancos</b> e o conversor principal</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho de back-office para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias de crescimento no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · run by Pedro Carvalho · EU-based · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Um cookie guarda só o idioma. Sem rastreio e sem registo. As ferramentas grátis correm no browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

@@ -1,99 +1,102 @@
 <!doctype html>
-<html lang="en"><head>
-<meta http-equiv="refresh" content="0;url=https://netmend.app/statement-to-csv/citibank/">
-<script>location.replace('https://netmend.app/statement-to-csv/citibank/'+location.search+location.hash);</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Convert Citibank statement PDF to CSV/Excel (free, private) · Netmend</title>
-<meta name="description" content="Convert a Citibank (Citi) US PDF statement to CSV in your browser. Where official statements live in Citi Online, and how to turn a PDF you already have into a spreadsheet.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Converter extrato Citibank de PDF para CSV/Excel (grátis e privado) · Netmend</title>
+<meta name="description" content="Converta um extrato Citibank (Citi) dos EUA em PDF para CSV no browser. Onde ficam os extratos oficiais no Citi Online e como transformar um PDF que já tem numa folha de cálculo.">
 <link rel="canonical" href="https://netmend.app/statement-to-csv/citibank/">
-<meta property="og:title" content="Convert Citibank statement PDF to CSV/Excel (free, private) · Netmend"><meta property="og:description" content="Convert a Citibank (Citi) US PDF statement to CSV in your browser. Where official statements live in Citi Online, and how to turn a PDF you already have into a spreadsheet.">
+<meta property="og:url" content="https://netmend.app/statement-to-csv/citibank/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/statement-to-csv/citibank/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/statement-to-csv/citibank/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/statement-to-csv/citibank/">
+<meta property="og:title" content="Converter extrato Citibank de PDF para CSV/Excel (grátis e privado) · Netmend"><meta property="og:description" content="Converta um extrato Citibank (Citi) dos EUA em PDF para CSV no browser. Onde ficam os extratos oficiais no Citi Online e como transformar um PDF que já tem numa folha de cálculo.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Convert Citibank bank statement PDF to CSV", "url": "https://netmend.app/statement-to-csv/citibank/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Citibank give me a CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Not in any public official how-to we could cite for US personal accounts. Official statements are PDFs in Statements and Documents. If you see a download control on account activity, use it and keep the first row of that file as your template."}}, {"@type": "Question", "name": "Is this the same as Chase or Citibank in another country?", "acceptedAnswer": {"@type": "Answer", "text": "No. This page is for US Citi Online. Other Citi countries, and Chase (JPMorgan Chase), are different banks with different files."}}, {"@type": "Question", "name": "Can I convert a screenshot of Citi activity?", "acceptedAnswer": {"@type": "Answer", "text": "No. This tool needs a digital PDF with a text layer. A screenshot is an image."}}], "url": "https://netmend.app/statement-to-csv/citibank/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Converter extrato bancário Citibank de PDF para CSV", "url": "https://netmend.app/statement-to-csv/citibank/", "applicationCategory": "BusinessApplication", "operatingSystem": "Qualquer (browser)", "inLanguage": "pt-PT", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O Citibank dá um CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Não, em nenhum guia oficial público que se pudesse citar para contas pessoais dos EUA. Os extratos oficiais são PDF em Statements and Documents. Se vir um comando de transferência na atividade da conta, use-o e guarde a primeira linha desse ficheiro como modelo."}}, {"@type": "Question", "name": "Isto é o mesmo que o Chase ou o Citibank noutro país?", "acceptedAnswer": {"@type": "Answer", "text": "Não. Esta página é para o Citi Online dos EUA. Os outros países do Citi, e o Chase (JPMorgan Chase), são bancos diferentes, com ficheiros diferentes."}}, {"@type": "Question", "name": "Posso converter uma captura da atividade do Citi?", "acceptedAnswer": {"@type": "Answer", "text": "Não. Esta ferramenta precisa de um PDF digital com camada de texto. Uma captura de ecrã é uma imagem."}}], "url": "https://netmend.app/statement-to-csv/citibank/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
+
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/statement-to-csv/citibank/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/statement-to-csv/citibank/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Bank statement → CSV</a> · Citibank</p>
-<h1>Convert a Citibank statement PDF to <span>CSV or Excel</span></h1>
-<p>Citi’s official statements are PDFs in Citi Online. Unlike some US banks, Citi does not publish a clear public how-to for a personal-account CSV export. This page tells you where the official PDF lives, what to watch for, and how to convert it when a spreadsheet is what you need.</p>
-<div class="pills"><span>United States (Citibank, N.A. / Citi Online). Other Citi countries use different sites and formats.</span><span>100% in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/statement-to-csv/">Extrato bancário → CSV</a> · Citibank</p>
+<h1>Converter um extrato Citibank em PDF para <span>CSV ou Excel</span></h1>
+<p>Os extratos oficiais do Citi são PDF no Citi Online. Ao contrário de alguns bancos dos EUA, o Citi não publica um guia público claro para exportar CSV de uma conta pessoal. Esta página diz onde está o PDF oficial, o que convém verificar e como o converter quando o que precisa é uma folha de cálculo.</p>
+<div class="pills"><span>Estados Unidos (Citibank, N.A. / Citi Online). Os outros países do Citi usam sites e formatos diferentes.</span><span>100% no seu browser</span><span>Sem conta</span><span>Contacto, se quiser que façamos</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a Citibank PDF now</h2>
-<p class="lead">The defaults below are set for a typical Citibank file. You can still change them. The file never leaves your computer.</p>
+<h2>Converter um PDF do Citibank agora</h2>
+<p class="lead">As predefinições abaixo estão pensadas para um ficheiro típico do Citibank. Pode alterá-las. O ficheiro nunca sai do seu computador.</p>
 
 <div class="tool">
-<label for="file">PDF statement (stays on your computer)</label>
+<label for="file">Extrato em PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No statement at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/demo-statement.pdf">Try our demo statement</button> (fictional data)</p>
+<p class="note">Não tem um extrato à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar o extrato de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions only</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto">Detect automatically</option><option value="eu">European 1.234,56</option><option value="us" selected>UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Só movimentos</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto">Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us" selected>Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against your statement before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o extrato antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto” ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro neste computador. Não há servidor nem envio. Pode desligar a internet depois de a página carregar: continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>The Citibank statement format</h2>
+<h2>O formato do extrato Citibank</h2>
 <div class="facts">
-<div><b>Dates</b>US statements are month-first (MM/DD/YYYY). A day-first locale will swap days below 13. Set the date column to MM/DD/YYYY or to text before you import.</div>
-<div><b>Numbers</b>US dollar, dot decimal, comma thousands. Use a comma-separated CSV.</div>
-<div><b>Region</b>United States (Citibank, N.A. / Citi Online). Other Citi countries use different sites and formats.</div>
+<div><b>Datas</b>Os extratos dos EUA põem o mês primeiro (MM/DD/YYYY). Uma definição com o dia primeiro troca os dias inferiores a 13. Defina a coluna de data como MM/DD/YYYY ou como texto antes de importar.</div>
+<div><b>Números</b>Dólar dos EUA, ponto decimal, vírgula nos milhares. Use um CSV separado por vírgulas.</div>
+<div><b>Região</b>Estados Unidos (Citibank, N.A. / Citi Online). Os outros países do Citi usam sites e formatos diferentes.</div>
 </div>
-<h3>Where to download the official file</h3>
-Official statements and other documents are held in <b>Citi Online</b> under Statements and Documents (Citi’s servicing page for statements and document services). After you sign in, open the account and look for <b>Statements</b> or <b>Statements and Documents</b>, then download the PDF for the period you need.</p>
-<p>Citi does not publish a clear, public, step-by-step guide for a US personal-account CSV or OFX export on a help page we could open on 13/11/2026. If you see a download or “download account activity” control once you are signed in, use it when it covers your dates, and treat the formats listed in that dialog as the authority. For anything a lender or accountant will rely on, keep the official PDF as well.</p>
-<p>This page is for US Citi Online. Citibank sites in other countries (and Citi commercial / CitiManager card portals) use different menus and file types — do not follow these notes there.</p>
-<h3>What the PDF contains</h3>
-<p>A Citi statement PDF is the official monthly document: account details, the period, a summary, and the transactions for that period. Credit-card and deposit-account statements are different products. Pending or authorised-but-not-posted items can appear in the live activity view and not on the statement, or the other way around — always convert the PDF you were given, not a screenshot of the activity feed.</p>
-<h3>Official CSV or Excel, when the bank offers one</h3>
-<p>There is no official public Citi CSV layout for US personal accounts that we could cite. After a PDF conversion, keep date, description, amount or debit/credit, and the running balance where it is printed. Tick the opening and closing balances before you import the file.</p>
-<p>If you did get an on-screen activity export, compare the first and last dates and the total of the rows with the official PDF. An activity export is not automatically the same thing as the statement.</p></p>
-<h3>What to watch for</h3>
+<h3>Onde transferir o ficheiro oficial</h3>
+Os extratos oficiais e outros documentos estão no <b>Citi Online</b>, em Statements and Documents (a página de serviço do Citi para extratos e documentos). Depois de iniciar sessão, abra a conta e procure <b>Statements</b> ou <b>Statements and Documents</b>, e transfira o PDF do período de que precisa.</p>
+<p>O Citi não publica um guia público, claro e passo a passo, para exportar CSV ou OFX de uma conta pessoal dos EUA numa página de ajuda que se pudesse abrir em 13/11/2026. Se vir um comando de transferência ou “download account activity” depois de iniciar sessão, use-o quando cobrir as datas e trate os formatos dessa caixa de diálogo como a referência. Para qualquer coisa em que um credor ou um contabilista se vá apoiar, guarde também o PDF oficial.</p>
+<p>Esta página é para o Citi Online dos EUA. Os sites do Citibank noutros países (e os portais de cartões Citi commercial / CitiManager) usam outros menus e outros tipos de ficheiro. Não siga estas notas nesses sítios.</p>
+<h3>O que contém o PDF</h3>
+<p>Um PDF de extrato do Citi é o documento mensal oficial: dados da conta, o período, um resumo e os movimentos desse período. Extratos de cartão de crédito e de conta de depósitos são produtos diferentes. Movimentos pendentes ou autorizados mas ainda não lançados podem aparecer na vista de atividade e não no extrato, ou o contrário. Converta sempre o PDF que lhe deram, não uma captura do feed de atividade.</p>
+<h3>CSV ou Excel oficial, quando o banco o oferece</h3>
+<p>Não há um formato oficial público de CSV do Citi para contas pessoais dos EUA que se possa citar. Depois de converter um PDF, guarde data, descrição, montante ou débito/crédito, e o saldo acumulado onde estiver impresso. Confira os saldos inicial e final antes de importar o ficheiro.</p>
+<p>Se conseguiu uma exportação de movimentos no ecrã, compare a primeira e a última data e o total das linhas com o PDF oficial. Uma exportação de atividade não é automaticamente o mesmo que o extrato.</p></p>
+<h3>O que convém verificar</h3>
 <ul>
-<li>Use the official PDF for anything a third party will rely on. Convert it for bookkeeping.</li>
-<li>Do not mix a checking statement and a Citi card statement in one spreadsheet without a column that names the account.</li>
-<li>Older or archived statements may take time to become available after you request them — if a PDF is missing, wait and try again in Citi Online before assuming it is gone.</li>
+<li>Use o PDF oficial para qualquer coisa em que um terceiro se vá apoiar. Converta-o para a contabilidade.</li>
+<li>Não misture um extrato de conta à ordem e um extrato de cartão Citi na mesma folha sem uma coluna que identifique a conta.</li>
+<li>Extratos mais antigos ou antigos podem demorar a ficar disponíveis depois de os pedir. Se um PDF faltar, espere e tente de novo no Citi Online antes de assumir que desapareceu.</li>
 </ul>
-<p class="note"><b>Sources</b> (checked 12/11/2026). Citi Online statements and document services (online.citi.com, Statements and Documents), checked 13/11/2026. No public official US personal CSV specification was available that day; on-screen export labels, if present, take precedence. Banks change layouts without notice: treat the first row of your own file as the authority.</p>
+<p class="note"><b>Fontes</b> (consultado em 12/11/2026). Extratos e serviços de documentos do Citi Online (online.citi.com, Statements and Documents), consultado em 13/11/2026. Nesse dia não havia uma especificação oficial pública de CSV para contas pessoais dos EUA; os rótulos de exportação no ecrã, se existirem, prevalecem. Os bancos mudam o formato sem aviso: a primeira linha do seu ficheiro é que manda.</p>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of statements or a layout that has to match your accounting software, we convert them and check every total against the opening and closing balance.</p>
+<h2>Precisa que façamos por si?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto, limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de extratos ou um formato que tem de coincidir com o software de contabilidade, convertemos e conferimos cada total com o saldo inicial e o saldo final.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your statement is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Conferimos os totais. Escreva-nos.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a></div>
+<div class="card"><b>Privacidade</b><p>O extrato só é tratado para a encomenda e é apagado depois da entrega. Esta página nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p></div>
 </div>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Does Citibank give me a CSV?</summary><p>Not in any public official how-to we could cite for US personal accounts. Official statements are PDFs in Statements and Documents. If you see a download control on account activity, use it and keep the first row of that file as your template.</p></details><details><summary>Is this the same as Chase or Citibank in another country?</summary><p>No. This page is for US Citi Online. Other Citi countries, and Chase (JPMorgan Chase), are different banks with different files.</p></details><details><summary>Can I convert a screenshot of Citi activity?</summary><p>No. This tool needs a digital PDF with a text layer. A screenshot is an image.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O Citibank dá um CSV?</summary><p>Não, em nenhum guia oficial público que se pudesse citar para contas pessoais dos EUA. Os extratos oficiais são PDF em Statements and Documents. Se vir um comando de transferência na atividade da conta, use-o e guarde a primeira linha desse ficheiro como modelo.</p></details><details><summary>Isto é o mesmo que o Chase ou o Citibank noutro país?</summary><p>Não. Esta página é para o Citi Online dos EUA. Os outros países do Citi, e o Chase (JPMorgan Chase), são bancos diferentes, com ficheiros diferentes.</p></details><details><summary>Posso converter uma captura da atividade do Citi?</summary><p>Não. Esta ferramenta precisa de um PDF digital com camada de texto. Uma captura de ecrã é uma imagem.</p></details></div></section>
 <section><div class="wrap">
-<h2>Other bank guides</h2>
-<div class="banklist"><a href="../chase/"><b>Chase</b> statement to CSV</a><a href="../bank-of-america/"><b>Bank of America</b> statement to CSV</a><a href="../wells-fargo/"><b>Wells Fargo</b> statement to CSV</a><a href="../capital-one/"><b>Capital One</b> statement to CSV</a><a href="../us-bank/"><b>U.S. Bank</b> statement to CSV</a><a href="../"><b>All banks</b> and the main converter</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Outros guias de bancos</h2>
+<div class="banklist"><a href="/statement-to-csv/chase/"><b>Chase</b> extrato para CSV</a><a href="/statement-to-csv/bank-of-america/"><b>Bank of America</b> extrato para CSV</a><a href="/statement-to-csv/wells-fargo/"><b>Wells Fargo</b> extrato para CSV</a><a href="/statement-to-csv/capital-one/"><b>Capital One</b> extrato para CSV</a><a href="/statement-to-csv/us-bank/"><b>U.S. Bank</b> extrato para CSV</a><a href="/statement-to-csv/"><b>Todos os bancos</b> e o conversor principal</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho de back-office para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias de crescimento no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · run by Pedro Carvalho · EU-based · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Um cookie guarda só o idioma. Sem rastreio e sem registo. As ferramentas grátis correm no browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

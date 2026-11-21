@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bank statement PDF to Excel &amp; CSV · Netmend</title>
+<meta name="description" content="Convert bank statement PDFs to Excel and CSV in your browser. Files are processed locally and never leave your computer. Free for the first page. Statement Pro is paid once.">
+<link rel="canonical" href="https://netmend.app/en/statement/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/statement/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/statement/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/statement/">
+<meta property="og:title" content="Bank statement PDF to Excel &amp; CSV">
+<meta property="og:description" content="Convert bank statement PDFs to Excel in seconds, in your browser. Files never leave your computer. Statement Pro is paid once.">
+<meta property="og:image" content="https://netmend.app/statement/og.png">
+<meta property="og:url" content="https://netmend.app/en/statement/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bank statement PDF to Excel &amp; CSV">
+<meta name="twitter:description" content="Convert bank statement PDFs to Excel and CSV in your browser. Processed locally. Pro is paid once.">
+<meta name="twitter:image" content="https://netmend.app/statement/og.png">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#07080b">
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+#drop{border:1px dashed var(--border-2);border-radius:14px;padding:22px;background:rgba(255,255,255,.02);transition:border-color .2s,background .2s}
+#drop.on{border-color:var(--coral);background:rgba(255,90,54,.08)}
+#drop .pick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.ba{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:stretch}
+.ba-card{min-width:0;display:flex;flex-direction:column;gap:8px}
+.ba-card .lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-2);margin:0}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--coral);color:#fff;border-radius:999px;padding:2px 8px}
+.paper{background:#f4efe6;color:#241f1a;border-radius:14px;padding:16px 14px 8px;font-size:13px;line-height:1.4;box-shadow:var(--shadow);flex:1}
+.paper h3{color:#241f1a;font-size:16px;margin:8px 0 0}
+.paper .who{color:#5c564c;font-size:12px;margin:2px 0 10px}
+.paper table{font-size:12.5px}
+.paper th,.paper td{border-bottom:1px solid #e4dccf;color:#241f1a;background:transparent;padding:6px 4px}
+.paper th{background:#e7dfd2;color:#241f1a;position:static;font-size:11px}
+.paper tr:hover td{background:rgba(0,0,0,.03)}
+.paper .foot{color:#5c564c;font-size:11.5px;margin:8px 0 4px}
+.format-list{margin:8px 0 0;padding-left:18px;color:var(--muted)}
+.format-list li{margin:6px 0}
+@media(max-width:760px){ .ba{grid-template-columns:1fr} .hero-actions .btn{flex:1 1 100%}
+}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Bank statement PDF to Excel & CSV","applicationCategory":"FinanceApplication","operatingSystem":"Any (web browser)","url":"https://netmend.app/en/statement/","description":"Convert bank statement PDFs to Excel and CSV in your browser. In the default mode the file is processed locally and does not leave your computer.","offers":[{"@type":"Offer","price":"0","priceCurrency":"USD","name":"Free: first page of one statement a day"},{"@type":"Offer","price":"29","priceCurrency":"USD","name":"Statement Pro, one-time"}],"publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/en/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does my bank statement leave my computer?","acceptedAnswer":{"@type":"Answer","text":"In the default mode, no. The page is processed locally: Mozilla's pdf.js reads the PDF in your browser and builds the spreadsheet on your computer. After the page and its libraries have loaded, that conversion still works if you disconnect. Nothing is uploaded to a Netmend server. Two optional steps do use the network: activating Pro checks the licence key with Gumroad, and Pro AI mode sends the extracted text to Google's Gemini API with your own key."}},{"@type":"Question","name":"What is free, and what does Pro add?","acceptedAnswer":{"@type":"Answer","text":"Free converts one statement a day in this browser, and only the first page, to Excel or CSV. Statement Pro is paid once. It reads every page, converts several PDFs at once (one sheet per file plus a combined sheet), and unlocks optional AI mode for messy text layouts."}},{"@type":"Question","name":"Which PDFs and layouts does it read?","acceptedAnswer":{"@type":"Answer","text":"Text PDFs, where you can select the words. There is no separate parser per bank, and there is no OCR. A row is kept when it starts with a date the parser recognises and ends with amounts that have two decimal places. Dates can be numeric (12/11/2026, 12.11.2026, 12-11-2026, 2026-11-12, with or without a year) or a day plus a month name in plain letters. Amounts can be European 1.234,56 or UK/US 1,234.56, with optional euro, dollar or pound signs. Scans, photos and password-protected PDFs are not read."}},{"@type":"Question","name":"Does it check the totals against the printed statement?","acceptedAnswer":{"@type":"Answer","text":"No. The tool does not reconcile the running balance with the opening or closing total printed on the PDF. Compare them yourself before you bookkeep, and keep the original PDF."}},{"@type":"Question","name":"How do I buy Statement Pro?","acceptedAnswer":{"@type":"Answer","text":"Pro is paid once, on Gumroad. The licence key is in the receipt. Paste it on this page and click Activate. Gumroad offers a 14-day refund. Questions go to dayinportugal@gmail.com."}}]}</script> </head><body>
+<header><div class="wrap"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/en/tools/">All tools</a><a href="#app">Use it free</a><a class="cta" data-pro-buy href="https://portugaldiary.gumroad.com/l/netmend-statement">Pro · </a><span class="lang-switch" role="navigation" aria-label="Language"><a href="/statement/" hreflang="pt-PT" lang="pt-PT" data-lang="pt">PT</a><span aria-hidden="true">|</span><a href="/en/statement/" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
+<div class="hero"><div class="wrap">
+<p class="crumbs"><a href="/en/">Netmend</a> · <a href="/en/tools/">Tools</a> · Statement Pro</p>
+<h1>Bank statement PDF to <span>Excel &amp; CSV</span></h1>
+<p>Convert bank statement PDFs to Excel in seconds, in your browser. Files never leave your computer.</p>
+<div class="pills"><span>Processed locally</span><span>Excel (.xlsx) and CSV</span><span>Text PDFs</span><span> once</span></div>
+<div class="hero-actions">
+<a class="btn" href="#app">Convert a statement free</a>
+<a class="btn sec" data-pro-buy data-pro-label href="https://portugaldiary.gumroad.com/l/netmend-statement">Statement Pro · </a>
+</div>
+<p class="note" style="margin-top:14px">The default converter runs in this browser. Optional Pro AI mode stays off unless you turn it on. That mode sends extracted text to Google with your own key, never the file to a Netmend server.</p>
+</div></div> <section id="example"><div class="wrap">
+<h2>From the PDF to the sheet</h2>
+<p class="lead">The same columns the download uses: Date, Description, Debit, Credit, Amount and Balance. The figures below are an EXAMPLE. Invented names and amounts, not a customer file and not a real bank.</p>
+<div class="ba">
+<div class="ba-card">
+<p class="lbl">Before · PDF</p>
+<div class="paper">
+<span class="tag">Example</span>
+<h3>Northshore Community Bank</h3>
+<p class="who">Alex Example · Account 0000 · January 2026 · fictional demo</p>
+<table>
+<caption class="who">Example statement. Not a real account.</caption>
+<thead><tr><th>Date</th><th>Description</th><th class="num">Out</th><th class="num">In</th><th class="num">Balance</th></tr></thead>
+<tbody>
+<tr><td>03/01/2026</td><td>EXAMPLE Grocery</td><td class="num">42.15</td><td class="num"></td><td class="num">957.85</td></tr>
+<tr><td>07/01/2026</td><td>EXAMPLE Payroll</td><td class="num"></td><td class="num">2,400.00</td><td class="num">3,357.85</td></tr>
+<tr><td>12/01/2026</td><td>EXAMPLE Rent</td><td class="num">900.00</td><td class="num"></td><td class="num">2,457.85</td></tr>
+<tr><td>18/01/2026</td><td>EXAMPLE Transit</td><td class="num">18.40</td><td class="num"></td><td class="num">2,439.45</td></tr>
+</tbody>
+</table>
+<p class="foot">Opening balance on this demo: 1,000.00. Closing balance: 2,439.45. Invented.</p>
+</div>
+</div>
+<div class="ba-card">
+<p class="lbl">After · Excel</p>
+<div class="scroll">
+<table>
+<caption class="note" style="caption-side:bottom;padding:8px 10px">Example spreadsheet. Same invented rows. Not a real export from a bank.</caption>
+<thead><tr><th>Date</th><th>Description</th><th class="num">Debit</th><th class="num">Credit</th><th class="num">Amount</th><th class="num">Balance</th></tr></thead>
+<tbody>
+<tr><td>03/01/2026</td><td>EXAMPLE Grocery</td><td class="num">42.15</td><td></td><td class="num">-42.15</td><td class="num">957.85</td></tr>
+<tr><td>07/01/2026</td><td>EXAMPLE Payroll</td><td></td><td class="num">2400.00</td><td class="num">2400.00</td><td class="num">3357.85</td></tr>
+<tr><td>12/01/2026</td><td>EXAMPLE Rent</td><td class="num">900.00</td><td></td><td class="num">-900.00</td><td class="num">2457.85</td></tr>
+<tr><td>18/01/2026</td><td>EXAMPLE Transit</td><td class="num">18.40</td><td></td><td class="num">-18.40</td><td class="num">2439.45</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div></section> <section class="alt" id="app"><div class="wrap">
+<h2>Convert a statement free</h2>
+<p class="lead">The page reads the PDF with Mozilla's pdf.js library and builds Date, Description, Debit, Credit, Amount and Balance. Free is the first page of one statement a day, in this browser. Pro reads every page and several files at once. A Gemini key is only for optional AI mode, further down.</p>
+<div class="tool" style="margin-top:18px">
+<div id="drop">
+<label for="file">PDF statement (processed locally in the default mode)</label>
+<p class="note">Drop a file here or choose one. Free: first page of one statement a day. Pro: every page, several files at once.</p>
+<div class="pick">
+<input id="file" type="file" accept="application/pdf">
+<button class="btn" type="button" id="run">Convert</button>
+</div>
+<p class="note">No statement at hand? Try a fictional sample:
+<button class="btn ghost" type="button" data-demo="samples/sample-statement-en.pdf">English (US format)</button>
+<button class="btn ghost" type="button" data-demo="samples/sample-statement-pt.pdf">Portuguese (EU format)</button>
+</p>
+</div>
+<div class="row">
+<div><label for="fmt">Number format</label><select id="fmt"><option value="auto">Detect automatically</option><option value="eu">European 1.234,56</option><option value="us">UK/US 1,234.56</option></select></div>
+<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value=",">Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="ai-mode">AI mode (Pro)</label>
+<div class="nm-inline" style="margin-top:6px"><input id="ai-mode" type="checkbox"> <label for="ai-mode" style="margin:0;font-weight:400">Use my Gemini key for messy layouts</label></div>
+<p class="note" id="ai-hint">Unlock Pro to turn AI mode on. Extracted text then goes to Google with your key, never to Netmend.</p>
+</div>
+</div>
+<p class="note" id="nm-remain"></p>
+<p class="note" id="status"></p>
+<div id="out" hidden>
+<p id="stats" class="note"></p>
+<p class="nm-actions"><button class="btn" type="button" id="dl-xlsx" disabled>Download Excel (.xlsx)</button> <button class="btn ghost" type="button" id="dl-csv" disabled>Download CSV</button></p>
+<div class="scroll"><table id="preview"></table></div>
+<p class="note">The tool does not check the printed totals for you. Compare the opening and closing balances with your statement before you bookkeep. Layouts differ. If a column is wrong, try the other number format, or Pro AI mode when the PDF has a text layer.</p>
+</div>
+</div>
+<div id="nm-key" style="margin-top:18px"></div>
+</div></section> <section id="price"><div class="wrap">
+<h2> one-time vs –29/month elsewhere</h2>
+<p class="lead">Typical subscription converters charge –29 a month. Statement Pro is one payment of . The default converter still runs in your browser.</p>
+<div id="nm-license"></div>
+<p class="note">The button uses the Statement Pro product already listed for this tool. After you pay, Gumroad emails a licence key. Paste it above. 14-day refund on that checkout. Questions: <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>.</p>
+</div></section> <section class="alt" id="formats"><div class="wrap">
+<h2>Formats this converter reads</h2>
+<p class="lead">There is no separate parser for each bank. A text PDF works when its rows match the patterns below. A logo, or a guide about a bank's own download menu, is not the same as support.</p>
+<div class="grid">
+<div class="card"><b>The file</b><p>A PDF whose text you can select. pdf.js reads that text in your browser. Image-only scans and photos are not read: there is no OCR. Optional AI mode still needs that text; it does not look at a picture. Password-protected PDFs fail until you open them and print to a new PDF.</p></div>
+<div class="card"><b>Dates, copied as printed</b><p>Numeric: <code>12/11/2026</code>, <code>12.11.2026</code>, <code>12-11-2026</code>, <code>2026-11-12</code>, a two-digit year, or no year (<code>12/11</code>). The tool does not decide whether 03/04 is 3 April or March 4.</p><p>Or a day, an optional “de”, then a month in plain letters starting with jan, feb, fev, mar, apr, abr, may, mai, jun, jul, aug, ago, sep, set, oct, out, nov, dec or dez, then an optional year. <code>12 Jan 2026</code> and <code>12 de janeiro 2026</code> match. Accented names that do not start with those letters, such as março, février or März, do not.</p></div>
+<div class="card"><b>Amounts</b><p>Two decimal places are required. European <code>1.234,56</code> when you choose that format, or automatically when the amount ends in a comma and two digits. UK/US <code>1,234.56</code> otherwise. A euro, dollar or pound sign may sit in front, or the word EUR, USD or GBP after the number. A minus, parentheses, or DR marks money out.</p></div>
+</div>
+<h3 style="margin-top:28px">Column titles it looks for</h3>
+<p class="lead">The header cell has to be the title itself, not a sentence. If debit and credit are both there, or one of them plus a balance, amounts are placed by column. If those titles are missing: one number becomes Amount, two numbers become Amount and Balance, and three or more become Debit, Credit, and the last number as Balance.</p>
+<div class="grid">
+<div class="card"><b>Money out</b><p>débito, debit, debits, withdrawals, paid out, money out, saídas, cargos, soll, montant débit, levantamentos, payments, out</p></div>
+<div class="card"><b>Money in</b><p>crédito, credit, credits, deposits, paid in, money in, entradas, abonos, haben, montant crédit, depósitos, receipts, in</p></div>
+<div class="card"><b>Balance</b><p>saldo, balance, solde, kontostand, saldo final, running balance, saldo actual, saldo atual, available</p></div>
+</div>
+<h3 style="margin-top:28px">What you download</h3>
+<ul class="format-list">
+<li>Excel <code>.xlsx</code> and CSV, with the columns Date, Description, Debit, Credit, Amount and Balance.</li>
+<li>CSV for Excel in Europe uses a semicolon and a comma decimal. CSV for Excel UK/US and Google Sheets uses a comma and a period decimal.</li>
+<li>Pro, with several files, adds the file name and writes one sheet per file plus a sheet named Combined. The download can include the page number.</li>
+</ul>
+</div></section> <section id="privacy"><div class="wrap">
+<h2>Processed locally</h2>
+<p class="lead">In the default mode the statement is processed locally. pdf.js reads the PDF in this browser and the spreadsheet is built on your computer. After this page and its libraries have loaded, you can disconnect and the conversion still runs. There is no account, and the file is not uploaded to Netmend.</p>
+<div class="grid">
+<div class="card"><b>Default converter</b><p>Stays on this computer. The Gemini key box on the page is only for optional AI mode. You do not need a key to convert a text PDF.</p></div>
+<div class="card"><b>Licence check</b><p>If you activate Pro, the key is sent to Gumroad to be verified. That call does not include the PDF.</p></div>
+<div class="card"><b>AI mode, off by default</b><p>Pro only. It sends the extracted text from your browser to Google's Gemini API with your own key. The key stays in this browser. The text does not go to a Netmend server. A scan with no text layer still fails.</p></div>
+</div>
+</div></section> <section class="alt" id="faq"><div class="wrap"><h2>FAQ</h2>
+<details><summary>Does my bank statement leave my computer?</summary><p>In the default mode, no. The page is processed locally: Mozilla's pdf.js reads the PDF in your browser and builds the spreadsheet on your computer. After the page and its libraries have loaded, that conversion still works if you disconnect. Nothing is uploaded to a Netmend server. Two optional steps do use the network: activating Pro checks the licence key with Gumroad, and Pro AI mode sends the extracted text to Google's Gemini API with your own key.</p></details>
+<details><summary>What is free, and what does Pro add?</summary><p>Free converts one statement a day in this browser, and only the first page, to Excel or CSV. Statement Pro is paid once. It reads every page, converts several PDFs at once (one sheet per file plus a combined sheet), and unlocks optional AI mode for messy text layouts.</p></details>
+<details><summary>Which PDFs and layouts does it read?</summary><p>Text PDFs, where you can select the words. There is no separate parser per bank, and there is no OCR. A row is kept when it starts with a date the parser recognises and ends with amounts that have two decimal places. Dates can be numeric (12/11/2026, 12.11.2026, 12-11-2026, 2026-11-12, with or without a year) or a day plus a month name in plain letters. Amounts can be European 1.234,56 or UK/US 1,234.56, with optional euro, dollar or pound signs. Scans, photos and password-protected PDFs are not read. The exact header words are in the formats section above.</p></details>
+<details><summary>Does it check the totals against the printed statement?</summary><p>No. The tool does not reconcile the running balance with the opening or closing total printed on the PDF. Compare them yourself before you bookkeep, and keep the original PDF.</p></details>
+<details><summary>How do I buy Statement Pro?</summary><p>Pro is paid once, on Gumroad. The licence key is in the receipt. Paste it on this page and click Activate. Gumroad offers a 14-day refund. Questions go to <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>.</p></details>
+</div></section> <section id="cta"><div class="wrap">
+<h2>Convert a statement, or keep every page</h2>
+<p class="lead">Convert bank statement PDFs to Excel in seconds, in your browser. Files never leave your computer.</p>
+<div class="hero-actions">
+<a class="btn" href="#app">Convert a statement free</a>
+<a class="btn sec" data-pro-buy data-pro-label href="https://portugaldiary.gumroad.com/l/netmend-statement">Statement Pro · </a>
+</div>
+<p class="note" style="margin-top:16px">Contact: <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a></p>
+</div></section> <section class="alt"><div class="wrap"><h2>More Netmend tools</h2><div class="toolsnav"><a href="/en/slides/">Netmend Slides</a><a href="/en/sheets-ai/">Sheets AI</a><a href="/en/askvideo/">AskVideo</a><a href="/en/quiz/">Quiz maker</a><a href="/en/chat-pdf/">Chat with PDF</a><a href="/en/certificates/">Certificates</a><a href="/en/statement/">Statement → Excel</a><a href="/en/tools/">All tools</a></div></div></section>
+<footer class="site-footer"><div class="wrap">
+<div class="f-grid">
+<div class="f-brand"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private AI tools that run in your browser with your own free Gemini key. No account, no server, no trackers.</p></div>
+<div><h4>AI tools</h4><a href="/en/slides/">Netmend Slides</a><a href="/en/sheets-ai/">Sheets AI</a><a href="/en/askvideo/">AskVideo</a><a href="/en/quiz/">Quiz maker</a></div>
+<div><h4>More</h4><a href="/en/chat-pdf/">Chat with PDF</a><a href="/en/certificates/">Certificates</a><a href="/en/statement/">Statement → Excel</a></div>
+<div><h4>Netmend</h4><a href="/en/tools/">All tools</a><a href="/en/#services">Services</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+</div>
+<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · , no sign-up. Your files, text and Gemini key stay in your browser. Heuristic conversion does not leave this device. AI mode, if you switch it on, goes only to Google's Gemini API. Licences are checked with Gumroad. No trackers and no ads. Only a technical cookie to remember the language.</div>
+</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="/assets/nm-products.js"></script><script src="/assets/nm-suite.js"></script>
+<script src="/statement/parser.js"></script><script src="/statement/app.js"></script>
+<script src="/assets/lang.js"></script>
+</body></html>

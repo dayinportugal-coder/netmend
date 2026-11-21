@@ -2,13 +2,16 @@
 (function () {
   var $ = NM.$, tab = "write", HIST = "netmend-formula-history";
   var SMART = ["gemini-3.5-flash", "gemini-flash-latest", "gemini-2.5-flash", "gemini-3.5-flash-lite", "gemini-flash-lite-latest"];
-  NM.init({ tool: "formula", freeLimit: 5, unit: "formulas", freeText: "5 formulas, explanations or fixes a day. English function names, comma or semicolon separators.", proText: "No daily limit, localized function names (PT, ES, FR, DE, IT, NL), VBA, Apps Script, regex and SQL, saved history. Pay once.", onLicense: paintHist });
+  var formulaEn = (document.documentElement.lang || "").toLowerCase().indexOf("en") === 0;
+  NM.init({ tool: "formula", freeLimit: 5, unit: "formulas", freeText: formulaEn ? "5 formulas, explanations or fixes a day. English function names, comma or semicolon separators." : "5 fórmulas, explicações ou correções por dia. Nomes em inglês, separador vírgula ou ponto e vírgula.", proText: formulaEn ? "No daily limit, localized function names (PT, ES, FR, DE, IT, NL), VBA, Apps Script, regex and SQL, saved history." : "Sem limite diário, nomes de funções em PT, ES, FR, DE, IT e NL, VBA, Apps Script, expressões regulares e SQL, e histórico guardado.", onLicense: paintHist });
   document.querySelectorAll(".nm-tabs button").forEach(function (b) {
     b.onclick = function () {
       tab = b.getAttribute("data-tab");
       document.querySelectorAll(".nm-tabs button").forEach(function (x) { x.classList.toggle("on", x === b); });
       document.querySelectorAll(".nm-pane").forEach(function (p) { p.hidden = p.getAttribute("data-pane") !== tab; });
-      $("go").textContent = tab === "write" ? "Get the formula" : tab === "explain" ? "Explain it" : "Fix it";
+      var fl = (document.documentElement.lang || "pt").toLowerCase();
+      var en = fl.indexOf("en") === 0;
+      $("go").textContent = tab === "write" ? (en ? "Get the formula" : "Obter a fórmula") : tab === "explain" ? (en ? "Explain it" : "Explicar") : (en ? "Fix it" : "Corrigir");
     };
   });
   document.querySelectorAll("[data-ex]").forEach(function (b) { b.onclick = function () { $("ask").value = b.getAttribute("data-ex"); }; });
@@ -17,7 +20,7 @@
     var h = hist();
     $("hist-wrap").hidden = !(NM.isPro() && h.length);
     $("hist").innerHTML = h.slice(0, 50).map(function (it, i) {
-      return '<div class="card" style="margin-top:8px"><p class="note">' + NM.esc(it.q) + '</p><pre><code>' + NM.esc(it.f) + '</code></pre><button class="btn ghost" type="button" data-h="' + i + '">Copy</button></div>';
+      return '<div class="card" style="margin-top:8px"><p class="note">' + NM.esc(it.q) + '</p><pre><code>' + NM.esc(it.f) + '</code></pre><button class="btn ghost" type="button" data-h="' + i + '">' + ((document.documentElement.lang || "pt").toLowerCase().indexOf("en") === 0 ? "Copy" : "Copiar") + '</button></div>';
     }).join("");
     document.querySelectorAll("[data-h]").forEach(function (b) { b.onclick = function () { NM.copy(hist()[+b.getAttribute("data-h")].f, b); }; });
   }
@@ -26,14 +29,16 @@
     if (!NM.getKey()) return NM.status("status", NM.friendlyError("NOKEY"), "bad");
     if (!NM.canUse()) return NM.status("status", NM.limitMsg(), "bad");
     var kind = $("kind").value, fnlang = $("fnlang").value;
-    if (!NM.isPro() && kind !== "formula") return NM.status("status", "VBA, Apps Script, regex and SQL are part of Pro. Choose \"Formula\" or unlock Pro below.", "bad");
-    if (!NM.isPro() && fnlang !== "English") return NM.status("status", "Localized function names are part of Pro. Free answers use English names; your separator choice still applies.", "bad");
+    var flang = (document.documentElement.lang || "pt").toLowerCase();
+    var enUi = flang.indexOf("en") === 0;
+    if (!NM.isPro() && kind !== "formula") return NM.status("status", enUi ? "VBA, Apps Script, regex and SQL are part of Pro. Choose \"Formula\" or unlock Pro below." : "VBA, Apps Script, expressões regulares e SQL fazem parte do Pro. Escolha «Fórmula» ou ative o Pro em baixo.", "bad");
+    if (!NM.isPro() && fnlang !== "English") return NM.status("status", enUi ? "Localized function names are part of Pro. Free answers use English names; your separator choice still applies." : "Os nomes de funções noutras línguas fazem parte do Pro. As respostas grátis usam os nomes em inglês; o separador que escolheu mantém-se.", "bad");
     var app = $("appsel").value, sep = $("sep").value, cols = ($("cols").value || "").trim();
     var input, task;
     if (tab === "write") { input = ($("ask").value || "").trim(); task = "Write the " + (kind === "formula" ? "formula" : kind) + " that does this: " + input; }
     else if (tab === "explain") { input = ($("fx-explain").value || "").trim(); task = "Explain this formula clearly, step by step, for a non-expert: " + input; }
     else { input = ($("fx-fix").value || "").trim(); task = "This formula does not work" + (($("fx-err").value || "").trim() ? " (problem: " + $("fx-err").value.trim() + ")" : "") + ". Find the cause and return a corrected version: " + input; }
-    if (!input) return NM.status("status", "Type something first.", "bad");
+    if (!input) return NM.status("status", (document.documentElement.lang || "pt").toLowerCase().indexOf("en") === 0 ? "Type something first." : "Escreva primeiro alguma coisa.", "bad");
     var kindName = { formula: "spreadsheet formula", vba: "Excel VBA macro", appsscript: "Google Apps Script function", regex: "regular expression", sql: "SQL query" }[kind];
     var sys = "You are a senior spreadsheet expert. Target app: " + app + ". " +
       (kind === "formula" ? "Write formulas that work in that app and version (no XLOOKUP/LET/FILTER for Excel 2016/2019). Use \"" + sep + "\" as the argument separator" + (sep === ";" ? " and a comma as decimal separator in numbers" : "") + ". Use " + fnlang + " function names exactly as the localized app shows them. Start formulas with =." : "Output a " + kindName + ".") +

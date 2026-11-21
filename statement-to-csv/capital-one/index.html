@@ -1,101 +1,104 @@
 <!doctype html>
-<html lang="en"><head>
-<meta http-equiv="refresh" content="0;url=https://netmend.app/statement-to-csv/capital-one/">
-<script>location.replace('https://netmend.app/statement-to-csv/capital-one/'+location.search+location.hash);</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Convert Capital One bank statement PDF to CSV/Excel (free, private) · Netmend</title>
-<meta name="description" content="Convert a Capital One PDF statement to CSV in your browser. Official paperless statements (up to 7 years), when they appear, and how to turn a PDF you already have into a spreadsheet.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Converter extrato Capital One de PDF para CSV/Excel (grátis e privado) · Netmend</title>
+<meta name="description" content="Converta um extrato Capital One em PDF para CSV no browser. Extratos digitais oficiais (até 7 anos), quando aparecem, e como transformar um PDF que já tem numa folha de cálculo.">
 <link rel="canonical" href="https://netmend.app/statement-to-csv/capital-one/">
-<meta property="og:title" content="Convert Capital One bank statement PDF to CSV/Excel (free, private) · Netmend"><meta property="og:description" content="Convert a Capital One PDF statement to CSV in your browser. Official paperless statements (up to 7 years), when they appear, and how to turn a PDF you already have into a spreadsheet.">
+<meta property="og:url" content="https://netmend.app/statement-to-csv/capital-one/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/statement-to-csv/capital-one/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/statement-to-csv/capital-one/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/statement-to-csv/capital-one/">
+<meta property="og:title" content="Converter extrato Capital One de PDF para CSV/Excel (grátis e privado) · Netmend"><meta property="og:description" content="Converta um extrato Capital One em PDF para CSV no browser. Extratos digitais oficiais (até 7 anos), quando aparecem, e como transformar um PDF que já tem numa folha de cálculo.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Convert Capital One bank statement PDF to CSV", "url": "https://netmend.app/statement-to-csv/capital-one/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How far back can I get Capital One statements?", "acceptedAnswer": {"@type": "Answer", "text": "Capital One says you can view up to seven years of statements online for active accounts, once you are enrolled in paperless statements."}}, {"@type": "Question", "name": "When is the new statement ready?", "acceptedAnswer": {"@type": "Answer", "text": "Typically generated online by the 6th of each month. Savings products may be quarterly if there is no activity."}}, {"@type": "Question", "name": "Does Capital One give me a CSV of my statement?", "acceptedAnswer": {"@type": "Answer", "text": "The official document described in Capital One’s online-statements help is the PDF. If the desktop site offers a separate activity download, use it if you can see it, but treat that dialog as the authority — there is no public official CSV layout on that help page."}}], "url": "https://netmend.app/statement-to-csv/capital-one/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Converter extrato bancário Capital One de PDF para CSV", "url": "https://netmend.app/statement-to-csv/capital-one/", "applicationCategory": "BusinessApplication", "operatingSystem": "Qualquer (browser)", "inLanguage": "pt-PT", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "Até onde consigo obter extratos da Capital One?", "acceptedAnswer": {"@type": "Answer", "text": "A Capital One diz que se podem ver até sete anos de extratos online nas contas ativas, depois de aderir aos extratos digitais."}}, {"@type": "Question", "name": "Quando é que o extrato novo fica pronto?", "acceptedAnswer": {"@type": "Answer", "text": "Em regra é gerado online até ao dia 6 de cada mês. Os produtos de poupança podem ser trimestrais se não houver atividade."}}, {"@type": "Question", "name": "A Capital One dá um CSV do extrato?", "acceptedAnswer": {"@type": "Answer", "text": "O documento oficial descrito na ajuda dos extratos online da Capital One é o PDF. Se o site de computador oferecer uma transferência de movimentos à parte, use-a se a vir, mas trate essa caixa de diálogo como a referência. Não há um formato oficial público de CSV nessa página de ajuda."}}], "url": "https://netmend.app/statement-to-csv/capital-one/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
+
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/statement-to-csv/capital-one/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/statement-to-csv/capital-one/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Bank statement → CSV</a> · Capital One</p>
-<h1>Convert a Capital One statement PDF to <span>CSV or Excel</span></h1>
-<p>Capital One’s official record is the online statement PDF — up to seven years for active accounts, once you are enrolled in paperless statements. This page follows Capital One’s own help, then shows how to convert that PDF when a spreadsheet is what you need.</p>
-<div class="pills"><span>United States (Capital One, N.A.). Other Capital One countries differ.</span><span>100% in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/statement-to-csv/">Extrato bancário → CSV</a> · Capital One</p>
+<h1>Converter um extrato Capital One em PDF para <span>CSV ou Excel</span></h1>
+<p>O registo oficial da Capital One é o PDF do extrato online: até sete anos nas contas ativas, depois de aderir aos extratos digitais. Esta página segue a ajuda da própria Capital One e mostra como converter esse PDF quando o que precisa é uma folha de cálculo.</p>
+<div class="pills"><span>Estados Unidos (Capital One, N.A.). Os outros países da Capital One são diferentes.</span><span>100% no seu browser</span><span>Sem conta</span><span>Contacto, se quiser que façamos</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a Capital One PDF now</h2>
-<p class="lead">The defaults below are set for a typical Capital One file. You can still change them. The file never leaves your computer.</p>
+<h2>Converter um PDF do Capital One agora</h2>
+<p class="lead">As predefinições abaixo estão pensadas para um ficheiro típico do Capital One. Pode alterá-las. O ficheiro nunca sai do seu computador.</p>
 
 <div class="tool">
-<label for="file">PDF statement (stays on your computer)</label>
+<label for="file">Extrato em PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No statement at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/demo-statement.pdf">Try our demo statement</button> (fictional data)</p>
+<p class="note">Não tem um extrato à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar o extrato de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions only</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto">Detect automatically</option><option value="eu">European 1.234,56</option><option value="us" selected>UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Só movimentos</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto">Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us" selected>Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against your statement before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o extrato antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto” ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro neste computador. Não há servidor nem envio. Pode desligar a internet depois de a página carregar: continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>The Capital One statement format</h2>
+<h2>O formato do extrato Capital One</h2>
 <div class="facts">
-<div><b>Dates</b>US statements are month-first (MM/DD/YYYY or a short date such as Jan 06, 2026). A day-first spreadsheet locale will swap any day below 13. Set the date column to MM/DD/YYYY or to text before you import.</div>
-<div><b>Numbers</b>US dollar, dot decimal, comma thousands (1,234.56). Use a comma-separated CSV.</div>
-<div><b>Region</b>United States (Capital One, N.A.). Other Capital One countries differ.</div>
+<div><b>Datas</b>Os extratos dos EUA põem o mês primeiro (MM/DD/YYYY ou uma data curta como Jan 06, 2026). Uma folha com o dia primeiro troca qualquer dia inferior a 13. Defina a coluna de data como MM/DD/YYYY ou como texto antes de importar.</div>
+<div><b>Números</b>Dólar dos EUA, ponto decimal, vírgula nos milhares (1,234.56). Use um CSV separado por vírgulas.</div>
+<div><b>Região</b>Estados Unidos (Capital One, N.A.). Os outros países da Capital One são diferentes.</div>
 </div>
-<h3>Where to download the official file</h3>
-Official path, from Capital One Help (“Online bank statements”):
-<p><b>On the website:</b> sign in at capitalone.com, click the account, then click <b>view statements</b>.</p>
-<p><b>In the Capital One Mobile app:</b> sign in, tap the account, scroll to the bottom of the page and tap <b>statements</b>.</p>
-<p>You need to be enrolled in paperless statements to view them online. Bank statements are typically generated online by the 6th of each month. Savings products are generated quarterly if there is no activity to prompt a monthly statement. Direct accounts are automatically combined into one statement. Capital One says you can view up to seven years of statements online for active accounts.</p>
-<p>That help page documents the official PDF statement, not a spreadsheet export. If you see a download or activity-export control on the desktop site, use it when it covers your dates, and treat that dialog as the authority — Capital One does not publish a public official CSV layout for US checking and savings on this page.</p>
-<h3>What the PDF contains</h3>
-<p>The official Capital One statement is a PDF. It typically includes the account summary, the period, and the transactions that belong on that statement. Combined Direct-account statements put more than one product on the same document — do not treat every line as a single-account transaction without checking which product it belongs to. Credit-card statements, if you have a Capital One card, are a separate product with a different layout (payments reduce the card balance; do not import them into a checking account).</p>
-<h3>Official CSV or Excel, when the bank offers one</h3>
-<p>Capital One does not publish a public official CSV specification for US bank statements on its online-statements help page. After a PDF conversion, keep columns you can tick against the printed statement: date, description, amount or debit/credit, and balance where it is printed. Check the opening and closing balances before you import the file anywhere.</p>
-<p>If you used an on-screen activity export, it may be a live transaction list rather than the official monthly statement, and it may not include the statement’s running balance. Compare it with the PDF before you rely on it.</p></p>
-<h3>What to watch for</h3>
+<h3>Onde transferir o ficheiro oficial</h3>
+Caminho oficial, a partir da ajuda da Capital One (“Online bank statements”):
+<p><b>No site:</b> inicie sessão em capitalone.com, clique na conta e depois em <b>view statements</b>.</p>
+<p><b>Na app Capital One Mobile:</b> inicie sessão, toque na conta, desça até ao fundo da página e toque em <b>statements</b>.</p>
+<p>É preciso ter aderido aos extratos digitais para os ver online. Os extratos bancários são em regra gerados online até ao dia 6 de cada mês. Os produtos de poupança saem trimestralmente se não houver atividade que justifique um extrato mensal. As contas Direct são juntadas automaticamente num só extrato. A Capital One diz que se podem ver até sete anos de extratos online nas contas ativas.</p>
+<p>Essa página de ajuda documenta o extrato oficial em PDF, não uma exportação para folha de cálculo. Se vir um comando de transferência ou de exportação de movimentos no site de computador, use-o quando cobrir as datas e trate essa caixa de diálogo como a referência. A Capital One não publica um formato oficial público de CSV para contas à ordem e poupança dos EUA nesta página.</p>
+<h3>O que contém o PDF</h3>
+<p>O extrato oficial da Capital One é um PDF. Inclui em regra o resumo da conta, o período e os movimentos que pertencem a esse extrato. Os extratos combinados de contas Direct põem mais do que um produto no mesmo documento: não trate cada linha como um movimento de uma só conta sem ver a que produto pertence. Os extratos de cartão de crédito, se tiver um cartão Capital One, são outro produto e outro formato (os pagamentos reduzem o saldo do cartão; não os importe para uma conta à ordem).</p>
+<h3>CSV ou Excel oficial, quando o banco o oferece</h3>
+<p>A Capital One não publica uma especificação oficial pública de CSV para extratos bancários dos EUA na página de ajuda dos extratos online. Depois de converter um PDF, guarde colunas que consiga conferir com o extrato impresso: data, descrição, montante ou débito/crédito, e saldo onde estiver impresso. Confira os saldos inicial e final antes de importar o ficheiro para qualquer lado.</p>
+<p>Se usou uma exportação de movimentos no ecrã, pode ser uma lista de movimentos em tempo real e não o extrato mensal oficial, e pode não incluir o saldo acumulado do extrato. Compare-a com o PDF antes de confiar nela.</p></p>
+<h3>O que convém verificar</h3>
 <ul>
-<li>If you are not enrolled in paperless statements, do that first — Capital One’s help says you need it to view statements online.</li>
-<li>A January statement may not appear until about the 6th. Do not assume the PDF is missing until after that date.</li>
-<li>For a tax year, download each monthly PDF and convert them one by one so a missed page shows up when the balances do not chain.</li>
+<li>Se ainda não aderiu aos extratos digitais, faça-o primeiro. A ajuda da Capital One diz que é preciso para ver os extratos online.</li>
+<li>Um extrato de janeiro pode só aparecer por volta do dia 6. Não assuma que o PDF falta antes dessa data.</li>
+<li>Para um ano fiscal, transfira cada PDF mensal e converta-os um a um, para uma página em falta se notar quando os saldos não encadeiam.</li>
 </ul>
-<p class="note"><b>Sources</b> (checked 12/11/2026). Capital One Help, “Online bank statements” (capitalone.com/help-center/checking-savings/online-statements/), checked 13/11/2026. Banks change layouts without notice: treat the first row of your own file as the authority.</p>
+<p class="note"><b>Fontes</b> (consultado em 12/11/2026). Ajuda da Capital One, “Online bank statements” (capitalone.com/help-center/checking-savings/online-statements/), consultado em 13/11/2026. Os bancos mudam o formato sem aviso: a primeira linha do seu ficheiro é que manda.</p>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of statements or a layout that has to match your accounting software, we convert them and check every total against the opening and closing balance.</p>
+<h2>Precisa que façamos por si?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto, limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de extratos ou um formato que tem de coincidir com o software de contabilidade, convertemos e conferimos cada total com o saldo inicial e o saldo final.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your statement is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Conferimos os totais. Escreva-nos.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a></div>
+<div class="card"><b>Privacidade</b><p>O extrato só é tratado para a encomenda e é apagado depois da entrega. Esta página nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p></div>
 </div>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>How far back can I get Capital One statements?</summary><p>Capital One says you can view up to seven years of statements online for active accounts, once you are enrolled in paperless statements.</p></details><details><summary>When is the new statement ready?</summary><p>Typically generated online by the 6th of each month. Savings products may be quarterly if there is no activity.</p></details><details><summary>Does Capital One give me a CSV of my statement?</summary><p>The official document described in Capital One’s online-statements help is the PDF. If the desktop site offers a separate activity download, use it if you can see it, but treat that dialog as the authority — there is no public official CSV layout on that help page.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>Até onde consigo obter extratos da Capital One?</summary><p>A Capital One diz que se podem ver até sete anos de extratos online nas contas ativas, depois de aderir aos extratos digitais.</p></details><details><summary>Quando é que o extrato novo fica pronto?</summary><p>Em regra é gerado online até ao dia 6 de cada mês. Os produtos de poupança podem ser trimestrais se não houver atividade.</p></details><details><summary>A Capital One dá um CSV do extrato?</summary><p>O documento oficial descrito na ajuda dos extratos online da Capital One é o PDF. Se o site de computador oferecer uma transferência de movimentos à parte, use-a se a vir, mas trate essa caixa de diálogo como a referência. Não há um formato oficial público de CSV nessa página de ajuda.</p></details></div></section>
 <section><div class="wrap">
-<h2>Other bank guides</h2>
-<div class="banklist"><a href="../chase/"><b>Chase</b> statement to CSV</a><a href="../bank-of-america/"><b>Bank of America</b> statement to CSV</a><a href="../wells-fargo/"><b>Wells Fargo</b> statement to CSV</a><a href="../us-bank/"><b>U.S. Bank</b> statement to CSV</a><a href="../american-express/"><b>American Express</b> statement to CSV</a><a href="../"><b>All banks</b> and the main converter</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Outros guias de bancos</h2>
+<div class="banklist"><a href="/statement-to-csv/chase/"><b>Chase</b> extrato para CSV</a><a href="/statement-to-csv/bank-of-america/"><b>Bank of America</b> extrato para CSV</a><a href="/statement-to-csv/wells-fargo/"><b>Wells Fargo</b> extrato para CSV</a><a href="/statement-to-csv/us-bank/"><b>U.S. Bank</b> extrato para CSV</a><a href="/statement-to-csv/american-express/"><b>American Express</b> extrato para CSV</a><a href="/statement-to-csv/"><b>Todos os bancos</b> e o conversor principal</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho de back-office para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias de crescimento no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · run by Pedro Carvalho · EU-based · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Um cookie guarda só o idioma. Sem rastreio e sem registo. As ferramentas grátis correm no browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

@@ -1,98 +1,101 @@
 <!doctype html>
-<html lang="en"><head>
-<meta http-equiv="refresh" content="0;url=https://netmend.app/compare/csv-vs-excel/">
-<script>location.replace('https://netmend.app/compare/csv-vs-excel/'+location.search+location.hash);</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CSV vs Excel for bank statements — which format should you export? · Netmend</title>
-<meta name="description" content="An honest comparison of CSV and Excel after a statement conversion or a bank download: what each format keeps, what it breaks, and which one QuickBooks, Xero and Google Sheets actually want.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSV ou Excel para extratos bancários — que formato exportar? · Netmend</title>
+<meta name="description" content="Uma comparação honesta de CSV e Excel depois de converter um extrato ou de uma transferência do banco: o que cada formato guarda, o que estraga, e qual o QuickBooks, o Xero e o Google Sheets querem de facto.">
 <link rel="canonical" href="https://netmend.app/compare/csv-vs-excel/">
-<meta property="og:title" content="CSV vs Excel for bank statements — which format should you export? · Netmend"><meta property="og:description" content="An honest comparison of CSV and Excel after a statement conversion or a bank download: what each format keeps, what it breaks, and which one QuickBooks, Xero and Google Sheets actually want.">
+<meta property="og:url" content="https://netmend.app/compare/csv-vs-excel/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/compare/csv-vs-excel/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/compare/csv-vs-excel/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/compare/csv-vs-excel/">
+<meta property="og:title" content="CSV ou Excel para extratos bancários — que formato exportar? · Netmend"><meta property="og:description" content="Uma comparação honesta de CSV e Excel depois de converter um extrato ou de uma transferência do banco: o que cada formato guarda, o que estraga, e qual o QuickBooks, o Xero e o Google Sheets querem de facto.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which format does QuickBooks want?", "acceptedAnswer": {"@type": "Answer", "text": "A CSV in the official 3-column or 4-column layout, or a QBO/QFX/OFX file from the bank. Not a formatted Excel workbook with a proof tab still in it."}}, {"@type": "Question", "name": "Which format does Xero want?", "acceptedAnswer": {"@type": "Answer", "text": "A CSV you can map on the official import screen (or, when it is offered, Xero’s own PDF statement import). An .xlsx full of formulas is not the starting point."}}, {"@type": "Question", "name": "Why does my CSV look like one column in Excel?", "acceptedAnswer": {"@type": "Answer", "text": "It is probably semicolon-separated and Excel expected commas, or the other way around. Use Data → From Text/CSV and pick the delimiter, instead of double-clicking the file."}}], "url": "https://netmend.app/compare/csv-vs-excel/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "Que formato quer o QuickBooks?", "acceptedAnswer": {"@type": "Answer", "text": "Um CSV no esquema oficial de 3 ou de 4 colunas, ou um ficheiro QBO/QFX/OFX do banco. Não um livro Excel formatado que ainda tenha o separador de prova."}}, {"@type": "Question", "name": "Que formato quer o Xero?", "acceptedAnswer": {"@type": "Answer", "text": "Um CSV que possa associar no ecrã oficial de importação (ou, quando for oferecida, a importação de extrato em PDF do próprio Xero). Um .xlsx cheio de fórmulas não é o ponto de partida."}}, {"@type": "Question", "name": "Porque é que o meu CSV parece uma só coluna no Excel?", "acceptedAnswer": {"@type": "Answer", "text": "Provavelmente está separado por ponto e vírgula e o Excel esperava vírgulas, ou o contrário. Use Dados → A partir de texto/CSV e escolha o delimitador, em vez de fazer duplo clique no ficheiro."}}], "url": "https://netmend.app/compare/csv-vs-excel/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../../statement-to-csv/app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
+
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../../statement-to-csv/">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Feito por nós</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/compare/csv-vs-excel/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/compare/csv-vs-excel/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Compare</a> · CSV vs Excel for bank statements</p>
-<h1>CSV vs Excel for <span>bank statements</span></h1>
-<p>CSV is a plain text table. Excel is a workbook. For bank statements and invoice line items, the plain file is usually the one you should hand to another program — if you can stop Excel from “helping” the dates first.</p>
-<div class="pills"><span>Free tool in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/compare/">Comparar</a> · CSV ou Excel para extratos bancários</p>
+<h1>CSV ou Excel para <span>extratos bancários</span></h1>
+<p>O CSV é uma tabela de texto simples. O Excel é um livro. Para extratos bancários e linhas de fatura, o ficheiro simples é em geral o que se deve entregar a outro programa — se conseguir impedir o Excel de “ajudar” as datas primeiro.</p>
+<div class="pills"><span>Ferramenta grátis no browser</span><span>Sem conta</span><span>Feito por nós, se quiser</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a statement PDF now</h2>
+<h2>Converter um extrato em PDF agora</h2>
 
-<p class="lead">Defaults are a starting point. Change the number format to match the PDF. The file never leaves your computer.</p>
+<p class="lead">Os valores por defeito são um ponto de partida. Mude o formato dos números para coincidir com o PDF. O ficheiro não sai do computador.</p>
 <div class="tool">
-<label for="file">PDF (stays on your computer)</label>
+<label for="file">PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No file at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/demo-statement.pdf">Try a demo PDF</button> (fictional data)</p>
+<p class="note">Não tem um ficheiro à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar um PDF de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions / likely rows</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto" selected>Detect automatically</option><option value="eu">European 1.234,56</option><option value="us">UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Movimentos / linhas prováveis</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto" selected>Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us">Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against the original PDF before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o PDF original antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto”, ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro localmente. Não há servidor nem envio. Pode desligar a internet depois de a página carregar e continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
 
-<h2>What each format is</h2>
-<p>A <b>CSV</b> (comma-separated values, or semicolon-separated in much of Europe) is a text file. One row per line, one column per field, nothing else — no colours, no formulas, no hidden sheets, no number formats. QuickBooks Online’s official bank upload, Xero’s official CSV bank import, and most “upload a spreadsheet” screens are built around this. Our converter downloads a CSV, not an .xlsx, for that reason.</p>
-<p>An <b>Excel workbook</b> (.xlsx) can hold several tabs, formulas, filters and formatting. It is the better file for a human review: a second tab that proves opening + movements = closing, a <code>SUMIF</code> per invoice, a colour on a row that failed the check. It is a worse interchange format, because the next program may not read the formulas, and because Excel itself may have already rewritten “03-09-2026” or “01/02” the last time someone double-clicked the file. Some banks’ “Excel” downloads are actually CSVs with an .xls name (<a href="../../statement-to-csv/revolut/">Revolut</a> is a documented example). Always look at the real file type.</p>
-<h2>When CSV is the right thing to hand over</h2>
+<h2>O que é cada formato</h2>
+<p>Um <b>CSV</b> (valores separados por vírgulas, ou por ponto e vírgula em grande parte da Europa) é um ficheiro de texto. Uma linha por registo, uma coluna por campo, e mais nada — sem cores, sem fórmulas, sem folhas escondidas, sem formatos de número. O carregamento bancário oficial do QuickBooks Online, a importação CSV oficial do Xero e a maior parte dos ecrãs de “carregar uma folha” foram feitos à volta disto. O nosso conversor transfere um CSV, não um .xlsx, por essa razão.</p>
+<p>Um <b>livro Excel</b> (.xlsx) pode ter vários separadores, fórmulas, filtros e formatação. É o melhor ficheiro para uma revisão humana: um segundo separador que prova abertura + movimentos = fecho, um <code>SUMIF</code> por fatura, uma cor numa linha que falhou a conferência. É um pior formato de troca, porque o programa seguinte pode não ler as fórmulas, e porque o próprio Excel pode já ter reescrito “03-09-2026” ou “01/02” da última vez que alguém fez duplo clique no ficheiro. Algumas transferências “Excel” dos bancos são na verdade CSV com nome .xls (o <a href="/statement-to-csv/revolut/">Revolut</a> é um exemplo documentado). Olhe sempre para o tipo real do ficheiro.</p>
+<h2>Quando o CSV é o que se deve entregar</h2>
 <ul>
-<li>You are importing into QuickBooks, Xero, Google Sheets, or any tool with a column mapper.</li>
-<li>You want a file that will still open in ten years without a particular version of Excel.</li>
-<li>You need European and US/UK systems to agree on separators: you can choose comma or semicolon deliberately, and say so to the person who will open it.</li>
+<li>Está a importar para o QuickBooks, o Xero, o Google Sheets, ou qualquer ferramenta com um associador de colunas.</li>
+<li>Quer um ficheiro que ainda abra daqui a dez anos sem uma versão concreta do Excel.</li>
+<li>Precisa que sistemas europeus e dos EUA/Reino Unido concordem nos separadores: pode escolher vírgula ou ponto e vírgula de propósito, e dizê-lo a quem vai abrir o ficheiro.</li>
 </ul>
-<h2>When Excel is the right thing to keep</h2>
+<h2>Quando o Excel é o que se deve guardar</h2>
 <ul>
-<li>You are reviewing a packed year, and you want a proof tab, frozen headers, and a filter on the description.</li>
-<li>You need two views of the same data (raw extract, and a cleaned import tab).</li>
-<li>You will do further work — VAT analysis, a running balance, a pivot — before anyone imports anything.</li>
+<li>Está a rever um ano cheio, e quer um separador de prova, cabeçalhos fixos e um filtro na descrição.</li>
+<li>Precisa de duas vistas dos mesmos dados (extrato em bruto, e um separador de importação limpo).</li>
+<li>Vai fazer mais trabalho — análise de IVA, um saldo acumulado, uma tabela dinâmica — antes de alguém importar o que quer que seja.</li>
 </ul>
-<p>The practical habit is: <b>convert or download to CSV, immediately save a working copy as .xlsx, and never do the cleaning in the only copy of the CSV</b>. When the proof tab is clean, File → Export or Save As CSV from the import tab, and upload that. If you open a CSV in Excel to “just tidy the dates”, you are in the danger zone that official import guides keep warning about: a US Excel will turn a UK 05/03/2026 into 3 May, and it will do it silently.</p>
-<p>Google Sheets sits in the middle. It imports CSV well if you set the separator and the locale yourself — see <a href="../pdf-invoice-to-google-sheets/">PDF invoices to Google Sheets</a> — but it has the same date-locale trap. The converter below gives you the CSV; what you do with it next is the choice this page is about.</p>
+<p>O hábito prático é: <b>converter ou transferir para CSV, guardar de imediato uma cópia de trabalho como .xlsx, e nunca limpar na única cópia do CSV</b>. Quando o separador de prova estiver limpo, Ficheiro → Exportar ou Guardar como CSV a partir do separador de importação, e carregue esse. Se abrir um CSV no Excel só para “arrumar as datas”, está na zona de perigo de que os guias oficiais de importação não param de avisar: um Excel dos EUA transforma um 05/03/2026 do Reino Unido em 3 de maio, e fá-lo em silêncio.</p>
+<p>O Google Sheets fica no meio. Importa CSV bem se definir o separador e a região — veja <a href="/guides/pdf-invoice-to-google-sheets/">faturas em PDF para o Google Sheets</a> — mas tem a mesma armadilha da região das datas. O conversor abaixo dá o CSV; o que fizer com ele a seguir é a escolha desta página.</p>
 
-<p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
+<p class="note"><b>Fontes</b> (verificadas a 13/11/2026). A ajuda oficial dos produtos está ligada no texto. Os menus e os modelos mudam: o ecrã atual do QuickBooks, do Xero ou do banco é a referência.</p>
 </div></section>
 
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of documents or a layout that has to match QuickBooks or Xero, we convert them and check the totals against each document.</p>
+<h2>Precisa que façamos nós?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de documentos ou um esquema que tenha de coincidir com o QuickBooks ou o Xero, convertemos e conferimos os totais de cada documento.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your file is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Totais reconciliados. 48 h. Pagamento no Fiverr.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Precisa que façamos nós?</a></div>
+<div class="card"><b>Privacidade</b><p>O seu ficheiro é tratado só para a encomenda e apagado depois da entrega. Esta página em si nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos morada, telefone nem número de identificação.</p></div>
 </div>
 </div></section>
 
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Which format does QuickBooks want?</summary><p>A CSV in the official 3-column or 4-column layout, or a QBO/QFX/OFX file from the bank. Not a formatted Excel workbook with a proof tab still in it.</p></details><details><summary>Which format does Xero want?</summary><p>A CSV you can map on the official import screen (or, when it is offered, Xero’s own PDF statement import). An .xlsx full of formulas is not the starting point.</p></details><details><summary>Why does my CSV look like one column in Excel?</summary><p>It is probably semicolon-separated and Excel expected commas, or the other way around. Use Data → From Text/CSV and pick the delimiter, instead of double-clicking the file.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>Que formato quer o QuickBooks?</summary><p>Um CSV no esquema oficial de 3 ou de 4 colunas, ou um ficheiro QBO/QFX/OFX do banco. Não um livro Excel formatado que ainda tenha o separador de prova.</p></details><details><summary>Que formato quer o Xero?</summary><p>Um CSV que possa associar no ecrã oficial de importação (ou, quando for oferecida, a importação de extrato em PDF do próprio Xero). Um .xlsx cheio de fórmulas não é o ponto de partida.</p></details><details><summary>Porque é que o meu CSV parece uma só coluna no Excel?</summary><p>Provavelmente está separado por ponto e vírgula e o Excel esperava vírgulas, ou o contrário. Use Dados → A partir de texto/CSV e escolha o delimitador, em vez de fazer duplo clique no ficheiro.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related guides</h2>
-<div class="banklist"><a href="../../guides/bank-statement-to-quickbooks/"><b>Import a PDF bank statement into QuickBooks</b></a><a href="../../guides/bank-statement-to-xero/"><b>Import a PDF bank statement into Xero</b></a><a href="../../guides/pdf-invoice-to-google-sheets/"><b>Convert PDF invoices to Google Sheets</b></a><a href="../official-csv-vs-pdf/"><b>Official bank CSV vs converting the PDF</b></a><a href="../browser-vs-acrobat-vs-excel/"><b>In-browser converter vs Acrobat vs Excel</b></a><a href="../"><b>All comparisons</b></a><a href="../../guides/"><b>How-to guides</b></a><a href="../../statement-to-csv/"><b>Bank statement converter</b> and bank guides</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Guias relacionados</h2>
+<div class="banklist"><a href="/guides/bank-statement-to-quickbooks/"><b>Importar um extrato bancário em PDF para o QuickBooks</b></a><a href="/guides/bank-statement-to-xero/"><b>Importar um extrato bancário em PDF para o Xero</b></a><a href="/guides/pdf-invoice-to-google-sheets/"><b>Converter faturas em PDF para o Google Sheets</b></a><a href="/compare/official-csv-vs-pdf/"><b>CSV oficial do banco face à conversão do PDF</b></a><a href="/compare/browser-vs-acrobat-vs-excel/"><b>Conversor no browser face ao Acrobat e ao Excel</b></a><a href="/compare/"><b>Todas as comparações</b></a><a href="/guides/"><b>Guias práticos</b></a><a href="/statement-to-csv/"><b>Conversor de extratos bancários</b> e guias por banco</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins para o Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins para o Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · run by Pedro Carvalho · EU-based · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Sem trackers e sem registo. As ferramentas grátis correm no browser. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

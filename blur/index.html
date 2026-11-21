@@ -1,11 +1,13 @@
-<!doctype html><html lang="en"><head>
-<meta http-equiv="refresh" content="0;url=https://netmend.app/blur/">
-<script>location.replace('https://netmend.app/blur/'+location.search+location.hash);</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Netmend Blur - Hide sensitive info before you share your screen</title>
-<meta name="description" content="Browser extension that blurs emails, phone numbers, card numbers, API keys or any element before you share your screen, record a demo or take a screenshot. Free, Pro $19 lifetime. Coming soon to Microsoft Edge.">
-<meta property="og:title" content="Netmend Blur"><meta property="og:description" content="Blur sensitive info on any web page in one click. 100% local."><meta property="og:image" content="promo-tile-440x280.png">
-<link rel="icon" href="icon128.png">
+<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Netmend Blur — esconder dados sensíveis antes de partilhar o ecrã</title>
+<link rel="canonical" href="https://netmend.app/blur/">
+<meta property="og:url" content="https://netmend.app/blur/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/blur/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/blur/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/blur/">
+<meta name="description" content="Extensão de browser que desfoca e-mails, números de telefone, números de cartão, chaves de API ou qualquer elemento antes de partilhar o ecrã, gravar uma demonstração ou tirar uma captura. Grátis; Pro vitalício, pagamento único. Em breve no Microsoft Edge.">
+<meta property="og:title" content="Netmend Blur"><meta property="og:description" content="Desfoque dados sensíveis em qualquer página, com um clique. 100% local."><meta property="og:image" content="promo-tile-440x280.png">
+<link rel="icon" href="/blur/icon128.png">
 <style>
 :root{--bg:#07080b;--panel:#11141a;--line:#232833;--text:#eceef2;--muted:#9aa1ad;--coral:#ff5a36;--teal:#6fd3e0}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(1100px 600px at 85% -10%,rgba(111,211,224,.15),transparent),var(--bg);color:var(--text);font:17px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -26,36 +28,38 @@ h2{font-size:34px;letter-spacing:-.02em;margin:60px 0 10px}
 .plan ul{padding-left:18px;color:var(--muted)}.plan li{margin:6px 0}
 details{border-bottom:1px solid var(--line);padding:14px 0}summary{cursor:pointer;font-weight:600}
 footer{color:var(--muted);font-size:14px;padding:50px 0;border-top:1px solid var(--line);margin-top:60px}
-</style></head><body><div class="w">
-<nav><img src="icon128.png" width="28" height="28" alt="">Netmend Blur<a class="btn" href="#install">Coming soon to Edge</a></nav>
-<h1>Share your screen without sharing <span class="b">your secrets</span>.</h1>
-<p class="lead">Netmend Blur hides emails, phone numbers, card numbers, API keys or anything you click, right inside the page. Record demos, tutorials and screenshots with nothing to fix in post.</p>
-<p id="install"><a class="btn" href="#EDGE_ADDONS_URL">Coming soon to Edge</a></p>
-<img class="hero-img" src="screenshot-1-1280x800.png" alt="Netmend Blur hiding emails, phones and card numbers on a CRM page">
+</style>
+</head><body><div class="w">
+<nav><img src="/blur/icon128.png" width="28" height="28" alt="">Netmend Blur<a class="btn" href="#install">Em breve no Edge</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/blur/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/blur/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav>
+<h1>Partilhe o ecrã sem partilhar <span class="b">os seus segredos</span>.</h1>
+<p class="lead">O Netmend Blur esconde e-mails, números de telefone, números de cartão, chaves de API ou qualquer coisa em que clique, dentro da própria página. Grave demonstrações, tutoriais e capturas sem ter de corrigir nada depois.</p>
+<p id="install"><a class="btn" href="#EDGE_ADDONS_URL">Em breve no Edge</a></p>
+<img class="hero-img" src="/blur/screenshot-1-1280x800.png" alt="O Netmend Blur a esconder e-mails, telefones e números de cartão numa página de CRM">
 <div class="grid">
-<div class="card"><h3>🖱️ Click to blur</h3><p>Hover, click, done. Any text, image, table cell or form field.</p></div>
-<div class="card"><h3>▭ Drag to blur</h3><p>Draw a box over charts, videos, canvases or maps.</p></div>
-<div class="card"><h3>⚡ Auto-blur</h3><p>Emails, phone numbers and card numbers (Luhn-checked) blurred as they appear, even in live apps.</p></div>
-<div class="card"><h3>⌨️ Shortcuts</h3><p>Alt+Shift+K click mode, Alt+Shift+D area, Alt+Shift+S auto-blur, Alt+Shift+U clear.</p></div>
-<div class="card"><h3>🎚️ Strength slider</h3><p>From a soft blur to completely unreadable.</p></div>
-<div class="card"><h3>🔒 100% local</h3><p>No account, no tracking, no servers. Nothing on the page ever leaves your browser.</p></div>
+<div class="card"><h3>🖱️ Clique para desfocar</h3><p>Passe o rato, clique, fica feito. Qualquer texto, imagem, célula de tabela ou campo de formulário.</p></div>
+<div class="card"><h3>▭ Arraste para desfocar</h3><p>Desenhe uma caixa sobre gráficos, vídeos, áreas de desenho ou mapas.</p></div>
+<div class="card"><h3>⚡ Desfoque automático</h3><p>E-mails, números de telefone e números de cartão (validados com Luhn) desfocados à medida que aparecem, mesmo em aplicações em direto.</p></div>
+<div class="card"><h3>⌨️ Atalhos</h3><p>Alt+Shift+K modo de clique, Alt+Shift+D área, Alt+Shift+S desfoque automático, Alt+Shift+U limpar.</p></div>
+<div class="card"><h3>🎚️ Intensidade</h3><p>De um desfoque suave até ficar completamente ilegível.</p></div>
+<div class="card"><h3>🔒 100% local</h3><p>Sem conta, sem rastreio, sem servidores. Nada do que está na página sai do browser.</p></div>
 </div>
-<h2>Built for people who share screens for a living</h2>
-<p class="lead">Sales demos with real customer data. Support calls inside admin panels. Tutorials, courses, Loom videos, webinars, docs screenshots. Developers with a cloud console open.</p>
-<h2 id="pricing">Pricing</h2>
+<h2>Feito para quem partilha o ecrã no trabalho</h2>
+<p class="lead">Demonstrações comerciais com dados reais de clientes. Chamadas de apoio dentro de painéis de administração. Tutoriais, cursos, vídeos no Loom, webinars, capturas de documentação. Programadores com uma consola de nuvem aberta.</p>
+<h2 id="pricing">Preços</h2>
 <div class="price">
-<div class="plan"><h3>Free</h3><div class="amt">$0</div><ul>
-<li>Click-to-blur and drag-to-blur</li><li>Auto-blur emails, phone numbers, card numbers</li><li>Blur strength slider</li><li>Keyboard shortcuts and clear all</li><li>Chrome, Edge, Brave and other Chromium browsers</li></ul>
-<a class="btn alt" href="#install">Install free</a></div>
-<div class="plan pro"><h3>Pro - lifetime</h3><div class="amt">$19 <small>once, no subscription</small></div><ul>
-<li>Everything in Free</li><li>More auto-blur patterns: API keys &amp; tokens (Stripe, GitHub, AWS, Google, Slack, JWT), IBANs, IP addresses, crypto wallets, US SSNs, money amounts, password fields</li><li>Custom keywords: client names, invoice IDs, project names</li><li>Per-site memory: your blurs come back when you revisit a dashboard</li><li>All future updates</li></ul>
-<a class="btn" href="https://portugaldiary.gumroad.com/l/ybylzw" target="_blank" rel="noopener">Get Pro - $19</a></div>
+<div class="plan"><h3>Grátis</h3><div class="amt">Grátis</div><ul>
+<li>Clique para desfocar e arrastar para desfocar</li><li>Desfoque automático de e-mails, números de telefone e números de cartão</li><li>Controlo da intensidade do desfoque</li><li>Atalhos de teclado e limpar tudo</li><li>Chrome, Edge, Brave e outros browsers Chromium</li></ul>
+<a class="btn alt" href="#install">Instalar grátis</a></div>
+<div class="plan pro"><h3>Pro — vitalício</h3><div class="amt">Pro <small>pagamento único, sem subscrição</small></div><ul>
+<li>Tudo o que está no Grátis</li><li>Mais padrões de desfoque automático: chaves e tokens de API (Stripe, GitHub, AWS, Google, Slack, JWT), IBAN, endereços IP, carteiras de cripto, SSN dos EUA, quantias e campos de palavra-passe</li><li>Palavras à medida: nomes de clientes, identificadores de fatura, nomes de projeto</li><li>Memória por sítio: os desfoques voltam quando revisita um painel</li><li>Todas as atualizações futuras</li></ul>
+<a class="btn" href="https://portugaldiary.gumroad.com/l/ybylzw" target="_blank" rel="noopener">Obter o Pro</a></div>
 </div>
-<h2>FAQ</h2>
-<details><summary>Does it send my screen or page to a server?</summary><p>No. Detection is pattern-based and runs in your browser. The only network call is a license check with Gumroad when you activate Pro.</p></details>
-<details><summary>Does it work with Zoom, Google Meet, Teams, Loom, OBS?</summary><p>Yes. The blur is applied to the page itself, so any tool that captures your browser tab or screen sees it blurred.</p></details>
-<details><summary>Why does it not ask to "read all your data on all websites"?</summary><p>Free works only on the tab where you click it. Pro's per-site memory asks for access one site at a time, only when you turn it on.</p></details>
-<details><summary>Will it catch everything?</summary><p>No automated tool is perfect. Netmend Blur cuts accidental leaks; always check your screen before sharing sensitive material.</p></details>
-<details><summary>Refunds?</summary><p>If Pro doesn't work for you, email us within 14 days for a full refund.</p></details>
-<footer>© 2026 Netmend · Pedro Carvalho · <a href="privacy.html">Privacy policy</a> · <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a></footer>
-</div></body></html>
+<h2>Perguntas frequentes</h2>
+<details><summary>Envia o ecrã ou a página para um servidor?</summary><p>Não. A deteção é por padrões e corre no browser. A única chamada de rede é a verificação da licença com o Gumroad, quando ativa o Pro.</p></details>
+<details><summary>Funciona com o Zoom, o Google Meet, o Teams, o Loom e o OBS?</summary><p>Sim. O desfoque é aplicado à própria página, por isso qualquer ferramenta que capture o separador ou o ecrã vê o conteúdo desfocado.</p></details>
+<details><summary>Porque é que não pede para “ler todos os dados em todos os sítios”?</summary><p>O Grátis só funciona no separador em que clica. A memória por sítio do Pro pede acesso a um sítio de cada vez, só quando o liga.</p></details>
+<details><summary>Apanha tudo?</summary><p>Nenhuma ferramenta automática é perfeita. O Netmend Blur reduz fugas acidentais; confira sempre o ecrã antes de partilhar material sensível.</p></details>
+<details><summary>Reembolsos?</summary><p>Se o Pro não servir, escreva-nos no prazo de 14 dias para um reembolso integral.</p></details>
+<footer>© 2026 Netmend · Feito por Pedro Carvalho em Portugal · <a href="/blur/privacy.html">Política de privacidade</a> · <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a></footer>
+</div><script src="/assets/lang.js"></script>
+</body></html>
