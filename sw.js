@@ -2,7 +2,7 @@
    HTML, CSS and JS are network-first, then cached. Other precached files
    (fonts, icons) stay cache-first. Nothing the user opens from their
    computer is requested or stored. Bump CACHE to drop old copies. */
-var CACHE = "netmend-20261121b";
+var CACHE = "netmend-20261121c";
 var PRECACHE = [
   "/",
   "/index.html",
@@ -14,6 +14,14 @@ var PRECACHE = [
   "/efatura/sample/efatura-exemplo-b.csv",
   "/pt/efatura/",
   "/pt/efatura/index.html",
+  "/sepa/",
+  "/sepa/index.html",
+  "/sepa/app.js",
+  "/sepa/app.css",
+  "/pt/ficheiro-sepa/",
+  "/pt/ficheiro-sepa/index.html",
+  "/es/fichero-sepa/",
+  "/es/fichero-sepa/index.html",
   /* recibos-verdes — keep this block together when rebasing */
   "/recibos-verdes/rules.js",
   "/recibos-verdes/app.js",
