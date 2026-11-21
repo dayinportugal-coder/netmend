@@ -1,0 +1,7 @@
+﻿Sector;NIF Emitente;Nome Emitente;Tipo Documento;Numero Documento;ATCUD;Data Emissao;Valor Total;Valor Base Tributavel;Valor do IVA;Estado
+Saúde;999999982;CLINICA EXEMPLO LDA;Fatura;FT A/100;EXEMPLO1-100;2025-01-15;86,40;70,24;16,16;Registada
+Atividades veterinárias;999999915;CLÍNICA VETERINÁRIA EXEMPLO;Fatura;FT V/8;EXEMPLO2-8;2025-08-12;40,00;32,52;7,48;Registada
+Passes mensais;999999907;TRANSPORTES EXEMPLO EM;Fatura;FT P/15;EXEMPLO2-15;2025-09-01;30,00;28,30;1,70;Registada
+;999111116;MERCEARIA POR CLASSIFICAR EXEMPLO;Fatura;FT M/3;EXEMPLO2-3;2025-09-20;15,50;12,60;2,90;Por classificar
+Atividades desportivas;999222228;GINASIO EXEMPLO LDA;Nota de crédito;NC G/2;EXEMPLO2-2;2025-10-05;-5,00;-4,07;-0,93;Registada
+Despesas gerais familiares;999333330;FORNECEDOR GRANDE EXEMPLO LDA;Fatura;FT F/50;EXEMPLO2-50;2025-11-11;€ 2.500,00;2.032,52;467,48;Registada
