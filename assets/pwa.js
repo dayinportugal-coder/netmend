@@ -1,7 +1,9 @@
 /* Install prompt and service worker. No network calls of its own. */
 (function () {
   "use strict";
-  var pt = (document.documentElement.lang || "").toLowerCase().indexOf("pt") === 0;
+  var htmlLang = (document.documentElement.lang || "").toLowerCase();
+  var pt = htmlLang.indexOf("pt") === 0;
+  var es = htmlLang.indexOf("es") === 0;
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
@@ -17,7 +19,7 @@
   button.type = "button";
   button.className = "nm-install";
   button.hidden = true;
-  button.textContent = pt ? "Instalar app" : "Install app";
+  button.textContent = pt || es ? "Instalar app" : "Install app";
   var actions = document.querySelector(".actions");
   if (actions) actions.appendChild(button);
   else {
@@ -28,7 +30,7 @@
   var hint = document.createElement("p");
   hint.className = "nm-ios-hint";
   hint.hidden = true;
-  hint.textContent = pt ? "Partilhar → Adicionar ao ecrã principal" : "Share → Add to Home Screen";
+  hint.textContent = pt ? "Partilhar → Adicionar ao ecrã principal" : es ? "Compartir → Añadir a la pantalla de inicio" : "Share → Add to Home Screen";
   document.body.appendChild(hint);
 
   var deferred = null;

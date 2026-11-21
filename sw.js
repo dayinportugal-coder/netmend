@@ -1,6 +1,6 @@
 /* Precaches this site's own pages and their static files.
    HTML is network-first. Nothing the user opens from their computer is requested or stored. */
-var CACHE = "netmend-static-v1";
+var CACHE = "netmend-static-v2";
 var PRECACHE = [
   "/",
   "/index.html",
@@ -12,6 +12,14 @@ var PRECACHE = [
   "/efatura/sample/efatura-exemplo-b.csv",
   "/pt/efatura/",
   "/pt/efatura/index.html",
+  "/sepa/",
+  "/sepa/index.html",
+  "/sepa/app.js",
+  "/sepa/app.css",
+  "/pt/ficheiro-sepa/",
+  "/pt/ficheiro-sepa/index.html",
+  "/es/fichero-sepa/",
+  "/es/fichero-sepa/index.html",
   "/tools/",
   "/tools/index.html",
   "/assets/tools.css",

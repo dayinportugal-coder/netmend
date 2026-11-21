@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Create a SEPA XML file free: batch credit transfers · Netmend</title>
+<meta name="description" content="Create a SEPA XML credit-transfer file in the browser. Excel or CSV to pain.001 for supplier and salary batches. Nothing is uploaded.">
+<link rel="canonical" href="https://netmend.app/sepa/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/sepa/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/pt/ficheiro-sepa/">
+<link rel="alternate" hreflang="es-ES" href="https://netmend.app/es/fichero-sepa/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/pt/ficheiro-sepa/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://netmend.app/sepa/">
+<meta property="og:site_name" content="Netmend">
+<meta property="og:title" content="Create a SEPA XML file free: batch credit transfers · Netmend">
+<meta property="og:description" content="Excel or CSV to a SEPA credit-transfer XML. Batch payments in the browser. Nothing is uploaded.">
+<meta property="og:image" content="https://netmend.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Create a SEPA XML file free: batch credit transfers · Netmend">
+<meta name="twitter:description" content="Excel or CSV to a SEPA credit-transfer XML. Batch payments in the browser. Nothing is uploaded.">
+<meta name="twitter:image" content="https://netmend.app/assets/og-image.png">
+<meta name="theme-color" content="#0b0c0f">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Netmend">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon.png" type="image/png">
+<link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/tools.css">
+<link rel="stylesheet" href="app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Create a SEPA XML file free","applicationCategory":"FinanceApplication","operatingSystem":"Any (web browser)","url":"https://netmend.app/sepa/","inLanguage":"en","isAccessibleForFree":true,"description":"Create a SEPA XML file free in the browser, for batch credit transfers to suppliers and salaries.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"browserRequirements":"Requires JavaScript. Files are handled in the browser and are not uploaded.","publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the file leave my computer?","acceptedAnswer":{"@type":"Answer","text":"No. The Excel or CSV file is read in this browser. The XML is built on your computer. Nothing is sent to Netmend or to the bank."}},{"@type":"Question","name":"What is this SEPA file?","acceptedAnswer":{"@type":"Answer","text":"It is a credit-transfer XML, ISO 20022 pain.001.001.03. It pays suppliers or salaries in a batch, in euro, to IBANs in the SEPA area. pain.001.001.09 is also available. Check with your bank which one it imports."}},{"@type":"Question","name":"How does the bank import the file?","acceptedAnswer":{"@type":"Answer","text":"In online banking, look for an import of transfer files or batch payments. Caixa Geral de Depósitos, on its Canal Multibancário page, lists Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03 (cgd.pt, checked 21 November 2026). Other banks use a different menu name."}},{"@type":"Question","name":"What is checked before download?","acceptedAnswer":{"@type":"Answer","text":"The IBAN (mod-97 and the country length), the Portuguese NIB check on PT accounts, the BIC format when one is present, the amount (greater than zero, at most two decimal places), the SEPA character set, and the length of the name (70) and the reference (140). Accents are converted (á becomes a) and the change is listed under Problems. A repeated EndToEndId is made unique. The same IBAN with the same amount raises a warning."}},{"@type":"Question","name":"How many payments fit in the file?","acceptedAnswer":{"@type":"Answer","text":"The free version includes 50 payments per file. Pro coming soon. The button does not take a payment and shows no price."}},{"@type":"Question","name":"Does this replace the bank?","acceptedAnswer":{"@type":"Answer","text":"No. The page only builds the file. It does not send payments. Check the IBANs, the amounts and the date at your bank before you authorise the debit."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Netmend","item":"https://netmend.app/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://netmend.app/tools/"},{"@type":"ListItem","position":3,"name":"SEPA XML","item":"https://netmend.app/sepa/"}]}</script>
+</head>
+<body>
+<header><div class="wrap">
+<a href="../"><img src="../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a class="nav-tools" href="../tools/">Tools</a><a href="#guide">How it works</a><a class="cta" href="#app">Use free</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+<p class="crumbs"><a href="../">Netmend</a> · <a href="../tools/">Tools</a> · SEPA XML <span class="lang">· <a href="./" aria-current="page">English</a> · <a href="../pt/ficheiro-sepa/">Português</a> · <a href="../es/fichero-sepa/">Español</a></span></p>
+<h1>Create a SEPA XML file <span>free</span></h1>
+<p>Batch credit transfers for suppliers and salaries, from Excel or CSV. The file stays on this computer. Amounts on screen use the euro format 1.234,56 €.</p>
+<div class="pills"><span>Nothing is uploaded</span><span>Up to 50 payments</span><span>pain.001.001.03</span></div>
+</div></div>
+
+<section class="tight" id="app"><div class="wrap">
+<div class="app-grid">
+<div class="tool" id="drop">
+<label for="file" style="margin-top:0">Excel or CSV of the payments</label>
+<p class="note" style="margin:0">Drop an .xlsx or a CSV (semicolon or comma; 1.234,56 or 1234.56). The free version takes 50 payments per file. Nothing leaves this browser.</p>
+<div class="pick">
+<input id="file" type="file" accept=".xlsx,.xls,.csv,.txt,text/csv,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+<button id="example" type="button" class="btn">Try the example</button>
+<button id="template" type="button" class="btn ghost">Download the Excel template</button>
+</div>
+<p class="note" style="margin:10px 0 0">The example is fictional: the names say EXEMPLO and the IBANs only test the format. They are not real accounts.</p>
+<details>
+<summary>Paste CSV</summary>
+<label for="paste">Text separated by semicolons or commas</label>
+<textarea id="paste" spellcheck="false" autocomplete="off"></textarea>
+<button id="parse-paste" type="button" class="btn ghost">Read the text</button>
+</details>
+
+<h2 style="font-size:20px;margin:18px 0 0">Debtor</h2>
+<p class="note" style="margin:4px 0 0">The account the money leaves. Stored only in this browser, until you clear it.</p>
+<div class="row">
+<div><label for="dbtr-name">Name</label><input id="dbtr-name" type="text" autocomplete="off" maxlength="80"></div>
+<div><label for="dbtr-iban">IBAN</label><input id="dbtr-iban" type="text" autocomplete="off" spellcheck="false" inputmode="text"></div>
+</div>
+<div class="row">
+<div><label for="dbtr-bic">BIC (optional)</label><input id="dbtr-bic" type="text" autocomplete="off" spellcheck="false"></div>
+<div><label for="dbtr-date">Execution date</label><input id="dbtr-date" type="date" autocomplete="off"></div>
+</div>
+<label class="check" for="dbtr-batch"><input id="dbtr-batch" type="checkbox" checked> Batch booking (one debit on the account)</label>
+<p style="margin:12px 0 0"><button id="dbtr-clear" type="button" class="btn ghost">Clear data on this browser</button></p>
+<label for="pain-version">XML version</label>
+<select id="pain-version">
+<option value="03">pain.001.001.03</option>
+<option value="09">pain.001.001.09</option>
+</select>
+<p class="note">Caixa Geral de Depósitos states pain.001.001.03 on its <a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">Canal Multibancário</a> page. Version 09 is the later ISO revision: check with your bank before you use it.</p>
+
+<div id="mapping" hidden>
+<p class="note" style="margin-bottom:0">Detected columns. Change them if a name landed in the wrong place.</p>
+<div class="row">
+<div><label for="map-name">Name column</label><select id="map-name"></select></div>
+<div><label for="map-iban">IBAN column</label><select id="map-iban"></select></div>
+<div><label for="map-amount">Amount column</label><select id="map-amount"></select></div>
+<div><label for="map-ref">Reference column</label><select id="map-ref"></select></div>
+<div><label for="map-bic">BIC column</label><select id="map-bic"></select></div>
+</div>
+</div>
+<ul class="files" id="file-list"></ul>
+<p id="error" class="bad" role="alert" hidden></p>
+<p id="limit-note" class="warn" role="status" hidden></p>
+<p id="example-note" class="note" hidden></p>
+<div class="actions">
+<button id="download" type="button" class="btn" disabled>Download XML</button>
+<button id="pro" type="button" class="btn ghost">Pro coming soon</button>
+</div>
+<p id="pro-note" class="note" hidden></p>
+</div>
+<div class="preview-card">
+<p class="lbl">The XML</p>
+<p>SEPA credit transfers. The control sum has to match the rows. Amounts inside the XML use a decimal point.</p>
+<table>
+<caption>Example payments</caption>
+<thead><tr><th>Name</th><th class="num">Amount</th></tr></thead>
+<tbody>
+<tr><td>FORNECEDOR EXEMPLO LDA</td><td class="num">1.234,56 €</td></tr>
+<tr><td>José Exemplo</td><td class="num">1.500,00 €</td></tr>
+</tbody>
+</table>
+<p class="note" style="margin:8px 0 0">Invented rows. The test IBANs are not real accounts.</p>
+</div>
+</div>
+
+<div id="results" hidden>
+<div class="counters" aria-live="polite">
+<div class="counter"><b id="c-count">0</b><span>Payments</span></div>
+<div class="counter"><b id="c-sum">0,00 €</b><span>Control sum</span></div>
+<div class="counter"><b id="c-problems">0</b><span>Problems</span></div>
+</div>
+<p id="sum-note" class="note" hidden></p>
+<h2 id="problems-title">Problems</h2>
+<p id="problems-none">No problems on these rows.</p>
+<ul id="problems" aria-labelledby="problems-title" role="alert"></ul>
+<div class="scroll"><table>
+<caption>Payments</caption>
+<thead><tr><th>Name</th><th>IBAN</th><th class="num">Amount</th><th>Reference</th><th>BIC</th><th>EndToEndId</th></tr></thead>
+<tbody id="preview-body"></tbody>
+</table></div>
+<p id="preview-note" class="note" hidden></p>
+<p class="disclaimer"><b>This does not send money.</b> The page only builds the file. Check the IBANs, the amounts and the date at your bank before you authorise the debit. This is not financial advice.</p>
+</div>
+
+<h2 id="guide">How to build the SEPA file</h2>
+<p class="lead">One payment per row. The beneficiary name, the IBAN and the amount are required. The reference and the BIC are optional.</p>
+<div class="steps">
+<div class="step"><p class="n">Step 1</p><p>Download the template or use your own sheet. Headers the page recognises: Name, IBAN, Amount, Reference, BIC.</p></div>
+<div class="step"><p class="n">Step 2</p><p>Fill in the debtor. The name, IBAN, BIC, date and batch-booking choice stay on this device only.</p></div>
+<div class="step"><p class="n">Step 3</p><p>Read Problems and the control sum. Download the XML and import it in online banking. It is not sent from here.</p></div>
+</div>
+</div></section>
+
+<section class="alt" id="checks"><div class="wrap">
+<h2>What Problems checks</h2>
+<p class="lead">An error blocks the XML. A warning still lets you download, but read it. Accents are converted to the SEPA character set (á becomes a, ç becomes c, ñ becomes n) and the change is listed.</p>
+<div class="grid">
+<div class="card"><b>IBAN and NIB</b><p>The IBAN has to pass mod 97 and match the country length. On a Portuguese IBAN, the 21-digit NIB also has to pass its check digit.</p></div>
+<div class="card"><b>Amount</b><p>Greater than zero, at most two decimal places, up to 999.999.999,99 €. The control sum is the sum of the rows, in cents.</p></div>
+<div class="card"><b>Name and reference</b><p>The name fits in 70 characters and the reference in 140, after conversion. A repeated EndToEndId is replaced with a unique id.</p></div>
+<div class="card"><b>BIC optional</b><p>Leave it empty and the debtor bank is written as NOTPROVIDED, which the Banco de Portugal C2B manual allows. If you fill it in, it has to be 8 or 11 characters.</p></div>
+</div>
+</div></section>
+
+<section id="bank"><div class="wrap">
+<h2>Where to import it</h2>
+<p class="lead">The menu name is not the same at every bank. Look for an import of transfer files, batch payments or SEPA files, as XML.</p>
+<p>Caixa Geral de Depósitos, on its Canal Multibancário page, lists “Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03” (<a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">cgd.pt</a>, checked 21 November 2026). For other banks, use the name on your own screen.</p>
+<p class="note">The character set and NOTPROVIDED follow the <a href="https://www.bportugal.pt/sites/default/files/c2b_-_registo_normalizado_xml_v04_00.pdf" rel="noopener noreferrer">Banco de Portugal Customer-to-Bank XML manual (C2B)</a>, section 3.3 and message pain.001.001.03. Accent conversion follows the EPC Latin table (á→a and the other letters in that table).</p>
+</div></section>
+
+<section class="alt" id="faq"><div class="wrap">
+<h2>Questions</h2>
+<details><summary>Does the file leave my computer?</summary><p>No. Reading, the checks and the XML all happen in this browser. There is no account and no upload. Closing the tab does not forget a debtor saved on this device: use Clear data on this browser for that.</p></details>
+<details><summary>What is this SEPA file?</summary><p>It is a credit-transfer XML, ISO 20022 pain.001.001.03. It pays suppliers or salaries in a batch, in euro, to IBANs in the SEPA area. pain.001.001.09 is also available. Check with your bank which one it imports.</p></details>
+<details><summary>How does the bank import the file?</summary><p>In online banking, look for an import of transfer files or batch payments. Caixa Geral de Depósitos, on its Canal Multibancário page, lists “Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03” (cgd.pt, checked 21 November 2026). Other banks use a different menu name.</p></details>
+<details><summary>What is checked before download?</summary><p>The IBAN (mod-97 and the country length), the Portuguese NIB check on PT accounts, the BIC format when one is present, the amount (greater than zero, at most two decimal places), the SEPA character set, and the length of the name (70) and the reference (140). Accents are converted (á becomes a) and the change is listed under Problems. A repeated EndToEndId is made unique. The same IBAN with the same amount raises a warning.</p></details>
+<details><summary>How many payments fit in the file?</summary><p>The free version includes 50 payments per file. Pro coming soon. The button does not take a payment and shows no price.</p></details>
+<details><summary>Does this replace the bank?</summary><p>No. The page only builds the file. It does not send payments. Check the IBANs, the amounts and the date at your bank before you authorise the debit.</p></details>
+<p class="note" style="margin-top:18px">Also on Netmend: <a href="../efatura/">e-fatura to Excel</a> · <a href="../pt/ficheiro-sepa/">esta página em português</a> · <a href="../tools/">all tools</a>. Questions: <a href="mailto:dayinportugal@gmail.com?subject=Netmend%20SEPA%20file">dayinportugal@gmail.com</a></p>
+</div></section>
+
+<footer class="site-footer"><div class="wrap">
+<div class="f-grid">
+<div class="f-brand"><a href="../"><img src="../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Free, private tools for PDF, Excel and bank statements. Everything runs in your browser.</p></div>
+<div><h4>Tools</h4><a href="../statement-to-csv/">Statement PDF to CSV</a><a href="../statement/">Statement → Excel</a><a href="../efatura/">e-fatura → Excel</a><a href="./">SEPA XML</a><a href="../tools/">Tools</a></div>
+<div><h4>Read</h4><a href="../pt/ficheiro-sepa/">Esta página em português</a><a href="../es/fichero-sepa/">Esta página en español</a></div>
+<div><h4>Netmend</h4><a href="../tools/">Tools</a><a href="../#services">Services</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+</div>
+<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · This page does not send payments. No cookies, no trackers. Your file is not uploaded.</div>
+</div></footer>
+<script src="/assets/pwa.js"></script>
+<script src="../assets/vendor/xlsx.mini.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
