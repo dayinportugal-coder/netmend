@@ -1,0 +1,66 @@
+/* Recibos verdes quarterly helper. Flat, same tokens as tools.css.
+   Author display rules would otherwise beat the hidden attribute. */
+[hidden]{display:none !important}
+/* #ff5a36 with white text is about 3.1:1. #c2410c is about 5.2:1. */
+.btn,button.btn{background:#c2410c}
+.btn:hover,button.btn:hover{background:#9a3412}
+.scroll:focus{outline:2px solid #c2410c;outline-offset:2px}
+@media(max-width:480px){
+  .hero{padding:4px 0 0}
+  .hero h1{font-size:22px;margin-bottom:4px}
+  .hero p:not(.crumbs){display:none}
+  .pills{display:none}
+  section.tight{padding-top:0}
+  #file-help{display:none}
+}
+.hero{padding:20px 0 8px}
+.hero h1{font-size:clamp(28px,4.2vw,44px);margin-bottom:8px}
+section.tight{padding:12px 0 56px}
+.lang a{color:var(--muted);text-decoration:none}
+.lang a[aria-current]{color:#fff}
+#drop{border:1.5px dashed var(--border-2);border-radius:12px;padding:18px;background:rgba(255,255,255,.02)}
+#drop.on{border-color:var(--coral);background:rgba(255,90,54,.06)}
+.pick,.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pick{margin-top:12px}
+.pick input[type=file]{max-width:100%;min-width:0}
+.actions{margin:14px 0}
+.actions .btn,.pick .btn{max-width:100%;white-space:normal;text-align:center}
+.modes{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.modes button{font:inherit;font-weight:650;font-size:14px;color:var(--muted);background:transparent;border:1px solid var(--border);border-radius:999px;padding:6px 12px;cursor:pointer}
+.modes button[aria-pressed="true"]{color:#fff;border-color:var(--coral);background:rgba(255,90,54,.12)}
+.files{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.files li{border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:13px;color:var(--muted);overflow-wrap:anywhere;max-width:100%}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.opts label{margin-top:0}
+fieldset.plain{border:1px solid var(--border);border-radius:var(--radius);margin:0;padding:12px 14px;min-width:0}
+fieldset.plain legend{font-weight:650;font-size:14px;padding:0 6px;color:#fff}
+.choice{display:flex;gap:8px;align-items:flex-start;margin:8px 0}
+.choice input{margin-top:4px;flex:0 0 auto}
+.choice label{font-weight:500;margin:0;color:var(--text)}
+.q-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0}
+.q-card{border:1px solid var(--border);border-radius:var(--radius);background:#131419;padding:14px 16px;min-width:0}
+.q-card h3{margin:0 0 8px;font-size:16px}
+.q-card p{margin:0 0 6px;color:var(--muted);font-size:14px}
+.q-card .big{font-size:clamp(20px,2.4vw,26px);color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.03em;overflow-wrap:anywhere}
+.counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:16px 0}
+.counter{border:1px solid var(--border);border-radius:var(--radius);background:#131419;padding:14px 16px;min-width:0}
+.counter b{display:block;font-size:clamp(18px,2.4vw,26px);letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.counter span{color:var(--muted);font-size:13.5px}
+.meter{position:relative;height:14px;border-radius:999px;background:rgba(255,255,255,.08);margin:10px 0 22px;max-width:100%}
+.meter-fill{height:100%;border-radius:inherit;background:var(--coral);max-width:100%}
+.meter .tick{position:absolute;top:18px;font-size:12px;color:var(--muted);transform:translateX(-50%);white-space:nowrap}
+.meter .tick.limit{left:80%}
+.manual-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.map-table select{min-width:0;font-size:14px}
+.disclaimer{border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;color:var(--muted);font-size:14px;margin-top:16px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:0 0 16px}
+.step{border:1px solid var(--border);border-radius:var(--radius);background:#131419;padding:14px 16px;min-width:0}
+.step .n{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-2);margin:0 0 6px}
+.step p{margin:0;color:var(--muted);font-size:14.5px}
+.hub-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.hub-links a{display:block;text-decoration:none;color:var(--text)}
+@media(max-width:760px){
+  nav a.nav-tools{display:inline-flex}
+  .meter .tick{white-space:normal;max-width:88px}
+}
