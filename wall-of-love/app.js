@@ -1,4 +1,6 @@
 // Netmend free testimonial wall generator. Everything happens in the browser.
+function nmLang(){var l=(document.documentElement.lang||"pt").toLowerCase();return l.indexOf("en")===0?"en":l.indexOf("es")===0?"es":"pt";}
+function nmT(en,pt,es){var l=nmLang();return l==="en"?en:l==="es"?es:pt;}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function parse(txt){
   return txt.split(/\n\s*\n/).map(function(b){var l=b.trim().split('\n').map(function(x){return x.trim()}).filter(Boolean);if(!l.length)return null;
@@ -20,14 +22,14 @@ function gen(){
   '.'+id+' .a{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:'+acc+';color:#fff;font-weight:700;margin-right:10px;vertical-align:middle}';
   var html='<div class="'+id+'">'+(title?'<h3>'+esc(title)+'</h3>':'')+'<div class="g">'+items.map(function(t){
     var ini=t.name.split(/\s+/).map(function(w){return w[0]||''}).join('').slice(0,2).toUpperCase();
-    return '<div class="c">'+(t.stars?'<div class="s" aria-label="'+t.stars+' out of 5 stars">'+'★'.repeat(t.stars)+'☆'.repeat(5-t.stars)+'</div>':'')+
+    return '<div class="c">'+(t.stars?'<div class="s" aria-label="'+t.stars+nmT(' out of 5 stars',' de 5 estrelas',' de 5 estrellas')+'">'+'★'.repeat(t.stars)+'☆'.repeat(5-t.stars)+'</div>':'')+
     '<p>'+esc(t.text)+'</p><div><span class="a">'+esc(ini)+'</span><span><span class="n">'+esc(t.name)+'</span>'+(t.role?' <span class="r">· '+esc(t.role)+'</span>':'')+
-    (t.src?' <span class="r">· '+(/^https?:\/\//.test(t.src)?'<a href="'+esc(t.src)+'" rel="nofollow noopener" style="color:inherit">source</a>':esc(t.src))+'</span>':'')+'</span></div></div>'}).join('')+'</div></div>';
-  var out='<!-- Testimonial wall made free with Netmend: https://netmend.app/wall-of-love/ -->\n<style>'+css+'</style>\n'+html;
+    (t.src?' <span class="r">· '+(/^https?:\/\//.test(t.src)?'<a href="'+esc(t.src)+'" rel="nofollow noopener" style="color:inherit">'+nmT('source','fonte','fuente')+'</a>':esc(t.src))+'</span>':'')+'</span></div></div>'}).join('')+'</div></div>';
+  var out='<!-- '+nmT('Testimonial wall made free with Netmend: https://netmend.app/wall-of-love/','Mural de testemunhos feito grátis com a Netmend: https://netmend.app/wall-of-love/','Muro de testimonios hecho gratis con Netmend: https://netmend.app/wall-of-love/')+' -->\n<style>'+css+'</style>\n'+html;
   document.getElementById('preview').innerHTML=out;document.getElementById('code').value=out;
-  document.getElementById('count').textContent=items.length+' testimonial(s)';
+  document.getElementById('count').textContent=items.length+nmT(' testimonial(s)', items.length===1?' testemunho':' testemunhos', items.length===1?' testimonio':' testimonios');
 }
 ['src','theme','acc','cols','title'].forEach(function(i){document.getElementById(i).addEventListener('input',gen)});
-document.getElementById('copy').addEventListener('click',function(){var c=document.getElementById('code');c.select();navigator.clipboard?navigator.clipboard.writeText(c.value):document.execCommand('copy');this.textContent='Copied ✓'});
-document.getElementById('dlh').addEventListener('click',function(){var v='<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wall of love</title><body style="margin:0;padding:20px;background:#eee">'+document.getElementById('code').value+'</body>';var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([v],{type:'text/html'}));a.download='wall-of-love.html';a.click()});
+document.getElementById('copy').addEventListener('click',function(){var c=document.getElementById('code');c.select();navigator.clipboard?navigator.clipboard.writeText(c.value):document.execCommand('copy');this.textContent=nmT('Copied ✓','Copiado ✓','Copiado ✓')});
+document.getElementById('dlh').addEventListener('click',function(){var v='<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+nmT('Wall of love','Mural de testemunhos','Muro de testimonios')+'</title><body style="margin:0;padding:20px;background:#eee">'+document.getElementById('code').value+'</body>';var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([v],{type:'text/html'}));a.download='wall-of-love.html';a.click()});
 gen();

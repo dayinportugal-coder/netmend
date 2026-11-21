@@ -1,10 +1,12 @@
 /* Netmend Shots: screenshot beautifier on a canvas. No network, no AI. */
 (function () {
+  function nmLang(){var l=(document.documentElement.lang||"pt").toLowerCase();return l.indexOf("en")===0?"en":l.indexOf("es")===0?"es":"pt";}
+  function nmT(en, pt, es){var l=nmLang();return l==="en"?en:l==="es"?es:pt;}
   var $ = NM.$, img = null, bg = 0, custom = null, SETS = "netmend-shots-settings";
-  NM.init({ tool: "shots", freeLimit: 10, unit: "exports", freeText: "10 PNG exports a day at 1×, with a small mark in the corner.", proText: "No mark, no limit, 2× and 3× retina export, settings remembered. Pay once.", onLicense: draw });
+  NM.init({ tool: "shots", freeLimit: 10, unit: "exports", freeText: nmT("10 PNG exports a day at 1×, with a small mark in the corner.", "10 exportações PNG por dia a 1×, com uma marca pequena no canto.", "10 exportaciones PNG al día a 1×, con una marca pequeña en la esquina."), proText: nmT("No mark, no limit, 2× and 3× retina export, settings remembered. Pay once.", "Sem marca, sem limite, exportação retina a 2× e 3×, definições memorizadas. Pague uma vez.", "Sin marca, sin límite, exportación retina a 2× y 3×, ajustes recordados. Pague una vez."), onLicense: draw });
   var BGS = [["#ff5a36", "#8b7bff"], ["#0f2027", "#2c5364"], ["#f7971e", "#ffd200"], ["#00c6ff", "#0072ff"], ["#ee9ca7", "#ffdde1"], ["#11998e", "#38ef7d"],
     ["#141e30", "#243b55"], ["#fc5c7d", "#6a82fb"], ["#232526", "#414345"], ["#e0eafc", "#cfdef3"], ["#ff9966", "#ff5e62"], ["#6fd3e0", "#8b7bff"]];
-  $("bgs").innerHTML = BGS.map(function (g, i) { return '<button type="button" data-bg="' + i + '" style="background:linear-gradient(135deg,' + g[0] + "," + g[1] + ')" aria-label="Background ' + (i + 1) + '"></button>'; }).join("");
+  $("bgs").innerHTML = BGS.map(function (g, i) { return '<button type="button" data-bg="' + i + '" style="background:linear-gradient(135deg,' + g[0] + "," + g[1] + ')" aria-label="' + nmT("Background ", "Fundo ", "Fondo ") + (i + 1) + '"></button>'; }).join("");
   function paintSw() { document.querySelectorAll("[data-bg]").forEach(function (b) { b.classList.toggle("on", !custom && +b.getAttribute("data-bg") === bg); }); }
   document.querySelectorAll("[data-bg]").forEach(function (b) { b.onclick = function () { bg = +b.getAttribute("data-bg"); custom = null; paintSw(); draw(); }; });
   $("custom").onclick = function () { custom = [$("c1").value, $("c2").value]; paintSw(); draw(); };
@@ -45,7 +47,7 @@
       }
     }
     if (img) { c.drawImage(img, x, y + bar, dw, dh); }
-    else { c.fillStyle = "#0b0d12"; c.fillRect(x, y + bar, dw, dh); c.fillStyle = "#9aa1ad"; c.font = "600 22px Inter, system-ui, sans-serif"; c.textAlign = "center"; c.fillText("Drop, paste or choose a screenshot", x + dw / 2, y + bar + dh / 2); }
+    else { c.fillStyle = "#0b0d12"; c.fillRect(x, y + bar, dw, dh); c.fillStyle = "#9aa1ad"; c.font = "600 22px Inter, system-ui, sans-serif"; c.textAlign = "center"; c.fillText(nmT("Drop, paste or choose a screenshot", "Largue, cole ou escolha uma captura", "Suelte, pegue o elija una captura"), x + dw / 2, y + bar + dh / 2); }
     c.restore();
     if (!NM.isPro()) { c.font = "600 13px Inter, system-ui, sans-serif"; c.textAlign = "right"; c.textBaseline = "bottom"; c.fillStyle = "rgba(255,255,255,.75)"; c.fillText("netmend shots", W - 12, H - 10); }
   }
@@ -56,16 +58,16 @@
   }
   if (NM.isPro()) { try { var st = JSON.parse(localStorage.getItem(SETS) || "null"); if (st) { bg = st.bg || 0; custom = st.custom; ["size", "frame", "url", "pad", "rad", "sh"].forEach(function (k) { if (st[k] != null) $(k).value = st[k]; }); } } catch (e) {} }
   function exportCanvas(cb) {
-    if (!img) { NM.status("status", "Add a screenshot first.", "bad"); return; }
+    if (!img) { NM.status("status", nmT("Add a screenshot first.", "Acrescente primeiro uma captura de ecrã.", "Añada primero una captura de pantalla."), "bad"); return; }
     if (!NM.canUse()) { NM.status("status", NM.limitMsg(), "bad"); return; }
-    var sc = +$("scale").value; if (sc > 1 && !NM.isPro()) { NM.status("status", "2× and 3× export are part of Pro. Exporting at 1×."); sc = 1; }
+    var sc = +$("scale").value; if (sc > 1 && !NM.isPro()) { NM.status("status", nmT("2× and 3× export are part of Pro. Exporting at 1×.", "A exportação a 2× e 3× faz parte do Pro. A exportar a 1×.", "La exportación a 2× y 3× forma parte de Pro. Exportando a 1×.")); sc = 1; }
     var cv = document.createElement("canvas"); render(cv, sc); cv.toBlob(function (b) { NM.consume(); cb(b); }, "image/png");
   }
-  $("dl").onclick = function () { exportCanvas(function (b) { NM.download(b, "netmend-shot-" + Date.now() + ".png"); NM.status("status", "PNG downloaded.", "ok"); }); };
+  $("dl").onclick = function () { exportCanvas(function (b) { NM.download(b, "netmend-shot-" + Date.now() + ".png"); NM.status("status", nmT("PNG downloaded.", "PNG transferido.", "PNG descargado."), "ok"); }); };
   $("cp").onclick = function () {
     var btn = this;
     exportCanvas(function (b) {
-      if (navigator.clipboard && window.ClipboardItem) navigator.clipboard.write([new ClipboardItem({ "image/png": b })]).then(function () { NM.status("status", "Image copied. Paste it into your post.", "ok"); }).catch(function () { NM.download(b, "netmend-shot.png"); });
+      if (navigator.clipboard && window.ClipboardItem) navigator.clipboard.write([new ClipboardItem({ "image/png": b })]).then(function () { NM.status("status", nmT("Image copied. Paste it into your post.", "Imagem copiada. Cole-a na publicação.", "Imagen copiada. Péguela en la publicación."), "ok"); }).catch(function () { NM.download(b, "netmend-shot.png"); });
       else NM.download(b, "netmend-shot.png");
     });
   };

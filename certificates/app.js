@@ -1,7 +1,9 @@
 /* Netmend Certificates: jsPDF in the browser, no network calls except Gumroad licence verification. */
 (function () {
+  function nmLang(){var l=(document.documentElement.lang||"pt").toLowerCase();return l.indexOf("en")===0?"en":l.indexOf("es")===0?"es":"pt";}
+  function nmT(en, pt, es){var l=nmLang();return l==="en"?en:l==="es"?es:pt;}
   var $ = NM.$, FREE_MAX = 10, logo = null, sig = null;
-  NM.init({ tool: "certificates", freeLimit: 5, unit: "batches", freeText: "Up to 10 certificates per batch, 5 batches a day, small Netmend line.", proText: "Unlimited names, your logo and signature, custom colour, no Netmend line. Pay once.", onLicense: paint });
+  NM.init({ tool: "certificates", freeLimit: 5, unit: "batches", freeText: nmT("Up to 10 certificates per batch, 5 batches a day, small Netmend line.", "Até 10 certificados por lote, 5 lotes por dia, com uma linha pequena da Netmend.", "Hasta 10 certificados por lote, 5 lotes al día, con una línea pequeña de Netmend."), proText: nmT("Unlimited names, your logo and signature, custom colour, no Netmend line. Pay once.", "Nomes sem limite, o seu logótipo e assinatura, cor à escolha, sem a linha Netmend. Pague uma vez.", "Nombres sin límite, su logotipo y firma, color a elegir, sin la línea de Netmend. Pague una vez."), onLicense: paint });
   function paint() { ["logo", "sig", "accent"].forEach(function (id) { $(id).disabled = !NM.isPro(); }); }
   paint();
   function readImg(input, cb) {
@@ -38,9 +40,9 @@
     var cx = $("design").value === "modern" ? (W + 21) / 2 : W / 2;
     if (pro && logo) { var lh = 18, lw = Math.min(60, lh * logo.w / logo.h); doc.addImage(logo.data, logo.fmt, cx - lw / 2, 22, lw, lh); }
     doc.setTextColor.apply(doc, acc); doc.setFont(f, "bold"); doc.setFontSize(30);
-    doc.text(($("title").value || "Certificate").toUpperCase(), cx, 58, { align: "center", charSpace: 1 });
+    doc.text(($("title").value || nmT("Certificate", "Certificado", "Certificado")).toUpperCase(), cx, 58, { align: "center", charSpace: 1 });
     doc.setTextColor.apply(doc, d.ink); doc.setFont(f, "normal"); doc.setFontSize(14);
-    doc.text("This certificate is presented to", cx, 76, { align: "center" });
+    doc.text(nmT("This certificate is presented to", "Este certificado é atribuído a", "Este certificado se otorga a"), cx, 76, { align: "center" });
     doc.setFont(f, "bolditalic"); var size = 40; doc.setFontSize(size);
     while (doc.getTextWidth(p.name) > 220 && size > 18) { size -= 2; doc.setFontSize(size); }
     doc.text(p.name, cx, 98, { align: "center" });
@@ -50,17 +52,17 @@
     if (p.extra && $("body").value.indexOf("{extra}") < 0) { doc.setFont(f, "bold"); doc.text(p.extra, cx, 118 + lines.length * 7 + 2, { align: "center" }); }
     doc.setFontSize(11); doc.setFont(f, "normal");
     var y = 168;
-    if ($("date").value) { doc.line(cx - 100, y, cx - 40, y); doc.text($("date").value, cx - 70, y + 6, { align: "center" }); doc.text("Date", cx - 70, y + 11, { align: "center" }); }
+    if ($("date").value) { doc.line(cx - 100, y, cx - 40, y); doc.text($("date").value, cx - 70, y + 6, { align: "center" }); doc.text(nmT("Date", "Data", "Fecha"), cx - 70, y + 11, { align: "center" }); }
     if (pro && sig) { var sh = 16, sw = Math.min(60, sh * sig.w / sig.h); doc.addImage(sig.data, sig.fmt, cx + 70 - sw / 2, y - sh - 1, sw, sh); }
     if ($("signer").value) { doc.line(cx + 40, y, cx + 100, y); doc.text($("signer").value, cx + 70, y + 6, { align: "center" }); }
     if ($("issuer").value) { doc.setFont(f, "bold"); doc.setFontSize(12); doc.text($("issuer").value, cx, 150, { align: "center" }); }
-    if (!pro) { doc.setFont("helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(150, 150, 150); doc.text("Made with Netmend Certificates · netmend.app/certificates", cx, H - 5, { align: "center" }); }
+    if (!pro) { doc.setFont("helvetica", "normal"); doc.setFontSize(7); doc.setTextColor(150, 150, 150); doc.text(nmT("Made with Netmend Certificates · netmend.app/certificates", "Feito com o Netmend Certificates · netmend.app/certificates", "Hecho con Netmend Certificates · netmend.app/certificates"), cx, H - 5, { align: "center" }); }
   }
   function newDoc() { return new window.jspdf.jsPDF({ orientation: "landscape", unit: "mm", format: "a4", compress: true }); }
   function list(forBatch) {
     var ps = people();
-    if (!ps.length) { NM.status("status", "Paste at least one name.", "bad"); return null; }
-    if (forBatch && !NM.isPro() && ps.length > FREE_MAX) { NM.status("status", "Free plan: first " + FREE_MAX + " of " + ps.length + " names. Pro has no limit.", "bad"); ps = ps.slice(0, FREE_MAX); }
+    if (!ps.length) { NM.status("status", nmT("Paste at least one name.", "Cole pelo menos um nome.", "Pegue al menos un nombre."), "bad"); return null; }
+    if (forBatch && !NM.isPro() && ps.length > FREE_MAX) { NM.status("status", nmT("Free plan: first " + FREE_MAX + " of " + ps.length + " names. Pro has no limit.", "Plano grátis: os primeiros " + FREE_MAX + " de " + ps.length + " nomes. O Pro não tem limite.", "Plan gratis: los primeros " + FREE_MAX + " de " + ps.length + " nombres. Pro no tiene límite."), "bad"); ps = ps.slice(0, FREE_MAX); }
     return ps;
   }
   $("preview").onclick = function () {
@@ -73,12 +75,12 @@
     if (!gate()) return; var ps = list(true); if (!ps) return;
     var doc = newDoc(); ps.forEach(function (p, i) { if (i) doc.addPage(); draw(doc, p); });
     doc.save("certificates-" + NM.slug($("course").value || $("title").value) + ".pdf"); NM.consume();
-    if (NM.isPro() || people().length <= FREE_MAX) NM.status("status", ps.length + " certificates saved in one PDF.", "ok");
+    if (NM.isPro() || people().length <= FREE_MAX) NM.status("status", nmT(ps.length + " certificates saved in one PDF.", ps.length + " certificados guardados num PDF.", ps.length + " certificados guardados en un PDF."), "ok");
   };
   $("zip").onclick = function () {
     if (!gate()) return; var ps = list(true); if (!ps) return;
     var z = new JSZip(), seen = {};
     ps.forEach(function (p) { var doc = newDoc(); draw(doc, p); var n = NM.slug(p.name); seen[n] = (seen[n] || 0) + 1; z.file(n + (seen[n] > 1 ? "-" + seen[n] : "") + ".pdf", doc.output("arraybuffer")); });
-    z.generateAsync({ type: "blob" }).then(function (b) { NM.download(b, "certificates-" + NM.slug($("course").value || $("title").value) + ".zip"); NM.consume(); NM.status("status", ps.length + " PDFs saved in a ZIP.", "ok"); });
+    z.generateAsync({ type: "blob" }).then(function (b) { NM.download(b, "certificates-" + NM.slug($("course").value || $("title").value) + ".zip"); NM.consume(); NM.status("status", nmT(ps.length + " PDFs saved in a ZIP.", ps.length + " PDF guardados num ZIP.", ps.length + " PDF guardados en un ZIP."), "ok"); });
   };
 })();

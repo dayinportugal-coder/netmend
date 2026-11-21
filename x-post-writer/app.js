@@ -1,5 +1,7 @@
 /* Netmend X Post Writer. The Gemini key and the daily counter live only in this browser. */
 (function () {
+  function nmLang(){var l=(document.documentElement.lang||"pt").toLowerCase();return l.indexOf("en")===0?"en":l.indexOf("es")===0?"es":"pt";}
+  function nmT(en, pt, es){var l=nmLang();return l==="en"?en:l==="es"?es:pt;}
   var KEY_LS = "netmend-xpw-gemini-key";
   var USE_LS = "netmend-xpw-usage";
   var DAILY_LIMIT = 3;
@@ -54,7 +56,7 @@
   }
   function paintRemain() {
     var n = remaining();
-    if (remainEl) remainEl.textContent = n === 1 ? "1 free generation left today in this browser." : n + " free generations left today in this browser.";
+    if (remainEl) remainEl.textContent = n === 1 ? nmT("1 free generation left today in this browser.", "Resta 1 geração grátis hoje neste browser.", "Queda 1 generación gratis hoy en este navegador.") : nmT(n + " free generations left today in this browser.", "Restam " + n + " gerações grátis hoje neste browser.", "Quedan " + n + " generaciones gratis hoy en este navegador.");
     if (goEl) goEl.disabled = n <= 0;
   }
   function keySaved() {
@@ -63,25 +65,26 @@
   function paintKey() {
     if (keySaved()) {
       keyEl.value = "";
-      keyEl.placeholder = "Key saved in this browser (paste a new one to replace it)";
-      keyStatus.innerHTML = '<span class="ok">API key saved on this device only.</span> It is never sent to Netmend. We have no server for this tool.';
+      keyEl.placeholder = nmT("Key saved in this browser (paste a new one to replace it)", "Chave guardada neste browser (cole uma nova para a substituir)", "Clave guardada en este navegador (pegue una nueva para sustituirla)");
+      keyStatus.innerHTML = '<span class="ok">' + nmT("API key saved on this device only.", "Chave da API guardada apenas neste dispositivo.", "Clave de API guardada solo en este dispositivo.") + "</span>" + nmT(" It is never sent to Netmend. We have no server for this tool.", " Nunca é enviada para a Netmend. Esta ferramenta não tem servidor.", " Nunca se envía a Netmend. Esta herramienta no tiene servidor.");
     } else {
-      keyEl.placeholder = "Paste your Gemini API key";
-      keyStatus.textContent = "No key saved yet. The free Gemini key from Google AI Studio is enough.";
+      keyEl.placeholder = nmT("Paste your Gemini API key", "Cole a chave da API Gemini", "Pegue su clave de la API de Gemini");
+      keyStatus.textContent = nmT("No key saved yet. The free Gemini key from Google AI Studio is enough.", "Ainda não há chave. A chave grátis do Gemini no Google AI Studio chega.", "Todavía no hay clave. La clave gratuita de Gemini de Google AI Studio es suficiente.");
     }
   }
 
   if (showEl) {
+    showEl.textContent = nmT("Show", "Mostrar", "Mostrar");
     showEl.addEventListener("click", function () {
       keyEl.type = keyEl.type === "password" ? "text" : "password";
-      showEl.textContent = keyEl.type === "password" ? "Show" : "Hide";
+      showEl.textContent = keyEl.type === "password" ? nmT("Show", "Mostrar", "Mostrar") : nmT("Hide", "Ocultar", "Ocultar");
     });
   }
   if (saveEl) {
     saveEl.addEventListener("click", function () {
       var v = (keyEl.value || "").trim();
       if (!v) {
-        keyStatus.innerHTML = '<span class="bad">Paste a key first.</span>';
+        keyStatus.innerHTML = '<span class="bad">' + nmT("Paste a key first.", "Cole primeiro uma chave.", "Pegue primero una clave.") + "</span>";
         return;
       }
       localStorage.setItem(KEY_LS, v);
@@ -128,7 +131,7 @@
   }
 
   function extractJson(s) {
-    if (!s) throw new Error("Empty model response.");
+    if (!s) throw new Error(nmT("Empty model response.", "Resposta vazia do modelo.", "Respuesta vacía del modelo."));
     var t = s.trim();
     var fence = t.match(/```(?:json)?\s*([\s\S]*?)```/);
     if (fence) t = fence[1].trim();
@@ -170,9 +173,9 @@
     var i = 0;
     var lastErr;
     function next() {
-      if (i >= MODELS.length) throw lastErr || new Error("No Gemini model accepted the request.");
+      if (i >= MODELS.length) throw lastErr || new Error(nmT("No Gemini model accepted the request.", "Nenhum modelo Gemini aceitou o pedido.", "Ningún modelo de Gemini aceptó la solicitud."));
       var model = MODELS[i++];
-      statusEl.textContent = "Generating with " + model + "…";
+      statusEl.textContent = nmT("Generating with " + model + "…", "A gerar com " + model + "…", "Generando con " + model + "…");
       return callModel(model, key, prompt).catch(function (err) {
         lastErr = err;
         var m = String(err.message || "");
@@ -195,15 +198,15 @@
   function copyText(text, btn) {
     function done() {
       var old = btn.textContent;
-      btn.textContent = "Copied";
+      btn.textContent = nmT("Copied", "Copiado", "Copiado");
       setTimeout(function () { btn.textContent = old; }, 1200);
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(done).catch(function () {
-        window.prompt("Copy this text:", text);
+        window.prompt(nmT("Copy this text:", "Copiar este texto:", "Copiar este texto:"), text);
       });
     } else {
-      window.prompt("Copy this text:", text);
+      window.prompt(nmT("Copy this text:", "Copiar este texto:", "Copiar este texto:"), text);
     }
   }
 
@@ -212,21 +215,21 @@
     var notes = data && data.voice_notes ? '<p class="note">' + esc(data.voice_notes) + "</p>" : "";
     var html = notes + '<div class="xpw-out">';
     items.forEach(function (it, idx) {
-      var format = it.format || "Draft";
+      var format = it.format || nmT("Draft", "Rascunho", "Borrador");
       var type = it.type === "thread" ? "thread" : "post";
       var parts = type === "thread" && it.parts && it.parts.length ? it.parts : [it.text || ""];
-      html += '<article class="xpw-card" data-i="' + idx + '"><header><span class="fmt">' + (idx + 1) + " · " + esc(format) + (type === "thread" ? " · thread" : "") + '</span></header>';
+      html += '<article class="xpw-card" data-i="' + idx + '"><header><span class="fmt">' + (idx + 1) + " · " + esc(format) + (type === "thread" ? nmT(" · thread", " · fio", " · hilo") : "") + '</span></header>';
       if (type === "thread") {
         html += '<div class="thread">';
         parts.forEach(function (p, n) {
-          html += "<div><span class=\"chars\">Part " + (n + 1) + " · " + countChars(p) + " characters</span><pre>" + esc(p) + "</pre></div>";
+          html += "<div><span class=\"chars\">" + nmT("Part ", "Parte ", "Parte ") + (n + 1) + " · " + countChars(p) + nmT(" characters", " caracteres", " caracteres") + "</span><pre>" + esc(p) + "</pre></div>";
         });
         html += "</div>";
       } else {
         var t = parts[0] || "";
-        html += '<span class="chars">' + countChars(t) + " characters</span><pre>" + esc(t) + "</pre>";
+        html += '<span class="chars">' + countChars(t) + nmT(" characters", " caracteres", " caracteres") + "</span><pre>" + esc(t) + "</pre>";
       }
-      html += '<div class="xpw-actions"><button type="button" class="btn ghost" data-copy="' + idx + '">Copy</button></div></article>';
+      html += '<div class="xpw-actions"><button type="button" class="btn ghost" data-copy="' + idx + '">' + nmT("Copy", "Copiar", "Copiar") + "</button></div></article>";
     });
     html += "</div>";
     outEl.innerHTML = html;
@@ -245,43 +248,43 @@
     goEl.addEventListener("click", function () {
       var key = (localStorage.getItem(KEY_LS) || "").trim();
       if (!key) {
-        statusEl.innerHTML = '<span class="bad">Save a Gemini API key first. It stays in this browser.</span>';
+        statusEl.innerHTML = '<span class="bad">' + nmT("Save a Gemini API key first. It stays in this browser.", "Guarde primeiro uma chave da API Gemini. Fica neste browser.", "Guarde primero una clave de la API de Gemini. Se queda en este navegador.") + "</span>";
         document.getElementById("setup").scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
       var idea = (ideaEl.value || "").trim();
       if (!idea) {
-        statusEl.innerHTML = '<span class="bad">Paste an article, notes, or a rough idea to write about.</span>';
+        statusEl.innerHTML = '<span class="bad">' + nmT("Paste an article, notes, or a rough idea to write about.", "Cole um artigo, notas ou uma ideia por alto sobre a qual escrever.", "Pegue un artículo, notas o una idea aproximada sobre la que escribir.") + "</span>";
         ideaEl.focus();
         return;
       }
       if (remaining() <= 0) {
-        statusEl.innerHTML = '<span class="bad">You have used the 3 free generations for today in this browser. Come back tomorrow, or reserve the founding lifetime licence below.</span>';
+        statusEl.innerHTML = '<span class="bad">' + nmT("You have used the 3 free generations for today in this browser. Come back tomorrow, or reserve the founding lifetime licence below.", "Já usou as 3 gerações grátis de hoje neste browser. Volte amanhã ou reserve a licença vitalícia de fundador mais abaixo.", "Ha usado las 3 generaciones gratis de hoy en este navegador. Vuelva mañana o reserve la licencia de por vida de fundador más abajo.") + "</span>";
         paintRemain();
         return;
       }
       var voice = (voiceEl.value || "").trim();
       var kind = kindEl.value;
       goEl.disabled = true;
-      statusEl.textContent = "Generating…";
+      statusEl.textContent = nmT("Generating…", "A gerar…", "Generando…");
       outEl.innerHTML = "";
       var prompt = buildPrompt(voice, idea, kind);
       generateWithFallback(key, prompt).then(function (data) {
-        if (!data || !data.items || !data.items.length) throw new Error("The model returned no posts. Try again, or add a few more of your old posts.");
+        if (!data || !data.items || !data.items.length) throw new Error(nmT("The model returned no posts. Try again, or add a few more of your old posts.", "O modelo não devolveu publicações. Tente outra vez ou acrescente mais algumas publicações antigas.", "El modelo no devolvió publicaciones. Inténtelo de nuevo o añada algunas publicaciones antiguas más."));
         var u = usage();
         u.count += 1;
         setUsage(u);
         paintRemain();
         render(data);
-        statusEl.innerHTML = '<span class="ok">Done.</span> Read each draft before you post. The model can still be wrong.';
+        statusEl.innerHTML = '<span class="ok">' + nmT("Done.", "Feito.", "Hecho.") + "</span> " + nmT("Read each draft before you post. The model can still be wrong.", "Leia cada rascunho antes de publicar. O modelo ainda pode errar.", "Lea cada borrador antes de publicarlo. El modelo todavía puede equivocarse.");
       }).catch(function (err) {
         var m = String(err.message || err);
         if (/API key|api key|invalid|PERMISSION|401|403/i.test(m)) {
-          m = "Google rejected the API key. Check that you copied the whole key from aistudio.google.com, and that the free Gemini API is enabled on that key.";
+          m = nmT("Google rejected the API key. Check that you copied the whole key from aistudio.google.com, and that the free Gemini API is enabled on that key.", "A Google rejeitou a chave da API. Confirme que copiou a chave inteira de aistudio.google.com e que a API Gemini grátis está ativa nessa chave.", "Google ha rechazado la clave de API. Compruebe que copió la clave entera de aistudio.google.com y que la API gratuita de Gemini está activa en esa clave.");
         } else if (/quota|resource exhausted|429/i.test(m)) {
-          m = "Google's free quota for this key is used up for now. Wait and try again, or create a new key in AI Studio.";
+          m = nmT("Google's free quota for this key is used up for now. Wait and try again, or create a new key in AI Studio.", "A quota grátis da Google para esta chave esgotou-se por agora. Espere e tente outra vez, ou crie uma chave nova no AI Studio.", "La cuota gratuita de Google para esta clave se ha agotado por ahora. Espere e inténtelo de nuevo, o cree una clave nueva en AI Studio.");
         } else if (/Failed to fetch|NetworkError|CORS/i.test(m)) {
-          m = "The browser could not reach Google's Gemini API. Check your connection, or try another network. Nothing was sent to Netmend.";
+          m = nmT("The browser could not reach Google's Gemini API. Check your connection, or try another network. Nothing was sent to Netmend.", "O browser não conseguiu chegar à API Gemini da Google. Verifique a ligação ou tente outra rede. Nada foi enviado para a Netmend.", "El navegador no ha podido llegar a la API Gemini de Google. Compruebe la conexión o pruebe otra red. No se ha enviado nada a Netmend.");
         }
         statusEl.innerHTML = '<span class="bad">' + esc(m) + "</span>";
         paintRemain();

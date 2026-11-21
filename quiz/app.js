@@ -1,7 +1,9 @@
 /* Netmend Quiz: source -> Gemini quiz JSON -> preview + exports (Forms Apps Script, print, CSV, Kahoot xlsx, Moodle GIFT). */
 (function () {
+  function nmLang(){var l=(document.documentElement.lang||"pt").toLowerCase();return l.indexOf("en")===0?"en":l.indexOf("es")===0?"es":"pt";}
+  function nmT(en, pt, es){var l=nmLang();return l==="en"?en:l==="es"?es:pt;}
   var $ = NM.$, FREE_MAX = 10, PRO_MAX = 50, tab = "text", quiz = null;
-  NM.init({ tool: "quiz", freeLimit: 3, unit: "quizzes", freeText: "3 quizzes a day, up to 10 questions, Google Forms, CSV and print.", proText: "Unlimited quizzes, up to 50 questions, Kahoot and Moodle exports, no branding. Pay once.", onLicense: paint });
+  NM.init({ tool: "quiz", freeLimit: 3, unit: "quizzes", freeText: nmT("3 quizzes a day, up to 10 questions, Google Forms, CSV and print.", "3 questionários por dia, até 10 perguntas, Google Forms, CSV e impressão.", "3 cuestionarios al día, hasta 10 preguntas, Google Forms, CSV e impresión."), proText: nmT("Unlimited quizzes, up to 50 questions, Kahoot and Moodle exports, no branding. Pay once.", "Questionários sem limite, até 50 perguntas, exportação Kahoot e Moodle, sem marca. Pague uma vez.", "Cuestionarios sin límite, hasta 50 preguntas, exportación Kahoot y Moodle, sin marca. Pague una vez."), onLicense: paint });
   document.querySelectorAll(".nm-tabs button").forEach(function (b) {
     b.onclick = function () {
       tab = b.getAttribute("data-tab");
@@ -23,10 +25,10 @@
       'For true/false use "type":"tf","options":["True","False"]. "answer" is the 0-based index of the correct option.\n\nSOURCE: ' + src;
   }
   function source(cb) {
-    if (tab === "text") { var s = ($("srctext").value || "").trim(); if (s.length < 40) return cb("Paste at least a few sentences."); return cb(null, { parts: [{ text: prompt("the text below.\n\n" + s.slice(0, 200000)) }] }); }
-    if (tab === "topic") { var t = ($("topic").value || "").trim(); if (!t) return cb("Type a topic."); return cb(null, { parts: [{ text: prompt("the topic: " + t) }] }); }
-    if (tab === "pdf") { var f = $("pdf").files[0]; if (!f) return cb("Choose a PDF."); if (f.size > 19 * 1024 * 1024) return cb("PDF over 19 MB."); return NM.fileToPart(f).then(function (p) { p.inlineData.mimeType = "application/pdf"; cb(null, { parts: [p, { text: prompt("the attached PDF.") }] }); }); }
-    var u = ($("url").value || "").trim(); if (!/^https?:\/\//i.test(u)) return cb("Paste a full URL starting with https://");
+    if (tab === "text") { var s = ($("srctext").value || "").trim(); if (s.length < 40) return cb(nmT("Paste at least a few sentences.", "Cole pelo menos algumas frases.", "Pegue al menos unas frases.")); return cb(null, { parts: [{ text: prompt("the text below.\n\n" + s.slice(0, 200000)) }] }); }
+    if (tab === "topic") { var t = ($("topic").value || "").trim(); if (!t) return cb(nmT("Type a topic.", "Escreva um tema.", "Escriba un tema.")); return cb(null, { parts: [{ text: prompt("the topic: " + t) }] }); }
+    if (tab === "pdf") { var f = $("pdf").files[0]; if (!f) return cb(nmT("Choose a PDF.", "Escolha um PDF.", "Elija un PDF.")); if (f.size > 19 * 1024 * 1024) return cb(nmT("PDF over 19 MB.", "PDF com mais de 19 MB.", "PDF de más de 19 MB.")); return NM.fileToPart(f).then(function (p) { p.inlineData.mimeType = "application/pdf"; cb(null, { parts: [p, { text: prompt("the attached PDF.") }] }); }); }
+    var u = ($("url").value || "").trim(); if (!/^https?:\/\//i.test(u)) return cb(nmT("Paste a full URL starting with https://", "Cole um URL completo que comece por https://", "Pegue una URL completa que empiece por https://"));
     cb(null, { parts: [{ text: prompt("the public web page " + u + " (read it with the URL tool).") }], tools: [{ url_context: {} }] });
   }
   function clean(d) {
@@ -37,30 +39,34 @@
     return { title: String(d.title || "Quiz"), questions: qs.slice(0, NM.isPro() ? PRO_MAX : FREE_MAX) };
   }
   function render() {
-    var L = "ABCDEFGH", h = "<h2>" + NM.esc(quiz.title) + "</h2><p class=\"note\">Name: ____________________ &nbsp; Date: __________</p>";
+    var L = "ABCDEFGH", h = "<h2>" + NM.esc(quiz.title) + "</h2><p class=\"note\">" + nmT("Name: ____________________ &nbsp; Date: __________", "Nome: ____________________ &nbsp; Data: __________", "Nombre: ____________________ &nbsp; Fecha: __________") + "</p>";
     quiz.questions.forEach(function (q, i) {
       h += '<div class="nm-q"><b>' + (i + 1) + ". " + NM.esc(q.question) + "</b><ol type=\"A\">" + q.options.map(function (o, j) { return '<li class="' + (j === q.answer ? "right" : "") + '">' + NM.esc(o) + "</li>"; }).join("") + "</ol>" +
-        '<div class="ex noprint">Answer: ' + L[q.answer] + ". " + NM.esc(q.explanation) + "</div></div>";
+        '<div class="ex noprint">' + nmT("Answer: ", "Resposta: ", "Respuesta: ") + L[q.answer] + ". " + NM.esc(q.explanation) + "</div></div>";
     });
-    h += '<div style="page-break-before:always"></div><h3>Answer key</h3><p>' + quiz.questions.map(function (q, i) { return (i + 1) + ". " + L[q.answer]; }).join(" &nbsp; ") + "</p>";
-    if (!NM.isPro()) h += '<p class="note">Made with Netmend Quiz · netmend.app/quiz</p>';
+    h += '<div style="page-break-before:always"></div><h3>' + nmT("Answer key", "Chave de respostas", "Clave de respuestas") + "</h3><p>" + quiz.questions.map(function (q, i) { return (i + 1) + ". " + L[q.answer]; }).join(" &nbsp; ") + "</p>";
+    if (!NM.isPro()) h += '<p class="note">' + nmT("Made with Netmend Quiz · netmend.app/quiz", "Feito com o Netmend Quiz · netmend.app/quiz", "Hecho con Netmend Quiz · netmend.app/quiz") + "</p>";
     $("out").innerHTML = h; $("quiz-sec").hidden = false; $("exports").hidden = false;
   }
   function js(s) { return JSON.stringify(String(s)); }
   function formsScript() {
-    var o = "// Netmend Quiz -> Google Forms. Paste into script.google.com and click Run.\nfunction createNetmendQuiz() {\n" +
+    var o = nmT("// Netmend Quiz -> Google Forms. Paste into script.google.com and click Run.\n", "// Netmend Quiz -> Google Forms. Cole em script.google.com e clique em Executar.\n", "// Netmend Quiz -> Google Forms. Pegue en script.google.com y pulse Ejecutar.\n") + "function createNetmendQuiz() {\n" +
       "  var form = FormApp.create(" + js(quiz.title) + ");\n  form.setIsQuiz(true);\n" +
-      "  form.setDescription(" + js(NM.isPro() ? "" : "Made with Netmend Quiz (netmend.app/quiz)") + ");\n" +
+      "  form.setDescription(" + js(NM.isPro() ? "" : nmT("Made with Netmend Quiz (netmend.app/quiz)", "Feito com o Netmend Quiz (netmend.app/quiz)", "Hecho con Netmend Quiz (netmend.app/quiz)")) + ");\n" +
       "  var q = " + JSON.stringify(quiz.questions) + ";\n" +
       "  q.forEach(function (x) {\n    var it = form.addMultipleChoiceItem();\n    it.setTitle(x.question).setPoints(1).setRequired(true)\n" +
       "      .setChoices(x.options.map(function (o, i) { return it.createChoice(o, i === x.answer); }));\n" +
       "    if (x.explanation) {\n      it.setFeedbackForCorrect(FormApp.createFeedback().setText(x.explanation).build());\n      it.setFeedbackForIncorrect(FormApp.createFeedback().setText(x.explanation).build());\n    }\n  });\n" +
-      "  Logger.log('Edit: ' + form.getEditUrl());\n  Logger.log('Share with students: ' + form.getPublishedUrl());\n}\n";
+      "  Logger.log(" + js(nmT("Edit: ", "Editar: ", "Editar: ")) + " + form.getEditUrl());\n  Logger.log(" + js(nmT("Share with students: ", "Partilhar com os alunos: ", "Compartir con los alumnos: ")) + " + form.getPublishedUrl());\n}\n";
     return o;
   }
   function csvCell(s) { s = String(s); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
   function toCsv() {
-    var rows = [["#", "Type", "Question", "Option A", "Option B", "Option C", "Option D", "Correct (letter)", "Correct (text)", "Explanation"]];
+    var rows = [nmLang() === "en"
+      ? ["#", "Type", "Question", "Option A", "Option B", "Option C", "Option D", "Correct (letter)", "Correct (text)", "Explanation"]
+      : nmLang() === "es"
+        ? ["#", "Tipo", "Pregunta", "Opción A", "Opción B", "Opción C", "Opción D", "Correcta (letra)", "Correcta (texto)", "Explicación"]
+        : ["#", "Tipo", "Pergunta", "Opção A", "Opção B", "Opção C", "Opção D", "Correta (letra)", "Correta (texto)", "Explicação"]];
     quiz.questions.forEach(function (q, i) { var o = q.options.concat(["", "", "", ""]).slice(0, 4); rows.push([i + 1, q.type, q.question].concat(o, ["ABCD"[q.answer], q.options[q.answer], q.explanation])); });
     return rows.map(function (r) { return r.map(csvCell).join(","); }).join("\r\n");
   }
@@ -96,21 +102,21 @@
   $("go").onclick = function () {
     if (!NM.getKey()) return NM.status("status", NM.friendlyError("NOKEY"), "bad");
     if (!NM.canUse()) return NM.status("status", NM.limitMsg(), "bad");
-    NM.status("status", "Preparing your source…");
+    NM.status("status", nmT("Preparing your source…", "A preparar a fonte…", "Preparando la fuente…"));
     source(function (err, req) {
       if (err) return NM.status("status", NM.esc(err), "bad");
-      req.json = true; req.temperature = 0.4; req.onModel = function (m) { NM.status("status", "Writing questions with " + m + "…"); };
+      req.json = true; req.temperature = 0.4; req.onModel = function (m) { NM.status("status", nmT("Writing questions with " + m + "…", "A escrever perguntas com " + m + "…", "Escribiendo preguntas con " + m + "…")); };
       $("go").disabled = true;
       NM.gemini(req).then(function (d) {
-        var c = clean(d || {}); if (!c.questions.length) throw new Error("No questions came back. Try again with more material.");
-        quiz = c; NM.consume(); render(); NM.status("status", "Done: " + c.questions.length + " questions. Review them, then export.", "ok");
+        var c = clean(d || {}); if (!c.questions.length) throw new Error(nmT("No questions came back. Try again with more material.", "Não voltou nenhuma pergunta. Tente outra vez com mais material.", "No volvió ninguna pregunta. Inténtelo de nuevo con más material."));
+        quiz = c; NM.consume(); render(); NM.status("status", nmT("Done: " + c.questions.length + " questions. Review them, then export.", "Feito: " + c.questions.length + " perguntas. Reveja-as e exporte.", "Hecho: " + c.questions.length + " preguntas. Revíselas y exporte."), "ok");
       }).catch(function (e) { NM.status("status", NM.esc(NM.friendlyError(e)), "bad"); }).then(function () { $("go").disabled = false; });
     });
   };
   $("x-forms").onclick = function () { var s = formsScript(); $("forms-code").textContent = s; $("forms-help").hidden = false; NM.copy(s, this); };
   $("x-print").onclick = function () { window.print(); };
   $("x-csv").onclick = function () { NM.download(new Blob(["\ufeff" + toCsv()], { type: "text/csv" }), NM.slug(quiz.title) + ".csv"); };
-  $("x-gift").onclick = function () { if (!NM.isPro()) return NM.status("status", "Moodle GIFT export is part of Pro.", "bad"); NM.download(new Blob([toGift()], { type: "text/plain" }), NM.slug(quiz.title) + ".gift.txt"); };
-  $("x-kahoot").onclick = function () { if (!NM.isPro()) return NM.status("status", "Kahoot export is part of Pro. Free: Google Forms, CSV, print.", "bad"); xlsx(kahootRows()).then(function (b) { NM.download(b, NM.slug(quiz.title) + "-kahoot.xlsx"); }); };
+  $("x-gift").onclick = function () { if (!NM.isPro()) return NM.status("status", nmT("Moodle GIFT export is part of Pro.", "A exportação Moodle GIFT faz parte do Pro.", "La exportación Moodle GIFT forma parte de Pro."), "bad"); NM.download(new Blob([toGift()], { type: "text/plain" }), NM.slug(quiz.title) + ".gift.txt"); };
+  $("x-kahoot").onclick = function () { if (!NM.isPro()) return NM.status("status", nmT("Kahoot export is part of Pro. Free: Google Forms, CSV, print.", "A exportação Kahoot faz parte do Pro. Grátis: Google Forms, CSV, impressão.", "La exportación a Kahoot forma parte de Pro. Gratis: Google Forms, CSV, impresión."), "bad"); xlsx(kahootRows()).then(function (b) { NM.download(b, NM.slug(quiz.title) + "-kahoot.xlsx"); }); };
   window.__nmQuiz = { get: function () { return quiz; }, forms: formsScript, csv: toCsv, gift: toGift, kahoot: function () { return xlsx(kahootRows()); } };
 })();

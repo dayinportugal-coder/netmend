@@ -1,5 +1,7 @@
 /* Netmend Slides: source -> Gemini outline JSON -> preview -> .pptx (pptxgenjs). Runs in the browser. */
 (function () {
+  function nmLang(){var l=(document.documentElement.lang||"pt").toLowerCase();return l.indexOf("en")===0?"en":l.indexOf("es")===0?"es":"pt";}
+  function nmT(en, pt, es){var l=nmLang();return l==="en"?en:l==="es"?es:pt;}
   var $ = NM.$, FREE_MAX = 8, PRO_MAX = 30;
   var THEMES = {
     midnight: { bg: "0B0D12", title: "FFFFFF", text: "D6D9E0", accent: "FF5A36", soft: "1A1D26" },
@@ -9,7 +11,7 @@
     forest:   { bg: "F3F7F2", title: "14301F", text: "2F4A3A", accent: "2F855A", soft: "DDEBDD" }
   };
   var tab = "topic", deck = null;
-  NM.init({ tool: "slides", freeLimit: 3, unit: "decks", freeText: "3 decks a day, up to 8 slides, small Netmend credit line.", proText: "Unlimited decks, up to 30 slides, no branding, custom accent colour. Pay once.", onLicense: paintPro });
+  NM.init({ tool: "slides", freeLimit: 3, unit: "decks", freeText: nmT("3 decks a day, up to 8 slides, small Netmend credit line.", "3 apresentações por dia, até 8 diapositivos, com uma linha pequena da Netmend.", "3 presentaciones al día, hasta 8 diapositivas, con una línea pequeña de Netmend."), proText: nmT("Unlimited decks, up to 30 slides, no branding, custom accent colour. Pay once.", "Apresentações sem limite, até 30 diapositivos, sem marca, cor de destaque à escolha. Pague uma vez.", "Presentaciones sin límite, hasta 30 diapositivas, sin marca, color de acento a elegir. Pague una vez."), onLicense: paintPro });
 
   document.querySelectorAll(".nm-tabs button").forEach(function (b) {
     b.onclick = function () {
@@ -19,7 +21,7 @@
     };
   });
   var accentWrap = document.createElement("div");
-  accentWrap.innerHTML = '<label for="accent">Accent colour (Pro)</label><input id="accent" type="color" value="#ff5a36">';
+  accentWrap.innerHTML = '<label for="accent">' + nmT("Accent colour (Pro)", "Cor de destaque (Pro)", "Color de acento (Pro)") + '</label><input id="accent" type="color" value="#ff5a36">';
   $("theme").parentNode.parentNode.appendChild(accentWrap);
   function paintPro() {
     $("accent").disabled = !NM.isPro();
@@ -49,19 +51,19 @@
   function sourceParts(cb) {
     var n = Number($("count").value), lang = $("lang").value, extra = ($("extra").value || "").trim();
     if (tab === "topic") {
-      var t = ($("topic").value || "").trim(); if (!t) return cb("Type a topic first.");
+      var t = ($("topic").value || "").trim(); if (!t) return cb(nmT("Type a topic first.", "Escreva primeiro um tema.", "Escriba primero un tema."));
       return cb(null, { parts: [{ text: prompt(n, lang, extra, "a topic: " + t) }] });
     }
     if (tab === "text") {
-      var s = ($("srctext").value || "").trim(); if (s.length < 40) return cb("Paste at least a few sentences of text.");
+      var s = ($("srctext").value || "").trim(); if (s.length < 40) return cb(nmT("Paste at least a few sentences of text.", "Cole pelo menos algumas frases.", "Pegue al menos unas frases."));
       return cb(null, { parts: [{ text: prompt(n, lang, extra, "the text below.\n\n" + s.slice(0, 200000)) }] });
     }
     if (tab === "pdf") {
-      var f = $("pdf").files[0]; if (!f) return cb("Choose a PDF file first.");
-      if (f.size > 19 * 1024 * 1024) return cb("That PDF is over 19 MB. Split it or compress it first.");
+      var f = $("pdf").files[0]; if (!f) return cb(nmT("Choose a PDF file first.", "Escolha primeiro um ficheiro PDF.", "Elija primero un fichero PDF."));
+      if (f.size > 19 * 1024 * 1024) return cb(nmT("That PDF is over 19 MB. Split it or compress it first.", "Esse PDF passa dos 19 MB. Divida-o ou comprima-o primeiro.", "Ese PDF supera los 19 MB. Divídalo o comprímalo primero."));
       return NM.fileToPart(f).then(function (p) { p.inlineData.mimeType = "application/pdf"; cb(null, { parts: [p, { text: prompt(n, lang, extra, "the attached PDF document.") }] }); }, function (e) { cb(e.message); });
     }
-    var u = ($("url").value || "").trim(); if (!/^https?:\/\//i.test(u)) return cb("Paste a full URL starting with https://");
+    var u = ($("url").value || "").trim(); if (!/^https?:\/\//i.test(u)) return cb(nmT("Paste a full URL starting with https://", "Cole um URL completo que comece por https://", "Pegue una URL completa que empiece por https://"));
     cb(null, { parts: [{ text: prompt(n, lang, extra, "the public web page at " + u + " (read it with the URL tool).") }], tools: [{ url_context: {} }] });
   }
 
@@ -80,7 +82,7 @@
       h += '<span class="n">' + (i + 1) + "</span></div>";
     });
     h += "</div>";
-    h += '<div class="nm-actions"><button class="btn" type="button" id="dl">Download .pptx</button><button class="btn ghost" type="button" id="md">Copy outline (Markdown)</button></div>';
+    h += '<div class="nm-actions"><button class="btn" type="button" id="dl">' + nmT("Download .pptx", "Transferir .pptx", "Descargar .pptx") + '</button><button class="btn ghost" type="button" id="md">' + nmT("Copy outline (Markdown)", "Copiar o esquema (Markdown)", "Copiar el esquema (Markdown)") + "</button></div>";
     $("out").innerHTML = h;
     $("dl").onclick = function () { buildPptx().catch(function (e) { NM.status("status", NM.esc(e.message), "bad"); }); };
     $("md").onclick = function () { NM.copy(toMarkdown(), this); };
@@ -97,7 +99,7 @@
       if (s.stat) o += "**" + s.stat + "** " + (s.statLabel || "") + "\n";
       arr(s.bullets).concat(arr(s.left), arr(s.right)).forEach(function (b) { o += "- " + b + "\n"; });
       if (s.quote && s.title) o += "> " + s.quote + "\n";
-      if (s.notes) o += "\nNotes: " + s.notes + "\n";
+      if (s.notes) o += "\n" + nmT("Notes: ", "Notas: ", "Notas: ") + s.notes + "\n";
     });
     return o;
   }
@@ -108,7 +110,7 @@
     var F = "Calibri", W = 13.33;
     function base() {
       var s = p.addSlide(); s.background = { color: th.bg };
-      if (!pro) s.addText("Made with Netmend Slides · netmend.app/slides", { x: 0.5, y: 7.05, w: 9, h: 0.3, fontSize: 9, color: th.text, transparency: 40, fontFace: F });
+      if (!pro) s.addText(nmT("Made with Netmend Slides · netmend.app/slides", "Feito com o Netmend Slides · netmend.app/slides", "Hecho con Netmend Slides · netmend.app/slides"), { x: 0.5, y: 7.05, w: 9, h: 0.3, fontSize: 9, color: th.text, transparency: 40, fontFace: F });
       return s;
     }
     function bullets(s, items, x, y, w, h, size) {
@@ -117,7 +119,7 @@
     }
     var t = base();
     t.addShape(p.ShapeType.rect, { x: 0, y: 0, w: 0.25, h: 7.5, fill: { color: th.accent } });
-    t.addText(deck.title || "Untitled", { x: 0.9, y: 2.2, w: 11.5, h: 1.8, fontSize: 44, bold: true, color: th.title, fontFace: F, valign: "bottom" });
+    t.addText(deck.title || nmT("Untitled", "Sem título", "Sin título"), { x: 0.9, y: 2.2, w: 11.5, h: 1.8, fontSize: 44, bold: true, color: th.title, fontFace: F, valign: "bottom" });
     if (deck.subtitle) t.addText(deck.subtitle, { x: 0.9, y: 4.1, w: 11.5, h: 0.9, fontSize: 22, color: th.text, fontFace: F, valign: "top" });
     deck.slides.forEach(function (sl, i) {
       var s = base(), L = sl.layout;
@@ -149,8 +151,8 @@
     });
     if (!pro) {
       var e = base();
-      e.addText("Made with Netmend Slides", { x: 0.9, y: 2.8, w: 11.5, h: 1, fontSize: 32, bold: true, color: th.title, fontFace: F });
-      e.addText("Free AI decks from any PDF, text or link · netmend.app/slides", { x: 0.9, y: 3.8, w: 11.5, h: 0.7, fontSize: 18, color: th.text, fontFace: F });
+      e.addText(nmT("Made with Netmend Slides", "Feito com o Netmend Slides", "Hecho con Netmend Slides"), { x: 0.9, y: 2.8, w: 11.5, h: 1, fontSize: 32, bold: true, color: th.title, fontFace: F });
+      e.addText(nmT("Free AI decks from any PDF, text or link · netmend.app/slides", "Apresentações de IA grátis a partir de PDF, texto ou ligação · netmend.app/slides", "Presentaciones de IA gratis a partir de PDF, texto o enlace · netmend.app/slides"), { x: 0.9, y: 3.8, w: 11.5, h: 0.7, fontSize: 18, color: th.text, fontFace: F });
     }
     return p.writeFile({ fileName: NM.slug(deck.title) + ".pptx" });
   }
@@ -158,18 +160,18 @@
   $("go").onclick = function () {
     if (!NM.getKey()) return NM.status("status", NM.friendlyError("NOKEY"), "bad");
     if (!NM.canUse()) return NM.status("status", NM.limitMsg(), "bad");
-    NM.status("status", "Preparing your source…");
+    NM.status("status", nmT("Preparing your source…", "A preparar a fonte…", "Preparando la fuente…"));
     sourceParts(function (err, req) {
       if (err) return NM.status("status", NM.esc(err), "bad");
-      $("go").disabled = true; NM.status("status", "Reading your source and writing the deck… (10–40 s)");
+      $("go").disabled = true; NM.status("status", nmT("Reading your source and writing the deck… (10–40 s)", "A ler a fonte e a escrever a apresentação… (10–40 s)", "Leyendo la fuente y escribiendo la presentación… (10–40 s)"));
       req.json = true; req.temperature = 0.6;
-      req.onModel = function (m) { NM.status("status", "Writing the deck with " + m + "…"); };
+      req.onModel = function (m) { NM.status("status", nmT("Writing the deck with " + m + "…", "A escrever a apresentação com " + m + "…", "Escribiendo la presentación con " + m + "…")); };
       NM.gemini(req).then(function (d) {
-        if (!d || !Array.isArray(d.slides) || !d.slides.length) throw new Error("No slides came back. Try again or give a longer source.");
+        if (!d || !Array.isArray(d.slides) || !d.slides.length) throw new Error(nmT("No slides came back. Try again or give a longer source.", "Não voltou nenhum diapositivo. Tente outra vez ou dê uma fonte mais longa.", "No volvió ninguna diapositiva. Inténtelo de nuevo o dé una fuente más larga."));
         var max = NM.isPro() ? PRO_MAX : FREE_MAX;
         d.slides = d.slides.slice(0, Math.min(max, Number($("count").value)));
         deck = d; NM.consume(); render();
-        NM.status("status", "Done: " + (d.slides.length + 1) + " slides. Check the facts, then download.", "ok");
+        NM.status("status", nmT("Done: " + (d.slides.length + 1) + " slides. Check the facts, then download.", "Feito: " + (d.slides.length + 1) + " diapositivos. Confira os factos e depois transfira.", "Hecho: " + (d.slides.length + 1) + " diapositivas. Compruebe los datos y después descargue."), "ok");
       }).catch(function (e) { NM.status("status", NM.esc(NM.friendlyError(e)), "bad"); })
         .then(function () { $("go").disabled = false; });
     });

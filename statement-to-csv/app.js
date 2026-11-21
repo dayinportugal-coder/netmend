@@ -1,4 +1,6 @@
 // Netmend free bank statement converter. Runs 100% in the browser with pdf.js.
+function nmLang(){var l=(document.documentElement.lang||"pt").toLowerCase();return l.indexOf("en")===0?"en":l.indexOf("es")===0?"es":"pt";}
+function nmT(en,pt,es){var l=nmLang();return l==="en"?en:l==="es"?es:pt;}
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
 var RES={rows:[],tx:[]};
 var DATE_RE=/^(\d{1,2}[\/.\-]\d{1,2}([\/.\-]\d{2,4})?|\d{4}-\d{2}-\d{2}|\d{1,2}\s?(jan|feb|fev|mar|apr|abr|may|mai|jun|jul|aug|ago|sep|set|oct|out|nov|dec|dez)[a-z]*\.?(\s?\d{2,4})?)$/i;
@@ -69,16 +71,18 @@ function build(){
 function render(){
   var b=build(),t=document.getElementById('preview');t.innerHTML='';
   b.table.slice(0,201).forEach(function(r,i){var tr=document.createElement('tr');r.forEach(function(v){var c=document.createElement(i?'td':'th');c.textContent=v;tr.appendChild(c)});t.appendChild(tr)});
-  document.getElementById('stats').textContent=(document.getElementById('mode').value==='tx'?RES.tx.length+' transactions found':RES.rows.length+' text rows')+' · '+RES.pages+' page(s). Nothing was uploaded.';
+  var modeTx=document.getElementById('mode').value==='tx';
+  var pages=nmT(RES.pages+' page(s)', RES.pages+(RES.pages===1?' página':' páginas'), RES.pages+(RES.pages===1?' página':' páginas'));
+  document.getElementById('stats').textContent=(modeTx?nmT(RES.tx.length+' transactions found', RES.tx.length+' movimentos encontrados', RES.tx.length+' movimientos encontrados'):nmT(RES.rows.length+' text rows', RES.rows.length+' linhas de texto', RES.rows.length+' filas de texto'))+' · '+pages+nmT('. Nothing was uploaded.', '. Nada foi enviado.', '. No se ha subido nada.');
   document.getElementById('dl').disabled=false;document.getElementById('out').hidden=false;
 }
-async function handle(f){if(!f)return;var st=document.getElementById('stats');document.getElementById('out').hidden=false;st.textContent='Reading '+f.name+'…';
+async function handle(f){if(!f)return;var st=document.getElementById('stats');document.getElementById('out').hidden=false;st.textContent=nmT('Reading '+f.name+'…','A ler '+f.name+'…','Leyendo '+f.name+'…');
   try{RES.rows=await readPdf(f);RES.pages=RES.rows.length?RES.rows[RES.rows.length-1].page:0;RES.tx=toTransactions(RES.rows,document.getElementById('fmt').value);
-    if(!RES.rows.length){st.textContent='No text found. This PDF is probably a scan (an image). Send it to us and we convert it by hand: see below.';return}
+    if(!RES.rows.length){st.textContent=nmT('No text found. This PDF is probably a scan (an image). Send it to us and we convert it by hand: see below.','Não há texto. Este PDF é provavelmente uma digitalização (uma imagem). Envie-o e convertemos à mão: ver abaixo.','No hay texto. Este PDF es probablemente un escaneo (una imagen). Envíelo y lo convertimos a mano: ver abajo.');return}
     if(!RES.tx.length)document.getElementById('mode').value='all';render();
-  }catch(err){st.textContent='Could not read this PDF ('+err.message+'). If it is password-protected, open it and "print to PDF" first.'}
+  }catch(err){st.textContent=nmT('Could not read this PDF ('+err.message+'). If it is password-protected, open it and "print to PDF" first.','Não foi possível ler este PDF ('+err.message+'). Se tiver palavra-passe, abra-o e use «imprimir para PDF» primeiro.','No se pudo leer este PDF ('+err.message+'). Si tiene contraseña, ábralo y use «imprimir a PDF» primero.')}
 }
 document.getElementById('file').addEventListener('change',function(e){handle(e.target.files[0])});
 document.getElementById('demo').addEventListener('click',async function(){var src=this.getAttribute('data-src')||'../samples/demo-statement.pdf';var r=await fetch(src);var b=await r.blob();b.name='demo-statement.pdf';handle(b)});
 ['mode','sep','fmt'].forEach(function(id){document.getElementById(id).addEventListener('change',function(){if(RES.rows.length){RES.tx=toTransactions(RES.rows,document.getElementById('fmt').value);render()}})});
-document.getElementById('dl').addEventListener('click',function(){var b=build();var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([b.csv],{type:'text/csv;charset=utf-8'}));a.download='statement-netmend.csv';a.click()});
+document.getElementById('dl').addEventListener('click',function(){var b=build();var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([b.csv],{type:'text/csv;charset=utf-8'}));a.download=nmT('statement-netmend.csv','extrato-netmend.csv','extracto-netmend.csv');a.click()});

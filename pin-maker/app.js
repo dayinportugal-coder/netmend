@@ -1,11 +1,13 @@
 // Netmend free Pinterest pin maker (1000x1500). Runs in the browser with <canvas>.
+function nmLang(){var l=(document.documentElement.lang||"pt").toLowerCase();return l.indexOf("en")===0?"en":l.indexOf("es")===0?"es":"pt";}
+function nmT(en,pt,es){var l=nmLang();return l==="en"?en:l==="es"?es:pt;}
 var cv=document.getElementById('cv'),ctx=cv.getContext('2d'),IMG=null;
 var PALS=[['#0B1F33','#FF5A36','#F4F1EA'],['#2f4a40','#e9c46a','#fbf7ef'],['#3d2c8d','#ff6f91','#fff5f8'],['#111111','#f5d000','#ffffff'],['#7a3e2b','#f2a65a','#fff8f0'],['#0f4c5c','#5fd3c4','#effcfb']];
 function wrap(text,maxW,font){ctx.font=font;var words=text.split(/\s+/),lines=[],cur='';words.forEach(function(w){var t=cur?cur+' '+w:w;if(ctx.measureText(t).width>maxW&&cur){lines.push(cur);cur=w}else cur=t});if(cur)lines.push(cur);return lines}
 function fitTitle(text,maxW,maxH,weight){for(var s=118;s>=44;s-=4){var f=weight+' '+s+'px "Space Grotesk",Inter,system-ui,sans-serif';var L=wrap(text,maxW,f);if(L.length*s*1.12<=maxH)return{lines:L,size:s,font:f}}var f2=weight+' 44px system-ui';return{lines:wrap(text,maxW,f2),size:44,font:f2}}
 function cover(){if(!IMG)return;var r=Math.max(1000/IMG.width,1500/IMG.height),w=IMG.width*r,h=IMG.height*r;ctx.drawImage(IMG,(1000-w)/2,(1500-h)/2,w,h)}
 function draw(){
-  var T=document.getElementById('t').value||'Your blog post title goes here',S=document.getElementById('s').value,U=document.getElementById('u').value,tpl=+document.getElementById('tpl').value,P=PALS[+document.getElementById('pal').value];
+  var T=document.getElementById('t').value||nmT('Your blog post title goes here','O título do artigo fica aqui','El título de la entrada va aquí'),S=document.getElementById('s').value,U=document.getElementById('u').value,tpl=+document.getElementById('tpl').value,P=PALS[+document.getElementById('pal').value];
   var dark=P[0],acc=P[1],light=P[2];ctx.clearRect(0,0,1000,1500);ctx.textBaseline='top';
   if(tpl===0){ // photo top, band bottom
     ctx.fillStyle=light;ctx.fillRect(0,0,1000,1500);if(IMG){ctx.save();ctx.beginPath();ctx.rect(0,0,1000,820);ctx.clip();cover();ctx.restore()}else{ctx.fillStyle=acc;ctx.fillRect(0,0,1000,820)}
@@ -23,7 +25,7 @@ function draw(){
     if(S){ctx.font='600 40px system-ui';ctx.fillStyle=dark;ctx.fillText(S.slice(0,48),70,IMG?810:900)}
   }else{ // split colour, no photo needed
     ctx.fillStyle=acc;ctx.fillRect(0,0,1000,1500);ctx.fillStyle=dark;ctx.fillRect(0,0,1000,520);
-    ctx.font='700 46px system-ui';ctx.fillStyle=acc;ctx.fillText((S||'NEW POST').toUpperCase().slice(0,30),70,380);
+    ctx.font='700 46px system-ui';ctx.fillStyle=acc;ctx.fillText((S||nmT('NEW POST','NOVO ARTIGO','NUEVA ENTRADA')).toUpperCase().slice(0,30),70,380);
     var f=fitTitle(T,860,760,'800');ctx.fillStyle=dark;f.lines.forEach(function(l,i){ctx.font=f.font;ctx.fillText(l,70,600+i*f.size*1.12)});
   }
   if(U){ctx.font='700 34px system-ui';var w=ctx.measureText(U).width+60;ctx.fillStyle=dark;ctx.fillRect((1000-w)/2,1400,w,64);ctx.fillStyle=light;ctx.fillText(U,(1000-w)/2+30,1414)}

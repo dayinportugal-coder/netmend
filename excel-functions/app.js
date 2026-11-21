@@ -1,3 +1,5 @@
+function nmLang(){var l=(document.documentElement.lang||"pt").toLowerCase();return l.indexOf("en")===0?"en":l.indexOf("es")===0?"es":"pt";}
+function nmT(en,pt,es){var l=nmLang();return l==="en"?en:l==="es"?es:pt;}
 function idx(l){return LANGS.indexOf(l)}
 function translate(f,from,to){
   if(from===to)return f;var fi=idx(from),ti=idx(to),map={};
@@ -21,10 +23,10 @@ function translate(f,from,to){
 function fill(sel,def){LANGS.forEach(function(l){var o=document.createElement('option');o.value=l;o.textContent=LNAME[l];sel.appendChild(o)});sel.value=def}
 fill(document.getElementById('from'),'en');fill(document.getElementById('to'),'pt');
 function run(){var r=translate(document.getElementById('f').value,document.getElementById('from').value,document.getElementById('to').value);
-  document.getElementById('res').value=r.f;document.getElementById('unk').textContent=r.unknown&&r.unknown.length?'Not in our list (left unchanged): '+r.unknown.join(', '):''}
+  document.getElementById('res').value=r.f;document.getElementById('unk').textContent=r.unknown&&r.unknown.length?nmT('Not in our list (left unchanged): ','Fora da nossa lista (ficou igual): ','Fuera de nuestra lista (se dejó igual): ')+r.unknown.join(', '):''}
 ['f','from','to'].forEach(function(i){document.getElementById(i).addEventListener('input',run)});
 document.getElementById('swap').addEventListener('click',function(){var a=document.getElementById('from'),b=document.getElementById('to'),t=a.value;a.value=b.value;b.value=t;document.getElementById('f').value=document.getElementById('res').value;run()});
-document.getElementById('cp').addEventListener('click',function(){navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('res').value);this.textContent='Copied ✓'});
+document.getElementById('cp').addEventListener('click',function(){navigator.clipboard&&navigator.clipboard.writeText(document.getElementById('res').value);this.textContent=nmT('Copied ✓','Copiado ✓','Copiado ✓')});
 run();
 // table
 var tb=document.getElementById('tb'),q=document.getElementById('q');
