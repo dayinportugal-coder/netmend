@@ -94,6 +94,8 @@ try {
   await input.uploadFile("/tmp/nohdr-date.xlsx");
   await page.waitForFunction(() => document.getElementById("c-count").textContent === "2");
   assert(!(await amounts(page)).join(" ").includes("46"), "Excel date serial used as amount: " + (await amounts(page)).join(" | "));
+  assert((await page.$eval("#map-name", (el) => el.selectedOptions[0].textContent)) === "Coluna 2", "Excel date mapped as the name");
+  assert((await page.$eval("#map-bic", (el) => el.value)) === "", "name mapped as BIC on the date file");
   assert(await page.$eval("#download", (el) => el.disabled), "date workbook downloaded without confirmation");
 
   await paste(page, [
@@ -211,6 +213,44 @@ try {
   assert(await es.$eval("#dbtr-nif", (el) => el.getAttribute("aria-invalid")) === "true", "ES NIF not invalid");
   assert(/NIF-sufijo/.test(await es.$eval("#missing-summary", (el) => el.textContent)), await es.$eval("#missing-summary", (el) => el.textContent));
   assert(/NIF-sufijo/.test(await es.$eval("#download-reason", (el) => el.textContent)), await es.$eval("#download-reason", (el) => el.textContent));
+
+  await page.bringToFront();
+  await paste(page, [
+    "2026-11-21;ANA EXEMPLO;PT50999900010000000000167;10,00;PORTUGAL",
+    "2026-11-22;JOSE EXEMPLO;PT50999900010000000000264;20,00;FORNECEDOR"
+  ].join("\n"));
+  const mapped = await page.evaluate(() => ({
+    name: document.getElementById("map-name").selectedOptions[0].textContent,
+    bic: document.getElementById("map-bic").value,
+    confirmShown: getComputedStyle(document.getElementById("confirm-map-label")).display !== "none"
+  }));
+  assert(mapped.name === "Coluna 2", "date mapped as name: " + mapped.name);
+  assert(mapped.bic === "", "name mapped as BIC");
+  assert(mapped.confirmShown, "confirm hidden on a header-less file");
+  await page.evaluate(() => { document.getElementById("confirm-map").checked = true; });
+  await paste(page, "Nome;IBAN;Montante\nANA EXEMPLO;PT50999900010000000000167;10,00\n");
+  const afterHeader = await page.evaluate(() => ({
+    shown: getComputedStyle(document.getElementById("confirm-map-label")).display !== "none",
+    checked: document.getElementById("confirm-map").checked
+  }));
+  assert(!afterHeader.shown && !afterHeader.checked, "confirm stayed after a headed file: " + JSON.stringify(afterHeader));
+
+  await page.evaluate(() => {
+    const name = document.getElementById("dbtr-name");
+    name.focus();
+    name.value = "EMPRESA EXEMPLO LDA";
+    name.dispatchEvent(new Event("input", { bubbles: true }));
+    name.blur();
+  });
+  const focus = await page.evaluate(() => ({
+    id: document.activeElement && document.activeElement.id,
+    top: document.getElementById("dbtr-iban").getBoundingClientRect().top
+  }));
+  assert(focus.id !== "results", "blur moved focus to results");
+  await page.focus("#dbtr-iban");
+  await page.keyboard.type("PT50");
+  const typed = await page.$eval("#dbtr-iban", (el) => el.value);
+  assert(typed.indexOf("PT50") !== -1, "could not keep typing in the next field: " + typed);
 
   assert(logs.length === 0, logs.join("\n"));
   console.log("review ok");

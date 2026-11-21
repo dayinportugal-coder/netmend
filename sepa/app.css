@@ -31,6 +31,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 .lang a[aria-current]{color:#fff}
 input[type=date]{width:100%;font:inherit;font-size:15px;color:var(--text);padding:10px 12px;border:1px solid var(--border-2);border-radius:10px;background:rgba(0,0,0,.35)}
 label.check{display:flex;align-items:flex-start;gap:8px;font-weight:500;color:var(--muted);margin-top:14px}
+label.check[hidden]{display:none}
 label.check input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}
 #problems{margin:8px 0 0;padding-left:18px}
 #problems li{margin:6px 0;overflow-wrap:anywhere}

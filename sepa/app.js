@@ -1505,6 +1505,7 @@
   function setGrid(headers, dataRows, fileName, map, firstRow) {
     state = { headers: headers, dataRows: dataRows, fileName: fileName, map: map, firstRow: firstRow || 2, userCells: {}, autoCells: {}, needsConfirm: !!(map && map.fromContent) };
     if ($("confirm-map")) $("confirm-map").checked = false;
+    if ($("confirm-map-label")) $("confirm-map-label").hidden = !state.needsConfirm;
     clearResults();
     fillMapSelects();
     render(true);
@@ -1546,7 +1547,15 @@
     var sequence = n >= 2 && ints.length === n && ints.every(function (v, i) { return v === i + 1; });
     var nif = n >= 1 && nines === n;
     var dateCol = (n >= 1 && dates === n) || (n >= 1 && numbers === n && serials === n);
-    return { strong: strong, weak: weak, reject: sequence || nif || dateCol };
+    return { strong: strong, weak: weak, reject: sequence || nif || dateCol, dateCol: dateCol };
+  }
+  function looksLikeBic(cell) {
+    var raw = String(cell == null ? "" : cell).trim();
+    if (!raw || /\s/.test(raw) || cell instanceof Date) return false;
+    var bic = checkBic(raw);
+    if (bic.error || !bic.value) return false;
+    var cc = bic.value.slice(4, 6);
+    return !!(IBAN_LEN[cc] || SEPA[cc]);
   }
   function detectContentMap(rows) {
     var width = 0, r, c, n = rows.length;
@@ -1562,10 +1571,12 @@
         var compact = String(cell == null ? "" : cell).replace(/[\s.\-_]/g, "");
         var ibanLike = /^\d{21}$/.test(compact) || /^[A-Za-z]{2}\d{2}[A-Za-z0-9]{10,30}$/.test(compact);
         if (ibanLike) iban[c]++;
-        if (/^[A-Za-z]{6}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$/.test(compact)) bic[c]++;
-        if (/[A-Za-zÀ-ÿ]{3,}/.test(String(cell || "")) && !/^[A-Za-z]{2}\d{2}/.test(compact)) name[c]++;
+        if (looksLikeBic(cell)) bic[c]++;
+        var dateCell = cell instanceof Date || isTextDate(cell) || (typeof cell === "number" && Math.round(cell) === cell && cell >= 30000 && cell <= 80000);
+        if (!dateCell && /[A-Za-zÀ-ÿ]{3,}/.test(String(cell || "")) && !/^[A-Za-z]{2}\d{2}/.test(compact) && !looksLikeBic(cell)) name[c]++;
       }
       var profile = profiles[c];
+      if (profile.dateCol) name[c] = 0;
       amount[c] = profile.reject ? 0 : profile.strong * 10 + profile.weak;
     }
     var anyStrong = profiles.some(function (profile, i) { return !profile.reject && profile.strong > 0 && amount[i] > 0; });
@@ -1843,7 +1854,7 @@
       syncNif();
       if (state) render(false);
     });
-    $(id).addEventListener("blur", function () { if (state) render(true); });
+    $(id).addEventListener("blur", function () { if (state) render(false); });
   });
   $("dbtr-batch").addEventListener("change", function () { saveDebtor(); if (state) render(true); });
   $("pain-version").addEventListener("change", function () { if (state) render(true); });
