@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-PT" data-tool="anexo">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anexo B dos recibos verdes: coeficientes do regime simplificado · Netmend</title>
+<meta name="description" content="Anexo B do IRS para recibos verdes: aplica os coeficientes do regime simplificado (0,75, 0,35, 0,15) aos seus recibos e mostra o IRS retido. No browser, sem enviar ficheiros.">
+<link rel="canonical" href="https://netmend.app/recibos-verdes/irs-anexo-b/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/recibos-verdes/irs-anexo-b/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/recibos-verdes/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/recibos-verdes/irs-anexo-b/">
+<meta property="og:title" content="Anexo B recibos verdes · coeficientes do regime simplificado">
+<meta property="og:description" content="Anexo B do IRS para recibos verdes: coeficientes do regime simplificado e IRS retido, no browser.">
+<meta property="og:image" content="https://netmend.app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0c0f">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/recibos-verdes/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Netmend","item":"https://netmend.app/"},{"@type":"ListItem","position":2,"name":"Ferramentas","item":"https://netmend.app/tools/"},{"@type":"ListItem","position":3,"name":"Recibos verdes","item":"https://netmend.app/recibos-verdes/"},{"@type":"ListItem","position":4,"name":"Anexo B","item":"https://netmend.app/recibos-verdes/irs-anexo-b/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quais são os coeficientes do regime simplificado no anexo B?","acceptedAnswer":{"@type":"Answer","text":"O artigo 31.º, n.º 1, do CIRS aplica 0,75 às atividades da tabela do artigo 151.º, 0,35 às outras prestações de serviços e 0,15 às vendas, à restauração e à hotelaria, com exclusão do alojamento local em moradia ou apartamento (0,35, ou 0,50 em área de contenção)."}},{"@type":"Question","name":"Esta página diz quanto vou receber de IRS?","acceptedAnswer":{"@type":"Answer","text":"Não. Mostra o rendimento tributável pelos coeficientes e o IRS retido. O reembolso ou o pagamento dependem do agregado, das deduções e dos escalões."}}]}</script>
+</head>
+<body>
+<header><div class="wrap">
+<a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a class="nav-tools" href="/recibos-verdes/declaracao-trimestral/">Declaração trimestral</a><a class="cta" href="#app">Calcular</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/recibos-verdes/irs-anexo-b/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/recibos-verdes/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav>
+</div></header>
+<div class="hero"><div class="wrap">
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/tools/">Ferramentas</a> · <a href="/recibos-verdes/">Recibos verdes</a> · Anexo B</p>
+<h1>Anexo B dos recibos verdes</h1>
+<p>Aplica os coeficientes do regime simplificado aos recibos do ano e mostra o IRS que os clientes retiveram. Não é a coleta final.</p>
+</div></div>
+<section class="tight" id="app"><div class="wrap">
+<p class="disclaimer"><b>Estimativa, não é aconselhamento fiscal.</b> O reembolso ou o pagamento dependem de todo o rendimento do agregado, das deduções e dos escalões. Esta página para no rendimento tributável e na retenção. O simulador oficial está no <a href="https://www.portaldasfinancas.gov.pt/" rel="noopener noreferrer">Portal das Finanças</a>.</p>
+<label for="file">CSV ou Excel dos recibos do ano</label>
+<input id="file" type="file" accept=".csv,.txt,.xlsx,.xls,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple>
+<p class="note"><button id="resume-year" type="button" class="btn ghost" hidden>Continuar o ano guardado</button><span id="resume-hint" hidden> Só aparece se tiver ligado “Guardar o meu ano neste aparelho” na declaração trimestral.</span></p>
+<div id="ab-year" hidden></div>
+<p id="ab-error" class="note" role="alert" hidden></p>
+<fieldset class="plain">
+<legend>Coeficiente do regime simplificado</legend>
+<div class="choice"><input id="coef-151" type="radio" name="coef" value="art151" checked><label for="coef-151">Atividades da tabela do artigo 151.º — 0,75</label></div>
+<div class="choice"><input id="coef-other" type="radio" name="coef" value="other"><label for="coef-other">Outras prestações de serviços — 0,35</label></div>
+<div class="choice"><input id="coef-goods" type="radio" name="coef" value="goods"><label for="coef-goods">Vendas, restauração e hotelaria, sem alojamento local em moradia ou apartamento — 0,15</label></div>
+<div class="choice"><input id="coef-al" type="radio" name="coef" value="al"><label for="coef-al">Alojamento local em moradia ou apartamento — 0,35</label></div>
+<div class="choice"><input id="coef-al-c" type="radio" name="coef" value="alContencao"><label for="coef-al-c">Alojamento local em moradia ou apartamento, em área de contenção — 0,50</label></div>
+<div class="choice"><input id="coef-roy" type="radio" name="coef" value="royalties"><label for="coef-roy">Propriedade intelectual e royalties — 0,95</label></div>
+</fieldset>
+<fieldset class="plain">
+<legend>Início de atividade (artigo 31.º, n.º 10)</legend>
+<div class="choice"><input id="red-none" type="radio" name="reduction" value="none" checked><label for="red-none">Sem redução</label></div>
+<div class="choice"><input id="red-y1" type="radio" name="reduction" value="y1"><label for="red-y1">1.º ano, sem rendimentos das categorias A e H — metade dos coeficientes 0,75 e 0,35</label></div>
+<div class="choice"><input id="red-y2" type="radio" name="reduction" value="y2"><label for="red-y2">2.º ano, sem rendimentos das categorias A e H — menos 25% nesses coeficientes</label></div>
+</fieldset>
+<p class="note">O n.º 11 exclui esta redução se a atividade tiver cessado há menos de 5 anos. Não se aplica a vendas (0,15), à área de contenção (0,50) nem a royalties (0,95).</p>
+<div id="ab-results" hidden aria-live="polite">
+<div class="counters">
+<div class="counter"><b id="ab-count">0</b><span>Recibos</span></div>
+<div class="counter"><b id="ab-gross">0</b><span>Rendimento ilíquido (sem IVA)</span></div>
+<div class="counter"><b id="ab-coef">0</b><span>Coeficiente</span></div>
+<div class="counter"><b id="ab-taxable">0</b><span>Rendimento tributável pelos coeficientes</span></div>
+<div class="counter"><b id="ab-ret">0</b><span>IRS retido nos recibos</span></div>
+</div>
+<p id="ab-regime" class="note"></p>
+<p id="ab-expense" class="note" hidden></p>
+<p id="ab-dropped" class="note" hidden></p>
+<p class="note">A dedução das contribuições acima de 10% do rendimento bruto (n.º 2) não está calculada: o ficheiro não traz o valor pago à Segurança Social.</p>
+</div>
+<h2>De onde vêm os coeficientes</h2>
+<p>Artigo 31.º, n.º 1, do CIRS, na consolidação de julho de 2025: 0,75 na alínea b), 0,35 na alínea c), 0,15 na alínea a) (vendas, restauração e hotelaria, sem alojamento local em moradia ou apartamento), 0,50 na alínea h) e 0,95 na alínea d). A dedução automática de 8,54 vezes o IAS está no artigo 25.º, n.º 1, alínea a) (Lei n.º 45-A/2024). O limite de 200 000 € e a regra dos dois anos ou de 25% estão no artigo 28.º, n.ºs 2 e 6. <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/Cod_download/Documents/CIRS_07_2025.pdf" rel="noopener noreferrer">Texto do CIRS</a> · <a href="https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/Pages/faqs-00352.aspx" rel="noopener noreferrer">FAQ 5880</a> · <a href="/recibos-verdes/declaracao-trimestral/">Voltar à declaração trimestral</a></p>
+</div></section>
+<footer class="site-footer"><div class="wrap">
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Estimativa, não é aconselhamento fiscal. Sem rastreadores. Um cookie recorda só o idioma. O ficheiro não é enviado.</div>
+</div></footer>
+<script src="/assets/vendor/xlsx.full.min.js"></script>
+<script src="/recibos-verdes/merge.js"></script>
+<script src="/recibos-verdes/store.js"></script>
+<script src="/recibos-verdes/rules.js"></script>
+<script src="/recibos-verdes/app.js"></script>
+<script src="/recibos-verdes/anexo.js"></script>
+<script src="/assets/lang.js"></script>
+</body>
+</html>

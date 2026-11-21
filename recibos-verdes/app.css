@@ -5,6 +5,9 @@
 .btn,button.btn{background:#c2410c}
 .btn:hover,button.btn:hover{background:#9a3412}
 .scroll:focus{outline:2px solid #c2410c;outline-offset:2px}
+.cal-link{font-weight:650}
+#deadlines p,#limits-panel .note{overflow-wrap:anywhere}
+#newsletter form{display:grid;gap:8px;max-width:420px}
 @media(max-width:480px){
   .hero{padding:4px 0 0}
   .hero h1{font-size:22px;margin-bottom:4px}

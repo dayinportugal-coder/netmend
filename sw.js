@@ -1,8 +1,17 @@
 /* Precaches this site's own pages and their static files.
    HTML, CSS and JS are network-first, then cached. Other precached files
    (fonts, icons) stay cache-first. Nothing the user opens from their
-   computer is requested or stored. Bump CACHE to drop old copies. */
-var CACHE = "netmend-20261121c";
+   computer is requested or stored. Bump CACHE to drop old copies.
+
+   Cache name is netmend-20261121h.
+   PR #29 is on netlify and used netmend-20261121e. It added the
+   recibos-verdes block (merge.js, store.js, newsletter.js, anexo.js,
+   irs-anexo-b). PR #30 (SEPA autofill, not merged yet) uses
+   netmend-20261121g and adds /sepa/bic.js. This list keeps every
+   precache path from both, plus /assets/lang.js.
+   Keep the recibos-verdes block and the sepa block together when rebasing.
+   A language redirect is never stored under the URL that was requested. */
+var CACHE = "netmend-20261121h";
 var PRECACHE = [
   "/",
   "/index.html",
@@ -17,6 +26,7 @@ var PRECACHE = [
   "/sepa/",
   "/sepa/index.html",
   "/sepa/app.js",
+  "/sepa/bic.js",
   "/sepa/app.css",
   "/pt/ficheiro-sepa/",
   "/pt/ficheiro-sepa/index.html",
@@ -24,18 +34,31 @@ var PRECACHE = [
   "/es/fichero-sepa/index.html",
   /* recibos-verdes — keep this block together when rebasing */
   "/recibos-verdes/rules.js",
+  "/recibos-verdes/merge.js",
+  "/recibos-verdes/store.js",
+  "/recibos-verdes/newsletter.js",
+  "/recibos-verdes/anexo.js",
   "/recibos-verdes/app.js",
   "/recibos-verdes/app.css",
   "/recibos-verdes/sample/recibos-verdes-exemplo.csv",
+  "/recibos-verdes/",
+  "/recibos-verdes/index.html",
+  "/recibos-verdes/declaracao-trimestral/",
+  "/recibos-verdes/declaracao-trimestral/index.html",
+  "/recibos-verdes/irs-anexo-b/",
+  "/recibos-verdes/irs-anexo-b/index.html",
   "/pt/recibos-verdes/",
   "/pt/recibos-verdes/index.html",
   "/pt/recibos-verdes/declaracao-trimestral/",
   "/pt/recibos-verdes/declaracao-trimestral/index.html",
+  "/pt/recibos-verdes/irs-anexo-b/",
+  "/pt/recibos-verdes/irs-anexo-b/index.html",
   "/freelancer-portugal-quarterly/",
   "/freelancer-portugal-quarterly/index.html",
   "/tools/",
   "/tools/index.html",
   "/assets/tools.css",
+  "/assets/lang.js",
   "/assets/pwa.js",
   "/assets/fonts/inter-latin.woff2",
   "/assets/logo-light.svg",
@@ -54,7 +77,12 @@ var PRECACHE = [
 
 self.addEventListener("install", function (event) {
   event.waitUntil(caches.open(CACHE).then(function (cache) {
-    return cache.addAll(PRECACHE);
+    return Promise.all(PRECACHE.map(function (url) {
+      return fetch(url, { cache: "reload" }).then(function (response) {
+        if (!response || !response.ok || response.type !== "basic" || response.redirected) return;
+        return cache.put(url, response);
+      }).catch(function () {});
+    }));
   }).then(function () { return self.skipWaiting(); }));
 });
 
@@ -74,9 +102,14 @@ function isCode(path) {
 
 function networkFirst(request) {
   return fetch(request).then(function (response) {
-    if (response && response.ok && response.type === "basic") {
+    if (response && response.ok && response.type === "basic" && !response.redirected) {
       var copy = response.clone();
       caches.open(CACHE).then(function (cache) { return cache.put(request, copy); });
+    } else if (response && response.ok && response.type === "basic" && response.redirected) {
+      var body = response.clone();
+      var settled = new Response(body.body, { status: body.status, statusText: body.statusText, headers: body.headers });
+      var finalUrl = response.url;
+      caches.open(CACHE).then(function (cache) { return cache.put(finalUrl, settled); });
     }
     return response;
   }).catch(function () { return fallback(request); });
