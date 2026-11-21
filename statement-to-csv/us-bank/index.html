@@ -1,109 +1,114 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Convert U.S. Bank statement PDF to CSV/Excel (free, private) · Netmend</title>
-<meta name="description" content="Convert a U.S. Bank PDF statement to CSV in your browser. Official e-statements (up to 7 years) and official transaction downloads as CSV, QFX or QBO (up to 3 years, desktop only).">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Converter extrato U.S. Bank de PDF para CSV/Excel (grátis e privado) · Netmend</title>
+<meta name="description" content="Converta um extrato U.S. Bank em PDF para CSV no browser. Extratos eletrónicos oficiais (até 7 anos) e transferências oficiais de movimentos em CSV, QFX ou QBO (até 3 anos, só no computador).">
 <link rel="canonical" href="https://netmend.app/statement-to-csv/us-bank/">
-<meta property="og:title" content="Convert U.S. Bank statement PDF to CSV/Excel (free, private) · Netmend"><meta property="og:description" content="Convert a U.S. Bank PDF statement to CSV in your browser. Official e-statements (up to 7 years) and official transaction downloads as CSV, QFX or QBO (up to 3 years, desktop only).">
+<meta property="og:url" content="https://netmend.app/statement-to-csv/us-bank/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/statement-to-csv/us-bank/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/statement-to-csv/us-bank/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/statement-to-csv/us-bank/">
+<meta property="og:title" content="Converter extrato U.S. Bank de PDF para CSV/Excel (grátis e privado) · Netmend"><meta property="og:description" content="Converta um extrato U.S. Bank em PDF para CSV no browser. Extratos eletrónicos oficiais (até 7 anos) e transferências oficiais de movimentos em CSV, QFX ou QBO (até 3 anos, só no computador).">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Convert U.S. Bank bank statement PDF to CSV", "url": "https://netmend.app/statement-to-csv/us-bank/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does U.S. Bank already give me a CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. In online banking (not the app), open the account, use the download icon in the Transactions tile, and choose Spreadsheet (.CSV). Up to three years. QFX and QBO are offered too."}}, {"@type": "Question", "name": "How far back are official PDFs?", "acceptedAnswer": {"@type": "Answer", "text": "Up to seven years of e-statements in digital banking. The latest one appears after the billing cycle closes."}}, {"@type": "Question", "name": "Why can’t I download transactions in the app?", "acceptedAnswer": {"@type": "Answer", "text": "U.S. Bank’s help says transaction downloads are not available in the U.S. Bank Mobile App. Use online banking on a computer, or convert the PDF statement."}}], "url": "https://netmend.app/statement-to-csv/us-bank/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Converter extrato bancário U.S. Bank de PDF para CSV", "url": "https://netmend.app/statement-to-csv/us-bank/", "applicationCategory": "BusinessApplication", "operatingSystem": "Qualquer (browser)", "inLanguage": "pt-PT", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O U.S. Bank já me dá um CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Sim. No homebanking (não na app), abra a conta, use o ícone de transferência no bloco Transactions e escolha Spreadsheet (.CSV). Até três anos. Também há QFX e QBO."}}, {"@type": "Question", "name": "Até onde recuam os PDF oficiais?", "acceptedAnswer": {"@type": "Answer", "text": "Até sete anos de extratos eletrónicos na banca digital. O mais recente aparece depois de fechar o ciclo de faturação."}}, {"@type": "Question", "name": "Porque é que não consigo transferir movimentos na app?", "acceptedAnswer": {"@type": "Answer", "text": "A ajuda do U.S. Bank diz que a transferência de movimentos não está disponível na U.S. Bank Mobile App. Use o homebanking num computador, ou converta o extrato em PDF."}}], "url": "https://netmend.app/statement-to-csv/us-bank/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/statement-to-csv/us-bank/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/statement-to-csv/us-bank/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Bank statement → CSV</a> · U.S. Bank</p>
-<h1>Convert a U.S. Bank statement PDF to <span>CSV or Excel</span></h1>
-<p>U.S. Bank already gives you a spreadsheet: you can download up to three years of transactions as CSV, QFX or QBO in online banking. This page shows that official path, how it differs from the seven-year e-statement PDF, and how to convert a PDF when the download does not go back far enough.</p>
-<div class="pills"><span>United States (U.S. Bank). Not USB overseas branches.</span><span>100% in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/statement-to-csv/">Extrato bancário → CSV</a> · U.S. Bank</p>
+<h1>Converter um extrato U.S. Bank em PDF para <span>CSV ou Excel</span></h1>
+<p>O U.S. Bank já dá uma folha de cálculo: pode transferir até três anos de movimentos em CSV, QFX ou QBO no homebanking. Esta página mostra esse caminho oficial, como difere do PDF de extrato eletrónico de sete anos, e como converter um PDF quando a transferência não recua o suficiente.</p>
+<div class="pills"><span>Estados Unidos (U.S. Bank). Não são as sucursais do USB no estrangeiro.</span><span>100% no seu browser</span><span>Sem conta</span><span>Contacto, se quiser que façamos</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a U.S. Bank PDF now</h2>
-<p class="lead">The defaults below are set for a typical U.S. Bank file. You can still change them. The file never leaves your computer.</p>
+<h2>Converter um PDF do U.S. Bank agora</h2>
+<p class="lead">As predefinições abaixo estão pensadas para um ficheiro típico do U.S. Bank. Pode alterá-las. O ficheiro nunca sai do seu computador.</p>
 
 <div class="tool">
-<label for="file">PDF statement (stays on your computer)</label>
+<label for="file">Extrato em PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No statement at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/demo-statement.pdf">Try our demo statement</button> (fictional data)</p>
+<p class="note">Não tem um extrato à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar o extrato de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions only</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto">Detect automatically</option><option value="eu">European 1.234,56</option><option value="us" selected>UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Só movimentos</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto">Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us" selected>Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against your statement before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o extrato antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto” ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro neste computador. Não há servidor nem envio. Pode desligar a internet depois de a página carregar: continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>The U.S. Bank statement format</h2>
+<h2>O formato do extrato U.S. Bank</h2>
 <div class="facts">
-<div><b>Dates</b>US month-first dates (MM/DD/YYYY). Set the date column to that format or to text before a day-first Excel locale can swap the days.</div>
-<div><b>Numbers</b>US dollar, dot decimal, comma thousands. Official spreadsheet download is a .CSV.</div>
-<div><b>Region</b>United States (U.S. Bank). Not USB overseas branches.</div>
+<div><b>Datas</b>Datas dos EUA, com o mês primeiro (MM/DD/YYYY). Defina a coluna da data nesse formato, ou como texto, antes que um Excel com o dia primeiro troque os dias.</div>
+<div><b>Números</b>Dólar dos EUA, ponto decimal, vírgula nos milhares. A transferência oficial para folha de cálculo é um .CSV.</div>
+<div><b>Região</b>Estados Unidos (U.S. Bank). Não são as sucursais do USB no estrangeiro.</div>
 </div>
-<h3>Where to download the official file</h3>
-Two official files, from U.S. Bank’s knowledge base.</p>
-<p><b>E-statements (PDF)</b> — “How do I view, print and download electronic statements and other documents?”:</p>
+<h3>Onde transferir o ficheiro oficial</h3>
+<p>Dois ficheiros oficiais, a partir da base de conhecimento do U.S. Bank.</p>
+<p><b>Extratos eletrónicos (PDF)</b> — “How do I view, print and download electronic statements and other documents?”:</p>
 <ol>
-<li>In online banking, select <b>Accounts</b> from the top menu. In the U.S. Bank Mobile App, open the main menu and choose <b>Statements &amp; docs</b>.</li>
-<li>Select the document type, then the account, then the year if you need older documents.</li>
-<li>Open the link to view, print or download the document.</li>
+<li>No homebanking, escolha <b>Accounts</b> no menu de cima. Na U.S. Bank Mobile App, abra o menu principal e escolha <b>Statements &amp; docs</b>.</li>
+<li>Escolha o tipo de documento, depois a conta, e o ano se precisar de documentos mais antigos.</li>
+<li>Abra a ligação para ver, imprimir ou transferir o documento.</li>
 </ol>
-<p>You can view up to seven years of e-statements. The latest e-statement is available after the billing cycle closes. A certificate of deposit does not have regular statements (maturity notices and a year-end interest statement instead).</p>
-<p><b>Transaction history download</b> — “How do I download my transaction history?”. This is <b>not available in the mobile app</b>. In online banking you can download up to three years, as Spreadsheet (<b>.CSV</b>), Quicken (<b>.QFX</b>) or QuickBooks (<b>.qbo</b>):</p>
+<p>Pode ver até sete anos de extratos eletrónicos. O extrato mais recente fica disponível depois de fechar o ciclo de faturação. Um certificado de depósito não tem extratos regulares (há avisos de vencimento e um extrato de juros no fim do ano).</p>
+<p><b>Transferência do histórico de movimentos</b> — “How do I download my transaction history?”. <b>Não está disponível na app móvel</b>. No homebanking pode transferir até três anos, como Spreadsheet (<b>.CSV</b>), Quicken (<b>.QFX</b>) ou QuickBooks (<b>.qbo</b>):</p>
 <ol>
-<li>Select the account.</li>
-<li>In the Transactions tile, select the download icon in the upper-right corner.</li>
-<li>Choose the date range and file format, then Download.</li>
+<li>Escolha a conta.</li>
+<li>No bloco Transactions, escolha o ícone de transferência no canto superior direito.</li>
+<li>Escolha o intervalo de datas e o formato do ficheiro, e depois Download.</li>
 </ol>
-<p>For transactions more than three years old, U.S. Bank tells you to view your account statements (the PDFs). Direct Connect with bill pay for Quicken and QuickBooks is a separate enrolment.</p>
-<h3>What the PDF contains</h3>
-<p>The e-statement PDF is the official document for that cycle: summary, transactions, and the balances printed on that statement. It is the file to use when the three-year transaction download does not go back far enough, or when you need a document that shows the official closing balance.</p>
-<h3>Official CSV or Excel, when the bank offers one</h3>
-<p>Prefer the official CSV (or QBO for QuickBooks, QFX for Quicken) when the dates fit inside three years. U.S. Bank does not publish the CSV column names on that help page — open the first row of your own download. The official file is a transaction list; it may not include the statement’s printed opening and closing balance in the same way the PDF does.</p>
-<p>After a PDF conversion, keep date, description, amount or debit/credit, and the running balance, and tick both printed totals before you import the file.</p></p>
-<h3>What to watch for</h3>
+<p>Para movimentos com mais de três anos, o U.S. Bank indica para consultar os extratos da conta (os PDF). O Direct Connect com pagamento de contas para o Quicken e o QuickBooks é uma adesão à parte.</p>
+<h3>O que contém o PDF</h3>
+<p>O PDF do extrato eletrónico é o documento oficial desse ciclo: resumo, movimentos e os saldos impressos nesse extrato. É o ficheiro a usar quando a transferência de três anos não recua o suficiente, ou quando precisa de um documento que mostre o saldo final oficial.</p>
+<h3>CSV ou Excel oficial, quando o banco o oferece</h3>
+<p>Prefira o CSV oficial (ou QBO para o QuickBooks, QFX para o Quicken) quando as datas cabem em três anos. O U.S. Bank não publica os nomes das colunas do CSV nessa página de ajuda. Abra a primeira linha da sua transferência. O ficheiro oficial é uma lista de movimentos; pode não incluir o saldo inicial e o saldo final impressos da mesma forma que o PDF.</p>
+<p>Depois de converter um PDF, fique com data, descrição, montante ou débito/crédito, e o saldo acumulado, e confira os dois totais impressos antes de importar o ficheiro.</p></p>
+<h3>O que convém verificar</h3>
 <ul>
-<li>If you need a spreadsheet for the last three years, use U.S. Bank’s own CSV or QBO download on a computer. Skip the PDF.</li>
-<li>If you need year four to seven, or a statement someone already sent you as a PDF, convert the e-statement and check the balances.</li>
-<li>Do not look for the transaction download in the mobile app — U.S. Bank says it is not there.</li>
+<li>Se precisar de uma folha dos últimos três anos, use a transferência CSV ou QBO do próprio U.S. Bank, num computador. Deixe o PDF.</li>
+<li>Se precisar do ano quatro ao sete, ou de um extrato que já lhe tenham enviado em PDF, converta o extrato eletrónico e confira os saldos.</li>
+<li>Não procure a transferência de movimentos na app móvel. O U.S. Bank diz que não está lá.</li>
 </ul>
-<p class="note"><b>Sources</b> (checked 12/11/2026). U.S. Bank knowledge base, KB0073947 (electronic statements and documents) and KB0069323 (download transaction history), checked 13/11/2026. Banks change layouts without notice: treat the first row of your own file as the authority.</p>
+<p class="note"><b>Fontes</b> (consultado em 12/11/2026). Base de conhecimento do U.S. Bank, KB0073947 (extratos e documentos eletrónicos) e KB0069323 (transferir o histórico de movimentos), consultado em 13/11/2026. Os bancos mudam o formato sem aviso: a primeira linha do seu ficheiro é que manda.</p>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of statements or a layout that has to match your accounting software, we convert them and check every total against the opening and closing balance.</p>
+<h2>Precisa que façamos por si?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto, limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de extratos ou um formato que tem de coincidir com o software de contabilidade, convertemos e conferimos cada total com o saldo inicial e o saldo final.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your statement is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Conferimos os totais. Escreva-nos.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a></div>
+<div class="card"><b>Privacidade</b><p>O extrato só é tratado para a encomenda e é apagado depois da entrega. Esta página nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p></div>
 </div>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Does U.S. Bank already give me a CSV?</summary><p>Yes. In online banking (not the app), open the account, use the download icon in the Transactions tile, and choose Spreadsheet (.CSV). Up to three years. QFX and QBO are offered too.</p></details><details><summary>How far back are official PDFs?</summary><p>Up to seven years of e-statements in digital banking. The latest one appears after the billing cycle closes.</p></details><details><summary>Why can’t I download transactions in the app?</summary><p>U.S. Bank’s help says transaction downloads are not available in the U.S. Bank Mobile App. Use online banking on a computer, or convert the PDF statement.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O U.S. Bank já me dá um CSV?</summary><p>Sim. No homebanking (não na app), abra a conta, use o ícone de transferência no bloco Transactions e escolha Spreadsheet (.CSV). Até três anos. Também há QFX e QBO.</p></details><details><summary>Até onde recuam os PDF oficiais?</summary><p>Até sete anos de extratos eletrónicos na banca digital. O mais recente aparece depois de fechar o ciclo de faturação.</p></details><details><summary>Porque é que não consigo transferir movimentos na app?</summary><p>A ajuda do U.S. Bank diz que a transferência de movimentos não está disponível na U.S. Bank Mobile App. Use o homebanking num computador, ou converta o extrato em PDF.</p></details></div></section>
 <section><div class="wrap">
-<h2>Other bank guides</h2>
-<div class="banklist"><a href="../chase/"><b>Chase</b> statement to CSV</a><a href="../bank-of-america/"><b>Bank of America</b> statement to CSV</a><a href="../wells-fargo/"><b>Wells Fargo</b> statement to CSV</a><a href="../capital-one/"><b>Capital One</b> statement to CSV</a><a href="../pnc/"><b>PNC</b> statement to CSV</a><a href="../"><b>All banks</b> and the main converter</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Outros guias de bancos</h2>
+<div class="banklist"><a href="/statement-to-csv/chase/"><b>Chase</b> extrato para CSV</a><a href="/statement-to-csv/bank-of-america/"><b>Bank of America</b> extrato para CSV</a><a href="/statement-to-csv/wells-fargo/"><b>Wells Fargo</b> extrato para CSV</a><a href="/statement-to-csv/capital-one/"><b>Capital One</b> extrato para CSV</a><a href="/statement-to-csv/pnc/"><b>PNC</b> extrato para CSV</a><a href="/statement-to-csv/"><b>Todos os bancos</b> e o conversor principal</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho de back-office para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias de crescimento no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Um cookie guarda só o idioma. Sem rastreio e sem registo. As ferramentas grátis correm no browser.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

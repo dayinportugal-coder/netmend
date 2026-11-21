@@ -1,98 +1,103 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Convert Halifax bank statement PDF to CSV/Excel (free, private) · Netmend</title>
-<meta name="description" content="Convert a Halifax PDF statement to CSV in your browser. Official Online Banking and app download steps, typical UK money-in/money-out columns, and when a PDF is all you have.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Converter extrato Halifax de PDF para CSV/Excel (grátis e privado) · Netmend</title>
+<meta name="description" content="Converta um extrato Halifax em PDF para CSV no browser. Passos oficiais no Online Banking e na app, colunas típicas do Reino Unido de entradas e saídas, e o que fazer quando só tem o PDF.">
 <link rel="canonical" href="https://netmend.app/statement-to-csv/halifax/">
-<meta property="og:title" content="Convert Halifax bank statement PDF to CSV/Excel (free, private) · Netmend"><meta property="og:description" content="Convert a Halifax PDF statement to CSV in your browser. Official Online Banking and app download steps, typical UK money-in/money-out columns, and when a PDF is all you have.">
+<meta property="og:url" content="https://netmend.app/statement-to-csv/halifax/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/statement-to-csv/halifax/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/statement-to-csv/halifax/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/statement-to-csv/halifax/">
+<meta property="og:title" content="Converter extrato Halifax de PDF para CSV/Excel (grátis e privado) · Netmend"><meta property="og:description" content="Converta um extrato Halifax em PDF para CSV no browser. Passos oficiais no Online Banking e na app, colunas típicas do Reino Unido de entradas e saídas, e o que fazer quando só tem o PDF.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Convert Halifax bank statement PDF to CSV", "url": "https://netmend.app/statement-to-csv/halifax/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Halifax give me a CSV?", "acceptedAnswer": {"@type": "Answer", "text": "The official statement is a PDF from the app or Online Banking. Some Online Banking screens also offer a transaction export; Halifax does not publish a public official CSV guide, so use that export only if you can see it, and keep the first row as your template."}}, {"@type": "Question", "name": "Why is a date such as 5 Mar 26 showing as May?", "acceptedAnswer": {"@type": "Answer", "text": "The PDF is day-first. A spreadsheet in a month-first locale will swap any day below 13. Set the date column to DD/MM/YYYY or to text before you save the CSV."}}, {"@type": "Question", "name": "Can I convert a photographed statement?", "acceptedAnswer": {"@type": "Answer", "text": "Not reliably with this tool. It reads the text layer of a digital PDF. A photo or a scan is an image, and needs to be typed or sent as a done-for-you job."}}], "url": "https://netmend.app/statement-to-csv/halifax/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Converter extrato bancário Halifax de PDF para CSV", "url": "https://netmend.app/statement-to-csv/halifax/", "applicationCategory": "BusinessApplication", "operatingSystem": "Qualquer (browser)", "inLanguage": "pt-PT", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O Halifax dá um CSV?", "acceptedAnswer": {"@type": "Answer", "text": "O extrato oficial é um PDF da app ou do Online Banking. Alguns ecrãs do Online Banking também oferecem uma exportação de movimentos; o Halifax não publica um guia oficial público de CSV, por isso use essa exportação só se a vir e guarde a primeira linha como modelo."}}, {"@type": "Question", "name": "Porque é que uma data como 5 Mar 26 aparece como maio?", "acceptedAnswer": {"@type": "Answer", "text": "O PDF põe o dia primeiro. Uma folha com o mês primeiro troca qualquer dia inferior a 13. Defina a coluna de data como DD/MM/YYYY ou como texto antes de guardar o CSV."}}, {"@type": "Question", "name": "Posso converter um extrato fotografado?", "acceptedAnswer": {"@type": "Answer", "text": "Não de forma fiável com esta ferramenta. Ela lê a camada de texto de um PDF digital. Uma fotografia ou uma digitalização é uma imagem e tem de ser transcrita ou enviada para fazermos por si."}}], "url": "https://netmend.app/statement-to-csv/halifax/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/statement-to-csv/halifax/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/statement-to-csv/halifax/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Bank statement → CSV</a> · Halifax</p>
-<h1>Convert a Halifax bank statement PDF to <span>CSV or Excel</span></h1>
-<p>Halifax issues official statements as PDFs from Online Banking and the app. This page shows that download path, what the statement usually looks like, and how to turn a PDF you already saved into a spreadsheet that you can check against the printed balance.</p>
-<div class="pills"><span>United Kingdom (Halifax, Bank of Scotland plc / Lloyds Banking Group)</span><span>100% in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/statement-to-csv/">Extrato bancário → CSV</a> · Halifax</p>
+<h1>Converter um extrato bancário Halifax em PDF para <span>CSV ou Excel</span></h1>
+<p>O Halifax emite extratos oficiais em PDF a partir do Online Banking e da app. Esta página mostra esse caminho de transferência, o aspeto habitual do extrato e como transformar um PDF já guardado numa folha de cálculo que se possa conferir com o saldo impresso.</p>
+<div class="pills"><span>Reino Unido (Halifax, Bank of Scotland plc / Lloyds Banking Group)</span><span>100% no seu browser</span><span>Sem conta</span><span>Contacto, se quiser que façamos</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a Halifax PDF now</h2>
-<p class="lead">The defaults below are set for a typical Halifax file. You can still change them. The file never leaves your computer.</p>
+<h2>Converter um PDF do Halifax agora</h2>
+<p class="lead">As predefinições abaixo estão pensadas para um ficheiro típico do Halifax. Pode alterá-las. O ficheiro nunca sai do seu computador.</p>
 
 <div class="tool">
-<label for="file">PDF statement (stays on your computer)</label>
+<label for="file">Extrato em PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No statement at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/demo-statement.pdf">Try our demo statement</button> (fictional data)</p>
+<p class="note">Não tem um extrato à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar o extrato de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions only</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto">Detect automatically</option><option value="eu">European 1.234,56</option><option value="us" selected>UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Só movimentos</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto">Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us" selected>Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against your statement before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o extrato antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto” ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro neste computador. Não há servidor nem envio. Pode desligar a internet depois de a página carregar: continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
-<h2>The Halifax statement format</h2>
+<h2>O formato do extrato Halifax</h2>
 <div class="facts">
-<div><b>Dates</b>UK day-first dates. Some Halifax PDFs print a short date such as 12 Sep 26 rather than 12/09/2026. If your spreadsheet is in a US locale, any day below 13 can be swapped into the wrong month — set the column to text or to DD/MM/YYYY before you import.</div>
-<div><b>Numbers</b>Pound sterling, dot decimal, comma thousands (1,234.56). Money in and money out are usually separate columns on the PDF, not a single signed amount.</div>
-<div><b>Region</b>United Kingdom (Halifax, Bank of Scotland plc / Lloyds Banking Group)</div>
+<div><b>Datas</b>Datas do Reino Unido, com o dia primeiro. Alguns PDF do Halifax imprimem uma data curta como 12 Sep 26 em vez de 12/09/2026. Se a folha estiver com definição dos EUA, qualquer dia inferior a 13 pode ir parar ao mês errado. Defina a coluna como texto ou como DD/MM/YYYY antes de importar.</div>
+<div><b>Números</b>Libra esterlina, ponto decimal, vírgula nos milhares (1,234.56). Entradas e saídas são em regra colunas separadas no PDF, não um único montante com sinal.</div>
+<div><b>Região</b>Reino Unido (Halifax, Bank of Scotland plc / Lloyds Banking Group)</div>
 </div>
-<h3>Where to download the official file</h3>
-Official Halifax guidance, as reproduced in UK local-authority statement instructions that quote Halifax’s own “Download statements” steps (checked 13/11/2026; Halifax’s public how-to URL returned an error that day, so also trust the labels in your app):
-<p><b>In the Halifax app:</b> sign in, select the account, open the three-dot account menu, choose <b>Download or print statement</b>, pick the statements, and follow the prompts. Paper copies are a separate “Order paper statements” option.</p>
-<p><b>In Online Banking:</b> sign in, select the account, open <b>Statement options</b>, then print or download a copy.</p>
-<p>Menu names change from time to time. If you also see an option to export transactions from Online Banking on a computer, use it when it covers the dates you need. Halifax does not publish a public official guide to a CSV export, so treat the on-screen export dialog as the authority.</p>
-<h3>What the PDF contains</h3>
-<p>A Halifax current-account PDF is the official monthly document. In the Lloyds Banking Group family, the transaction table commonly prints Date, Description, Type, Money in, Money out and Balance, sometimes with (£) after a heading. Type codes such as DD, DEB or FPI often sit in their own column or at the start of the description. Confirm the headings on the first page of your own file — layouts change, and credit-card statements are a different document (Halifax tells card customers to open the full PDF, not just the summary).</p>
-<h3>Official CSV or Excel, when the bank offers one</h3>
-<p>Halifax’s official statement is the PDF. There is no public official description of a Halifax CSV layout. If Online Banking offers an export, open the first row and keep those headings. After a PDF conversion, prefer columns that match the printed table (date, description, type if present, money in, money out, balance) so you can tick each row against the statement.</p>
-<p>Do not add money in and money out into the same cell until you have checked the running balance. A blank in one of the two amount columns is normal.</p></p>
-<h3>What to watch for</h3>
+<h3>Onde transferir o ficheiro oficial</h3>
+Orientação oficial do Halifax, tal como reproduzida em instruções de extratos de uma autarquia do Reino Unido que citam os passos “Download statements” do próprio Halifax (consultado em 13/11/2026; o URL público do guia do Halifax deu erro nesse dia, por isso confie também nos rótulos da app):
+<p><b>Na app do Halifax:</b> inicie sessão, escolha a conta, abra o menu da conta com três pontos, escolha <b>Download or print statement</b>, escolha os extratos e siga as indicações. As cópias em papel são uma opção à parte, “Order paper statements”.</p>
+<p><b>No Online Banking:</b> inicie sessão, escolha a conta, abra <b>Statement options</b> e imprima ou transfira uma cópia.</p>
+<p>Os nomes dos menus mudam de vez em quando. Se também vir uma opção para exportar movimentos no Online Banking num computador, use-a quando cobrir as datas de que precisa. O Halifax não publica um guia oficial público de exportação CSV, por isso trate a caixa de diálogo no ecrã como a referência.</p>
+<h3>O que contém o PDF</h3>
+<p>Um PDF de conta à ordem do Halifax é o documento mensal oficial. Na família Lloyds Banking Group, a tabela de movimentos imprime em regra Date, Description, Type, Money in, Money out e Balance, por vezes com (£) a seguir a um cabeçalho. Códigos de tipo como DD, DEB ou FPI ficam muitas vezes numa coluna própria ou no início da descrição. Confirme os cabeçalhos na primeira página do seu ficheiro. Os formatos mudam, e os extratos de cartão de crédito são outro documento (o Halifax diz aos clientes de cartão para abrirem o PDF completo, não só o resumo).</p>
+<h3>CSV ou Excel oficial, quando o banco o oferece</h3>
+<p>O extrato oficial do Halifax é o PDF. Não há uma descrição oficial pública do formato CSV do Halifax. Se o Online Banking oferecer uma exportação, abra a primeira linha e guarde esses cabeçalhos. Depois de converter um PDF, prefira colunas que coincidam com a tabela impressa (data, descrição, tipo se existir, entradas, saídas, saldo) para conferir cada linha com o extrato.</p>
+<p>Não junte entradas e saídas na mesma célula antes de conferir o saldo acumulado. Uma célula vazia numa das duas colunas de montante é normal.</p></p>
+<h3>O que convém verificar</h3>
 <ul>
-<li>Lenders usually want the official PDF, not a spreadsheet. Convert the PDF for bookkeeping; send the PDF when a third party asks for “your statements”.</li>
-<li>After conversion, opening balance + money in − money out should equal the closing balance on that statement. If it does not, a wrapped description or a summary block has probably been read as a transaction.</li>
-<li>Credit-card PDFs list payments, fees and interest as well as purchases. Those are not current-account rows — keep them in a separate file.</li>
+<li>Os credores costumam querer o PDF oficial, não uma folha de cálculo. Converta o PDF para a contabilidade; envie o PDF quando um terceiro pedir “os extratos”.</li>
+<li>Depois da conversão, saldo inicial + entradas − saídas deve igualar o saldo final desse extrato. Se não igualar, uma descrição partida ou um bloco de resumo foi provavelmente lido como movimento.</li>
+<li>Os PDF de cartão de crédito listam pagamentos, comissões e juros, além de compras. Não são linhas de conta à ordem. Guarde-os num ficheiro à parte.</li>
 </ul>
-<p class="note"><b>Sources</b> (checked 12/11/2026). Halifax download steps as quoted from Halifax’s own “Download statements” guide in a UK local-authority bank-statement instructions pack, and Halifax “Understanding Your Credit Card Statement”, checked 13/11/2026. Halifax’s public how-to URL was unavailable that day. Banks change layouts without notice: treat the first row of your own file as the authority.</p>
+<p class="note"><b>Fontes</b> (consultado em 12/11/2026). Passos de transferência do Halifax citados a partir do guia “Download statements” do próprio Halifax, num pacote de instruções de extratos de uma autarquia do Reino Unido, e “Understanding Your Credit Card Statement” do Halifax, consultado em 13/11/2026. O URL público do guia do Halifax não estava disponível nesse dia. Os bancos mudam o formato sem aviso: a primeira linha do seu ficheiro é que manda.</p>
 </div></section>
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of statements or a layout that has to match your accounting software, we convert them and check every total against the opening and closing balance.</p>
+<h2>Precisa que façamos por si?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto, limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de extratos ou um formato que tem de coincidir com o software de contabilidade, convertemos e conferimos cada total com o saldo inicial e o saldo final.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your statement is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Conferimos os totais. Escreva-nos.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Contacto</a></div>
+<div class="card"><b>Privacidade</b><p>O extrato só é tratado para a encomenda e é apagado depois da entrega. Esta página nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos dados de contacto nem documento de identificação.</p></div>
 </div>
 </div></section>
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Does Halifax give me a CSV?</summary><p>The official statement is a PDF from the app or Online Banking. Some Online Banking screens also offer a transaction export; Halifax does not publish a public official CSV guide, so use that export only if you can see it, and keep the first row as your template.</p></details><details><summary>Why is a date such as 5 Mar 26 showing as May?</summary><p>The PDF is day-first. A spreadsheet in a month-first locale will swap any day below 13. Set the date column to DD/MM/YYYY or to text before you save the CSV.</p></details><details><summary>Can I convert a photographed statement?</summary><p>Not reliably with this tool. It reads the text layer of a digital PDF. A photo or a scan is an image, and needs to be typed or sent as a done-for-you job.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O Halifax dá um CSV?</summary><p>O extrato oficial é um PDF da app ou do Online Banking. Alguns ecrãs do Online Banking também oferecem uma exportação de movimentos; o Halifax não publica um guia oficial público de CSV, por isso use essa exportação só se a vir e guarde a primeira linha como modelo.</p></details><details><summary>Porque é que uma data como 5 Mar 26 aparece como maio?</summary><p>O PDF põe o dia primeiro. Uma folha com o mês primeiro troca qualquer dia inferior a 13. Defina a coluna de data como DD/MM/YYYY ou como texto antes de guardar o CSV.</p></details><details><summary>Posso converter um extrato fotografado?</summary><p>Não de forma fiável com esta ferramenta. Ela lê a camada de texto de um PDF digital. Uma fotografia ou uma digitalização é uma imagem e tem de ser transcrita ou enviada para fazermos por si.</p></details></div></section>
 <section><div class="wrap">
-<h2>Other bank guides</h2>
-<div class="banklist"><a href="../santander/"><b>Santander UK</b> statement to CSV</a><a href="../barclays/"><b>Barclays</b> statement to CSV</a><a href="../lloyds/"><b>Lloyds Bank</b> statement to CSV</a><a href="../nationwide/"><b>Nationwide</b> statement to CSV</a><a href="../tsb/"><b>TSB</b> statement to CSV</a><a href="../"><b>All banks</b> and the main converter</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Outros guias de bancos</h2>
+<div class="banklist"><a href="/statement-to-csv/santander/"><b>Santander UK</b> extrato para CSV</a><a href="/statement-to-csv/barclays/"><b>Barclays</b> extrato para CSV</a><a href="/statement-to-csv/lloyds/"><b>Lloyds Bank</b> extrato para CSV</a><a href="/statement-to-csv/nationwide/"><b>Nationwide</b> extrato para CSV</a><a href="/statement-to-csv/tsb/"><b>TSB</b> extrato para CSV</a><a href="/statement-to-csv/"><b>Todos os bancos</b> e o conversor principal</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins do Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho de back-office para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins do Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias de crescimento no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Um cookie guarda só o idioma. Sem rastreio e sem registo. As ferramentas grátis correm no browser.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>
