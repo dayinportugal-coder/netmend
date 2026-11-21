@@ -50,6 +50,19 @@
     /* CIRS art. 101.º-B n.º 1 d), Decreto-Lei n.º 49/2025, in force 1 July 2025:
        no withholding when each withholding is under 25 €. */
     withholdingWaiverCents: 2500,
+    /* CIRS art. 28.º n.º 2, consolidated text (CIRS_07_2025) and AT FAQ 5880.
+       Art. 28.º n.º 6: organised accounting is mandatory from the next year
+       only after two consecutive years over this amount, or one year by more
+       than 25% (n.º 6). 200 000 × 1,25 = 250 000. */
+    simplificadoLimitCents: 20000000,
+    simplificadoForceCents: 25000000,
+    /* CIRS art. 31.º n.º 1, same consolidation. */
+    coefArt151: 75,
+    coefOtherServices: 35,
+    coefGoodsHospitality: 15,
+    /* Art. 31.º n.º 13: for alíneas b) and c), documented expenses are compared
+       with 15% of those gross service amounts. */
+    expenseFloorPct: 15,
     declarationMonths: [1, 4, 7, 10],
     /* FAQ Q34. Payment from the 10th to the 20th of the following month. */
     paymentDayFrom: 10,
@@ -353,6 +366,52 @@
     return iso >= start && iso <= end;
   }
 
+  /* All-day Google Calendar template. End date is exclusive.
+     details must not include names, NIFs or amounts. */
+  function googleCalendarUrl(opts) {
+    var start = String(opts.start || "").replace(/-/g, "");
+    var end = addDays(opts.start, 1).replace(/-/g, "");
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="
+      + encodeURIComponent(opts.text || "")
+      + "&dates=" + start + "/" + end
+      + "&details=" + encodeURIComponent(opts.details || "");
+  }
+
+  /* Which "you crossed a limit" notes apply. Amounts are cents, no VAT.
+     yearIvaCents > 0 means these documents already charged VAT. */
+  function limitFlags(input) {
+    input = input || {};
+    var base = Math.max(0, Math.round(Number(input.yearBaseCents) || 0));
+    var iva = Math.max(0, Math.round(Number(input.yearIvaCents) || 0));
+    var gross = Math.max(0, Math.round(Number(input.grossCents) || 0));
+    var exempt = iva === 0;
+    return {
+      ivaOverYear: exempt && base > RULES.ivaLimitCents && base <= RULES.ivaOverrunCents,
+      ivaOverNow: exempt && base > RULES.ivaOverrunCents,
+      ssCap: !!input.capped,
+      ssRemainder: !!input.remainder,
+      ssFirstYearEnded: !!input.leftFirstYear,
+      irsDispensa: gross > RULES.ivaLimitCents,
+      simplificadoWatch: gross > RULES.simplificadoLimitCents && gross <= RULES.simplificadoForceCents,
+      simplificadoForce: gross > RULES.simplificadoForceCents
+    };
+  }
+
+  /* Art. 31.º n.º 1. kind is art151 (b), other (c) or goods (a, including
+     restaurants and hotels). Does not apply n.º 10 or n.º 13: those need
+     facts this file does not have. */
+  function anexoTaxable(grossCents, kind) {
+    var coef = kind === "art151" ? RULES.coefArt151 : (kind === "other" ? RULES.coefOtherServices : RULES.coefGoodsHospitality);
+    var gross = Math.max(0, Math.round(Number(grossCents) || 0));
+    return {
+      kind: kind === "art151" || kind === "other" ? kind : "goods",
+      coef: coef,
+      grossCents: gross,
+      taxableCents: Math.round(gross * coef / 100),
+      expenseRule: kind === "art151" || kind === "other"
+    };
+  }
+
   function checkNif(raw) {
     var digits = String(raw || "").toUpperCase().replace(/^PT/, "").replace(/\D/g, "");
     if (!digits) return { nif: "", valid: false, reason: "nif-missing" };
@@ -382,6 +441,9 @@
     todayIso: todayIso,
     quarterContains: quarterContains,
     checkNif: checkNif,
-    clampAdjustment: clampAdjustment
+    clampAdjustment: clampAdjustment,
+    googleCalendarUrl: googleCalendarUrl,
+    limitFlags: limitFlags,
+    anexoTaxable: anexoTaxable
   };
 });

@@ -63,4 +63,34 @@ assert.strictEqual(RV.ivaPosition(1500001).state, "over-year");
 assert.strictEqual(RV.ivaPosition(1875000).state, "over-year");
 assert.strictEqual(RV.ivaPosition(1875001).state, "over-now");
 
+var gUrl = RV.googleCalendarUrl({
+  start: "2027-02-01",
+  text: "Declaração trimestral Segurança Social",
+  details: "Entregar a declaração. https://netmend.app/pt/recibos-verdes/declaracao-trimestral/"
+});
+assert.ok(gUrl.indexOf("https://calendar.google.com/calendar/render?action=TEMPLATE") === 0);
+assert.ok(gUrl.indexOf("dates=20270201/20270202") !== -1);
+assert.ok(gUrl.indexOf("512345678") === -1);
+
+var over = RV.limitFlags({ yearBaseCents: 1900000, yearIvaCents: 0, grossCents: 1900000 });
+assert.strictEqual(over.ivaOverNow, true);
+assert.strictEqual(over.irsDispensa, true);
+var mid = RV.limitFlags({ yearBaseCents: 1600000, yearIvaCents: 0, grossCents: 1600000 });
+assert.strictEqual(mid.ivaOverYear, true);
+assert.strictEqual(mid.ivaOverNow, false);
+var charged = RV.limitFlags({ yearBaseCents: 1900000, yearIvaCents: 100, grossCents: 1900000 });
+assert.strictEqual(charged.ivaOverNow, false);
+var force = RV.limitFlags({ grossCents: 26000000 });
+assert.strictEqual(force.simplificadoForce, true);
+var watch = RV.limitFlags({ grossCents: 21000000 });
+assert.strictEqual(watch.simplificadoWatch, true);
+assert.strictEqual(watch.simplificadoForce, false);
+
+var anexo = RV.anexoTaxable(100000, "art151");
+assert.strictEqual(anexo.taxableCents, 75000);
+assert.strictEqual(anexo.expenseRule, true);
+assert.strictEqual(RV.anexoTaxable(100000, "other").taxableCents, 35000);
+assert.strictEqual(RV.anexoTaxable(100000, "goods").taxableCents, 15000);
+assert.strictEqual(RV.anexoTaxable(100000, "goods").expenseRule, false);
+
 console.log("rules.test.js ok");
