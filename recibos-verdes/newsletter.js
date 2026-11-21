@@ -1,3 +1,3 @@
-/* Leave empty until a provider form URL is set. The signup is not shown while this is empty.
-   No third-party script is loaded. */
-window.NEWSLETTER_ACTION_URL = "";
+/* Buttondown embed form. POST field name is email. No third-party script is loaded.
+   An empty string hides the form. */
+window.NEWSLETTER_ACTION_URL = "https://buttondown.com/api/emails/embed-subscribe/netmend";

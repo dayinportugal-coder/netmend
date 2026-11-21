@@ -1465,9 +1465,13 @@
     if (!url) { host.hidden = true; while (host.firstChild) host.removeChild(host.firstChild); return; }
     host.hidden = false;
     clear(host);
+    var title = document.createElement("h2");
+    title.textContent = "Lembretes dos prazos";
+    host.appendChild(title);
     var form = document.createElement("form");
     form.method = "post";
     form.action = url;
+    form.target = "_blank";
     var label = document.createElement("label");
     label.setAttribute("for", "news-email");
     label.textContent = "Email";
@@ -1485,17 +1489,34 @@
     check.value = "yes";
     var consent = document.createElement("label");
     consent.setAttribute("for", "news-ok");
-    consent.textContent = "Recebo um email uns dias antes de cada prazo. Pode cancelar quando quiser.";
+    consent.textContent = "Quero um email uns dias antes de cada prazo. Recebo primeiro um email para confirmar a inscrição e posso cancelar quando quiser.";
     var button = document.createElement("button");
     button.type = "submit";
     button.className = "btn";
     button.textContent = "Quero os lembretes";
+    var privacy = document.createElement("p");
+    privacy.className = "note";
+    privacy.textContent = "O endereço fica no Buttondown, o serviço que envia estes lembretes. Sem a confirmação desse email a inscrição não fica ativa.";
+    var status = document.createElement("p");
+    status.id = "news-status";
+    status.className = "note";
+    status.setAttribute("role", "status");
+    status.hidden = true;
+    form.addEventListener("submit", function () {
+      status.hidden = false;
+      status.textContent = "Pedido enviado. O Buttondown abre a página de confirmação: confirme o email que lhe enviarem. Pode cancelar quando quiser.";
+    });
+    var row = document.createElement("div");
+    row.className = "choice";
+    row.appendChild(check);
+    row.appendChild(consent);
     form.appendChild(label);
     form.appendChild(input);
-    form.appendChild(check);
-    form.appendChild(consent);
+    form.appendChild(row);
     form.appendChild(button);
     host.appendChild(form);
+    host.appendChild(privacy);
+    host.appendChild(status);
   }
 
   var loaded = [];

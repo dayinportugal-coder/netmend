@@ -11,7 +11,15 @@
         return (list || []).some(function (item) { return item && item.name === DB; });
       }).catch(function () { return false; });
     }
-    return openDb(false).then(function (db) { return !!db; });
+    return openDb(false).then(function (db) {
+      var yes = !!db;
+      if (db) db.close();
+      return yes;
+    });
+  }
+
+  function finish(db) {
+    if (db && typeof db.close === "function") db.close();
   }
 
   function openDb(create) {
@@ -44,10 +52,19 @@
   function saveYear(record) {
     return openDb(true).then(function (db) {
       return new Promise(function (resolve, reject) {
+        var settled = false;
+        function settle(ok, value) {
+          if (settled) return;
+          settled = true;
+          finish(db);
+          if (ok) resolve(value);
+          else reject(value);
+        }
         var tx = db.transaction(STORE, "readwrite");
         tx.objectStore(STORE).put(record);
-        tx.oncomplete = function () { resolve(record); };
-        tx.onerror = function () { reject(tx.error); };
+        tx.oncomplete = function () { settle(true, record); };
+        tx.onerror = function () { settle(false, tx.error); };
+        tx.onabort = function () { settle(false, tx.error || new Error("abort")); };
       });
     });
   }
@@ -58,14 +75,23 @@
       return openDb(false).then(function (db) {
         if (!db) return null;
         return new Promise(function (resolve, reject) {
+          var settled = false;
+          function settle(ok, value) {
+            if (settled) return;
+            settled = true;
+            finish(db);
+            if (ok) resolve(value);
+            else reject(value);
+          }
           var tx = db.transaction(STORE, "readonly");
           var req = tx.objectStore(STORE).getAll();
           req.onsuccess = function () {
             var rows = req.result || [];
             rows.sort(function (a, b) { return a.year - b.year; });
-            resolve(rows.length ? rows[rows.length - 1] : null);
+            settle(true, rows.length ? rows[rows.length - 1] : null);
           };
-          req.onerror = function () { reject(req.error); };
+          req.onerror = function () { settle(false, req.error); };
+          tx.onabort = function () { settle(false, tx.error || new Error("abort")); };
         });
       });
     });
