@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Freelancer in Portugal: quarterly Social Security 2026 · Netmend</title>
-<meta name="description" content="Quarterly Social Security helper for freelancers in Portugal (recibos verdes) in 2026. Relevant income, estimated contribution, VAT and the article 53 exemption. Nothing is uploaded.">
+<title>Quarterly Social Security for freelancers in Portugal · Netmend</title>
+<meta name="description" content="Estimate the monthly Social Security contribution from Portuguese green receipts, with the amount to declare each quarter, VAT and tax withheld. The calculation stays in the browser.">
 <link rel="canonical" href="https://netmend.app/freelancer-portugal-quarterly/">
 <link rel="alternate" hreflang="en" href="https://netmend.app/freelancer-portugal-quarterly/">
 <link rel="alternate" hreflang="pt-PT" href="https://netmend.app/pt/recibos-verdes/declaracao-trimestral/">
+<link rel="alternate" hreflang="pt" href="https://netmend.app/pt/recibos-verdes/">
 <link rel="alternate" hreflang="x-default" href="https://netmend.app/pt/recibos-verdes/declaracao-trimestral/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://netmend.app/freelancer-portugal-quarterly/">
@@ -43,13 +44,14 @@
 
 <div class="hero"><div class="wrap">
 <p class="crumbs"><a href="../">Netmend</a> · <a href="../tools/">Tools</a> · Quarterly helper <span class="lang">· <a href="./" aria-current="page">English</a> · <a href="../pt/recibos-verdes/declaracao-trimestral/">Português</a></span></p>
-<h1>Quarterly helper for freelancers in Portugal</h1>
+<h1>Quarterly Social Security declaration: estimate the contribution (recibos verdes)</h1>
 <p>Green receipts (recibos verdes): figures for the Segurança Social quarterly declaration, VAT charged in the quarter, and progress toward the article 53 exemption. The file stays on this computer.</p>
 <div class="pills"><span>Nothing is uploaded</span><span>2026 rules, each with a source</span><span>An estimate, not tax advice</span></div>
 </div></div>
 
 <section class="tight" id="app"><div class="wrap">
-<p class="disclaimer"><b>This is an estimate, not tax advice and not an official assessment.</b> Segurança Social and the tax authority decide what you owe. Check <a href="https://www.seg-social.pt/ptss/pssd/menu/trabalho/remuneracoes-contribuicoes/trabalhadores-independentes" rel="noopener noreferrer">Segurança Social Direta</a> and the tax portal before you file. Every figure is listed under 2026 rules, with the official page it came from.</p>
+<p class="disclaimer"><b>An estimate, not tax advice.</b> <a href="#saber-mais">Read more</a></p>
+<details id="saber-mais"><summary>Read more</summary><p>Segurança Social and the tax authority decide what you owe. Check <a href="https://www.seg-social.pt/ptss/pssd/menu/trabalho/remuneracoes-contribuicoes/trabalhadores-independentes" rel="noopener noreferrer">Segurança Social Direta</a> before you file. Every figure is under 2026 rules, with the official page it came from.</p></details>
 
 <div class="modes" role="group" aria-label="Mode">
 <button type="button" id="mode-file" aria-pressed="true">Portal file</button>
@@ -61,7 +63,7 @@
 <label for="file" style="margin-top:0">Green-receipt CSV or Excel</label>
 <p class="note" style="margin:0">Use “Exportar tabela” from the tax portal, as CSV or XLSX. The exact column names are not confirmed: the page tries to recognise them and, if it cannot, asks you to map them.</p>
 <div class="pick">
-<input id="file" type="file" accept=".csv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple aria-describedby="file-help">
+<input id="file" type="file" accept=".csv,.txt,.xlsx,.xls,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple aria-describedby="file-help">
 <button id="example" type="button" class="btn" data-sample="../recibos-verdes/sample/recibos-verdes-exemplo.csv">Try the example</button>
 </div>
 <p id="file-help" class="note" style="margin:10px 0 0">The example is fiction: names say EXEMPLO and the tax numbers are not real people. <a href="../recibos-verdes/sample/recibos-verdes-exemplo.csv" download>Download the example CSV</a></p>
@@ -121,6 +123,17 @@
 </div>
 </div>
 
+<div class="opts">
+<div>
+<label for="start-date">Date the activity started</label>
+<input id="start-date" type="date">
+</div>
+</div>
+<fieldset class="plain">
+<legend>Contribution rate</legend>
+<div class="choice"><input id="regime-ti" type="radio" name="regime" value="ti" checked><label for="regime-ti">Self-employed (21.4%)</label></div>
+<div class="choice"><input id="regime-eni" type="radio" name="regime" value="eni"><label for="regime-eni">Sole trader or single-member establishment (25.2%)</label></div>
+</fieldset>
 <fieldset class="plain" style="margin-top:14px">
 <legend>Activity, for the coefficient</legend>
 <div class="choice"><input id="act-services" type="radio" name="activity" value="services" checked><label for="act-services">Services (70%)</label></div>
@@ -176,20 +189,20 @@
 
 <h2>By client</h2>
 <p id="client-empty" class="note" hidden></p>
-<div class="scroll" id="client-table"><table>
+<div class="scroll" id="client-table" tabindex="0"><table>
 <caption>IRS withheld per client, summed from the file</caption>
 <thead><tr><th>NIF</th><th>Name</th><th>NIF valid</th><th class="num">Receipts</th><th class="num">Base</th><th class="num">VAT</th><th class="num">Withheld</th></tr></thead>
 <tbody id="client-body"></tbody>
 </table></div>
 
-<div class="scroll" id="preview-table"><table>
+<div class="scroll" id="preview-table" tabindex="0"><table>
 <caption>Receipts in the totals</caption>
 <thead><tr><th>Date</th><th>Receipt</th><th>Client</th><th>NIF</th><th class="num">Base</th><th class="num">VAT</th><th class="num">Withheld</th></tr></thead>
 <tbody id="preview-body"></tbody>
 </table></div>
 <p id="preview-note" class="note" hidden></p>
 
-<div class="scroll" id="problems-table" hidden><table>
+<div class="scroll" id="problems-table" tabindex="0" hidden><table>
 <caption>Issues</caption>
 <thead><tr><th>Issue</th><th>Receipt</th><th>NIF</th><th>Name</th><th>Detail</th></tr></thead>
 <tbody id="problems-body"></tbody>
@@ -222,9 +235,9 @@
 <h3>What this page does not calculate</h3>
 <ul>
 <li>The exact “Exportar tabela” column names were not confirmed. Recognition is tolerant, and the column map is there when it fails.</li>
-<li>The Social Security page, updated in 2023, describes a rate other than 21.4% for sole traders and for single-member establishments. The January 2026 FAQ does not use it in the quarterly-declaration examples. This estimate does not show that number. Check your rate on Segurança Social Direta.</li>
+<li>The 25.2% rate is in question 34 of the January 2026 FAQ. Choose it when you are a sole trader (ENI) or a single-member establishment. The default estimate uses 21.4%.</li>
 <li>Organised accounting follows taxable profit, not this sum, unless you opted into the quarterly declaration.</li>
-<li>The calendar moves Saturday and Sunday. It does not include the public-holiday list.</li>
+<li>The calendar moves Saturday, Sunday and mainland national holidays (fixed dates, plus Good Friday and Corpus Christi). It does not include municipal holidays.</li>
 <li>It does not guess whether an activity is on the article 151 table. Per-client withholding is the column total, not a rate applied here.</li>
 </ul>
 </div></section>
@@ -251,7 +264,7 @@
 </div></footer>
 <script src="/assets/pwa.js"></script>
 <script src="../assets/vendor/jszip.min.js"></script>
-<script src="../assets/vendor/xlsx.mini.min.js"></script>
+<script src="../assets/vendor/xlsx.full.min.js"></script>
 <script src="../recibos-verdes/rules.js"></script>
 <script src="../recibos-verdes/app.js"></script>
 </body>

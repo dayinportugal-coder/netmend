@@ -1,6 +1,18 @@
 /* Recibos verdes quarterly helper. Flat, same tokens as tools.css.
    Author display rules would otherwise beat the hidden attribute. */
 [hidden]{display:none !important}
+/* #ff5a36 with white text is about 3.1:1. #c2410c is about 5.2:1. */
+.btn,button.btn{background:#c2410c}
+.btn:hover,button.btn:hover{background:#9a3412}
+.scroll:focus{outline:2px solid #c2410c;outline-offset:2px}
+@media(max-width:480px){
+  .hero{padding:4px 0 0}
+  .hero h1{font-size:22px;margin-bottom:4px}
+  .hero p:not(.crumbs){display:none}
+  .pills{display:none}
+  section.tight{padding-top:0}
+  #file-help{display:none}
+}
 .hero{padding:20px 0 8px}
 .hero h1{font-size:clamp(28px,4.2vw,44px);margin-bottom:8px}
 section.tight{padding:12px 0 56px}

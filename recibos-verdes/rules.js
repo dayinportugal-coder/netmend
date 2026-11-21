@@ -1,7 +1,10 @@
 /* Recibos verdes — tax figures for the quarterly helper.
    Every number the calculator uses is in RULES, with the year and the
    official page it was read from. Confirmed for RULES.year (2026).
-   This file does not fetch anything. */
+   This file does not fetch anything.
+   FAQ questions are from «Perguntas Frequentes — Novo regime dos
+   Trabalhadores Independentes», ISS, I.P., 14 January 2026:
+   https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc */
 (function (root, factory) {
   var api = factory();
   if (typeof module === "object" && module.exports) module.exports = api;
@@ -11,50 +14,44 @@
 
   var RULES = {
     year: 2026,
-    /* Portaria n.º 480-A/2025/1, de 30 de dezembro. Diário da República. */
+    /* Portaria n.º 480-A/2025/1. Diário da República. */
     iasCents: 53713,
-    /* ISS, FAQ «Novo regime dos Trabalhadores Independentes», 14 jan 2026.
-       Coeficientes do rendimento relevante no regime da declaração trimestral. */
+    /* FAQ Q24. Coefficients of relevant income in the quarterly regime. */
     coefServices: 70,
     coefGoods: 20,
     coefHospitality: 20,
-    /* Same FAQ, exemplo do Filipe, and art. 168.º do Código dos Regimes
-       Contributivos as cited there: taxa dos trabalhadores independentes. */
-    rateBps: 2140,
-    /* Same FAQ: contribuição fixada em 20 € quando não há rendimentos ou a
-       contribuição apurada fica abaixo de 20 € (regime da declaração trimestral). */
+    /* FAQ Q34. Trabalhadores independentes. */
+    rateTiBps: 2140,
+    /* FAQ Q34. Empresários em nome individual and EIRL, and their spouses. */
+    rateEniBps: 2520,
+    /* FAQ Q30 and exemplo 2 (Marta): contribution set at 20 € when there is
+       no income or the calculated contribution is under 20 €. */
     minContributionCents: 2000,
-    /* Same FAQ, citing Despacho n.º 599/2019: no remanescente da acumulação,
-       uma contribuição apurada abaixo de 5 € não releva. */
+    /* FAQ Q44, citing Despacho n.º 599/2019: a remainder contribution under
+       5 € does not count. */
     accumulateIgnoreBelowCents: 500,
-    /* Option on the quarterly declaration: ±25%, in steps of 5%. */
+    /* FAQ Q28. ±25%, steps of 5. Not available when paying on the remainder
+       above 4 × IAS. */
     adjustmentMin: -25,
     adjustmentMax: 25,
     adjustmentStep: 5,
-    /* Cap: 12 × IAS. 537,13 × 12 = 6 445,56 €. FAQ de janeiro de 2026. */
+    /* FAQ exemplo 5: monthly base cap is 12 × IAS = 6 445,56 €. */
     maxBaseMultiple: 12,
-    /* Accumulation with employment: monthly relevant income vs 4 × IAS
-       (2 148,52 €). FAQ de janeiro de 2026. */
+    /* FAQ Q35 and exemplo 4 (Paulo): 4 × IAS = 2 148,52 €. */
     accumulateMultiple: 4,
-    /* Art. 53.º, n.º 1, do CIVA, redação do Decreto-Lei n.º 35/2025:
-       volume de negócios do ano anterior superior a 15 000 € exclui a isenção
-       a partir de 1 de janeiro seguinte. */
+    /* CIVA art. 53.º n.º 1, wording of Decreto-Lei n.º 35/2025. */
     ivaLimitCents: 1500000,
-    /* Art. 58.º, n.º 2, alínea b), e n.º 4, alínea b): no ano em curso, limiar
-       excedido em mais de 25 % (15 000 × 1,25 = 18 750). A AT descreve o corte
-       como ultrapassar 18 750 €. Strictly above 18 750. */
+    /* CIVA art. 58.º n.º 2 b) and n.º 4 b): threshold exceeded by more than
+       25% (15 000 × 1,25 = 18 750). Strictly above 18 750. */
     ivaOverrunCents: 1875000,
-    /* Art. 101.º, n.º 1, do CIRS (redação da Lei n.º 45-A/2024 na alínea b)):
-       reference rates only. The tool does not apply them to a receipt. */
+    /* CIRS art. 101.º n.º 1, alíneas b) and c). Reference only. */
     withholdingArt151Pct: 23,
     withholdingOtherServicesPct: 11.5,
-    /* Declaration months: last day of January, April, July, October.
-       FAQ ISS, pergunta 14. Weekend moves to the next Monday. Holidays are
-       not encoded — the FAQ also moves a deadline that falls on a holiday,
-       and this file does not ship a holiday calendar. */
+    /* CIRS art. 101.º-B n.º 1 d), Decreto-Lei n.º 49/2025, in force 1 July 2025:
+       no withholding when each withholding is under 25 €. */
+    withholdingWaiverCents: 2500,
     declarationMonths: [1, 4, 7, 10],
-    /* Payment window: day 10 to day 20 of the month after the month the
-       contribution refers to. FAQ ISS and seg-social.pt. */
+    /* FAQ Q34. Payment from the 10th to the 20th of the following month. */
     paymentDayFrom: 10,
     paymentDayTo: 20,
     sources: {
@@ -66,7 +63,8 @@
       civaFaq: "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/pages/faqs-00101.aspx",
       civaNewsletter: "https://info.portaldasfinancas.gov.pt/pt/at/Divulgacao/publicacoes_internas/Newsletter_AT/Documents/Newsletter-39-janeiro-2026.pdf",
       volume: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/instrucoes_administrativas/Documents/Oficio_circulado_25062_2025.pdf",
-      cirs: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs101.aspx"
+      cirs: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs101.aspx",
+      cirsWaiver: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/diplomas_legislativos/Documents/Decreto_Lei_49_2025.pdf"
     }
   };
 
@@ -84,75 +82,139 @@
     return n;
   }
 
-  /* One quarter of the quarterly-declaration regime (not organized accounting).
-     Amounts are cents, without VAT. activity is "services", "goods" or
-     "hospitality" — one coefficient for the whole amount. */
+  function rateBps(regime) {
+    return regime === "eni" ? RULES.rateEniBps : RULES.rateTiBps;
+  }
+
+  /* One quarter of the quarterly-declaration regime.
+     amountCents is without VAT. activity is services, goods or hospitality.
+     regime is "ti" (21,4%) or "eni" (25,2%, FAQ Q34).
+     beforeRegime: the 12-month first enrolment has not started (FAQ Q1).
+     accumulate: also employed. The ±25% option is ignored when the person
+     pays on the remainder above 4 × IAS (FAQ Q28). */
   function estimateQuarter(input) {
+    input = input || {};
     var amount = Math.max(0, Math.round(Number(input.amountCents) || 0));
     var activity = input.activity === "goods" || input.activity === "hospitality" ? input.activity : "services";
     var services = activity === "services" ? amount : 0;
     var goods = activity === "goods" ? amount : 0;
     var hospitality = activity === "hospitality" ? amount : 0;
-    var adjustment = clampAdjustment(input.adjustmentPct);
+    var requested = clampAdjustment(input.adjustmentPct);
     var relevant = roundRatio(services, RULES.coefServices, 100)
       + roundRatio(goods, RULES.coefGoods, 100)
       + roundRatio(hospitality, RULES.coefHospitality, 100);
-    var adjusted = roundRatio(relevant, 100 + adjustment, 100);
-    var monthlyRelevant = Math.round(adjusted / 3);
     var maxBase = RULES.iasCents * RULES.maxBaseMultiple;
     var four = RULES.iasCents * RULES.accumulateMultiple;
     var accumulate = !!input.accumulate;
+    var regime = input.regime === "eni" ? "eni" : "ti";
+    var bps = rateBps(regime);
+    var monthlyUnadjusted = Math.round(relevant / 3);
+    var adjustmentApplied = false;
+    var adjustmentIgnored = false;
+    var useMonthly = monthlyUnadjusted;
+    var adjusted = relevant;
+
+    if (input.beforeRegime) {
+      return result({
+        amount: amount, activity: activity, services: services, goods: goods, hospitality: hospitality,
+        requested: requested, relevant: relevant, adjusted: relevant, monthlyRelevant: monthlyUnadjusted,
+        base: 0, contribution: 0, raw: 0, capped: false, floor20: false, accumulate: accumulate,
+        headline: "first-year", adjustmentApplied: false, adjustmentIgnored: false,
+        exemptEmployed: false, ignoredUnder5: false, maxBase: maxBase, four: four, regime: regime, bps: bps,
+        hypothetical: 0
+      });
+    }
+
+    if (accumulate && monthlyUnadjusted >= four) {
+      /* FAQ Q28: no ±25% when contributing on the remainder. */
+      if (requested !== 0) adjustmentIgnored = true;
+      useMonthly = monthlyUnadjusted;
+      adjusted = relevant;
+    } else if (!accumulate) {
+      adjusted = roundRatio(relevant, 100 + requested, 100);
+      useMonthly = Math.round(adjusted / 3);
+      adjustmentApplied = requested !== 0;
+    } else {
+      /* Under 4 × IAS and also employed: the option does not create a payment. */
+      useMonthly = monthlyUnadjusted;
+      adjusted = relevant;
+    }
+
+    var exemptEmployed = accumulate && monthlyUnadjusted < four;
     var capped = false;
-    var floor20 = false;
-    var exemptPossible = false;
-    var ignoredUnder5 = false;
-    var base = monthlyRelevant;
-    if (accumulate && monthlyRelevant < four) exemptPossible = true;
-    if (accumulate && monthlyRelevant >= four) {
-      base = monthlyRelevant - four;
-    }
-    if (base > maxBase) {
-      base = maxBase;
-      capped = true;
-    }
+    var base = exemptEmployed ? useMonthly : (accumulate ? useMonthly - four : useMonthly);
+    if (base > maxBase) { base = maxBase; capped = true; }
     if (base < 0) base = 0;
-    var raw = roundRatio(base, RULES.rateBps, 10000);
+    var raw = roundRatio(base, bps, 10000);
     var contribution = raw;
-    if (accumulate && monthlyRelevant >= four && raw < RULES.accumulateIgnoreBelowCents) {
+    var floor20 = false;
+    var ignoredUnder5 = false;
+    var headline = "pay";
+
+    if (exemptEmployed) {
+      headline = "exempt-employed";
+      contribution = 0;
+      floor20 = false;
+    } else if (accumulate && raw < RULES.accumulateIgnoreBelowCents) {
       contribution = 0;
       ignoredUnder5 = true;
+      headline = "under-5";
     } else if (amount === 0 || raw < RULES.minContributionCents) {
       contribution = RULES.minContributionCents;
       floor20 = true;
+      headline = "floor";
     }
+
+    var hypothetical = 0;
+    if (exemptEmployed) {
+      var hypoBase = Math.min(monthlyUnadjusted, maxBase);
+      hypothetical = roundRatio(hypoBase, bps, 10000);
+      if (hypothetical < RULES.minContributionCents) hypothetical = RULES.minContributionCents;
+    }
+
+    return result({
+      amount: amount, activity: activity, services: services, goods: goods, hospitality: hospitality,
+      requested: requested, relevant: relevant, adjusted: adjusted, monthlyRelevant: useMonthly,
+      base: exemptEmployed ? 0 : base, contribution: contribution, raw: raw, capped: capped,
+      floor20: floor20, accumulate: accumulate, headline: headline,
+      adjustmentApplied: adjustmentApplied, adjustmentIgnored: adjustmentIgnored,
+      exemptEmployed: exemptEmployed, ignoredUnder5: ignoredUnder5,
+      maxBase: maxBase, four: four, regime: regime, bps: bps, hypothetical: hypothetical
+    });
+  }
+
+  function result(p) {
     return {
-      activity: activity,
-      amountCents: amount,
-      servicesCents: services,
-      goodsCents: goods,
-      hospitalityCents: hospitality,
-      adjustmentPct: adjustment,
-      relevantCents: relevant,
-      adjustedRelevantCents: adjusted,
-      monthlyRelevantCents: monthlyRelevant,
-      monthlyBaseCents: base,
-      contributionCents: contribution,
-      rawContributionCents: raw,
-      capped: capped,
-      floor20: floor20,
-      accumulate: accumulate,
-      exemptPossible: exemptPossible,
-      ignoredUnder5: ignoredUnder5,
-      maxBaseCents: maxBase,
-      fourIasCents: four
+      activity: p.activity,
+      regime: p.regime,
+      rateBps: p.bps,
+      amountCents: p.amount,
+      servicesCents: p.services,
+      goodsCents: p.goods,
+      hospitalityCents: p.hospitality,
+      adjustmentPct: p.adjustmentApplied ? p.requested : 0,
+      requestedAdjustmentPct: p.requested,
+      adjustmentApplied: p.adjustmentApplied,
+      adjustmentIgnored: p.adjustmentIgnored,
+      relevantCents: p.relevant,
+      adjustedRelevantCents: p.adjusted,
+      monthlyRelevantCents: p.monthlyRelevant,
+      monthlyBaseCents: p.base,
+      contributionCents: p.contribution,
+      rawContributionCents: p.raw,
+      hypotheticalCents: p.hypothetical,
+      capped: p.capped,
+      floor20: p.floor20,
+      accumulate: p.accumulate,
+      exemptEmployed: p.exemptEmployed,
+      exemptPossible: p.exemptEmployed,
+      ignoredUnder5: p.ignoredUnder5,
+      headline: p.headline,
+      maxBaseCents: p.maxBase,
+      fourIasCents: p.four
     };
   }
 
-  /* Art. 53.º / 58.º position from a yearly sum of bases (no VAT), in cents.
-     "within": at or under 15 000.
-     "over-year": over 15 000 and not over 18 750 — exemption until 31 Dec,
-     normal regime from 1 Jan.
-     "over-now": over 18 750 — exemption ends when the line is crossed. */
   function ivaPosition(baseCents) {
     var base = Math.max(0, Math.round(Number(baseCents) || 0));
     var state = "within";
@@ -174,17 +236,81 @@
     return date.getUTCFullYear() + "-" + pad(date.getUTCMonth() + 1) + "-" + pad(date.getUTCDate());
   }
 
-  /* Last day of `month` (1–12) in `year`, moved to Monday when that day is
-     Saturday or Sunday. Does not know public holidays. */
-  function declarationDeadline(year, month) {
-    var last = new Date(Date.UTC(year, month, 0));
-    var dow = last.getUTCDay();
-    if (dow === 6) last = new Date(last.getTime() + 2 * 86400000);
-    else if (dow === 0) last = new Date(last.getTime() + 86400000);
-    return isoUTC(last);
+  function addDays(iso, n) {
+    var p = iso.split("-").map(Number);
+    return isoUTC(new Date(Date.UTC(p[0], p[1] - 1, p[2] + n)));
   }
 
-  /* Quarter 1–4 of `year` is declared the following Jan/Apr/Jul/Oct. */
+  /* Anonymous Gregorian computus. Returns YYYY-MM-DD of Easter Sunday. */
+  function easterSunday(year) {
+    var a = year % 19;
+    var b = Math.floor(year / 100);
+    var c = year % 100;
+    var d = Math.floor(b / 4);
+    var e = b % 4;
+    var f = Math.floor((b + 8) / 25);
+    var g = Math.floor((b - f + 1) / 3);
+    var h = (19 * a + b - d - g + 15) % 30;
+    var i = Math.floor(c / 4);
+    var k = c % 4;
+    var l = (32 + 2 * e + 2 * i - h - k) % 7;
+    var m = Math.floor((a + 11 * h + 22 * l) / 451);
+    var month = Math.floor((h + l - 7 * m + 114) / 31);
+    var day = ((h + l - 7 * m + 114) % 31) + 1;
+    return year + "-" + pad(month) + "-" + pad(day);
+  }
+
+  /* Mainland national holidays: fixed dates plus Good Friday and Corpus Christi.
+     Municipal holidays are not included. */
+  function nationalHolidays(year) {
+    var easter = easterSunday(year);
+    var list = [
+      year + "-01-01",
+      year + "-04-25",
+      year + "-05-01",
+      year + "-06-10",
+      year + "-08-15",
+      year + "-10-05",
+      year + "-11-01",
+      year + "-12-01",
+      year + "-12-08",
+      year + "-12-25",
+      addDays(easter, -2),
+      addDays(easter, 60)
+    ];
+    var set = Object.create(null);
+    list.forEach(function (d) { set[d] = true; });
+    return set;
+  }
+
+  function isWeekend(iso) {
+    var p = iso.split("-").map(Number);
+    var dow = new Date(Date.UTC(p[0], p[1] - 1, p[2])).getUTCDay();
+    return dow === 0 || dow === 6;
+  }
+
+  var holidayCache = Object.create(null);
+  function holidaySet(year) {
+    if (!holidayCache[year]) holidayCache[year] = nationalHolidays(year);
+    return holidayCache[year];
+  }
+
+  /* FAQ Q14: Saturday, Sunday or a public holiday moves to the next business day. */
+  function nextBusinessDay(iso) {
+    var d = iso;
+    var guard = 0;
+    while (guard < 14 && (isWeekend(d) || holidaySet(Number(d.slice(0, 4)))[d])) {
+      d = addDays(d, 1);
+      guard++;
+    }
+    return d;
+  }
+
+  function declarationDeadline(year, month) {
+    var last = new Date(Date.UTC(year, month, 0));
+    return nextBusinessDay(isoUTC(last));
+  }
+
   function quarterDeadline(year, quarter) {
     var q = Number(quarter);
     if (q === 4) return declarationDeadline(year + 1, 1);
@@ -192,6 +318,39 @@
     if (q === 2) return declarationDeadline(year, 7);
     if (q === 3) return declarationDeadline(year, 10);
     return "";
+  }
+
+  /* FAQ Q1: the first enrolment takes effect on the 1st day of the 12th month
+     after the month the activity started.
+     1 March 2025 → 1 March 2026. 10 January 2025 → 1 January 2026. */
+  function regimeStartDate(iso) {
+    if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return "";
+    var y = Number(iso.slice(0, 4));
+    var m = Number(iso.slice(5, 7));
+    if (!m || m > 12) return "";
+    var em = m + 12;
+    var ey = y;
+    if (em > 12) { em -= 12; ey += 1; }
+    return ey + "-" + pad(em) + "-01";
+  }
+
+  function dateInForce(iso, startIso) {
+    if (!startIso) return true;
+    var effect = regimeStartDate(startIso);
+    if (!effect || !iso) return true;
+    return iso >= effect;
+  }
+
+  function todayIso() {
+    var d = new Date();
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  }
+
+  function quarterContains(year, quarter, iso) {
+    var startM = (Number(quarter) - 1) * 3 + 1;
+    var start = year + "-" + pad(startM) + "-01";
+    var end = isoUTC(new Date(Date.UTC(year, startM + 2, 0)));
+    return iso >= start && iso <= end;
   }
 
   function checkNif(raw) {
@@ -215,6 +374,13 @@
     ivaPosition: ivaPosition,
     declarationDeadline: declarationDeadline,
     quarterDeadline: quarterDeadline,
+    nextBusinessDay: nextBusinessDay,
+    nationalHolidays: nationalHolidays,
+    easterSunday: easterSunday,
+    regimeStartDate: regimeStartDate,
+    dateInForce: dateInForce,
+    todayIso: todayIso,
+    quarterContains: quarterContains,
     checkNif: checkNif,
     clampAdjustment: clampAdjustment
   };

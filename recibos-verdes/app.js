@@ -41,14 +41,17 @@
       sheetP: ["Issue", "File", "Receipt", "NIF", "Name", "Detail"],
       totalRow: "Total",
       estimateNote: "Estimate only, not a Segurança Social figure. Worker rate 21.4% for " + RULES.year + ". Confirm before you file.",
-      issue: { dup: "Duplicate", nif: "Invalid NIF", cancelled: "Cancelled", mismatch: "Base + VAT", amount: "Amount", "no-date": "No date", "too-big": "File too large" },
+      issue: { dup: "Duplicate", nif: "Invalid NIF", cancelled: "Cancelled", mismatch: "Base + VAT", amount: "Amount", "no-date": "No date", "too-big": "File too large", credit: "Credit note", isolado: "Occasional", paired: "Invoice already received" },
       detail: {
-        dup: "The same receipt number was already in the file. This copy was left out of the totals.",
+        dup: "Same series, number, year, client NIF and amount. This copy was left out. A/1 in another year is kept.",
         nif: "The NIF does not pass the check digit.",
         "nif-prefix": "The check digit passes, but the first digits are not a known Portuguese NIF type.",
         "nif-digits": "The NIF does not have 9 digits.",
         "nif-missing": "The client NIF is missing.",
         cancelled: "Cancelled receipt. Left out of the totals.",
+        credit: "Credit note. The amount was subtracted.",
+        isolado: "Occasional transaction (ato isolado). Listed apart and left out of the quarterly totals.",
+        paired: "Invoice left out. The same income is already counted on the receipt, at the receipt date (FAQ question 18: declare the way you declare for income tax).",
         mismatch: "Base plus VAT does not match the total (nor base plus VAT minus withholding). Difference over €0.01.",
         amount: "The base could not be read as a number, so the row was left out of the sums.",
         "no-date": "No date, so the row was left out of the quarter and of the yearly VAT total.",
@@ -57,9 +60,9 @@
       qName: ["Q1", "Q2", "Q3", "Q4"],
       qMonths: ["Jan–Mar", "Apr–Jun", "Jul–Sep", "Oct–Dec"],
       contribMonths: ["April, May and June", "July, August and September", "October, November and December", "January, February and March"],
-      declare: "File the quarterly declaration by {date}. If that day is a public holiday, the Segurança Social moves it to the next business day. This date already moves Saturday and Sunday to Monday.",
+      declare: "File the quarterly declaration by {date}. Saturday, Sunday and Portuguese national holidays move to the next business day (FAQ question 14).",
       toType: "Amount to type (no VAT)",
-      relevant: "Relevant income (after the {coef}%)",
+      relevant: "Relevant income, coefficient {coef}",
       adjusted: "Relevant income after the {pct}% option",
       monthly: "Monthly base (1/3)",
       pay: "Estimated monthly contribution",
@@ -73,20 +76,27 @@
       ivaYear: "Over €15,000, and not over €18,750. The exemption can last until 31 December. From 1 January it ends, and the change declaration is due within 15 business days of the last day of the year.",
       ivaNow: "Over €18,750 (the €15,000 line exceeded by more than 25%). The exemption ends when that happens. Tax is due from that moment, and the change declaration is due within 15 business days.",
       ivaLead: "Year {year}, from the bases in this page (no VAT): {amount}. This is not the full legal turnover. The article 53 turnover also includes some exempt supplies, and it excludes others. See the sources below.",
-      activityServices: "services, 70%",
-      activityGoods: "goods, 20%",
-      activityHosp: "hospitality and restaurants, 20%",
+      activityServices: "70% for services",
+      activityGoods: "20% for goods",
+      activityHosp: "20% for hotels and restaurants",
+      firstYear: "Exempt in the first year",
+      nothingToPay: "Nothing to pay",
+      straddle: "This quarter crosses the start of enrolment. Use months to split it.",
+      inProgress: "This quarter is still open. The total can still change.",
+      iasWarning: "A year after 2026 still uses the 2026 IAS, until the new order is published.",
+      ivaCharged: "These documents charged VAT, so the article 53 exemption is not the regime of this file. The bar is only the sum of the bases. It is not a statement that the exemption applies.",
+      readFail: "That file could not be read. Use a CSV, an Excel file (.xlsx or .xls), or the HTML table some portals save as .xls. If the columns are not recognised, map them below.",
       mapIgnore: "Ignore",
       mapApply: "Apply columns",
       mapLegend: "Columns in {file}",
       statusFile: "{n} receipts in the totals. {p} issues.",
       statusManual: "Simulator for {year}.",
-      col: { data: "Date", numero: "Receipt number", nif: "Client NIF", nome: "Client name", base: "Base (no VAT)", iva: "VAT", retencao: "IRS withheld", estado: "Status", total: "Total" }
+      col: { data: "Date", numero: "Receipt number", nif: "Client NIF", nome: "Client name", base: "Base (no VAT)", iva: "VAT", retencao: "IRS withheld", estado: "Status", total: "Total", tipo: "Document type", referencia: "Reference" }
     },
     pt: {
       proNote: "Pro em breve. Ainda não está disponível e este botão não cobra nada.",
       sampleFail: "Não foi possível carregar o exemplo. Verifique a ligação e tente de novo.",
-      readFail: "Não foi possível ler esse ficheiro.",
+      readFail: "Não foi possível ler este ficheiro. Serve um CSV, um Excel (.xlsx ou .xls) ou a tabela HTML que alguns portais gravam como .xls. Se as colunas não forem reconhecidas, associe-as em baixo.",
       tooBig: "Ignorado. Ficheiros acima de 15 MB não são lidos no browser.",
       noneParsed: "Estes ficheiros não parecem uma tabela de recibos. Exporte com “Exportar tabela” ou associe as colunas em baixo.",
       needMap: "Não reconheci os nomes das colunas. Diga o que é cada uma e aplique.",
@@ -109,14 +119,17 @@
       sheetP: ["Problema", "Ficheiro", "Recibo", "NIF", "Nome", "Detalhe"],
       totalRow: "Total",
       estimateNote: "Estimativa, não é um valor da Segurança Social. Taxa de 21,4% dos trabalhadores independentes em " + RULES.year + ". Confirme antes de entregar.",
-      issue: { dup: "Duplicado", nif: "NIF inválido", cancelled: "Anulado", mismatch: "Base + IVA", amount: "Valor", "no-date": "Sem data", "too-big": "Ficheiro grande" },
+      issue: { dup: "Duplicado", nif: "NIF inválido", cancelled: "Anulado", mismatch: "Base + IVA", amount: "Valor", "no-date": "Sem data", "too-big": "Ficheiro grande", credit: "Nota de crédito", isolado: "Ato isolado", paired: "Fatura já recebida" },
       detail: {
-        dup: "O mesmo número de recibo já estava no ficheiro. Esta cópia ficou de fora dos totais.",
+        dup: "Mesma série, número, ano, NIF e valor. Esta cópia ficou de fora. Um A/1 de outro ano mantém-se.",
         nif: "O NIF não passa no dígito de controlo.",
         "nif-prefix": "O dígito de controlo bate certo, mas os primeiros dígitos não são um tipo de NIF português conhecido.",
         "nif-digits": "O NIF não tem 9 dígitos.",
         "nif-missing": "Falta o NIF do adquirente.",
         cancelled: "Recibo anulado. Ficou de fora dos totais.",
+        credit: "Nota de crédito. O valor foi subtraído.",
+        isolado: "Ato isolado. Fica numa lista à parte e fora dos totais do trimestre.",
+        paired: "Fatura deixada de fora. O mesmo rendimento já conta no recibo, na data do recibo (FAQ, pergunta 18: declara-se como no IRS, e nestes recibos isso é o momento do recebimento).",
         mismatch: "A base mais o IVA não batem certo com o total (nem a base mais o IVA menos a retenção). Diferença acima de 0,01 €.",
         amount: "A base não foi lida como número, por isso a linha ficou de fora das somas.",
         "no-date": "Sem data, por isso a linha ficou de fora do trimestre e do total anual de IVA.",
@@ -125,9 +138,9 @@
       qName: ["1.º trimestre", "2.º trimestre", "3.º trimestre", "4.º trimestre"],
       qMonths: ["jan–mar", "abr–jun", "jul–set", "out–dez"],
       contribMonths: ["abril, maio e junho", "julho, agosto e setembro", "outubro, novembro e dezembro", "janeiro, fevereiro e março"],
-      declare: "Entregar a declaração trimestral até {date}. Se esse dia for feriado, a Segurança Social passa o prazo para o dia útil seguinte. Esta data já passa o sábado e o domingo para segunda-feira.",
+      declare: "Entregar a declaração trimestral até {date}. Sábado, domingo e feriado nacional passam para o dia útil seguinte (FAQ, pergunta 14).",
       toType: "Valor a escrever (sem IVA)",
-      relevant: "Rendimento relevante (depois dos {coef}%)",
+      relevant: "Rendimento relevante, coeficiente {coef}",
       adjusted: "Rendimento relevante com a opção de {pct}%",
       monthly: "Base mensal (1/3)",
       pay: "Contribuição mensal estimada",
@@ -141,15 +154,22 @@
       ivaYear: "Acima de 15 000 € e sem ultrapassar 18 750 €. A isenção pode manter-se até 31 de dezembro. A partir de 1 de janeiro deixa de se aplicar, e a declaração de alterações entrega-se nos 15 dias úteis a seguir ao último dia do ano.",
       ivaNow: "Acima de 18 750 € (o limiar de 15 000 € excedido em mais de 25%). A isenção cessa nesse momento. O imposto é devido a partir daí, e a declaração de alterações entrega-se nos 15 dias úteis seguintes.",
       ivaLead: "Ano {year}, com as bases desta página (sem IVA): {amount}. Não é o volume de negócios legal completo. O artigo 53.º inclui algumas operações isentas e exclui outras. Veja as fontes em baixo.",
-      activityServices: "serviços, 70%",
-      activityGoods: "bens, 20%",
-      activityHosp: "hotelaria e restauração, 20%",
+      activityServices: "70% nos serviços",
+      activityGoods: "20% nos bens",
+      activityHosp: "20% na hotelaria e restauração",
+      firstYear: "Isento no 1.º ano",
+      nothingToPay: "Nada a pagar",
+      straddle: "Este trimestre atravessa o início do enquadramento. Use os meses para o separar.",
+      inProgress: "Trimestre em curso. O total ainda pode mudar.",
+      iasWarning: "Um ano depois de 2026 usa o IAS de 2026, até sair a portaria do IAS novo.",
+      ivaCharged: "Estes documentos liquidaram IVA, por isso o regime do artigo 53.º não é o deste ficheiro. A barra é só a soma das bases. Não diz que a isenção se aplica.",
+      readFail: "Não foi possível ler este ficheiro. Serve um CSV, um Excel (.xlsx ou .xls) ou a tabela HTML que alguns portais gravam como .xls. Se as colunas não forem reconhecidas, associe-as em baixo.",
       mapIgnore: "Ignorar",
       mapApply: "Aplicar colunas",
       mapLegend: "Colunas em {file}",
       statusFile: "{n} recibos nos totais. {p} problemas.",
       statusManual: "Simulador de {year}.",
-      col: { data: "Data", numero: "N.º do recibo", nif: "NIF do adquirente", nome: "Nome do adquirente", base: "Valor base (sem IVA)", iva: "IVA", retencao: "Retenção de IRS", estado: "Estado", total: "Valor total" }
+      col: { data: "Data", numero: "N.º do recibo", nif: "NIF do adquirente", nome: "Nome do adquirente", base: "Valor base (sem IVA)", iva: "IVA", retencao: "Retenção de IRS", estado: "Estado", total: "Valor total", tipo: "Tipo de documento", referencia: "Referência" }
     }
   };
   var t = STR[lang];
@@ -163,9 +183,11 @@
     iva: ["valor do iva", "valor iva", "iva liquidado", "total iva", "iva"],
     retencao: ["retencao irs", "retencao na fonte", "irs retido", "valor da retencao", "valor retido", "retencao", "irs"],
     estado: ["situacao do recibo", "estado do recibo", "situacao", "estado", "anulado"],
-    total: ["valor total do documento", "valor total", "total do documento", "valor a receber", "importancia", "montante", "total"]
+    total: ["valor total do documento", "valor total", "total do documento", "valor a receber", "importancia", "montante", "total"],
+    tipo: ["tipo de documento", "tipo documento", "tipo de recibo", "natureza do documento", "natureza", "tipo"],
+    referencia: ["referencia do documento", "documento de origem", "fatura de origem", "n fatura origem", "referencia", "ref"]
   };
-  var MAP_FIELDS = ["data", "numero", "nif", "nome", "base", "iva", "retencao", "estado", "total"];
+  var MAP_FIELDS = ["data", "numero", "nif", "nome", "base", "iva", "retencao", "estado", "total", "tipo", "referencia"];
 
   function $(id) { return document.getElementById(id); }
 
@@ -345,6 +367,25 @@
     return parseCsv(lines.join("\n"), detectDelim(lines.join("\n")));
   }
 
+  function matrixFromHtml(text) {
+    if (typeof DOMParser === "undefined") return [];
+    var doc = new DOMParser().parseFromString(String(text || ""), "text/html");
+    var best = [];
+    var tables = doc.querySelectorAll("table");
+    for (var i = 0; i < tables.length; i++) {
+      var rows = [];
+      var trs = tables[i].querySelectorAll("tr");
+      for (var r = 0; r < trs.length; r++) {
+        var cells = [];
+        var tds = trs[r].querySelectorAll("th,td");
+        for (var c = 0; c < tds.length; c++) cells.push(String(tds[c].textContent || "").replace(/\s+/g, " ").trim());
+        if (cells.some(function (cell) { return cell; })) rows.push(cells);
+      }
+      if (rows.length > best.length) best = rows;
+    }
+    return best;
+  }
+
   function matrixFromXlsx(bytes) {
     if (typeof XLSX === "undefined" || !XLSX.read) return [];
     var wb = XLSX.read(bytes, { type: "array", cellDates: true });
@@ -357,6 +398,22 @@
   }
 
   function normNumero(s) {
+    return String(s || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+  }
+
+  function docKind(tipo) {
+    var key = normKey(tipo);
+    if (!key) return "unknown";
+    if (key.indexOf("ato isolado") !== -1 || key.indexOf("acto isolado") !== -1) return "isolado";
+    if (key.indexOf("nota de credito") !== -1 || key === "nc") return "credit";
+    if (key.indexOf("nota de debito") !== -1 || key === "nd") return "debit";
+    if (key.indexOf("fatura recibo") !== -1 || key.indexOf("factura recibo") !== -1 || key === "fr") return "fatura-recibo";
+    if ((key.indexOf("recibo") !== -1) && key.indexOf("fatura") === -1 && key.indexOf("factura") === -1) return "recibo";
+    if (key.indexOf("fatura") !== -1 || key.indexOf("factura") !== -1 || key === "ft") return "fatura";
+    return "other";
+  }
+
+  function normRef(s) {
     return String(s || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
   }
 
@@ -376,6 +433,9 @@
       if (normKey(cells[0]) === "total" || normKey(cells[0]) === "totais") return;
       var status = cellText(cells, map, "estado");
       var numero = cellText(cells, map, "numero");
+      var tipo = cellText(cells, map, "tipo");
+      var referencia = cellText(cells, map, "referencia");
+      var kind = docKind(tipo);
       var nome = cellText(cells, map, "nome");
       var nifInfo = RV.checkNif(cellText(cells, map, "nif"));
       var date = parseDate(cell(cells, map, "data"));
@@ -391,6 +451,12 @@
       var blank = !numero && !nome && !nifInfo.nif && !date && baseC == null && totalC == null;
       if (blank) return;
       var amountBad = String(baseRaw == null ? "" : baseRaw).trim() !== "" && baseC == null && !(totalC != null && ivaC != null);
+      if (kind === "credit") {
+        if (baseC != null && baseC > 0) baseC = -baseC;
+        if (ivaC != null && ivaC > 0) ivaC = -ivaC;
+        if (retC != null && retC > 0) retC = -retC;
+        if (totalC != null && totalC > 0) totalC = -totalC;
+      }
       var mismatch = false;
       if (baseC != null && ivaC != null && totalC != null) {
         var gross = Math.abs((baseC + ivaC) - totalC) <= 1;
@@ -401,6 +467,10 @@
         date: date,
         quarter: quarterOf(date),
         numero: numero,
+        tipo: tipo,
+        referencia: referencia,
+        kind: kind,
+        isolado: kind === "isolado",
         nome: nome,
         nif: nifInfo.nif,
         nifValid: nifInfo.valid,
@@ -422,6 +492,9 @@
   function rowProblems(row) {
     var list = [];
     if (row.cancelled) list.push({ code: "cancelled", detail: "cancelled" });
+    if (row.kind === "credit") list.push({ code: "credit", detail: "credit" });
+    if (row.isolado) list.push({ code: "isolado", detail: "isolado" });
+    if (row.pairedAway) list.push({ code: "paired", detail: "paired" });
     if (!row.nifValid && (row.nif || row.nome)) list.push({ code: "nif", detail: row.nifReason || "nif" });
     if (row.mismatch) list.push({ code: "mismatch", detail: "mismatch" });
     if (row.amountBad) list.push({ code: "amount", detail: "amount" });
@@ -429,45 +502,84 @@
     return list;
   }
 
-  function countsInTotals(row) {
-    return !row.cancelled && !row.amountBad && !!row.date && row.baseC != null;
+  function countsInTotals(row, opts) {
+    if (row.cancelled || row.amountBad || row.isolado || row.pairedAway || !row.date || row.baseC == null) return false;
+    if (opts && opts.startDate && !RV.dateInForce(row.date, opts.startDate)) return false;
+    return true;
+  }
+
+  function dupKey(row) {
+    var s = String(row.numero || "").trim().toUpperCase();
+    var series = "";
+    var number = "";
+    var m = s.match(/^([A-Z]+)\s*[-/]\s*(?:(20\d{2})\s*[-/]\s*)?(\d+)$/);
+    if (m) { series = m[1]; number = String(Number(m[3])); }
+    else {
+      m = s.match(/^([A-Z]+)\s+(\d+)$/);
+      if (m) { series = m[1]; number = String(Number(m[2])); }
+      else number = s.replace(/[^A-Z0-9]/g, "");
+    }
+    if (!number) return "";
+    var year = row.date ? row.date.slice(0, 4) : "";
+    var amount = row.baseC == null ? "" : String(row.baseC);
+    return [series, number, year, row.nif || "", amount].join("|");
+  }
+
+  /* A fatura and a later recibo for the same income count once.
+     FAQ Q18: declare as you declare for IRS. For these receipts that moment
+     is payment, so the recibo (or fatura-recibo) is kept and the fatura whose
+     number is in Referência is left out. */
+  function pairDocuments(rows) {
+    var faturas = [];
+    rows.forEach(function (row) {
+      if (row.kind === "fatura" && !row.cancelled) faturas.push(row);
+    });
+    rows.forEach(function (row) {
+      if (row.kind !== "recibo") return;
+      var ref = normRef(row.referencia);
+      if (!ref) return;
+      faturas.forEach(function (fat) {
+        if (fat.pairedAway) return;
+        if (fat.nif && row.nif && fat.nif !== row.nif) return;
+        if (normRef(fat.numero) === ref) fat.pairedAway = true;
+      });
+    });
   }
 
   function mergeFiles(files) {
-    var kept = Object.create(null);
-    var order = [];
     var problems = [];
+    var all = [];
     files.forEach(function (file) {
       if (file.tooBig) {
         problems.push({ code: "too-big", detail: "too-big", file: file.name, doc: "", nif: "", name: "" });
         return;
       }
       if (!file.matrix) return;
-      var built = buildReceipts(file.matrix, file.map, file.headerIndex, file.name);
-      built.rows.forEach(function (row) {
-        rowProblems(row).forEach(function (p) {
-          if (p.code === "cancelled" || p.code === "nif" || p.code === "mismatch" || p.code === "amount" || p.code === "no-date") {
-            problems.push({ code: p.code, detail: p.detail, file: row.file, doc: row.numero, nif: row.nif, name: row.nome });
-          }
-        });
-        if (row.cancelled || row.amountBad) return;
-        var num = normNumero(row.numero);
-        var key = num ? ("N|" + num) : "";
-        if (!key) key = "row|" + order.length + "|" + row.file;
-        if (!kept[key]) {
-          kept[key] = row;
-          order.push(key);
-          return;
-        }
-        problems.push({ code: "dup", detail: "dup", file: row.file, doc: row.numero, nif: row.nif, name: row.nome });
+      buildReceipts(file.matrix, file.map, file.headerIndex, file.name).rows.forEach(function (row) { all.push(row); });
+    });
+    pairDocuments(all);
+    var kept = Object.create(null);
+    var order = [];
+    all.forEach(function (row) {
+      rowProblems(row).forEach(function (p) {
+        problems.push({ code: p.code, detail: p.detail, file: row.file, doc: row.numero, nif: row.nif, name: row.nome });
       });
+      if (row.cancelled || row.amountBad || row.pairedAway || row.isolado || !row.date) return;
+      var key = dupKey(row);
+      if (!key) key = "row|" + order.length + "|" + row.file;
+      if (!kept[key]) {
+        kept[key] = row;
+        order.push(key);
+        return;
+      }
+      problems.push({ code: "dup", detail: "dup", file: row.file, doc: row.numero, nif: row.nif, name: row.nome });
     });
     var receipts = order.map(function (k) { return kept[k]; });
     receipts.sort(function (a, b) {
       if (a.date !== b.date) return a.date < b.date ? -1 : 1;
       return String(a.numero).localeCompare(String(b.numero));
     });
-    return { receipts: receipts, problems: problems };
+    return { receipts: receipts, problems: problems, isolados: all.filter(function (row) { return row.isolado && !row.cancelled; }) };
   }
 
   function money(cents) {
@@ -494,32 +606,46 @@
 
   function optionsFromForm() {
     var activityEl = document.querySelector('input[name="activity"]:checked');
+    var regimeEl = document.querySelector('input[name="regime"]:checked');
     var adjustEl = $("adjust");
+    var startEl = $("start-date");
     return {
       activity: activityEl ? activityEl.value : "services",
+      regime: regimeEl && regimeEl.value === "eni" ? "eni" : "ti",
       adjustmentPct: adjustEl ? Number(adjustEl.value) : 0,
-      accumulate: !!($("accumulate") && $("accumulate").checked)
+      accumulate: !!($("accumulate") && $("accumulate").checked),
+      startDate: startEl && startEl.value ? startEl.value : ""
     };
   }
 
-  function modelFromReceipts(receipts, problems, opts) {
+  function quarterState(amount, exemptAmount, straddle) {
+    if (straddle) return "straddle";
+    if (amount === 0 && exemptAmount > 0) return "first-year";
+    return "";
+  }
+
+  function modelFromReceipts(receipts, problems, opts, isolados) {
     var quarters = Object.create(null);
     var years = Object.create(null);
     var clients = Object.create(null);
     var clientOrder = [];
     receipts.forEach(function (row) {
-      if (!countsInTotals(row)) return;
+      if (row.cancelled || row.amountBad || row.isolado || row.pairedAway || !row.date || row.baseC == null || !row.quarter) return;
+      var inForce = !opts.startDate || RV.dateInForce(row.date, opts.startDate);
       var qk = row.quarter.key;
-      if (!quarters[qk]) quarters[qk] = { year: row.quarter.year, q: row.quarter.q, key: qk, count: 0, amount: 0, iva: 0, ret: 0 };
+      if (!quarters[qk]) quarters[qk] = { year: row.quarter.year, q: row.quarter.q, key: qk, count: 0, amount: 0, exemptAmount: 0, iva: 0, ret: 0 };
       var q = quarters[qk];
-      q.count++;
-      q.amount += row.baseC;
+      if (inForce) {
+        q.count++;
+        q.amount += row.baseC;
+        if (row.retC != null) q.ret += row.retC;
+      } else q.exemptAmount += row.baseC;
       if (row.ivaC != null) q.iva += row.ivaC;
-      if (row.retC != null) q.ret += row.retC;
       var yk = String(row.quarter.year);
       if (!years[yk]) years[yk] = { year: row.quarter.year, base: 0, iva: 0 };
       years[yk].base += row.baseC;
       if (row.ivaC != null) years[yk].iva += row.ivaC;
+      if (!inForce) return;
       var ck = row.nif || ("name:" + normKey(row.nome));
       if (!clients[ck]) {
         clients[ck] = { nif: row.nif, nome: row.nome, valid: row.nifValid, n: 0, base: 0, iva: 0, ret: 0 };
@@ -539,10 +665,12 @@
     yList.sort(function (a, b) { return a.year - b.year; });
     var cList = clientOrder.map(function (k) { return clients[k]; });
     cList.sort(function (a, b) { return b.ret - a.ret || b.base - a.base; });
+    qList.forEach(function (q) { q.phase = quarterState(q.amount, q.exemptAmount, false); });
     return {
       source: "file",
       receipts: receipts,
       problems: problems,
+      isolados: isolados || [],
       quarters: qList,
       years: yList,
       clients: cList,
@@ -566,12 +694,16 @@
     var seen = [false, false, false, false];
     var iva = [0, 0, 0, 0];
     var ret = [0, 0, 0, 0];
+    var exemptBuckets = [0, 0, 0, 0];
+    var straddles = [false, false, false, false];
     if (monthly) {
       for (var m = 1; m <= 12; m++) {
         var cents = readManualAmount("m" + m);
         if (cents == null) continue;
         var qi = Math.floor((m - 1) / 3);
-        buckets[qi] += cents;
+        var monthIso = year + "-" + (m < 10 ? "0" : "") + m + "-01";
+        if (opts.startDate && !RV.dateInForce(monthIso, opts.startDate)) exemptBuckets[qi] += cents;
+        else buckets[qi] += cents;
         seen[qi] = true;
       }
     } else {
@@ -595,8 +727,23 @@
     for (var i = 0; i < 4; i++) {
       if (!seen[i]) continue;
       any = true;
-      quarters.push({ year: year, q: i + 1, key: year + "-T" + (i + 1), count: 1, amount: buckets[i], iva: iva[i], ret: ret[i], manual: true });
-      baseYear += buckets[i];
+      var phase = "";
+      var amountNow = buckets[i];
+      var exemptNow = exemptBuckets[i];
+      if (!monthly && opts.startDate) {
+        var startM = i * 3 + 1;
+        var qStart = year + "-" + (startM < 10 ? "0" : "") + startM + "-01";
+        var effect = RV.regimeStartDate(opts.startDate);
+        var endIso = (function () {
+          var d = new Date(Date.UTC(year, startM + 2, 0));
+          return d.getUTCFullYear() + "-" + (d.getUTCMonth() < 9 ? "0" : "") + (d.getUTCMonth() + 1) + "-" + (d.getUTCDate() < 10 ? "0" : "") + d.getUTCDate();
+        })();
+        if (effect && endIso < effect) { exemptNow = amountNow; amountNow = 0; }
+        else if (effect && qStart < effect && endIso >= effect) { straddles[i] = true; amountNow = 0; }
+      }
+      phase = straddles[i] ? "straddle" : quarterState(amountNow, exemptNow, false);
+      quarters.push({ year: year, q: i + 1, key: year + "-T" + (i + 1), count: 1, amount: amountNow, exemptAmount: exemptNow, iva: iva[i], ret: ret[i], manual: true, phase: phase });
+      baseYear += buckets[i] + exemptBuckets[i];
       ivaYear += iva[i];
     }
     return {
@@ -668,11 +815,11 @@
     }
     var qRows = [t.sheetQ];
     model.quarters.forEach(function (q) {
-      var est = RV.estimateQuarter({ amountCents: q.amount, activity: opts.activity, adjustmentPct: opts.adjustmentPct, accumulate: opts.accumulate });
+      var est = RV.estimateQuarter({ amountCents: q.amount, activity: opts.activity, adjustmentPct: opts.adjustmentPct, accumulate: opts.accumulate, regime: opts.regime, beforeRegime: q.phase === "first-year" });
       qRows.push([
-        quarterLabel(q.year, q.q), q.count, euros(q.amount), euros(q.iva), euros(q.ret),
+        quarterLabel(q.year, q.q), q.count, euros(q.phase === "first-year" ? (q.exemptAmount || 0) : q.amount), euros(q.iva), euros(q.ret),
         euros(est.adjustedRelevantCents), euros(est.monthlyBaseCents), euros(est.contributionCents),
-        RV.quarterDeadline(q.year, q.q)
+        excelDate(RV.quarterDeadline(q.year, q.q))
       ]);
     });
     qRows.push([t.estimateNote]);
@@ -689,7 +836,7 @@
     var wb = XLSX.utils.book_new();
     var wsR = buildSheet(rRows, [5, 6, 7], [0]);
     widths(wsR, [12, 16, 14, 36, 12, 18, 12, 16, 14, 12, 28]);
-    var wsQ = buildSheet(qRows, [2, 3, 4, 5, 6, 7]);
+    var wsQ = buildSheet(qRows, [2, 3, 4, 5, 6, 7], [8]);
     widths(wsQ, [28, 12, 26, 16, 16, 22, 16, 28, 14]);
     var wsC = buildSheet(cRows, [4, 5, 6]);
     widths(wsC, [14, 36, 12, 12, 18, 12, 16]);
@@ -726,6 +873,7 @@
       [1, 2, 3, 4].forEach(function (q) {
         var deadlineYear = q === 4 ? year + 1 : year;
         var when = RV.quarterDeadline(year, q);
+        if (when < RV.todayIso()) return;
         var stamp = when.replace(/-/g, "");
         var endDate = new Date(Date.UTC(Number(stamp.slice(0, 4)), Number(stamp.slice(4, 6)) - 1, Number(stamp.slice(6, 8)) + 1));
         var end = endDate.getUTCFullYear() + pad(endDate.getUTCMonth() + 1) + pad(endDate.getUTCDate());
@@ -741,6 +889,16 @@
           "DTEND;VALUE=DATE:" + end,
           fold("SUMMARY:" + icsEscape(summary)),
           fold("DESCRIPTION:" + icsEscape(desc)),
+          "BEGIN:VALARM",
+          "TRIGGER:-P7D",
+          "ACTION:DISPLAY",
+          "DESCRIPTION:" + icsEscape(summary),
+          "END:VALARM",
+          "BEGIN:VALARM",
+          "TRIGGER:-P1D",
+          "ACTION:DISPLAY",
+          "DESCRIPTION:" + icsEscape(summary),
+          "END:VALARM",
           "END:VEVENT"
         ].join("\r\n"));
       });
@@ -777,6 +935,7 @@
   function render(model) {
     current = model;
     var results = $("results");
+    var reveal = results.hidden;
     var empty = $("empty-note");
     if (model.empty) {
       results.hidden = true;
@@ -820,8 +979,11 @@
         amountCents: q.amount,
         activity: opts.activity,
         adjustmentPct: opts.adjustmentPct,
-        accumulate: opts.accumulate
+        accumulate: opts.accumulate,
+        regime: opts.regime,
+        beforeRegime: q.phase === "first-year"
       });
+      if (q.phase === "straddle") est = { headline: "straddle", contributionCents: 0, relevantCents: 0, adjustedRelevantCents: 0, monthlyBaseCents: 0, adjustmentPct: 0, adjustmentApplied: false, adjustmentIgnored: false, floor20: false, capped: false, exemptEmployed: false, ignoredUnder5: false, maxBaseCents: 0, fourIasCents: 0 };
       var card = document.createElement("article");
       card.className = "q-card";
       card.id = "q-" + q.key;
@@ -843,20 +1005,34 @@
         p.appendChild(span);
         card.appendChild(p);
       }
-      line(t.toType, money(q.amount), q.amount, "declare");
-      line(t.relevant.replace("{coef}", coefLabel(opts.activity)), money(est.relevantCents), est.relevantCents, "relevant");
-      if (est.adjustmentPct) line(t.adjusted.replace("{pct}", String(est.adjustmentPct)), money(est.adjustedRelevantCents), est.adjustedRelevantCents, "adjusted");
-      line(t.monthly, money(est.monthlyBaseCents), est.monthlyBaseCents, "base");
-      line(t.pay, money(est.contributionCents), est.contributionCents, "contribution");
+      var declareAmount = q.phase === "first-year" ? (q.exemptAmount || 0) : q.amount;
+      line(t.toType, money(declareAmount), declareAmount, "declare");
+      if (q.phase !== "straddle" && q.phase !== "first-year") {
+        line(t.relevant.replace("{coef}", coefLabel(opts.activity)), money(est.relevantCents), est.relevantCents, "relevant");
+        if (est.adjustmentApplied) line(t.adjusted.replace("{pct}", String(est.adjustmentPct)), money(est.adjustedRelevantCents), est.adjustedRelevantCents, "adjusted");
+        line(t.monthly, money(est.monthlyBaseCents), est.monthlyBaseCents, "base");
+      }
+      var payText = money(est.contributionCents);
+      if (est.headline === "first-year" || q.phase === "first-year") payText = t.firstYear;
+      else if (est.headline === "exempt-employed") payText = t.nothingToPay;
+      else if (q.phase === "straddle") payText = t.straddle;
+      line(t.pay, payText, est.contributionCents, "contribution");
+      var contribEl = card.querySelector("[data-field=contribution]");
+      if (contribEl && (est.headline === "first-year" || est.headline === "exempt-employed" || q.phase === "straddle" || q.phase === "first-year")) {
+        contribEl.setAttribute("data-headline", q.phase === "straddle" ? "straddle" : (est.headline || q.phase));
+      }
       var note = document.createElement("p");
       note.textContent = t.payNote.replace("{months}", t.contribMonths[q.q - 1]);
       card.appendChild(note);
       var extra = document.createElement("p");
       var bits = [];
-      if (est.floor20) bits.push(q.amount === 0 ? t.zeroFloor : t.floor);
+      if (est.floor20 && est.headline !== "exempt-employed" && est.headline !== "first-year") bits.push(q.amount === 0 ? t.zeroFloor : t.floor);
       if (est.capped) bits.push(t.cap.replace("{max}", money(est.maxBaseCents)));
-      if (est.exemptPossible) bits.push(t.exempt.replace("{four}", money(est.fourIasCents)));
+      if (est.exemptEmployed) bits.push(t.exempt.replace("{four}", money(est.fourIasCents)));
+      if (est.adjustmentIgnored) bits.push(lang === "pt" ? "A opção de ±25% não se aplica a quem contribui pelo remanescente acima de 4 × IAS (FAQ, pergunta 28)." : "The ±25% option does not apply when you pay on the remainder above 4 × IAS (FAQ question 28).");
       if (est.ignoredUnder5) bits.push(t.under5);
+      if (RV.quarterContains(q.year, q.q, RV.todayIso())) bits.push(t.inProgress);
+      if (q.year > RULES.year) bits.push(t.iasWarning);
       extra.textContent = bits.join(" ");
       if (bits.length) card.appendChild(extra);
       var due = document.createElement("p");
@@ -897,7 +1073,7 @@
       wrap.appendChild(meter);
       var state = document.createElement("p");
       state.setAttribute("data-field", "iva-state");
-      state.textContent = pos.state === "over-now" ? t.ivaNow : pos.state === "over-year" ? t.ivaYear : t.ivaWithin;
+      state.textContent = y.iva > 0 ? t.ivaCharged : (pos.state === "over-now" ? t.ivaNow : pos.state === "over-year" ? t.ivaYear : t.ivaWithin);
       wrap.appendChild(state);
       var charged = document.createElement("p");
       charged.textContent = t.iva + ": " + money(y.iva);
@@ -922,8 +1098,8 @@
     $("client-empty").textContent = t.noClients;
     $("client-table").hidden = model.clients.length === 0;
 
-    var shown = model.receipts.filter(countsInTotals).slice(0, PREVIEW_MAX);
-    var totalRows = model.receipts.filter(countsInTotals).length;
+    var shown = model.receipts.filter(function (row) { return countsInTotals(row, model.options); }).slice(0, PREVIEW_MAX);
+    var totalRows = model.receipts.filter(function (row) { return countsInTotals(row, model.options); }).length;
     fillTable($("preview-body"), shown, function (row) {
       var tr = document.createElement("tr");
       tr.appendChild(td(showDate(row.date)));
@@ -958,6 +1134,7 @@
     status.textContent = model.source === "manual"
       ? t.statusManual.replace("{year}", String(model.years[0] ? model.years[0].year : RULES.year))
       : t.statusFile.replace("{n}", String(totalRows)).replace("{p}", String(model.problems.length));
+    if (reveal && results.scrollIntoView) results.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   var loaded = [];
@@ -1055,7 +1232,7 @@
     }
     showError("");
     var merged = mergeFiles(loaded);
-    render(modelFromReceipts(merged.receipts, merged.problems, optionsFromForm()));
+    render(modelFromReceipts(merged.receipts, merged.problems, optionsFromForm(), merged.isolados));
   }
 
   function takeFiles(fileList) {
@@ -1074,12 +1251,18 @@
         }
         var reader = new FileReader();
         reader.onerror = function () { resolve({ name: file.name, error: true, matrix: null, map: {}, headerIndex: 0 }); };
-        var isZipSheet = /\.xlsx?$/i.test(file.name) || /sheet|excel/.test(file.type);
         reader.onload = function () {
           try {
+            var bytes = new Uint8Array(reader.result);
+            var head = "";
+            try { head = decodeBytes(bytes.subarray(0, 600)); } catch (err) { head = ""; }
+            var html = /<\s*(html|table|meta|head)/i.test(head);
+            var sheet = /\.xlsx?$/i.test(file.name) || /sheet|excel|officedocument/.test(file.type || "");
             var matrix;
-            if (isZipSheet) matrix = matrixFromXlsx(new Uint8Array(reader.result));
-            else matrix = matrixFromCsv(decodeBytes(new Uint8Array(reader.result)));
+            if (html) matrix = matrixFromHtml(decodeBytes(bytes));
+            else if (sheet) matrix = matrixFromXlsx(bytes);
+            else matrix = matrixFromCsv(decodeBytes(bytes));
+            if (!matrix || !matrix.length) throw new Error("empty");
             var found = findTable(matrix);
             resolve({ name: file.name, matrix: matrix, map: found.map, headerIndex: found.headerIndex, confident: found.confident });
           } catch (e) {
@@ -1151,10 +1334,10 @@
     });
     $("mode-file").addEventListener("click", function () { setMode("file"); });
     $("mode-manual").addEventListener("click", function () { setMode("manual"); });
-    document.querySelectorAll('input[name="activity"], #adjust, #accumulate, input[name="grain"], #year').forEach(function (el) {
+    document.querySelectorAll('input[name="activity"], input[name="regime"], #adjust, #accumulate, input[name="grain"], #year, #start-date').forEach(function (el) {
       el.addEventListener("change", function () {
         if ($("mode-manual").getAttribute("aria-pressed") === "true") render(modelFromManual(optionsFromForm()));
-        else if (current && current.source === "file") render(modelFromReceipts(current.receipts, current.problems, optionsFromForm()));
+        else if (current && current.source === "file") render(modelFromReceipts(current.receipts, current.problems, optionsFromForm(), current.isolados));
       });
     });
     document.querySelectorAll("#panel-manual input").forEach(function (el) {
@@ -1181,7 +1364,7 @@
       if (!current || current.empty) return;
       var blob = new Blob([buildIcs(current)], { type: "text/calendar;charset=utf-8" });
       var a = document.createElement("a");
-      var year = current.years[0] ? current.years[0].year : RULES.year;
+      var year = current.years.length ? current.years[current.years.length - 1].year : RULES.year;
       a.href = URL.createObjectURL(blob);
       a.download = "recibos-verdes-prazos-" + year + ".ics";
       document.body.appendChild(a);
