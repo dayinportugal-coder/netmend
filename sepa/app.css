@@ -53,7 +53,11 @@ input[aria-invalid="true"]{border-color:#f87171}
 #preview-body input{width:100%;min-width:7em;box-sizing:border-box;font:inherit;font-size:13px;color:inherit;background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 6px}
 #preview-body input:focus{border-color:var(--border-2);background:rgba(0,0,0,.35)}
 #preview-body .cell-err{display:block;font-size:11px;margin-top:2px}
-button[aria-pressed="true"]{box-shadow:0 0 0 1px var(--coral) inset}
+.switch{display:flex;align-items:center;gap:10px;margin-top:12px;font-weight:650}
+.switch input{width:18px;height:18px;flex:0 0 auto}
+.switch-state{font-size:12px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px}
+.switch-state.on{color:#04231c;background:var(--teal)}
+.switch-state.off{color:var(--muted);border:1px solid var(--border)}
 @media(max-width:860px){
   .counters{grid-template-columns:1fr 1fr}
   .app-grid{grid-template-columns:1fr}

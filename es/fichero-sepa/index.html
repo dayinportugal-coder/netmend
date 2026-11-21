@@ -59,10 +59,13 @@
 <button id="example" type="button" class="btn">Probar con el ejemplo</button>
 <button id="repeat" type="button" class="btn ghost">Repetir el último lote</button>
 <button id="template" type="button" class="btn ghost">Descargar la plantilla Excel</button>
-<button id="autofill" type="button" class="btn ghost" aria-pressed="false">Rellenar automáticamente</button>
 </div>
-<label class="check" for="autofill-ref"><input id="autofill-ref" type="checkbox"> Si la referencia está vacía, usar «Pago» y el mes de la fecha de ejecución</label>
-<p class="note">Solo rellena lo que esté vacío: el BIC a partir del código de banco del IBAN (dígitos 5 a 8, <a href="https://www.bportugal.pt/sites/default/files/anexos/documentos-relacionados/international_bank_account_number_pt.pdf" rel="noopener noreferrer">nota del Banco de Portugal</a>; BIC de la lista SICOI del 6 de octubre de 2026, solo si está publicado, copiada en esta página; IBAN ES con la lista <a href="https://www.bde.es/f/webbe/Comunes/sispago/menu_dcha/TARGET_BE_NRBE.pdf" rel="noopener noreferrer">TARGET del Banco de España</a>), el ordenante guardado en este aparato, la siguiente fecha hábil y, si lo acepta, la referencia. Lo que escriba a mano no se sustituye.</p>
+<label class="switch" for="autofill"><input id="autofill" type="checkbox"><span>Rellenar automáticamente lo que esté vacío</span><span id="autofill-state" class="switch-state off">Desactivado</span></label>
+<label class="check" for="autofill-ref"><input id="autofill-ref" type="checkbox"> Si la referencia está vacía, usar «Pago de &lt;mes&gt; de &lt;año&gt;»</label>
+<details>
+<summary>¿De dónde salen los BIC?</summary>
+<p class="note">Solo rellena lo que esté vacío: el BIC a partir del código de banco del IBAN (dígitos 5 a 8, <a href="https://www.bportugal.pt/sites/default/files/anexos/documentos-relacionados/international_bank_account_number_pt.pdf" rel="noopener noreferrer">nota del Banco de Portugal</a>; BIC de la lista SICOI del 6 de octubre de 2026, solo si está publicado; IBAN ES con la lista <a href="https://www.bde.es/f/webbe/Comunes/sispago/menu_dcha/TARGET_BE_NRBE.pdf" rel="noopener noreferrer">TARGET del Banco de España</a>), el ordenante guardado en este aparato, la siguiente fecha hábil y, si lo acepta, la referencia. Lo que escriba a mano no se sustituye. Si el IBAN cambia, el BIC rellenado automáticamente lo sigue. Desactivarlo quita lo que rellenó y usted no editó.</p>
+</details>
 <p class="note" style="margin:10px 0 0">El ejemplo es ficticio: los nombres dicen EXEMPLO y los IBAN solo sirven para probar el formato. No son cuentas reales.</p>
 <details>
 <summary>Pegar CSV</summary>
@@ -79,12 +82,13 @@
 </div>
 <div class="row">
 <div><label for="dbtr-bic">BIC (opcional)</label><input id="dbtr-bic" type="text" autocomplete="off" spellcheck="false"><p id="dbtr-bic-auto" class="auto-tag" hidden>rellenado automáticamente</p></div>
-<div><label for="dbtr-date">Fecha de ejecución <span class="req">obligatorio</span></label><input id="dbtr-date" type="date" autocomplete="off" aria-describedby="dbtr-date-err"><p id="dbtr-date-err" class="bad" hidden></p><p id="dbtr-date-auto" class="auto-tag" hidden>rellenado automáticamente</p></div>
+<div><label for="dbtr-date">Fecha de ejecución <span class="req">obligatoria</span></label><input id="dbtr-date" type="date" autocomplete="off" aria-describedby="dbtr-date-err"><p id="dbtr-date-err" class="bad" hidden></p><p id="dbtr-date-auto" class="auto-tag" hidden>rellenado automáticamente</p></div>
 </div>
 <label class="check" for="dbtr-batch"><input id="dbtr-batch" type="checkbox" checked> Movimiento agrupado (un adeudo en la cuenta)</label>
 <div id="nif-wrap">
-<label for="dbtr-nif">NIF-sufijo (12 caracteres)</label>
-<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false">
+<label for="dbtr-nif">NIF-sufijo (12 caracteres) <span id="nif-req" class="req" hidden>obligatorio</span></label>
+<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false" aria-describedby="dbtr-nif-err">
+<p id="dbtr-nif-err" class="bad" hidden></p>
 <p class="note">La guía AEB/CECA lo exige cuando el IBAN del ordenante es español, salvo acuerdo con su banco. Va en InitgPty/Id/OrgId/Othr.</p>
 </div>
 <p style="margin:12px 0 0"><button id="dbtr-clear" type="button" class="btn ghost">Borrar datos de este navegador</button></p>
@@ -122,6 +126,7 @@
 <div><label for="map-ref">Columna de la referencia</label><select id="map-ref"></select></div>
 <div><label for="map-bic">Columna del BIC</label><select id="map-bic"></select></div>
 </div>
+<label class="check" id="confirm-map-label" for="confirm-map" hidden><input id="confirm-map" type="checkbox"><span id="confirm-map-text"></span></label>
 </div>
 <ul class="files" id="file-list"></ul>
 <p id="error" class="bad" role="alert" hidden></p>

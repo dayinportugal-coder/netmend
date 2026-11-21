@@ -59,10 +59,13 @@
 <button id="example" type="button" class="btn">Try the example</button>
 <button id="repeat" type="button" class="btn ghost">Repeat the last batch</button>
 <button id="template" type="button" class="btn ghost">Download the Excel template</button>
-<button id="autofill" type="button" class="btn ghost" aria-pressed="false">Fill in automatically</button>
 </div>
-<label class="check" for="autofill-ref"><input id="autofill-ref" type="checkbox"> If the reference is empty, use “Payment” and the execution month</label>
-<p class="note">Only empty cells are filled: BIC from the bank code in the IBAN (digits 5–8, <a href="https://www.bportugal.pt/sites/default/files/anexos/documentos-relacionados/international_bank_account_number_pt.pdf" rel="noopener noreferrer">Banco de Portugal note</a>; BIC from the SICOI list of 6 October 2026, only where one is published, copied onto this page; ES IBANs use the <a href="https://www.bde.es/f/webbe/Comunes/sispago/menu_dcha/TARGET_BE_NRBE.pdf" rel="noopener noreferrer">Banco de España TARGET list</a>), the debtor saved on this device, the next business day and, if you accept, the reference. Typed values are left as they are.</p>
+<label class="switch" for="autofill"><input id="autofill" type="checkbox"><span>Fill in automatically what is empty</span><span id="autofill-state" class="switch-state off">Off</span></label>
+<label class="check" for="autofill-ref"><input id="autofill-ref" type="checkbox"> If the reference is empty, use “Payment of &lt;month&gt; &lt;year&gt;”</label>
+<details>
+<summary>Where do the BICs come from?</summary>
+<p class="note">Only empty cells are filled: BIC from the bank code in the IBAN (digits 5–8, <a href="https://www.bportugal.pt/sites/default/files/anexos/documentos-relacionados/international_bank_account_number_pt.pdf" rel="noopener noreferrer">Banco de Portugal note</a>; BIC from the SICOI list of 6 October 2026, only where one is published; ES IBANs use the <a href="https://www.bde.es/f/webbe/Comunes/sispago/menu_dcha/TARGET_BE_NRBE.pdf" rel="noopener noreferrer">Banco de España TARGET list</a>), the debtor saved on this device, the next business day and, if you accept, the reference. Typed values are left as they are. If the IBAN changes, an automatically filled BIC follows it. Turning this off removes values it filled and you did not edit.</p>
+</details>
 <p class="note" style="margin:10px 0 0">The example is fictional: the names say EXEMPLO and the IBANs only test the format. They are not real accounts.</p>
 <details>
 <summary>Paste CSV</summary>
@@ -83,8 +86,9 @@
 </div>
 <label class="check" for="dbtr-batch"><input id="dbtr-batch" type="checkbox" checked> Batch booking (one debit on the account)</label>
 <div id="nif-wrap" hidden>
-<label for="dbtr-nif">NIF-sufijo (12 characters)</label>
-<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false">
+<label for="dbtr-nif">NIF-sufijo (12 characters) <span id="nif-req" class="req" hidden>required</span></label>
+<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false" aria-describedby="dbtr-nif-err">
+<p id="dbtr-nif-err" class="bad" hidden></p>
 <p class="note">Required when the debtor IBAN is Spanish. The AEB/CECA guide puts these 12 characters in InitgPty/Id/OrgId/Othr.</p>
 </div>
 <p style="margin:12px 0 0"><button id="dbtr-clear" type="button" class="btn ghost">Clear data on this browser</button></p>
@@ -122,6 +126,7 @@
 <div><label for="map-ref">Reference column</label><select id="map-ref"></select></div>
 <div><label for="map-bic">BIC column</label><select id="map-bic"></select></div>
 </div>
+<label class="check" id="confirm-map-label" for="confirm-map" hidden><input id="confirm-map" type="checkbox"><span id="confirm-map-text"></span></label>
 </div>
 <ul class="files" id="file-list"></ul>
 <p id="error" class="bad" role="alert" hidden></p>

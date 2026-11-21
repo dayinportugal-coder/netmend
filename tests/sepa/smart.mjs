@@ -114,6 +114,10 @@ try {
 
   await page.click("#autofill");
   await page.evaluate(() => { document.getElementById("autofill-ref").checked = true; document.getElementById("autofill-ref").dispatchEvent(new Event("change")); });
+  await page.evaluate(() => {
+    const box = document.getElementById("confirm-map");
+    if (box && !box.checked) { box.checked = true; box.dispatchEvent(new Event("change")); }
+  });
   await page.waitForFunction(() => document.getElementById("dbtr-bic").value === "CGDIPTPL");
   const on = await page.evaluate(() => ({
     name: document.getElementById("dbtr-name").value,
