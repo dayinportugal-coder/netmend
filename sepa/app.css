@@ -18,7 +18,7 @@ caption{caption-side:top;text-align:left;font-weight:650;font-size:18px;color:#f
 .pick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
 .pick input[type=file]{max-width:100%;min-width:0}
 .actions .btn,.pick .btn{max-width:100%;white-space:normal;text-align:center}
-.counters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+.counters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
 .counter{border:1px solid var(--border);border-radius:var(--radius);background:#131419;padding:14px 16px;min-width:0}
 .counter b{display:block;font-size:clamp(20px,2.6vw,28px);letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .counter span{color:var(--muted);font-size:13.5px}
@@ -37,8 +37,12 @@ label.check input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}
 #paste{min-height:88px}
 .tool details{margin-top:12px}
 .extra td{color:var(--faint)}
+#ben-list{flex-direction:column;align-items:stretch}
+#ben-list li{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+#ben-list .btn{padding:6px 10px;font-size:13px}
+#results:focus{outline:2px solid var(--coral);outline-offset:4px}
 @media(max-width:860px){
-  .counters{grid-template-columns:1fr}
+  .counters{grid-template-columns:1fr 1fr}
   .app-grid{grid-template-columns:1fr}
 }
 @media(max-width:760px){

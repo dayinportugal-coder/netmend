@@ -7,21 +7,22 @@
 (function () {
   "use strict";
 
-  var FREE_MAX = 50;
   var PREVIEW_MAX = 200;
   var STORE = "netmend.sepa.debtor.v1";
+  var BEN_STORE = "netmend.sepa.beneficiaries.v1";
+  var BATCH_STORE = "netmend.sepa.lastbatch.v1";
   var htmlLang = (document.documentElement.lang || "pt-PT").toLowerCase();
   var lang = htmlLang.indexOf("pt") === 0 ? "pt" : htmlLang.indexOf("es") === 0 ? "es" : "en";
 
   var EXAMPLE_DEBTOR = {
     name: "EMPRESA EXEMPLO LDA",
-    iban: "PT53999900000000000000128",
+    iban: "PT50999900000000000000182",
     bic: ""
   };
   var EXAMPLE_ROWS = [
     ["Nome", "IBAN", "Montante", "Referência", "BIC"],
-    ["FORNECEDOR EXEMPLO LDA", "PT74999900010000000000123", "1.234,56", "Fatura EXEMPLO 2025/001", ""],
-    ["José Exemplo", "PT20999900010000000000222", "1.500,00", "Vencimento EXEMPLO novembro", ""],
+    ["FORNECEDOR EXEMPLO LDA", "PT50999900010000000000167", "1.234,56", "Fatura EXEMPLO 2025/001", ""],
+    ["José Exemplo nº 2ª", "PT50999900010000000000264", "1.500,00", "Vencimento EXEMPLO novembro", ""],
     ["PROVEEDOR EJEMPLO SL", "ES8099990001450000000001", "250,75", "Factura EXEMPLO", "EXMPESMM"]
   ];
 
@@ -36,8 +37,16 @@
       noRows: "Não há pagamentos para ler. A primeira linha deve ter Nome, IBAN e Montante, ou cole os dados.",
       needMap: "Falta mapear a coluna do nome, do IBAN ou do montante.",
       colTwice: "A mesma coluna está escolhida em dois campos.",
-      limit: "A versão grátis inclui {max} pagamentos por ficheiro. Encontrámos {n}, por isso só os {max} primeiros entram no XML.",
-      previewCap: "A mostrar as primeiras {max} de {n} linhas. O XML da versão grátis leva as primeiras {free}.",
+      previewCap: "A mostrar as primeiras {max} de {n} linhas. O XML leva todas.",
+      summary: "{e} erros, {w} avisos.",
+      garbage: "Este ficheiro não parece uma lista de pagamentos. É precisa uma coluna com IBAN (ou NIB de 21 dígitos) e outra com montantes.",
+      repeatEmpty: "Ainda não há um lote guardado neste browser.",
+      repeatOk: "O último lote voltou a abrir, com a próxima data útil.",
+      benSaved: "Beneficiário guardado neste browser.",
+      benNeed: "Indique o nome e o IBAN do beneficiário.",
+      benBad: "Esse JSON não é uma lista de beneficiários.",
+      benWiped: "A lista de beneficiários foi apagada deste browser.",
+      confirmWipe: "Apagar todos os beneficiários guardados neste browser?",
       pasteEmpty: "Cole primeiro o texto do CSV.",
       xlsxMissing: "A biblioteca da folha de cálculo não carregou. Recarregue a página.",
       noneOption: "— nenhuma —",
@@ -76,7 +85,14 @@
         translit: "{field}: «{from}» passou a «{to}» ({changes}).",
         duplicate: "o mesmo IBAN e o mesmo montante já estão na linha {other}. Confirme se não é um pagamento a dobrar.",
         "date-past": "a data de execução já passou. Muitos bancos recusam o ficheiro.",
-        "date-weekend": "a data de execução calha a um sábado ou domingo. Confirme se o banco a aceita."
+        "date-weekend": "a data de execução calha a um sábado ou domingo. Confirme se o banco a aceita.",
+        "amount-ambiguous": "o montante «{v}» tem um separador seguido de 3 dígitos. Não dá para saber se são milhares ou decimais. Escreva 1.234,56 ou 1234,56.",
+        "amount-scientific": "o montante «{v}» está em notação científica. Escreva o número por extenso.",
+        "iban-scientific": "o Excel leu o IBAN como número («{v}»). Formate a coluna como texto.",
+        "iban-pt50": "o IBAN português «{v}» não começa por PT50.",
+        "iban-ccc": "os dígitos de controlo da conta espanhola em «{v}» não batem certo.",
+        "nif-missing": "falta o NIF-sufijo de 12 caracteres exigido pela guia AEB/CECA quando o IBAN é espanhol.",
+        "nif-format": "o NIF-sufijo tem de ficar com 12 letras ou algarismos."
       }
     },
     es: {
@@ -89,8 +105,16 @@
       noRows: "No hay pagos que leer. La primera fila debe tener Nombre, IBAN e Importe, o pegue los datos.",
       needMap: "Falta asignar la columna del nombre, del IBAN o del importe.",
       colTwice: "La misma columna está elegida en dos campos.",
-      limit: "La versión gratuita incluye {max} pagos por fichero. Había {n}, así que solo los {max} primeros entran en el XML.",
-      previewCap: "Se muestran las primeras {max} de {n} filas. El XML gratuito lleva las primeras {free}.",
+      previewCap: "Se muestran las primeras {max} de {n} filas. El XML las lleva todas.",
+      summary: "{e} errores, {w} avisos.",
+      garbage: "Este fichero no parece una lista de pagos. Hace falta una columna con IBAN y otra con importes.",
+      repeatEmpty: "Todavía no hay un lote guardado en este navegador.",
+      repeatOk: "El último lote se ha vuelto a abrir, con la siguiente fecha hábil.",
+      benSaved: "Beneficiario guardado en este navegador.",
+      benNeed: "Indique el nombre y el IBAN del beneficiario.",
+      benBad: "Ese JSON no es una lista de beneficiarios.",
+      benWiped: "La lista de beneficiarios se ha borrado de este navegador.",
+      confirmWipe: "¿Borrar todos los beneficiarios guardados en este navegador?",
       pasteEmpty: "Pegue primero el texto del CSV.",
       xlsxMissing: "La biblioteca de la hoja de cálculo no se cargó. Recargue la página.",
       noneOption: "— ninguna —",
@@ -129,7 +153,14 @@
         translit: "{field}: «{from}» pasó a «{to}» ({changes}).",
         duplicate: "el mismo IBAN y el mismo importe ya están en la fila {other}. Confirme que no es un pago duplicado.",
         "date-past": "la fecha de ejecución ya ha pasado. Muchos bancos rechazan el fichero.",
-        "date-weekend": "la fecha de ejecución cae en sábado o domingo. Confirme que el banco la acepta."
+        "date-weekend": "la fecha de ejecución cae en sábado o domingo. Confirme que el banco la acepta.",
+        "amount-ambiguous": "el importe «{v}» tiene un separador y 3 dígitos. No se distingue miles de decimales. Escriba 1.234,56 o 1234,56.",
+        "amount-scientific": "el importe «{v}» está en notación científica. Escriba el número completo.",
+        "iban-scientific": "Excel ha leído el IBAN como número («{v}»). Ponga la columna como texto.",
+        "iban-pt50": "el IBAN portugués «{v}» no empieza por PT50.",
+        "iban-ccc": "los dígitos de control de la cuenta española en «{v}» no coinciden.",
+        "nif-missing": "falta el NIF-sufijo de 12 caracteres que pide la guía AEB/CECA cuando el IBAN es español.",
+        "nif-format": "el NIF-sufijo tiene que quedar en 12 letras o cifras."
       }
     },
     en: {
@@ -142,8 +173,16 @@
       noRows: "There are no payments to read. The first row should have Name, IBAN and Amount, or paste the data.",
       needMap: "Map the name, IBAN and amount columns.",
       colTwice: "The same column is selected for two fields.",
-      limit: "The free tool includes {max} payments per file. {n} were found, so only the first {max} go into the XML.",
-      previewCap: "Showing the first {max} of {n} rows. The free XML includes the first {free}.",
+      previewCap: "Showing the first {max} of {n} rows. The XML includes every row.",
+      summary: "{e} errors, {w} warnings.",
+      garbage: "This file does not look like a payment list. It needs an IBAN column and an amount column.",
+      repeatEmpty: "There is no saved batch in this browser yet.",
+      repeatOk: "The last batch is open again, with the next business day.",
+      benSaved: "Beneficiary saved in this browser.",
+      benNeed: "Enter the beneficiary name and IBAN.",
+      benBad: "That JSON is not a list of beneficiaries.",
+      benWiped: "The beneficiary list was deleted from this browser.",
+      confirmWipe: "Delete every beneficiary saved in this browser?",
       pasteEmpty: "Paste the CSV text first.",
       xlsxMissing: "The spreadsheet library did not load. Reload the page.",
       noneOption: "— none —",
@@ -182,14 +221,21 @@
         translit: "{field}: «{from}» became «{to}» ({changes}).",
         duplicate: "the same IBAN and amount are already on row {other}. Check it is not a double payment.",
         "date-past": "the execution date is in the past. Many banks reject the file.",
-        "date-weekend": "the execution date falls on a Saturday or Sunday. Check that the bank accepts it."
+        "date-weekend": "the execution date falls on a Saturday or Sunday. Check that the bank accepts it.",
+        "amount-ambiguous": "the amount «{v}» has one separator and 3 digits. Thousands and decimals cannot be told apart. Write 1.234,56 or 1234.56.",
+        "amount-scientific": "the amount «{v}» is in scientific notation. Write the full number.",
+        "iban-scientific": "Excel read the IBAN as a number («{v}»). Format the column as text.",
+        "iban-pt50": "the Portuguese IBAN «{v}» does not start with PT50.",
+        "iban-ccc": "the Spanish account check digits in «{v}» do not match.",
+        "nif-missing": "the 12-character NIF-sufijo required by the AEB/CECA guide is missing for a Spanish IBAN.",
+        "nif-format": "the NIF-sufijo has to be 12 letters or digits."
       }
     }
   };
   var T = STR[lang];
 
-  var SEPA = { AD: 1, AT: 1, BE: 1, BG: 1, CH: 1, CY: 1, CZ: 1, DE: 1, DK: 1, EE: 1, ES: 1, FI: 1, FR: 1, GB: 1, GI: 1, GR: 1, HR: 1, HU: 1, IE: 1, IS: 1, IT: 1, LI: 1, LT: 1, LU: 1, LV: 1, MC: 1, MT: 1, NL: 1, NO: 1, PL: 1, PT: 1, RO: 1, SE: 1, SI: 1, SK: 1, SM: 1, VA: 1 };
-  var IBAN_LEN = { AD: 24, AE: 23, AL: 28, AT: 20, AZ: 28, BA: 20, BE: 16, BG: 22, BH: 22, BR: 29, BY: 28, CH: 21, CR: 22, CY: 28, CZ: 24, DE: 22, DK: 18, DO: 28, EE: 20, EG: 29, ES: 24, FI: 18, FO: 18, FR: 27, GB: 22, GE: 22, GI: 23, GL: 18, GR: 27, GT: 28, HR: 21, HU: 28, IE: 22, IL: 23, IQ: 23, IS: 26, IT: 27, JO: 30, KW: 30, KZ: 20, LB: 28, LC: 32, LI: 21, LT: 20, LU: 20, LV: 21, MC: 27, MD: 24, ME: 22, MK: 19, MR: 27, MT: 31, MU: 30, NL: 18, NO: 15, PK: 24, PL: 28, PS: 29, PT: 25, QA: 29, RO: 24, RS: 22, SA: 24, SC: 31, SE: 24, SI: 19, SK: 24, SM: 27, ST: 25, SV: 28, TL: 23, TN: 24, TR: 26, UA: 29, VA: 22, VG: 24, XK: 20 };
+  var SEPA = { AD: 1, AL: 1, AT: 1, BE: 1, BG: 1, CH: 1, CY: 1, CZ: 1, DE: 1, DK: 1, EE: 1, ES: 1, FI: 1, FR: 1, GB: 1, GG: 1, GI: 1, GR: 1, HR: 1, HU: 1, IE: 1, IM: 1, IS: 1, IT: 1, JE: 1, LI: 1, LT: 1, LU: 1, LV: 1, MC: 1, MD: 1, ME: 1, MK: 1, MT: 1, NL: 1, NO: 1, PL: 1, PT: 1, RO: 1, RS: 1, SE: 1, SI: 1, SK: 1, SM: 1, VA: 1 };
+  var IBAN_LEN = { AD: 24, AE: 23, AL: 28, AT: 20, AZ: 28, BA: 20, BE: 16, BG: 22, BH: 22, BR: 29, BY: 28, CH: 21, CR: 22, CY: 28, CZ: 24, DE: 22, DK: 18, DO: 28, EE: 20, EG: 29, ES: 24, FI: 18, FO: 18, FR: 27, GB: 22, GE: 22, GG: 22, GI: 23, GL: 18, GR: 27, GT: 28, HR: 21, HU: 28, IE: 22, IL: 23, IM: 22, IQ: 23, IS: 26, IT: 27, JE: 22, JO: 30, KW: 30, KZ: 20, LB: 28, LC: 32, LI: 21, LT: 20, LU: 20, LV: 21, MC: 27, MD: 24, ME: 22, MK: 19, MR: 27, MT: 31, MU: 30, NL: 18, NO: 15, PK: 24, PL: 28, PS: 29, PT: 25, QA: 29, RO: 24, RS: 22, SA: 24, SC: 31, SE: 24, SI: 19, SK: 24, SM: 27, ST: 25, SV: 28, TL: 23, TN: 24, TR: 26, UA: 29, VA: 22, VG: 24, XK: 20 };
 
   var ALLOWED = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-?:().,'+ ";
   var CHARMAP = {
@@ -202,7 +248,12 @@
     "ð": "d", "ñ": "n", "ò": "o", "ó": "o", "ô": "o", "õ": "o", "ö": "o", "ø": "o",
     "ù": "u", "ú": "u", "û": "u", "ü": "u", "ý": "y", "ÿ": "y", "þ": "th",
     "Š": "S", "š": "s", "Ž": "Z", "ž": "z", "Œ": "OE", "œ": "oe",
-    "€": "E", "@": "(at)", "&": "+", "_": "-", "\t": " ", "\n": " ", "\r": " "
+    "º": "o", "ª": "a",
+    "‘": "'", "’": "'", "‚": "'", "′": "'",
+    "“": " ", "”": " ", "„": " ", "«": " ", "»": " ",
+    "–": "-", "—": "-", "−": "-",
+    "#": " ",
+    "€": "EUR", "@": "(at)", "&": "+", "_": "-", "\t": " ", "\n": " ", "\r": " "
   };
 
   var NAME_KEYS = ["nome", "name", "nombre", "beneficiario", "acreedor", "creditor", "fornecedor", "proveedor", "empregado", "empleado", "titular", "payee", "supplier", "nomedobeneficiario", "nombredelbeneficiario"];
@@ -270,16 +321,47 @@
     }
     return mod97(expanded);
   }
-  function ptNibOk(iban) {
-    var nib = iban.slice(4);
+  function ptNibOk(nib) {
     if (!/^\d{21}$/.test(nib)) return false;
-    var rem = 0, i;
-    for (i = 0; i < 19; i++) rem = (rem * 10 + (nib.charCodeAt(i) - 48)) % 97;
-    return (98 - rem) === Number(nib.slice(19));
+    var rem = mod97(nib.slice(0, 19) + "00");
+    return String(98 - rem).padStart(2, "0") === nib.slice(19);
+  }
+  function ibanCheckDigits(country, bban) {
+    var rearranged = bban + country + "00";
+    var expanded = "", i, code;
+    for (i = 0; i < rearranged.length; i++) {
+      code = rearranged.charCodeAt(i);
+      expanded += code >= 65 && code <= 90 ? String(code - 55) : rearranged.charAt(i);
+    }
+    return String(98 - mod97(expanded)).padStart(2, "0");
+  }
+  function esDigit(digits, weights) {
+    var sum = 0, i, r;
+    for (i = 0; i < digits.length; i++) sum += (digits.charCodeAt(i) - 48) * weights[i];
+    r = 11 - (sum % 11);
+    if (r === 11) r = 0;
+    if (r === 10) r = 1;
+    return String(r);
+  }
+  function esCccOk(iban) {
+    var bban = iban.slice(4);
+    if (!/^\d{20}$/.test(bban)) return false;
+    var d1 = esDigit(bban.slice(0, 8), [4, 8, 5, 10, 9, 7, 3, 6]);
+    var d2 = esDigit(bban.slice(10), [1, 2, 4, 8, 5, 10, 9, 7, 3, 6]);
+    return bban.charAt(8) === d1 && bban.charAt(9) === d2;
+  }
+  function isScientific(raw) {
+    if (typeof raw === "number") return /e/i.test(String(raw));
+    return /^[+-]?\d+(\.\d+)?[eE][+-]?\d+$/.test(String(raw || "").replace(/\s/g, ""));
   }
   function checkIban(raw) {
+    if (typeof raw === "number" || isScientific(raw)) return { error: "iban-scientific", value: String(raw) };
     var v = String(raw || "").replace(/\s+/g, "").toUpperCase();
     if (!v) return { error: "iban-missing", value: "" };
+    if (/^\d{21}$/.test(v)) {
+      if (!ptNibOk(v)) return { error: "iban-nib", value: v };
+      v = "PT" + ibanCheckDigits("PT", v) + v;
+    }
     if (!/^[A-Z]{2}[0-9]{2}[A-Z0-9]+$/.test(v)) return { error: "iban-format", value: v };
     var cc = v.slice(0, 2);
     var need = IBAN_LEN[cc];
@@ -287,7 +369,11 @@
     if (v.length !== need) return { error: "iban-length", value: v, cc: cc, n: v.length, need: need };
     if (ibanMod97(v) !== 1) return { error: "iban-check", value: v };
     if (!SEPA[cc]) return { error: "iban-country", value: v };
-    if (cc === "PT" && !ptNibOk(v)) return { error: "iban-nib", value: v };
+    if (cc === "PT") {
+      if (v.slice(0, 4) !== "PT50") return { error: "iban-pt50", value: v };
+      if (!ptNibOk(v.slice(4))) return { error: "iban-nib", value: v };
+    }
+    if (cc === "ES" && !esCccOk(v)) return { error: "iban-ccc", value: v };
     return { value: v };
   }
   function checkBic(raw) {
@@ -300,36 +386,48 @@
   function parseAmount(raw) {
     if (typeof raw === "number") {
       if (!isFinite(raw)) return { error: "amount-format", value: String(raw) };
-      if (raw <= 0) return { error: "amount-positive", value: String(raw) };
+      var shownNum = String(raw);
+      if (isScientific(raw)) return { error: "amount-scientific", value: shownNum };
+      if (raw <= 0) return { error: "amount-positive", value: shownNum };
       var fixed = raw.toFixed(2);
-      if (Math.abs(raw - Number(fixed)) > 0.000001) return { error: "amount-decimals", value: String(raw) };
-      return centsFromNormalized(fixed, String(raw));
+      if (Math.abs(raw - Number(fixed)) > 0.0000001) return { error: "amount-decimals", value: shownNum };
+      return centsFromNormalized(fixed, shownNum);
     }
-    var s = String(raw == null ? "" : raw).trim();
-    if (!s) return { error: "amount-empty", value: "" };
-    var shown = s;
-    s = s.replace(/\u00a0/g, "").replace(/\s/g, "").replace(/€/g, "").replace(/eur/ig, "");
+    var shown = String(raw == null ? "" : raw).trim();
+    if (!shown) return { error: "amount-empty", value: "" };
+    if (isScientific(shown)) return { error: "amount-scientific", value: shown };
+    var s = shown.replace(/\u00a0/g, "").replace(/\s/g, "").replace(/€/g, "").replace(/eur/ig, "");
     if (!s) return { error: "amount-empty", value: shown };
     if (s.charAt(0) === "-" || s.charAt(0) === "(") return { error: "amount-positive", value: shown };
     if (!/^[0-9.,]+$/.test(s)) return { error: "amount-format", value: shown };
-    var lastComma = s.lastIndexOf(",");
-    var lastDot = s.lastIndexOf(".");
-    var normalized, parts, frac, i;
-    if (lastComma !== -1 && lastDot !== -1) {
-      if (lastComma > lastDot) normalized = s.replace(/\./g, "").replace(",", ".");
-      else normalized = s.replace(/,/g, "");
-    } else if (lastComma !== -1 || lastDot !== -1) {
-      var sep = lastComma !== -1 ? "," : ".";
-      parts = s.split(sep);
-      if (parts.length > 2) {
-        for (i = 1; i < parts.length; i++) if (parts[i].length !== 3) return { error: "amount-format", value: shown };
-        normalized = parts.join("");
+    var commas = s.split(",").length - 1;
+    var dots = s.split(".").length - 1;
+    var normalized, parts, i, sep;
+    if (commas && dots) {
+      var lastComma = s.lastIndexOf(",");
+      var lastDot = s.lastIndexOf(".");
+      if (lastComma > lastDot) {
+        parts = s.split(",");
+        if (parts[1].length > 2) return { error: "amount-decimals", value: shown };
+        if (!parts[0].split(".").every(function (g, idx) { return idx === 0 ? g.length > 0 : g.length === 3; })) return { error: "amount-format", value: shown };
+        normalized = parts[0].replace(/\./g, "") + "." + parts[1];
       } else {
-        frac = parts[1];
-        if (frac.length === 3) normalized = parts.join("");
-        else if (frac.length <= 2) normalized = parts[0] + "." + frac;
-        else return { error: "amount-decimals", value: shown };
+        parts = s.split(".");
+        if (parts[1].length > 2) return { error: "amount-decimals", value: shown };
+        if (!parts[0].split(",").every(function (g, idx) { return idx === 0 ? g.length > 0 : g.length === 3; })) return { error: "amount-format", value: shown };
+        normalized = parts[0].replace(/,/g, "") + "." + parts[1];
       }
+    } else if (commas + dots === 1) {
+      sep = commas ? "," : ".";
+      parts = s.split(sep);
+      if (parts[1].length === 3) return { error: "amount-ambiguous", value: shown };
+      if (parts[1].length > 2) return { error: "amount-decimals", value: shown };
+      normalized = parts[0] + "." + parts[1];
+    } else if (commas + dots > 1) {
+      sep = commas ? "," : ".";
+      parts = s.split(sep);
+      for (i = 1; i < parts.length; i++) if (parts[i].length !== 3) return { error: "amount-format", value: shown };
+      normalized = parts.join("");
     } else normalized = s;
     if (!/^\d+(\.\d{1,2})?$/.test(normalized)) return { error: "amount-decimals", value: shown };
     return centsFromNormalized(normalized, shown);
@@ -354,9 +452,8 @@
     for (i = 0; i < s.length; i++) {
       ch = s.charAt(i);
       if (ALLOWED.indexOf(ch) !== -1) { out += ch; continue; }
-      rep = CHARMAP[ch];
-      if (!rep) return { error: "charset", ch: ch, from: s };
-      if (!seen[ch]) { seen[ch] = 1; changes.push(ch + "→" + rep); }
+      rep = CHARMAP[ch] || " ";
+      if (!seen[ch]) { seen[ch] = 1; changes.push(ch + "→" + (rep === " " ? " " : rep)); }
       out += rep;
     }
     var folded = out.replace(/[ \t\r\n]+/g, " ").replace(/^\/+|\/+$/g, "").replace(/\/{2,}/g, "/").trim();
@@ -385,9 +482,42 @@
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
   }
   function pad(n) { return n < 10 ? "0" + n : String(n); }
-  function todayIso() {
-    var d = new Date();
+  function isoFromDate(d) {
     return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  }
+  function todayIso() {
+    return isoFromDate(new Date());
+  }
+  function easterSunday(year) {
+    var a = year % 19, b = Math.floor(year / 100), c = year % 100;
+    var d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+    var g = Math.floor((b - f + 1) / 3);
+    var h = (19 * a + b - d - g + 15) % 30;
+    var i = Math.floor(c / 4), k = c % 4;
+    var l = (32 + 2 * e + 2 * i - h - k) % 7;
+    var m = Math.floor((a + 11 * h + 22 * l) / 451);
+    var month = Math.floor((h + l - 7 * m + 114) / 31);
+    var day = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(year, month - 1, day, 12, 0, 0, 0);
+  }
+  function targetHoliday(d) {
+    var month = d.getMonth() + 1, day = d.getDate(), year = d.getFullYear();
+    if (month === 1 && day === 1) return true;
+    if (month === 5 && day === 1) return true;
+    if (month === 12 && (day === 25 || day === 26)) return true;
+    var easter = easterSunday(year);
+    var goodFriday = new Date(easter.getTime());
+    goodFriday.setDate(easter.getDate() - 2);
+    var easterMonday = new Date(easter.getTime());
+    easterMonday.setDate(easter.getDate() + 1);
+    return isoFromDate(d) === isoFromDate(goodFriday) || isoFromDate(d) === isoFromDate(easterMonday);
+  }
+  function nextBusinessDay() {
+    var d = new Date();
+    d.setHours(12, 0, 0, 0);
+    d.setDate(d.getDate() + 1);
+    while (d.getDay() === 0 || d.getDay() === 6 || targetHoliday(d)) d.setDate(d.getDate() + 1);
+    return isoFromDate(d);
   }
   function isoDateTime(d) {
     var off = -d.getTimezoneOffset();
@@ -501,7 +631,8 @@
       bic: $("dbtr-bic").value,
       date: $("dbtr-date").value,
       batch: $("dbtr-batch").checked,
-      version: $("pain-version").value === "09" ? "09" : "03"
+      version: $("pain-version").value === "03" ? "03" : "09",
+      nif: $("dbtr-nif") ? $("dbtr-nif").value : ""
     };
   }
 
@@ -519,7 +650,7 @@
     var r, cells, nameRaw, ibanRaw, amountRaw, refRaw, bicRaw, rowNo, nameKey;
     for (r = 0; r < rows.length; r++) {
       cells = rows[r];
-      rowNo = r + 2;
+        rowNo = r + (state && state.firstRow ? state.firstRow : 2);
       nameRaw = map.name >= 0 ? cells[map.name] : "";
       ibanRaw = map.iban >= 0 ? cells[map.iban] : "";
       amountRaw = map.amount >= 0 ? cells[map.amount] : "";
@@ -530,7 +661,7 @@
         notices.push({ level: "warn", who: "", text: fill(T.ignoredTotal, { row: rowNo }) });
         continue;
       }
-      if (!String(nameRaw || "").trim() && !String(ibanRaw || "").trim() && !String(amountRaw || "").trim()) continue;
+      if (![nameRaw, ibanRaw, amountRaw, refRaw, bicRaw].some(function (v) { return String(v == null ? "" : v).trim() !== ""; })) continue;
       payments.push({
         row: rowNo,
         nameRaw: nameRaw,
@@ -554,7 +685,6 @@
     var bic = checkBic(cellStr(p.bicRaw));
 
     if (!String(p.nameRaw || "").trim()) pushIssue(errors, "error", who, "name-missing");
-    else if (name.error === "charset") pushIssue(errors, "error", who, "name-charset", { ch: name.ch });
     else if (name.error === "length") pushIssue(errors, "error", who, "name-length", { n: name.n });
     else if (!name.value) pushIssue(errors, "error", who, "name-missing");
     else if (name.changes.length) pushIssue(warnings, "warn", who, "translit", { field: T.field.name, from: name.from, to: name.value, changes: name.changes.join(", ") });
@@ -562,8 +692,7 @@
     if (iban.error) pushIssue(errors, "error", who, iban.error, { v: iban.value, cc: iban.cc, n: iban.n, need: iban.need });
     if (amount.error) pushIssue(errors, "error", who, amount.error, { v: amount.value || cellStr(p.amountRaw) });
     if (String(p.refRaw || "").trim()) {
-      if (ref.error === "charset") pushIssue(errors, "error", who, "ref-charset", { ch: ref.ch });
-      else if (ref.error === "length") pushIssue(errors, "error", who, "ref-length", { n: ref.n });
+      if (ref.error === "length") pushIssue(errors, "error", who, "ref-length", { n: ref.n });
       else if (ref.changes.length) pushIssue(warnings, "warn", who, "translit", { field: T.field.ref, from: ref.from, to: ref.value, changes: ref.changes.join(", ") });
     }
     if (bic.error) pushIssue(errors, "error", who, "bic-format", { v: bic.value });
@@ -628,12 +757,21 @@
     var iban = checkIban(d.iban);
     var bic = checkBic(d.bic);
     if (!String(d.name || "").trim()) pushIssue(errors, "error", who, "name-missing");
-    else if (name.error === "charset") pushIssue(errors, "error", who, "name-charset", { ch: name.ch });
     else if (name.error === "length") pushIssue(errors, "error", who, "name-length", { n: name.n });
     else if (!name.value) pushIssue(errors, "error", who, "name-missing");
     else if (name.changes.length) pushIssue(warnings, "warn", who, "translit", { field: T.field.name, from: name.from, to: name.value, changes: name.changes.join(", ") });
     if (iban.error) pushIssue(errors, "error", who, iban.error, { v: iban.value, cc: iban.cc, n: iban.n, need: iban.need });
     if (bic.error) pushIssue(errors, "error", who, "bic-format", { v: bic.value });
+    var nifRaw = String(d.nif || "").trim();
+    var nifClean = sepaText(nifRaw, 35);
+    var nifValue = (nifClean.value || "").replace(/\s/g, "").toUpperCase();
+    if (iban.value && iban.value.slice(0, 2) === "ES") {
+      if (!nifValue) pushIssue(errors, "error", who, "nif-missing");
+      else if (!/^[A-Z0-9]{12}$/.test(nifValue)) pushIssue(errors, "error", who, "nif-format", { v: nifRaw });
+      else if (nifClean.changes && nifClean.changes.length) pushIssue(warnings, "warn", who, "translit", { field: "NIF-sufijo", from: nifRaw, to: nifValue, changes: nifClean.changes.join(", ") });
+    } else if (nifValue) {
+      if (!/^[A-Z0-9]{12}$/.test(nifValue)) pushIssue(errors, "error", who, "nif-format", { v: nifRaw });
+    }
     if (!d.date || !/^\d{4}-\d{2}-\d{2}$/.test(d.date)) pushIssue(errors, "error", who, "date-missing");
     else {
       if (d.date < todayIso()) pushIssue(warnings, "warn", who, "date-past");
@@ -642,7 +780,7 @@
       var day = dt.getDay();
       if (day === 0 || day === 6) pushIssue(warnings, "warn", who, "date-weekend");
     }
-    return { name: name.value || "", iban: iban.value || "", bic: bic.value || "", errors: errors, warnings: warnings };
+    return { name: name.value || "", iban: iban.value || "", bic: bic.value || "", nif: /^[A-Z0-9]{12}$/.test(nifValue) ? nifValue : "", errors: errors, warnings: warnings };
   }
 
   function agentXml(indent, bic, version) {
@@ -675,6 +813,15 @@
     lines.push("      <CtrlSum>" + sum + "</CtrlSum>");
     lines.push("      <InitgPty>");
     lines.push("        <Nm>" + xmlEscape(debtor.name) + "</Nm>");
+    if (debtor.nif) {
+      lines.push("        <Id>");
+      lines.push("          <OrgId>");
+      lines.push("            <Othr>");
+      lines.push("              <Id>" + xmlEscape(debtor.nif) + "</Id>");
+      lines.push("            </Othr>");
+      lines.push("          </OrgId>");
+      lines.push("        </Id>");
+    }
     lines.push("      </InitgPty>");
     lines.push("    </GrpHdr>");
     lines.push("    <PmtInf>");
@@ -763,7 +910,9 @@
     clear($("file-list"));
     $("c-count").textContent = "0";
     $("c-sum").textContent = formatEUR(0);
-    $("c-problems").textContent = "0";
+    $("c-errors").textContent = "0";
+    $("c-warnings").textContent = "0";
+    if ($("live-summary")) $("live-summary").textContent = "";
     $("sum-note").hidden = true;
     $("preview-note").hidden = true;
     $("problems-none").hidden = true;
@@ -796,8 +945,9 @@
     $("mapping").hidden = false;
   }
 
-  function render() {
+  function render(announce) {
     clearError();
+    syncNif();
     if (!state) { clearResults(); return; }
     var map = currentMap();
     state.map = map;
@@ -809,8 +959,7 @@
       uniq[chosen[i]] = 1;
     }
     var built = buildPayments(state.dataRows, map);
-    var included = built.payments.slice(0, FREE_MAX);
-    var validated = included.map(validatePayment);
+    var validated = built.payments.map(validatePayment);
     var debtorRaw = readDebtor();
     assignEndToEnd(validated, debtorRaw.date);
     var debtor = validateDebtor(debtorRaw);
@@ -828,15 +977,20 @@
       if (validated[i].amountOk) { cents += validated[i].cents; validAmounts++; }
     }
 
+    var errorCount = 0, warnCount = 0;
+    for (i = 0; i < issues.length; i++) {
+      if (issues[i].level === "error") errorCount++;
+      else warnCount++;
+    }
     $("results").hidden = false;
     $("c-count").textContent = String(validated.length);
     $("c-sum").textContent = formatEUR(cents);
-    $("c-problems").textContent = String(issues.length);
+    $("c-errors").textContent = String(errorCount);
+    $("c-warnings").textContent = String(warnCount);
     $("sum-note").hidden = !(validAmounts !== validated.length && validated.length);
     if (!$("sum-note").hidden) $("sum-note").textContent = T.sumPartial;
 
-    $("limit-note").hidden = built.payments.length <= FREE_MAX;
-    if (!$("limit-note").hidden) $("limit-note").textContent = fill(T.limit, { max: FREE_MAX, n: built.payments.length });
+    $("limit-note").hidden = true;
 
     var list = $("problems");
     clear(list);
@@ -883,7 +1037,7 @@
       body.appendChild(tr);
     }
     $("preview-note").hidden = built.payments.length <= PREVIEW_MAX;
-    if (!$("preview-note").hidden) $("preview-note").textContent = fill(T.previewCap, { max: PREVIEW_MAX, n: built.payments.length, free: FREE_MAX });
+    if (!$("preview-note").hidden) $("preview-note").textContent = fill(T.previewCap, { max: PREVIEW_MAX, n: built.payments.length });
 
     var chips = $("file-list");
     clear(chips);
@@ -896,6 +1050,7 @@
         name: debtor.name,
         iban: debtor.iban,
         bic: debtor.bic,
+        nif: debtor.nif,
         date: debtorRaw.date,
         batch: debtorRaw.batch
       }, validated, debtorRaw.version);
@@ -904,14 +1059,58 @@
       lastXml = "";
       $("download").disabled = true;
     }
+    if (announce) {
+      var live = $("live-summary");
+      if (live) live.textContent = fill(T.summary, { e: errorCount, w: warnCount });
+      if (!$("results").hidden) {
+        $("results").tabIndex = -1;
+        $("results").scrollIntoView({ block: "start" });
+        $("results").focus();
+      }
+    }
   }
 
-  function setGrid(headers, dataRows, fileName, headerRow) {
-    var map = headerRow ? detectMap(headers) : { name: -1, iban: -1, amount: -1, ref: -1, bic: -1 };
-    state = { headers: headers, dataRows: dataRows, fileName: fileName, map: map };
+  function setGrid(headers, dataRows, fileName, map, firstRow) {
+    state = { headers: headers, dataRows: dataRows, fileName: fileName, map: map, firstRow: firstRow || 2 };
     clearResults();
     fillMapSelects();
-    render();
+    render(true);
+    saveBatch();
+  }
+
+  function detectContentMap(rows) {
+    var width = 0, r, c, n = rows.length;
+    for (r = 0; r < n; r++) width = Math.max(width, rows[r].length);
+    var iban = [], amount = [], bic = [], name = [];
+    for (c = 0; c < width; c++) {
+      iban[c] = 0;
+      amount[c] = 0;
+      bic[c] = 0;
+      name[c] = 0;
+      for (r = 0; r < n; r++) {
+        var cell = rows[r][c];
+        var compact = String(cell == null ? "" : cell).replace(/\s+/g, "");
+        var ibanLike = /^\d{21}$/.test(compact) || /^[A-Za-z]{2}\d{2}[A-Za-z0-9]{10,30}$/.test(compact);
+        if (ibanLike) iban[c]++;
+        if (!ibanLike && (typeof cell === "number" || /^[0-9][0-9.,]*$/.test(compact.replace(/€/g, "")))) amount[c]++;
+        if (/^[A-Za-z]{6}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?$/.test(compact)) bic[c]++;
+        if (/[A-Za-zÀ-ÿ]{3,}/.test(String(cell || "")) && !/^[A-Za-z]{2}\d{2}/.test(compact)) name[c]++;
+      }
+    }
+    function best(arr, min) {
+      var i, bi = -1, bv = 0;
+      for (i = 0; i < arr.length; i++) if (arr[i] > bv) { bv = arr[i]; bi = i; }
+      return bv >= min ? bi : -1;
+    }
+    var minHit = Math.max(1, Math.ceil(n * 0.5));
+    var map = { iban: best(iban, minHit), amount: best(amount, minHit), name: best(name, 1), bic: best(bic, minHit), ref: -1 };
+    var used = {};
+    ["iban", "amount", "name", "bic"].forEach(function (key) {
+      if (map[key] < 0) return;
+      if (used[map[key]]) map[key] = -1;
+      else used[map[key]] = 1;
+    });
+    return map;
   }
 
   function rowsFromMatrix(matrix, fileName) {
@@ -919,7 +1118,7 @@
     var width = 0, r, c;
     for (r = 0; r < matrix.length; r++) width = Math.max(width, matrix[r].length);
     var headerRow = looksLikeHeader(matrix[0].map(cellStr));
-    var headers = [], data;
+    var headers = [], data, map;
     if (headerRow) {
       for (c = 0; c < width; c++) headers.push(cellStr(matrix[0][c]) || fill(T.colLabel, { n: c + 1 }));
       data = matrix.slice(1).map(function (row) {
@@ -930,15 +1129,19 @@
         return row.some(function (v) { return String(v == null ? "" : v).trim() !== ""; });
       });
       if (!data.length) { showError(T.headerOnly); return; }
-    } else {
-      for (c = 0; c < width; c++) headers.push(fill(T.colLabel, { n: c + 1 }));
-      data = matrix.map(function (row) {
-        var out = [];
-        for (c = 0; c < width; c++) out.push(c < row.length ? row[c] : "");
-        return out;
-      });
+      map = detectMap(headers);
+      setGrid(headers, data, fileName, map, 2);
+      return;
     }
-    setGrid(headers, data, fileName, headerRow);
+    data = matrix.map(function (row) {
+      var out = [];
+      for (c = 0; c < width; c++) out.push(c < row.length ? row[c] : "");
+      return out;
+    });
+    map = detectContentMap(data);
+    if (map.iban < 0 || map.amount < 0) { showError(T.garbage); return; }
+    for (c = 0; c < width; c++) headers.push(fill(T.colLabel, { n: c + 1 }));
+    setGrid(headers, data, fileName, map, 1);
   }
 
   function fromCsvText(text, fileName) {
@@ -976,34 +1179,75 @@
     reader.readAsArrayBuffer(file);
   }
 
+  function syncNif() {
+    var wrap = $("nif-wrap");
+    if (!wrap) return;
+    var iban = String($("dbtr-iban").value || "").replace(/\s+/g, "").toUpperCase();
+    wrap.hidden = !(lang === "es" || iban.slice(0, 2) === "ES");
+  }
   function saveDebtor() {
     try {
       localStorage.setItem(STORE, JSON.stringify({
         name: $("dbtr-name").value,
         iban: $("dbtr-iban").value,
         bic: $("dbtr-bic").value,
-        date: $("dbtr-date").value,
-        batch: $("dbtr-batch").checked
+        batch: $("dbtr-batch").checked,
+        nif: $("dbtr-nif") ? $("dbtr-nif").value : ""
       }));
     } catch (e) { /* private mode */ }
   }
   function loadDebtor() {
+    $("dbtr-date").value = nextBusinessDay();
     var raw = null;
     try { raw = localStorage.getItem(STORE); } catch (e) { raw = null; }
-    if (!raw) {
-      $("dbtr-date").value = todayIso();
-      return;
-    }
+    if (!raw) return;
     try {
       var data = JSON.parse(raw);
       if (data.name) $("dbtr-name").value = data.name;
       if (data.iban) $("dbtr-iban").value = data.iban;
       if (data.bic) $("dbtr-bic").value = data.bic;
-      if (data.date) $("dbtr-date").value = data.date;
+      if (data.nif && $("dbtr-nif")) $("dbtr-nif").value = data.nif;
       $("dbtr-batch").checked = data.batch !== false;
-    } catch (e2) {
-      $("dbtr-date").value = todayIso();
+    } catch (e2) { /* keep the fresh date */ }
+    syncNif();
+  }
+  function saveBatch() {
+    if (!state) return;
+    try {
+      localStorage.setItem(BATCH_STORE, JSON.stringify({
+        headers: state.headers,
+        dataRows: state.dataRows,
+        map: state.map,
+        fileName: state.fileName,
+        firstRow: state.firstRow,
+        debtor: {
+          name: $("dbtr-name").value,
+          iban: $("dbtr-iban").value,
+          bic: $("dbtr-bic").value,
+          batch: $("dbtr-batch").checked,
+          nif: $("dbtr-nif") ? $("dbtr-nif").value : ""
+        }
+      }));
+    } catch (e) { /* private mode */ }
+  }
+  function repeatBatch() {
+    var raw = null;
+    try { raw = localStorage.getItem(BATCH_STORE); } catch (e) { raw = null; }
+    if (!raw) { showError(T.repeatEmpty); return; }
+    var data;
+    try { data = JSON.parse(raw); } catch (e2) { showError(T.repeatEmpty); return; }
+    if (!data || !data.dataRows) { showError(T.repeatEmpty); return; }
+    if (data.debtor) {
+      $("dbtr-name").value = data.debtor.name || "";
+      $("dbtr-iban").value = data.debtor.iban || "";
+      $("dbtr-bic").value = data.debtor.bic || "";
+      if ($("dbtr-nif")) $("dbtr-nif").value = data.debtor.nif || "";
+      $("dbtr-batch").checked = data.debtor.batch !== false;
     }
+    $("dbtr-date").value = nextBusinessDay();
+    setGrid(data.headers, data.dataRows, data.fileName || T.exampleName, data.map, data.firstRow || 2);
+    $("example-note").hidden = false;
+    $("example-note").textContent = T.repeatOk;
   }
 
   function downloadXml() {
@@ -1026,7 +1270,12 @@
         ? ["Name", "IBAN", "Amount", "Reference", "BIC"]
         : ["Nome", "IBAN", "Montante", "Referência", "BIC"];
     var wb = XLSX.utils.book_new();
-    var ws = XLSX.utils.aoa_to_sheet([headers]);
+    var sample = EXAMPLE_ROWS.slice(1).map(function (row) {
+      if (lang === "es") return [row[0], row[1], row[2], row[3], row[4]];
+      if (lang === "en") return [row[0], row[1], row[2], row[3], row[4]];
+      return row;
+    });
+    var ws = XLSX.utils.aoa_to_sheet([headers].concat(sample));
     ws["!cols"] = [{ wch: 32 }, { wch: 34 }, { wch: 14 }, { wch: 32 }, { wch: 14 }];
     XLSX.utils.book_append_sheet(wb, ws, T.sheetName);
     XLSX.writeFile(wb, T.templateName);
@@ -1038,7 +1287,7 @@
       $("dbtr-name").value = EXAMPLE_DEBTOR.name;
       $("dbtr-iban").value = EXAMPLE_DEBTOR.iban;
       $("dbtr-bic").value = EXAMPLE_DEBTOR.bic;
-      if (!$("dbtr-date").value) $("dbtr-date").value = todayIso();
+      if (!$("dbtr-date").value) $("dbtr-date").value = nextBusinessDay();
     }
     rowsFromMatrix(EXAMPLE_ROWS.map(function (row) { return row.slice(); }), T.exampleName);
     if (fillDebtor) {
@@ -1074,24 +1323,154 @@
     $("pro-note").textContent = T.proNote;
   });
   ["map-name", "map-iban", "map-amount", "map-ref", "map-bic"].forEach(function (id) {
-    $(id).addEventListener("change", function () { if (state) render(); });
+    $(id).addEventListener("change", function () { if (state) render(true); });
   });
-  ["dbtr-name", "dbtr-iban", "dbtr-bic", "dbtr-date"].forEach(function (id) {
-    $(id).addEventListener("input", function () { saveDebtor(); if (state) render(); });
+  ["dbtr-name", "dbtr-iban", "dbtr-bic", "dbtr-date", "dbtr-nif"].forEach(function (id) {
+    if (!$(id)) return;
+    $(id).addEventListener("input", function () {
+      saveDebtor();
+      syncNif();
+      if (state) render(false);
+    });
+    $(id).addEventListener("blur", function () { if (state) render(true); });
   });
-  $("dbtr-batch").addEventListener("change", function () { saveDebtor(); if (state) render(); });
-  $("pain-version").addEventListener("change", function () { if (state) render(); });
+  $("dbtr-batch").addEventListener("change", function () { saveDebtor(); if (state) render(true); });
+  $("pain-version").addEventListener("change", function () { if (state) render(true); });
+  if ($("repeat")) $("repeat").addEventListener("click", repeatBatch);
   $("dbtr-clear").addEventListener("click", function () {
     $("dbtr-name").value = "";
     $("dbtr-iban").value = "";
     $("dbtr-bic").value = "";
-    $("dbtr-date").value = todayIso();
+    if ($("dbtr-nif")) $("dbtr-nif").value = "";
+    $("dbtr-date").value = nextBusinessDay();
     $("dbtr-batch").checked = true;
     try { localStorage.removeItem(STORE); } catch (e) { /* ignore */ }
-    if (state) render();
+    syncNif();
+    if (state) render(true);
   });
 
-  loadDebtor();
+  function loadBeneficiaries() {
+    try {
+      var raw = localStorage.getItem(BEN_STORE);
+      var list = raw ? JSON.parse(raw) : [];
+      return Array.isArray(list) ? list : [];
+    } catch (e) { return []; }
+  }
+  function storeBeneficiaries(list) {
+    try { localStorage.setItem(BEN_STORE, JSON.stringify(list)); } catch (e) { /* private mode */ }
+  }
+  function renderBeneficiaries() {
+    var listEl = $("ben-list");
+    if (!listEl) return;
+    clear(listEl);
+    loadBeneficiaries().forEach(function (ben, index) {
+      var li = document.createElement("li");
+      var label = document.createElement("span");
+      label.textContent = ben.name + " · " + groupIban(ben.iban);
+      var use = document.createElement("button");
+      use.type = "button";
+      use.className = "btn ghost";
+      use.textContent = lang === "es" ? "Añadir al lote" : lang === "en" ? "Add to batch" : "Juntar ao lote";
+      use.addEventListener("click", function () { addBeneficiaryRow(ben); });
+      var edit = document.createElement("button");
+      edit.type = "button";
+      edit.className = "btn ghost";
+      edit.textContent = lang === "es" ? "Editar" : lang === "en" ? "Edit" : "Editar";
+      edit.addEventListener("click", function () {
+        $("ben-name").value = ben.name;
+        $("ben-iban").value = ben.iban;
+        $("ben-bic").value = ben.bic || "";
+        $("ben-name").dataset.edit = String(index);
+      });
+      var del = document.createElement("button");
+      del.type = "button";
+      del.className = "btn ghost";
+      del.textContent = lang === "es" ? "Borrar" : lang === "en" ? "Delete" : "Apagar";
+      del.addEventListener("click", function () {
+        var list = loadBeneficiaries();
+        list.splice(index, 1);
+        storeBeneficiaries(list);
+        renderBeneficiaries();
+      });
+      li.appendChild(label);
+      li.appendChild(use);
+      li.appendChild(edit);
+      li.appendChild(del);
+      listEl.appendChild(li);
+    });
+  }
+  function addBeneficiaryRow(ben) {
+    var headers = state ? state.headers.slice() : (lang === "es" ? ["Nombre", "IBAN", "Importe", "Referencia", "BIC"] : lang === "en" ? ["Name", "IBAN", "Amount", "Reference", "BIC"] : ["Nome", "IBAN", "Montante", "Referência", "BIC"]);
+    var map = state ? state.map : { name: 0, iban: 1, amount: 2, ref: 3, bic: 4 };
+    var width = Math.max(headers.length, 5);
+    var row = [];
+    var c;
+    for (c = 0; c < width; c++) row.push("");
+    if (map.name >= 0) row[map.name] = ben.name;
+    if (map.iban >= 0) row[map.iban] = ben.iban;
+    if (map.bic >= 0) row[map.bic] = ben.bic || "";
+    var data = state ? state.dataRows.slice() : [];
+    data.push(row);
+    if (!state) setGrid(headers, data, T.fileLabel, map, 2);
+    else setGrid(headers, data, state.fileName, map, state.firstRow);
+  }
+  function saveBeneficiary() {
+    var name = $("ben-name").value.trim();
+    var iban = $("ben-iban").value.trim();
+    var bic = $("ben-bic").value.trim();
+    if (!name || !iban) { showError(T.benNeed); return; }
+    var list = loadBeneficiaries();
+    var edit = $("ben-name").dataset.edit;
+    var item = { name: name, iban: iban, bic: bic };
+    if (edit !== undefined && edit !== "" && list[Number(edit)]) list[Number(edit)] = item;
+    else list.push(item);
+    $("ben-name").dataset.edit = "";
+    storeBeneficiaries(list);
+    $("ben-name").value = "";
+    $("ben-iban").value = "";
+    $("ben-bic").value = "";
+    renderBeneficiaries();
+    $("example-note").hidden = false;
+    $("example-note").textContent = T.benSaved;
+  }
+  if ($("ben-save")) $("ben-save").addEventListener("click", saveBeneficiary);
+  if ($("ben-export")) $("ben-export").addEventListener("click", function () {
+    var blob = new Blob([JSON.stringify(loadBeneficiaries(), null, 2)], { type: "application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "beneficiarios-sepa.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  });
+  if ($("ben-import-btn") && $("ben-import")) $("ben-import-btn").addEventListener("click", function () { $("ben-import").click(); });
+  if ($("ben-import")) $("ben-import").addEventListener("change", function () {
+    var file = $("ben-import").files && $("ben-import").files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var list;
+      try { list = JSON.parse(String(reader.result)); } catch (e) { showError(T.benBad); return; }
+      if (!Array.isArray(list)) { showError(T.benBad); return; }
+      var clean = [];
+      list.forEach(function (item) {
+        if (!item || !item.name || !item.iban) return;
+        clean.push({ name: String(item.name), iban: String(item.iban), bic: item.bic ? String(item.bic) : "" });
+      });
+      if (!clean.length) { showError(T.benBad); return; }
+      storeBeneficiaries(clean);
+      renderBeneficiaries();
+    };
+    reader.readAsText(file);
+  });
+  if ($("ben-wipe")) $("ben-wipe").addEventListener("click", function () {
+    if (!window.confirm(T.confirmWipe)) return;
+    storeBeneficiaries([]);
+    renderBeneficiaries();
+    $("example-note").hidden = false;
+    $("example-note").textContent = T.benWiped;
+  });
+
   window.NetmendSepa = {
     lastXml: function () { return lastXml; },
     formatEUR: formatEUR

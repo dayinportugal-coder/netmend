@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="../assets/tools.css">
 <link rel="stylesheet" href="app.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Create a SEPA XML file free","applicationCategory":"FinanceApplication","operatingSystem":"Any (web browser)","url":"https://netmend.app/sepa/","inLanguage":"en","isAccessibleForFree":true,"description":"Create a SEPA XML file free in the browser, for batch credit transfers to suppliers and salaries.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"browserRequirements":"Requires JavaScript. Files are handled in the browser and are not uploaded.","publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the file leave my computer?","acceptedAnswer":{"@type":"Answer","text":"No. The Excel or CSV file is read in this browser. The XML is built on your computer. Nothing is sent to Netmend or to the bank."}},{"@type":"Question","name":"What is this SEPA file?","acceptedAnswer":{"@type":"Answer","text":"It is a credit-transfer XML, ISO 20022 pain.001.001.03. It pays suppliers or salaries in a batch, in euro, to IBANs in the SEPA area. pain.001.001.09 is also available. Check with your bank which one it imports."}},{"@type":"Question","name":"How does the bank import the file?","acceptedAnswer":{"@type":"Answer","text":"In online banking, look for an import of transfer files or batch payments. Caixa Geral de Depósitos, on its Canal Multibancário page, lists Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03 (cgd.pt, checked 21 November 2026). Other banks use a different menu name."}},{"@type":"Question","name":"What is checked before download?","acceptedAnswer":{"@type":"Answer","text":"The IBAN (mod-97 and the country length), the Portuguese NIB check on PT accounts, the BIC format when one is present, the amount (greater than zero, at most two decimal places), the SEPA character set, and the length of the name (70) and the reference (140). Accents are converted (á becomes a) and the change is listed under Problems. A repeated EndToEndId is made unique. The same IBAN with the same amount raises a warning."}},{"@type":"Question","name":"How many payments fit in the file?","acceptedAnswer":{"@type":"Answer","text":"The free version includes 50 payments per file. Pro coming soon. The button does not take a payment and shows no price."}},{"@type":"Question","name":"Does this replace the bank?","acceptedAnswer":{"@type":"Answer","text":"No. The page only builds the file. It does not send payments. Check the IBANs, the amounts and the date at your bank before you authorise the debit."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does the file leave my computer?","acceptedAnswer":{"@type":"Answer","text":"No. The Excel or CSV file is read in this browser. The XML is built on your computer. Nothing is sent to Netmend or to the bank."}},{"@type":"Question","name":"What is this SEPA file?","acceptedAnswer":{"@type":"Answer","text":"It is a credit-transfer XML, ISO 20022 pain.001.001.09, the version in the Portuguese C2PSP manual 06.01 in force since 28 August 2025. It pays suppliers or salaries in a batch, in euro, to IBANs in the SEPA area. Version 03 is still available: some banks, for example CGD on Canal Multibancário, still ask for it."}},{"@type":"Question","name":"How does the bank import the file?","acceptedAnswer":{"@type":"Answer","text":"In online banking, look for an import of transfer files or batch payments. Caixa Geral de Depósitos, on its Canal Multibancário page, lists Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03 (cgd.pt, checked 21 November 2026). Other banks use a different menu name."}},{"@type":"Question","name":"What is checked before download?","acceptedAnswer":{"@type":"Answer","text":"The IBAN (mod-97 and the country length), the Portuguese NIB check on PT accounts, the BIC format when one is present, the amount (greater than zero, at most two decimal places), the SEPA character set, and the length of the name (70) and the reference (140). Accents are converted (á becomes a) and the change is listed under Problems. A repeated EndToEndId is made unique. The same IBAN with the same amount raises a warning."}},{"@type":"Question","name":"How many payments fit in the file?","acceptedAnswer":{"@type":"Answer","text":"Every row goes into the file. There is no limit. Pro coming soon. The button does not take a payment and shows no price."}},{"@type":"Question","name":"Does this replace the bank?","acceptedAnswer":{"@type":"Answer","text":"No. The page only builds the file. It does not send payments. Check the IBANs, the amounts and the date at your bank before you authorise the debit."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Netmend","item":"https://netmend.app/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://netmend.app/tools/"},{"@type":"ListItem","position":3,"name":"SEPA XML","item":"https://netmend.app/sepa/"}]}</script>
 </head>
 <body>
@@ -46,17 +46,18 @@
 <p class="crumbs"><a href="../">Netmend</a> · <a href="../tools/">Tools</a> · SEPA XML <span class="lang">· <a href="./" aria-current="page">English</a> · <a href="../pt/ficheiro-sepa/">Português</a> · <a href="../es/fichero-sepa/">Español</a></span></p>
 <h1>Create a SEPA XML file <span>free</span></h1>
 <p>Batch credit transfers for suppliers and salaries, from Excel or CSV. The file stays on this computer. Amounts on screen use the euro format 1.234,56 €.</p>
-<div class="pills"><span>Nothing is uploaded</span><span>Up to 50 payments</span><span>pain.001.001.03</span></div>
+<div class="pills"><span>Nothing is uploaded</span><span>Every row</span><span>pain.001.001.09</span></div>
 </div></div>
 
 <section class="tight" id="app"><div class="wrap">
 <div class="app-grid">
 <div class="tool" id="drop">
 <label for="file" style="margin-top:0">Excel or CSV of the payments</label>
-<p class="note" style="margin:0">Drop an .xlsx or a CSV (semicolon or comma; 1.234,56 or 1234.56). The free version takes 50 payments per file. Nothing leaves this browser.</p>
+<p class="note" style="margin:0">Drop an .xlsx or a CSV (semicolon or comma; 1.234,56 or 1234.56). Every row is included. Nothing leaves this browser.</p>
 <div class="pick">
 <input id="file" type="file" accept=".xlsx,.xls,.csv,.txt,text/csv,text/plain,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 <button id="example" type="button" class="btn">Try the example</button>
+<button id="repeat" type="button" class="btn ghost">Repeat the last batch</button>
 <button id="template" type="button" class="btn ghost">Download the Excel template</button>
 </div>
 <p class="note" style="margin:10px 0 0">The example is fictional: the names say EXEMPLO and the IBANs only test the format. They are not real accounts.</p>
@@ -78,13 +79,35 @@
 <div><label for="dbtr-date">Execution date</label><input id="dbtr-date" type="date" autocomplete="off"></div>
 </div>
 <label class="check" for="dbtr-batch"><input id="dbtr-batch" type="checkbox" checked> Batch booking (one debit on the account)</label>
+<div id="nif-wrap" hidden>
+<label for="dbtr-nif">NIF-sufijo (12 characters)</label>
+<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false">
+<p class="note">Required when the debtor IBAN is Spanish. The AEB/CECA guide puts these 12 characters in InitgPty/Id/OrgId/Othr.</p>
+</div>
 <p style="margin:12px 0 0"><button id="dbtr-clear" type="button" class="btn ghost">Clear data on this browser</button></p>
+<details id="beneficiaries">
+<summary>Beneficiaries on this device</summary>
+<p class="note">The list stays in this browser. You can export it or delete it.</p>
+<div class="row">
+<div><label for="ben-name">Name</label><input id="ben-name" type="text" autocomplete="off"></div>
+<div><label for="ben-iban">IBAN</label><input id="ben-iban" type="text" autocomplete="off" spellcheck="false"></div>
+<div><label for="ben-bic">BIC</label><input id="ben-bic" type="text" autocomplete="off" spellcheck="false"></div>
+</div>
+<div class="actions">
+<button id="ben-save" type="button" class="btn">Save beneficiary</button>
+<button id="ben-export" type="button" class="btn ghost">Export JSON</button>
+<button id="ben-import-btn" type="button" class="btn ghost">Import JSON</button>
+<input id="ben-import" type="file" accept="application/json,.json" hidden>
+<button id="ben-wipe" type="button" class="btn ghost">Delete all</button>
+</div>
+<ul class="files" id="ben-list"></ul>
+</details>
 <label for="pain-version">XML version</label>
 <select id="pain-version">
+<option value="09" selected>pain.001.001.09</option>
 <option value="03">pain.001.001.03</option>
-<option value="09">pain.001.001.09</option>
 </select>
-<p class="note">Caixa Geral de Depósitos states pain.001.001.03 on its <a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">Canal Multibancário</a> page. Version 09 is the later ISO revision: check with your bank before you use it.</p>
+<p class="note">Version 09 is the one in the <a href="https://www.santander.pt/pdfs/pdfs-empresas/netbanco-empresas-ajuda-online/netbanco-empresas-ajuda-online-documentos/sepa/manual_c2b.pdf" rel="noopener noreferrer">C2PSP manual 06.01</a>, in force since 28 August 2025. Some banks, for example CGD on the <a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">Canal Multibancário</a> (EBICS), still ask for version 03.</p>
 
 <div id="mapping" hidden>
 <p class="note" style="margin-bottom:0">Detected columns. Change them if a name landed in the wrong place.</p>
@@ -105,6 +128,7 @@
 <button id="pro" type="button" class="btn ghost">Pro coming soon</button>
 </div>
 <p id="pro-note" class="note" hidden></p>
+<p id="live-summary" class="note" aria-live="polite"></p>
 </div>
 <div class="preview-card">
 <p class="lbl">The XML</p>
@@ -121,16 +145,17 @@
 </div>
 </div>
 
-<div id="results" hidden>
-<div class="counters" aria-live="polite">
+<div id="results" hidden tabindex="-1">
+<div class="counters">
 <div class="counter"><b id="c-count">0</b><span>Payments</span></div>
 <div class="counter"><b id="c-sum">0,00 €</b><span>Control sum</span></div>
-<div class="counter"><b id="c-problems">0</b><span>Problems</span></div>
+<div class="counter"><b id="c-errors">0</b><span>Errors</span></div>
+<div class="counter"><b id="c-warnings">0</b><span>Warnings</span></div>
 </div>
 <p id="sum-note" class="note" hidden></p>
 <h2 id="problems-title">Problems</h2>
 <p id="problems-none">No problems on these rows.</p>
-<ul id="problems" aria-labelledby="problems-title" role="alert"></ul>
+<ul id="problems" aria-labelledby="problems-title"></ul>
 <div class="scroll"><table>
 <caption>Payments</caption>
 <thead><tr><th>Name</th><th>IBAN</th><th class="num">Amount</th><th>Reference</th><th>BIC</th><th>EndToEndId</th></tr></thead>
@@ -163,17 +188,17 @@
 <section id="bank"><div class="wrap">
 <h2>Where to import it</h2>
 <p class="lead">The menu name is not the same at every bank. Look for an import of transfer files, batch payments or SEPA files, as XML.</p>
-<p>Caixa Geral de Depósitos, on its Canal Multibancário page, lists “Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03” (<a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">cgd.pt</a>, checked 21 November 2026). For other banks, use the name on your own screen.</p>
-<p class="note">The character set and NOTPROVIDED follow the <a href="https://www.bportugal.pt/sites/default/files/c2b_-_registo_normalizado_xml_v04_00.pdf" rel="noopener noreferrer">Banco de Portugal Customer-to-Bank XML manual (C2B)</a>, section 3.3 and message pain.001.001.03. Accent conversion follows the EPC Latin table (á→a and the other letters in that table).</p>
+<p>Santander publishes the <a href="https://www.santander.pt/pdfs/pdfs-empresas/netbanco-empresas-ajuda-online/netbanco-empresas-ajuda-online-documentos/sepa/manual_c2b.pdf" rel="noopener noreferrer">C2PSP manual 06.01</a> (pain.001.001.09, in force 28 August 2025). CGD’s Canal Multibancário page still lists “Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03” (<a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">cgd.pt</a>, checked 21 November 2026). In Spain, the <a href="https://aebanca.es/wp-content/uploads/2026/03/Folleto.-Ordenes-en-formato-ISO-20022-para-emision-de-transferencias-y-cheques-en-euros-noviembre-2025.pdf" rel="noopener noreferrer">AEB/CECA guide</a> (in force 5 October 2025) also uses pain.001.001.09.</p>
+<p class="note">Verification of Payee (VOP) checks that the name matches the IBAN holder. In C2PSP 06.01, Authstn/Prtry may be VOP or NVOP; if the tag is omitted, the manual says that is read as a waiver. This file does not include that tag.</p>
 </div></section>
 
 <section class="alt" id="faq"><div class="wrap">
 <h2>Questions</h2>
 <details><summary>Does the file leave my computer?</summary><p>No. Reading, the checks and the XML all happen in this browser. There is no account and no upload. Closing the tab does not forget a debtor saved on this device: use Clear data on this browser for that.</p></details>
-<details><summary>What is this SEPA file?</summary><p>It is a credit-transfer XML, ISO 20022 pain.001.001.03. It pays suppliers or salaries in a batch, in euro, to IBANs in the SEPA area. pain.001.001.09 is also available. Check with your bank which one it imports.</p></details>
+<details><summary>What is this SEPA file?</summary><p>It is a credit-transfer XML, ISO 20022 pain.001.001.09, the version in the Portuguese C2PSP manual 06.01 in force since 28 August 2025. It pays suppliers or salaries in a batch, in euro, to IBANs in the SEPA area. Version 03 is still available: some banks, for example CGD on Canal Multibancário, still ask for it.</p></details>
 <details><summary>How does the bank import the file?</summary><p>In online banking, look for an import of transfer files or batch payments. Caixa Geral de Depósitos, on its Canal Multibancário page, lists “Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03” (cgd.pt, checked 21 November 2026). Other banks use a different menu name.</p></details>
 <details><summary>What is checked before download?</summary><p>The IBAN (mod-97 and the country length), the Portuguese NIB check on PT accounts, the BIC format when one is present, the amount (greater than zero, at most two decimal places), the SEPA character set, and the length of the name (70) and the reference (140). Accents are converted (á becomes a) and the change is listed under Problems. A repeated EndToEndId is made unique. The same IBAN with the same amount raises a warning.</p></details>
-<details><summary>How many payments fit in the file?</summary><p>The free version includes 50 payments per file. Pro coming soon. The button does not take a payment and shows no price.</p></details>
+<details><summary>How many payments fit in the file?</summary><p>Every row goes into the file. There is no limit. Pro coming soon. The button does not take a payment and shows no price.</p></details>
 <details><summary>Does this replace the bank?</summary><p>No. The page only builds the file. It does not send payments. Check the IBANs, the amounts and the date at your bank before you authorise the debit.</p></details>
 <p class="note" style="margin-top:18px">Also on Netmend: <a href="../efatura/">e-fatura to Excel</a> · <a href="../pt/ficheiro-sepa/">esta página em português</a> · <a href="../tools/">all tools</a>. Questions: <a href="mailto:dayinportugal@gmail.com?subject=Netmend%20SEPA%20file">dayinportugal@gmail.com</a></p>
 </div></section>
