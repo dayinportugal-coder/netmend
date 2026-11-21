@@ -2,16 +2,11 @@
    HTML, CSS and JS are network-first, then cached. Other precached files
    (fonts, icons) stay cache-first. Nothing the user opens from their
    computer is requested or stored. Bump CACHE to drop old copies.
-
-   Cache name is netmend-20261121h.
-   PR #29 is on netlify and used netmend-20261121e. It added the
-   recibos-verdes block (merge.js, store.js, newsletter.js, anexo.js,
-   irs-anexo-b). PR #30 (SEPA autofill, not merged yet) uses
-   netmend-20261121g and adds /sepa/bic.js. This list keeps every
-   precache path from both, plus /assets/lang.js.
-   Keep the recibos-verdes block and the sepa block together when rebasing.
+   Cache name is netmend-20261121i (newer than #30's …g).
+   Keep /sepa/bic.js and the recibos-verdes block together when rebasing.
+   /pt/ URLs are 301s and are not precached.
    A language redirect is never stored under the URL that was requested. */
-var CACHE = "netmend-20261121h";
+var CACHE = "netmend-20261121i";
 var PRECACHE = [
   "/",
   "/index.html",
@@ -21,15 +16,11 @@ var PRECACHE = [
   "/efatura/sample/efatura-exemplo.zip",
   "/efatura/sample/efatura-exemplo-a.csv",
   "/efatura/sample/efatura-exemplo-b.csv",
-  "/pt/efatura/",
-  "/pt/efatura/index.html",
   "/sepa/",
   "/sepa/index.html",
   "/sepa/app.js",
   "/sepa/bic.js",
   "/sepa/app.css",
-  "/pt/ficheiro-sepa/",
-  "/pt/ficheiro-sepa/index.html",
   "/es/fichero-sepa/",
   "/es/fichero-sepa/index.html",
   /* recibos-verdes — keep this block together when rebasing */
@@ -47,12 +38,7 @@ var PRECACHE = [
   "/recibos-verdes/declaracao-trimestral/index.html",
   "/recibos-verdes/irs-anexo-b/",
   "/recibos-verdes/irs-anexo-b/index.html",
-  "/pt/recibos-verdes/",
-  "/pt/recibos-verdes/index.html",
-  "/pt/recibos-verdes/declaracao-trimestral/",
-  "/pt/recibos-verdes/declaracao-trimestral/index.html",
-  "/pt/recibos-verdes/irs-anexo-b/",
-  "/pt/recibos-verdes/irs-anexo-b/index.html",
+  "/en/recibos-verdes/irs-anexo-b/index.html",
   "/freelancer-portugal-quarterly/",
   "/freelancer-portugal-quarterly/index.html",
   "/tools/",

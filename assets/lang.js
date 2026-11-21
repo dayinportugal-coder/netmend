@@ -1,26 +1,14 @@
-/* Language switcher + first-visit fallback.
+/* Language switcher, entry-page redirect, and a banner on other pages.
    Server redirects (Netlify Language / Country, cookie nf_lang) run on entry
-   pages. This script never calls geolocation or an IP lookup.
-   A saved choice (cookie nf_lang + localStorage) always wins over detection.
-   Netlify reads nf_lang as the language and nf_country as the country. */
+   pages. This script never calls geolocation or an IP lookup, and it does not
+   set nf_country. A saved choice (cookie nf_lang + localStorage) overrides
+   auto-detection on the home page and /tools/ only. Other pages show a
+   dismissible banner instead of navigating away. */
 (function () {
   var COOKIE = "nf_lang";
-  var COUNTRY = "nf_country";
   var LS = "nf_lang";
-  var ENTRIES = {
-    "/": 1,
-    "/tools/": 1,
-    "/statement/": 1,
-    "/statement-to-csv/": 1,
-    "/excel-functions/": 1,
-    "/guides/": 1,
-    "/compare/": 1,
-    "/x-growth/": 1,
-    "/sepa/": 1,
-    "/efatura/": 1,
-    "/formula/": 1,
-    "/recibos-verdes/": 1
-  };
+  var DISMISS = "nf_lang_banner_off";
+  var ENTRY = { "/": 1, "/tools/": 1, "/en/": 1, "/en/tools/": 1, "/es/": 1 };
 
   function pathOf() {
     var p = location.pathname || "/";
@@ -43,10 +31,8 @@
 
   function writePref(lang) {
     if (lang !== "pt" && lang !== "en" && lang !== "es") lang = "pt";
-    var country = lang === "pt" ? "pt" : lang === "es" ? "es" : "us";
     var sec = location.protocol === "https:" ? ";Secure" : "";
     document.cookie = COOKIE + "=" + lang + ";Path=/;Max-Age=31536000;SameSite=Lax" + sec;
-    document.cookie = COUNTRY + "=" + country + ";Path=/;Max-Age=31536000;SameSite=Lax" + sec;
     try { localStorage.setItem(LS, lang); } catch (e) {}
   }
 
@@ -83,6 +69,17 @@
     return toPt(p);
   }
 
+  function withQuery(dest) {
+    if (!dest) return dest;
+    return dest + (location.search || "") + (location.hash || "");
+  }
+
+  function go(dest) {
+    var url = withQuery(dest);
+    if (!url || url === location.pathname + location.search + location.hash) return;
+    location.replace(url);
+  }
+
   function pick(list, ptPath) {
     var langs = list && list.length ? list : [];
     var i, tag;
@@ -97,9 +94,34 @@
     return "pt";
   }
 
-  function go(dest) {
-    if (!dest || dest === pathOf()) return;
-    location.replace(dest);
+  function bannerCopy(fromLang, toLang) {
+    if (fromLang === "pt" && toLang === "en") return { text: "Esta página também está em inglês.", link: "Ver em inglês" };
+    if (fromLang === "pt" && toLang === "es") return { text: "Esta página também está em espanhol.", link: "Ver em espanhol" };
+    if (fromLang === "en" && toLang === "pt") return { text: "This page is also available in Portuguese.", link: "View in Portuguese" };
+    if (fromLang === "en" && toLang === "es") return { text: "Available in Spanish.", link: "View in Spanish" };
+    if (fromLang === "es" && toLang === "pt") return { text: "Esta página también está en portugués.", link: "Ver en portugués" };
+    if (fromLang === "es" && toLang === "en") return { text: "Disponible en inglés.", link: "Ver en inglés" };
+    return { text: "Available in English.", link: "View in English" };
+  }
+
+  function showBanner(targetLang, href) {
+    try { if (sessionStorage.getItem(DISMISS) === "1") return; } catch (e) {}
+    if (document.getElementById("nm-lang-banner")) return;
+    var copy = bannerCopy(currentLang(pathOf()), targetLang);
+    var bar = document.createElement("div");
+    bar.id = "nm-lang-banner";
+    bar.setAttribute("role", "region");
+    bar.innerHTML = '<p></p><a></a><button type="button" aria-label="Close">×</button>';
+    bar.querySelector("p").textContent = copy.text;
+    var a = bar.querySelector("a");
+    a.textContent = copy.link;
+    a.href = withQuery(href);
+    a.addEventListener("click", function () { writePref(targetLang); });
+    bar.querySelector("button").addEventListener("click", function () {
+      try { sessionStorage.setItem(DISMISS, "1"); } catch (e) {}
+      bar.remove();
+    });
+    document.body.appendChild(bar);
   }
 
   document.addEventListener("click", function (e) {
@@ -113,22 +135,17 @@
   var stored = readCookie(COOKIE);
   if (stored !== "pt" && stored !== "en" && stored !== "es") {
     try { stored = localStorage.getItem(LS) || ""; } catch (e) { stored = ""; }
-    if (stored === "pt" || stored === "en" || stored === "es") writePref(stored);
   }
-  if (stored === "pt" || stored === "en" || stored === "es") {
-    if (stored !== cur) go(urlFor(stored, p));
-    return;
-  }
-
   var ua = navigator.userAgent || "";
-  if (/bot|crawler|spider|crawling|googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|facebookexternalhit|embedly|semrush|ahrefs/i.test(ua)) return;
+  var bot = /bot|crawler|spider|crawling|googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|facebookexternalhit|embedly|semrush|ahrefs/i.test(ua);
 
-  if (ENTRIES[p] && cur === "pt") {
-    writePref("pt");
+  if (stored === "pt" || stored === "en" || stored === "es") {
+    if (stored !== cur && ENTRY[p]) go(urlFor(stored, p));
+    else if (stored !== cur && !bot) showBanner(stored, urlFor(stored, p));
     return;
   }
+  if (bot || ENTRY[p]) return;
 
   var want = pick(navigator.languages || [navigator.language || ""], toPt(p));
-  writePref(want);
-  if (want !== cur) go(urlFor(want, p));
+  if (want !== cur) showBanner(want, urlFor(want, p));
 })();

@@ -14,22 +14,16 @@
 <link rel="stylesheet" href="/assets/tools.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I upload the PDF straight into QuickBooks?", "acceptedAnswer": {"@type": "Answer", "text": "No. QuickBooks Online wants a CSV in the 3-column or 4-column layout, or a bank-feed / QBO file. Convert the PDF first and tick the totals."}}, {"@type": "Question", "name": "Which is better, 3 columns or 4?", "acceptedAnswer": {"@type": "Answer", "text": "Whichever matches the statement you have with less editing. Money-in / money-out PDFs usually become 4 columns. A single signed amount becomes 3 columns. Both are official."}}, {"@type": "Question", "name": "Why did QuickBooks reject my dates?", "acceptedAnswer": {"@type": "Answer", "text": "Mixed formats, or a day of the week left in the date cell, are the usual causes. Use one format and strip “TUE”-style suffixes, as Intuit documents."}}], "url": "https://netmend.app/en/guides/bank-statement-to-quickbooks/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="/statement-to-csv/app.js"></script>
-
-</head><body>
-
-<header><div class="wrap"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="/en/#services">Services</a><a href="/en/statement-to-csv/">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a><span class="lang-switch" role="navigation" aria-label="Language"><a href="/guides/bank-statement-to-quickbooks/" hreflang="pt-PT" lang="pt-PT" data-lang="pt">PT</a><span aria-hidden="true">|</span><a href="/en/guides/bank-statement-to-quickbooks/" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
+<script defer src="/statement-to-csv/app.js"></script> </head><body> <header><div class="wrap"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/en/#services">Services</a><a href="/en/statement-to-csv/">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet"></a><span class="lang-switch" role="navigation" aria-label="Language"><a href="/guides/bank-statement-to-quickbooks/" hreflang="pt-PT" lang="pt-PT" data-lang="pt">PT</a><span aria-hidden="true">|</span><a href="/en/guides/bank-statement-to-quickbooks/" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
 <p class="crumbs"><a href="/en/">Netmend</a> · <a href="/en/guides/">Guides</a> · Import a PDF bank statement into QuickBooks</p>
 <h1>Import a PDF bank statement into <span>QuickBooks</span></h1>
 <p>The reliable way into QuickBooks is a bank feed, or the bank’s own QBO or CSV download. When all you have is a PDF statement, convert it to the CSV shape Intuit documents, then upload it. This page sticks to those official columns and the checks that catch a bad file before it hits the register.</p>
-<div class="pills"><span>Free tool in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<div class="pills"><span>Free tool in your browser</span><span>No account</span><span> if you want it done</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a statement PDF now</h2>
-
-<p class="lead">Defaults are a starting point. Change the number format to match the PDF. The file never leaves your computer.</p>
+<h2>Convert a statement PDF now</h2> <p class="lead">Defaults are a starting point. Change the number format to match the PDF. The file never leaves your computer.</p>
 <div class="tool">
 <label for="file">PDF (stays on your computer)</label>
 <input id="file" type="file" accept="application/pdf">
@@ -43,12 +37,8 @@
 <div class="scroll"><table id="preview"></table></div>
 <p class="note">Check the totals against the original PDF before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
-
-</div></section>
-<section class="alt"><div class="wrap">
-
-<h2>Prefer the bank’s file, or the feed</h2>
+<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p> </div></section>
+<section class="alt"><div class="wrap"> <h2>Prefer the bank’s file, or the feed</h2>
 <p>If the bank offers a live connection, or a .QBO (QuickBooks), .QFX (Quicken) or official CSV download, use that and skip the PDF. Several banks on our guides already do this for recent activity — for example <a href="/en/statement-to-csv/us-bank/">U.S. Bank</a> documents CSV, QFX and QBO for up to three years, and <a href="/en/statement-to-csv/pnc/">PNC</a> documents QBO and QFX. A PDF conversion is for older months, a statement someone emailed you, or a bank that only issues a PDF.</p>
 <h2>The two CSV layouts QuickBooks Online accepts</h2>
 <p>From Intuit’s official article “Format CSV files in Excel to get bank transactions into QuickBooks” (updated 24/08/2026, checked 13/11/2026), you can upload either:</p>
@@ -66,38 +56,30 @@
 <li>Check that opening balance + deposits − withdrawals equals the closing balance printed on the PDF. If it does not, stop. A wrapped description has usually been read as a new row, or a summary total has been kept as a transaction.</li>
 <li>In QuickBooks Online, upload the CSV into the right account (Banking / Bank transactions → upload) and map the columns. Review every line before you accept it.</li>
 </ol>
-<p>Do not also import the same period from a bank feed, or you will create duplicates. If the account is already connected, only upload dates the feed does not cover.</p>
-
-<p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
-</div></section>
-
-<section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
+<p>Do not also import the same period from a bank feed, or you will create duplicates. If the account is already connected, only upload dates the feed does not cover.</p> <p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
+</div></section> <section id="done-for-you"><div class="wrap">
+<h2>Need it done for you? </h2>
 <p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of documents or a layout that has to match QuickBooks or Xero, we convert them and check the totals against each document.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
+<div class="card"><b>Done-for-you conversion</b>
+<p>75 pages · 200 pages . Totals reconciled. 48h. Pay on Fiverr.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? </a></div>
 <div class="card"><b>Privacy</b><p>Your file is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
 <p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
 </div>
-</div></section>
-
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Can I upload the PDF straight into QuickBooks?</summary><p>No. QuickBooks Online wants a CSV in the 3-column or 4-column layout, or a bank-feed / QBO file. Convert the PDF first and tick the totals.</p></details><details><summary>Which is better, 3 columns or 4?</summary><p>Whichever matches the statement you have with less editing. Money-in / money-out PDFs usually become 4 columns. A single signed amount becomes 3 columns. Both are official.</p></details><details><summary>Why did QuickBooks reject my dates?</summary><p>Mixed formats, or a day of the week left in the date cell, are the usual causes. Use one format and strip “TUE”-style suffixes, as Intuit documents.</p></details></div></section>
+</div></section> <section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Can I upload the PDF straight into QuickBooks?</summary><p>No. QuickBooks Online wants a CSV in the 3-column or 4-column layout, or a bank-feed / QBO file. Convert the PDF first and tick the totals.</p></details><details><summary>Which is better, 3 columns or 4?</summary><p>Whichever matches the statement you have with less editing. Money-in / money-out PDFs usually become 4 columns. A single signed amount becomes 3 columns. Both are official.</p></details><details><summary>Why did QuickBooks reject my dates?</summary><p>Mixed formats, or a day of the week left in the date cell, are the usual causes. Use one format and strip “TUE”-style suffixes, as Intuit documents.</p></details></div></section>
 <section><div class="wrap">
 <h2>Related guides</h2>
 <div class="banklist"><a href="/en/guides/pdf-invoice-to-excel-quickbooks/"><b>Convert PDF invoices to Excel for QuickBooks</b></a><a href="/en/guides/bank-statement-to-xero/"><b>Import a PDF bank statement into Xero</b></a><a href="/en/guides/credit-card-statement-to-excel/"><b>Convert a credit card statement PDF to Excel or CSV</b></a><a href="/en/compare/official-csv-vs-pdf/"><b>Official bank CSV vs converting the PDF</b></a><a href="/en/compare/quickbooks-vs-xero-pdf/"><b>QuickBooks vs Xero when the source is a PDF</b></a><a href="/en/guides/"><b>All how-to guides</b></a><a href="/en/compare/"><b>Comparisons</b></a><a href="/en/statement-to-csv/"><b>Bank statement converter</b> and bank guides</a></div>
 <p class="note" style="margin-top:16px"><a href="/en/excel-functions/">Excel formula translator</a> · <a href="/en/wall-of-love/">Testimonial wall</a> · <a href="/en/pin-maker/">Pinterest pin maker</a> · <a href="/en/">All Netmend services</a></p>
-</div></section>
-
-<footer class="site-footer"><div class="wrap">
+</div></section> <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
 <div class="f-brand"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="/en/x-post-writer/">X Post Writer</a><a href="/en/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="/en/#services">Done-for-you services</a></div>
+<div><h4>Products</h4><a href="/en/x-post-writer/">X Post Writer</a><a href="/en/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license </a><a href="/en/#services">Done-for-you services</a></div>
 <div><h4>Free tools</h4><a href="/en/statement-to-csv/">Statement PDF to CSV</a><a href="/en/excel-functions/">Excel formula translator</a><a href="/en/wall-of-love/">Testimonial wall</a><a href="/en/pin-maker/">Pinterest pin maker</a></div>
 <div><h4>Learn</h4><a href="/en/x-growth/">X growth guides</a><a href="/en/guides/">PDF to Excel guides</a><a href="/en/compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · , no sign-up. Free tools run in your browser. No trackers and no ads. Only a technical cookie to remember the language.</div>
 </div></footer>
 <script src="/assets/lang.js"></script>
 </body></html>

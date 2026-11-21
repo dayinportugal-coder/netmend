@@ -1137,8 +1137,8 @@
 
   function calendarDetails() {
     var page = lang === "pt"
-      ? "https://netmend.app/pt/recibos-verdes/declaracao-trimestral/"
-      : "https://netmend.app/freelancer-portugal-quarterly/";
+      ? "https://netmend.app/recibos-verdes/declaracao-trimestral/"
+      : "https://netmend.app/en/freelancer-portugal-quarterly/";
     return (lang === "pt"
       ? "Entregar a declaração trimestral da Segurança Social no portal, com os rendimentos do trimestre sem IVA. "
       : "File the quarterly Social Security declaration with the quarter's income, without VAT. ")

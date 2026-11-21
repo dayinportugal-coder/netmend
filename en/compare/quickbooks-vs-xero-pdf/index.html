@@ -14,22 +14,16 @@
 <link rel="stylesheet" href="/assets/tools.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Xero import PDFs and QuickBooks does not?", "acceptedAnswer": {"@type": "Answer", "text": "Xero documents a PDF import for some bank statements. QuickBooks Online’s official bank upload is a CSV or a QBO/QFX/OFX file. Neither product’s official invoice or bill import is “drop a PDF invoice here”."}}, {"@type": "Question", "name": "Which official CSV is simpler?", "acceptedAnswer": {"@type": "Answer", "text": "QuickBooks is stricter about exactly two layouts. Xero lets you map columns on screen, which is more flexible and also easier to map wrongly (for example a running balance as an amount). Both need a check against the printed totals."}}, {"@type": "Question", "name": "Should I pick a product based on this?", "acceptedAnswer": {"@type": "Answer", "text": "No. Pick a product on the rest of your books. This page only compares what each one officially accepts when the source happened to be a PDF."}}], "url": "https://netmend.app/en/compare/quickbooks-vs-xero-pdf/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="/statement-to-csv/app.js"></script>
-
-</head><body>
-
-<header><div class="wrap"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="/en/#services">Services</a><a href="/en/statement-to-csv/">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a><span class="lang-switch" role="navigation" aria-label="Language"><a href="/compare/quickbooks-vs-xero-pdf/" hreflang="pt-PT" lang="pt-PT" data-lang="pt">PT</a><span aria-hidden="true">|</span><a href="/en/compare/quickbooks-vs-xero-pdf/" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
+<script defer src="/statement-to-csv/app.js"></script> </head><body> <header><div class="wrap"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/en/#services">Services</a><a href="/en/statement-to-csv/">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet"></a><span class="lang-switch" role="navigation" aria-label="Language"><a href="/compare/quickbooks-vs-xero-pdf/" hreflang="pt-PT" lang="pt-PT" data-lang="pt">PT</a><span aria-hidden="true">|</span><a href="/en/compare/quickbooks-vs-xero-pdf/" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
 <p class="crumbs"><a href="/en/">Netmend</a> · <a href="/en/compare/">Compare</a> · QuickBooks vs Xero when the source is a PDF</p>
 <h1>QuickBooks vs Xero when the source is a <span>PDF</span></h1>
 <p>Neither QuickBooks Online nor Xero is “better at PDFs” in a general sense. They import different official files, they name the columns differently, and Xero documents a PDF bank-statement import that QuickBooks does not. This page compares those official paths so you can pick a method, not a mascot.</p>
-<div class="pills"><span>Free tool in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<div class="pills"><span>Free tool in your browser</span><span>No account</span><span> if you want it done</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a statement PDF now</h2>
-
-<p class="lead">Defaults are a starting point. Change the number format to match the PDF. The file never leaves your computer.</p>
+<h2>Convert a statement PDF now</h2> <p class="lead">Defaults are a starting point. Change the number format to match the PDF. The file never leaves your computer.</p>
 <div class="tool">
 <label for="file">PDF (stays on your computer)</label>
 <input id="file" type="file" accept="application/pdf">
@@ -43,12 +37,8 @@
 <div class="scroll"><table id="preview"></table></div>
 <p class="note">Check the totals against the original PDF before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
-
-</div></section>
-<section class="alt"><div class="wrap">
-
-<h2>Bank and card statements</h2>
+<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p> </div></section>
+<section class="alt"><div class="wrap"> <h2>Bank and card statements</h2>
 <p>Both products prefer a <b>live bank feed</b> when the bank offers one. Use that for current months. The comparison below is for catch-up work, a PDF you were sent, or a period the feed does not cover.</p>
 <ul>
 <li><b>QuickBooks Online</b> does not import a bank-statement PDF as a PDF. Official help tells you to upload a <b>CSV</b> in a 3-column (Date, Description, Amount, with withdrawals negative) or 4-column (Date, Description, Credit, Debit) layout, or to use QBO / QFX / OFX from the bank. There are strict formatting notes — one date format, no weekday text, no zeros, Credit/Debit headers without the word “amount”, and card files must go into a credit-card account. See <a href="/en/guides/bank-statement-to-quickbooks/">import a PDF statement into QuickBooks</a>.</li>
@@ -63,38 +53,30 @@
 </ul>
 <p>Do not import an invoice as a bank withdrawal in either product if you also intend to raise the invoice or bill. That is how expenses get posted twice. The PDF conversion, in both worlds, is only the step that produces a working spreadsheet.</p>
 <h2>A fair way to choose a method (not a product)</h2>
-<p>If you already live in one of the two, stay there — this page is not a switch recommendation. If you are importing a <b>bank PDF today</b>: try Xero’s official PDF import when you are on Xero and it is offered; otherwise convert to the official CSV shape for the product you have. If you are importing <b>invoices</b>: convert or type the lines, then use that product’s sample file. If you are on neither product and only need a spreadsheet, use the tool below and keep a CSV plus a proof tab — see <a href="/en/compare/csv-vs-excel/">CSV vs Excel</a>.</p>
-
-<p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
-</div></section>
-
-<section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
+<p>If you already live in one of the two, stay there — this page is not a switch recommendation. If you are importing a <b>bank PDF today</b>: try Xero’s official PDF import when you are on Xero and it is offered; otherwise convert to the official CSV shape for the product you have. If you are importing <b>invoices</b>: convert or type the lines, then use that product’s sample file. If you are on neither product and only need a spreadsheet, use the tool below and keep a CSV plus a proof tab — see <a href="/en/compare/csv-vs-excel/">CSV vs Excel</a>.</p> <p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
+</div></section> <section id="done-for-you"><div class="wrap">
+<h2>Need it done for you? </h2>
 <p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of documents or a layout that has to match QuickBooks or Xero, we convert them and check the totals against each document.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
+<div class="card"><b>Done-for-you conversion</b>
+<p>75 pages · 200 pages . Totals reconciled. 48h. Pay on Fiverr.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? </a></div>
 <div class="card"><b>Privacy</b><p>Your file is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
 <p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
 </div>
-</div></section>
-
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Does Xero import PDFs and QuickBooks does not?</summary><p>Xero documents a PDF import for some bank statements. QuickBooks Online’s official bank upload is a CSV or a QBO/QFX/OFX file. Neither product’s official invoice or bill import is “drop a PDF invoice here”.</p></details><details><summary>Which official CSV is simpler?</summary><p>QuickBooks is stricter about exactly two layouts. Xero lets you map columns on screen, which is more flexible and also easier to map wrongly (for example a running balance as an amount). Both need a check against the printed totals.</p></details><details><summary>Should I pick a product based on this?</summary><p>No. Pick a product on the rest of your books. This page only compares what each one officially accepts when the source happened to be a PDF.</p></details></div></section>
+</div></section> <section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Does Xero import PDFs and QuickBooks does not?</summary><p>Xero documents a PDF import for some bank statements. QuickBooks Online’s official bank upload is a CSV or a QBO/QFX/OFX file. Neither product’s official invoice or bill import is “drop a PDF invoice here”.</p></details><details><summary>Which official CSV is simpler?</summary><p>QuickBooks is stricter about exactly two layouts. Xero lets you map columns on screen, which is more flexible and also easier to map wrongly (for example a running balance as an amount). Both need a check against the printed totals.</p></details><details><summary>Should I pick a product based on this?</summary><p>No. Pick a product on the rest of your books. This page only compares what each one officially accepts when the source happened to be a PDF.</p></details></div></section>
 <section><div class="wrap">
 <h2>Related guides</h2>
 <div class="banklist"><a href="/en/guides/pdf-invoice-to-excel-quickbooks/"><b>Convert PDF invoices to Excel for QuickBooks</b></a><a href="/en/guides/pdf-invoice-to-excel-xero/"><b>Convert PDF invoices to Excel for Xero</b></a><a href="/en/guides/bank-statement-to-quickbooks/"><b>Import a PDF bank statement into QuickBooks</b></a><a href="/en/guides/bank-statement-to-xero/"><b>Import a PDF bank statement into Xero</b></a><a href="/en/compare/official-csv-vs-pdf/"><b>Official bank CSV vs converting the PDF</b></a><a href="/en/compare/diy-vs-done-for-you/"><b>DIY conversion vs paying someone</b></a><a href="/en/compare/"><b>All comparisons</b></a><a href="/en/guides/"><b>How-to guides</b></a><a href="/en/statement-to-csv/"><b>Bank statement converter</b> and bank guides</a></div>
 <p class="note" style="margin-top:16px"><a href="/en/excel-functions/">Excel formula translator</a> · <a href="/en/wall-of-love/">Testimonial wall</a> · <a href="/en/pin-maker/">Pinterest pin maker</a> · <a href="/en/">All Netmend services</a></p>
-</div></section>
-
-<footer class="site-footer"><div class="wrap">
+</div></section> <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
 <div class="f-brand"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="/en/x-post-writer/">X Post Writer</a><a href="/en/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="/en/#services">Done-for-you services</a></div>
+<div><h4>Products</h4><a href="/en/x-post-writer/">X Post Writer</a><a href="/en/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license </a><a href="/en/#services">Done-for-you services</a></div>
 <div><h4>Free tools</h4><a href="/en/statement-to-csv/">Statement PDF to CSV</a><a href="/en/excel-functions/">Excel formula translator</a><a href="/en/wall-of-love/">Testimonial wall</a><a href="/en/pin-maker/">Pinterest pin maker</a></div>
 <div><h4>Learn</h4><a href="/en/x-growth/">X growth guides</a><a href="/en/guides/">PDF to Excel guides</a><a href="/en/compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · , no sign-up. Free tools run in your browser. No trackers and no ads. Only a technical cookie to remember the language.</div>
 </div></footer>
 <script src="/assets/lang.js"></script>
 </body></html>

@@ -15,11 +15,9 @@
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
 <link rel="stylesheet" href="/assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Netmend Sheets AI", "url": "https://netmend.app/en/sheets-ai/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": [{"@type": "Offer", "price": "0", "priceCurrency": "USD"}, {"@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Pro lifetime"}], "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/en/"}}</script>
-
-</head><body>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Netmend Sheets AI", "url": "https://netmend.app/en/sheets-ai/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "offers": [{"@type": "Offer", "price": "0", "priceCurrency": "USD"}, {"@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Pro lifetime"}], "publisher": {"@type": "Organization", "name": "Netmend", "url": "https://netmend.app/en/"}}</script> </head><body>
 <header><div class="wrap"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="/en/tools/">All tools</a><a href="#app">Use it free</a><a class="cta" href="#pro">Pro $19 lifetime</a><span class="lang-switch" role="navigation" aria-label="Language"><a href="/sheets-ai/" hreflang="pt-PT" lang="pt-PT" data-lang="pt">PT</a><span aria-hidden="true">|</span><a href="/en/sheets-ai/" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
+<nav><a href="/en/tools/">All tools</a><a href="#app">Use it free</a><a class="cta" href="#pro">Pro lifetime</a><span class="lang-switch" role="navigation" aria-label="Language"><a href="/sheets-ai/" hreflang="pt-PT" lang="pt-PT" data-lang="pt">PT</a><span aria-hidden="true">|</span><a href="/en/sheets-ai/" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
 <p class="crumbs"><a href="/en/">Netmend</a> · <a href="/en/tools/">Tools</a> · Netmend Sheets AI</p>
 <h1>AI inside Google Sheets, <span>as a formula</span></h1>
@@ -36,9 +34,7 @@
 <div class="card"><b>=NETMEND_CLASSIFY(text, "a,b,c")</b><p>Sort feedback, leads or tickets into your own categories. Pro.</p></div>
 <div class="card"><b>=NETMEND_SENTIMENT(text)</b><p>Positive, Neutral or Negative for reviews and replies. Pro.</p></div>
 <div class="card"><b>=NETMEND_LIST(prompt, [n])</b><p>A list that spills down the column: ideas, keywords, names. Pro.</p></div>
-</div></div></section>
-
-<section class="alt" id="app"><div class="wrap">
+</div></div></section> <section class="alt" id="app"><div class="wrap">
 <h2>Try it here first (no sheet needed)</h2>
 <p class="lead">Paste a column of values, pick a function and see what you would get in your sheet. Free: 3 runs a day, 20 rows each.</p>
 <div id="nm-key"></div>
@@ -54,9 +50,7 @@
 <p class="note" id="status"></p>
 <div id="out"></div>
 </div>
-</div></section>
-
-<section id="install"><div class="wrap">
+</div></section> <section id="install"><div class="wrap">
 <h2>Install in your Google Sheet (2 minutes)</h2>
 <ol>
 <li>Open your Google Sheet and click <b>Extensions → Apps Script</b>.</li>
@@ -66,16 +60,12 @@
 </ol>
 <p class="nm-actions"><button class="btn" type="button" id="copycode">Copy the code</button><a class="btn ghost" href="/sheets-ai/Netmend.gs" download>Download Netmend.gs</a></p>
 <p class="note">The code is open: read it before you paste it. Identical prompts are cached for 6 hours so recalculation does not burn your quota. Google shows an "unverified app" screen because the script is yours, not a published add-on: click Advanced → Go to project.</p>
-</div></section>
-
-<section class="alt" id="pro"><div class="wrap">
-<h2>Sheets AI Pro: $19 once</h2>
-<p class="lead">Similar add-ons charge $8 to $30 a month on top of your AI bill. Pro is one payment, and you keep using your own free key.</p>
+</div></section> <section class="alt" id="pro"><div class="wrap">
+<h2>Sheets AI Pro: once</h2>
+<p class="lead">Similar add-ons charge to a month on top of your AI bill. Pro is one payment, and you keep using your own free key.</p>
 <div id="nm-license"></div>
 <p class="note">In the sheet, activate Pro with <b>Netmend → Activate Pro licence</b> and the same key.</p>
-</div></section>
-
-<section><div class="wrap"><h2>FAQ</h2>
+</div></section> <section><div class="wrap"><h2>FAQ</h2>
 <details><summary>Does Netmend see my sheet?</summary><p>No. The script runs in your Google account and sends only the text in your formula to Google's Gemini API with your key. Netmend has no server.</p></details>
 <details><summary>Why use my own key?</summary><p>Because then there is no monthly fee. Google's free Gemini tier is generous for normal sheet work. Limits are set by Google and can change.</p></details>
 <details><summary>What does Pro add?</summary><p>No daily cap, the EXTRACT, CLASSIFY, SENTIMENT and LIST functions, and "Fill selected cells", which writes plain values so the sheet never recalculates the AI again.</p></details>
@@ -89,7 +79,7 @@
 <div><h4>More</h4><a href="/en/chat-pdf/">Chat with PDF</a><a href="/en/certificates/">Certificates</a><a href="/en/x-post-writer/">X Post Writer</a></div>
 <div><h4>Netmend</h4><a href="/en/tools/">All tools</a><a href="/en/#services">Services</a><a href="/en/sheets-ai/privacy.html">Privacy</a><a href="/en/sheets-ai/terms.html">Terms</a><a href="/en/sheets-ai/support.html">Support</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Your files, text and Gemini key stay in your browser and go only to Google's Gemini API. Licences are checked with Gumroad.</div>
+<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · , no sign-up. Your files, text and Gemini key stay in your browser and go only to Google's Gemini API. Licences are checked with Gumroad. No trackers and no ads. Only a technical cookie to remember the language.</div>
 </div></footer>
 <script src="/assets/nm-products.js"></script><script src="/assets/nm-suite.js"></script><script src="/sheets-ai/app.js"></script>
 <script src="/assets/lang.js"></script>

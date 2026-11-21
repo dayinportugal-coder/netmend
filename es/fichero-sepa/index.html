@@ -32,9 +32,9 @@
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/tools.css">
 <link rel="stylesheet" href="/sepa/app.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Crear fichero SEPA XML gratis","applicationCategory":"FinanceApplication","operatingSystem":"Any (web browser)","url":"https://netmend.app/es/fichero-sepa/","inLanguage":"es-ES","isAccessibleForFree":true,"description":"Crear fichero SEPA XML gratis en el navegador, para transferencias por lote a proveedores y nóminas.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"browserRequirements":"Requiere JavaScript. Los ficheros se tratan en el navegador y no se envían.","publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/es/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Crear fichero SEPA XML gratis","applicationCategory":"FinanceApplication","operatingSystem":"Any (web browser)","url":"https://netmend.app/es/fichero-sepa/","inLanguage":"es-ES","isAccessibleForFree":true,"description":"Crear fichero SEPA XML gratis en el navegador, para transferencias por lote a proveedores y nóminas.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"browserRequirements":"Requiere JavaScript. Los ficheros se tratan en el navegador y no se envían.","publisher":{"@type":"Organization","name":"Netmend","url":"https://netmend.app/"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿El fichero sale de mi ordenador?","acceptedAnswer":{"@type":"Answer","text":"No. El Excel o el CSV se lee en este navegador. El XML se hace en su ordenador. No se envía nada a Netmend ni al banco."}},{"@type":"Question","name":"¿Qué es este fichero SEPA XML?","acceptedAnswer":{"@type":"Answer","text":"Es un XML de transferencias a crédito, norma ISO 20022, pain.001.001.09. La guía AEB/CECA/UNACC, vigente desde el 5 de octubre de 2025, usa esa versión. Sirve para pagar a proveedores o nóminas por lote, en euros. La versión 03 sigue disponible para bancos que todavía la piden."}},{"@type":"Question","name":"¿Cómo importa el fichero el banco?","acceptedAnswer":{"@type":"Answer","text":"En la banca electrónica, busque la importación de ficheros de transferencias o de pagos por lote. Caixa Geral de Depósitos, en la página del Canal Multibancário, indica el formato Transferências a Crédito e Transferências Múltiplas C2B XML pain.001.001.03 (cgd.pt, consultada el 21 de noviembre de 2026). En otros bancos el menú tiene otro nombre."}},{"@type":"Question","name":"¿Qué se comprueba antes de descargar?","acceptedAnswer":{"@type":"Answer","text":"El IBAN (dígito mod 97 y la longitud del país), el NIB en las cuentas portuguesas, el formato del BIC si existe, el importe (mayor que cero, como máximo dos decimales), el juego de caracteres SEPA y el tamaño del nombre (70) y de la referencia (140). Los acentos se convierten (á pasa a a) y el cambio queda en Problemas. Un EndToEndId repetido se hace único. El mismo IBAN con el mismo importe genera un aviso."}},{"@type":"Question","name":"¿Cuántos pagos entran en el fichero?","acceptedAnswer":{"@type":"Answer","text":"El fichero lleva todas las filas. No hay límite. Pro próximamente. El botón no cobra nada y no muestra precio."}},{"@type":"Question","name":"¿Esto sustituye al banco?","acceptedAnswer":{"@type":"Answer","text":"No. La página solo monta el fichero. No envía pagos. Confirme los IBAN, el importe y la fecha en su banco antes de autorizar el adeudo."}}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Netmend","item":"https://netmend.app/es/"},{"@type":"ListItem","position":2,"name":"Herramientas","item":"https://netmend.app/en/tools/"},{"@type":"ListItem","position":3,"name":"Fichero SEPA XML","item":"https://netmend.app/es/fichero-sepa/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Netmend","item":"https://netmend.app/"},{"@type":"ListItem","position":2,"name":"Herramientas","item":"https://netmend.app/tools/"},{"@type":"ListItem","position":3,"name":"Fichero SEPA XML","item":"https://netmend.app/es/fichero-sepa/"}]}</script>
 </head>
 <body>
 <header><div class="wrap">
@@ -43,7 +43,7 @@
 </div></header>
 
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="/es/">Netmend</a> · <a href="/en/tools/">Herramientas</a> · Fichero SEPA <span class="lang">· <a href="/en/sepa/">English</a> · <a href="/sepa/">Português</a> · <a href="/es/fichero-sepa/" aria-current="page">Español</a></span></p>
+<p class="crumbs"><a href="/es/">Netmend</a> · <a href="/en/tools/">Herramientas</a> · Fichero SEPA</p>
 <h1>Crear fichero SEPA XML <span>gratis</span></h1>
 <p>Fichero SEPA XML para transferencias por lote: proveedores y nóminas, desde Excel o CSV. El fichero se queda en este ordenador.</p>
 <div class="pills"><span>No se envía nada</span><span>Todas las filas</span><span>pain.001.001.09</span></div>
@@ -60,6 +60,12 @@
 <button id="repeat" type="button" class="btn ghost">Repetir el último lote</button>
 <button id="template" type="button" class="btn ghost">Descargar la plantilla Excel</button>
 </div>
+<label class="switch" for="autofill"><input id="autofill" type="checkbox"><span>Rellenar automáticamente lo que esté vacío</span><span id="autofill-state" class="switch-state off">Desactivado</span></label>
+<label class="check" for="autofill-ref"><input id="autofill-ref" type="checkbox"> Si la referencia está vacía, usar «Pago de &lt;mes&gt; de &lt;año&gt;»</label>
+<details>
+<summary>¿De dónde salen los BIC?</summary>
+<p class="note">Solo rellena lo que esté vacío: el BIC a partir del código de banco del IBAN (dígitos 5 a 8, <a href="https://www.bportugal.pt/sites/default/files/anexos/documentos-relacionados/international_bank_account_number_pt.pdf" rel="noopener noreferrer">nota del Banco de Portugal</a>; BIC de la lista SICOI del 6 de octubre de 2026, solo si está publicado; IBAN ES con la lista <a href="https://www.bde.es/f/webbe/Comunes/sispago/menu_dcha/TARGET_BE_NRBE.pdf" rel="noopener noreferrer">TARGET del Banco de España</a>), el ordenante guardado en este aparato, la siguiente fecha hábil y, si lo acepta, la referencia. Lo que escriba a mano no se sustituye. Si el IBAN cambia, el BIC rellenado automáticamente lo sigue. Desactivarlo quita lo que rellenó y usted no editó.</p>
+</details>
 <p class="note" style="margin:10px 0 0">El ejemplo es ficticio: los nombres dicen EXEMPLO y los IBAN solo sirven para probar el formato. No son cuentas reales.</p>
 <details>
 <summary>Pegar CSV</summary>
@@ -71,17 +77,18 @@
 <h2 style="font-size:20px;margin:18px 0 0">Ordenante</h2>
 <p class="note" style="margin:4px 0 0">La cuenta de la que sale el dinero. Se guarda solo en este navegador, hasta que la borre.</p>
 <div class="row">
-<div><label for="dbtr-name">Nombre</label><input id="dbtr-name" type="text" autocomplete="off" maxlength="80"></div>
-<div><label for="dbtr-iban">IBAN</label><input id="dbtr-iban" type="text" autocomplete="off" spellcheck="false" inputmode="text"></div>
+<div><label for="dbtr-name">Nombre <span class="req">obligatorio</span></label><input id="dbtr-name" type="text" autocomplete="off" maxlength="80" aria-describedby="dbtr-name-err"><p id="dbtr-name-err" class="bad" hidden></p><p id="dbtr-name-auto" class="auto-tag" hidden>rellenado automáticamente</p></div>
+<div><label for="dbtr-iban">IBAN <span class="req">obligatorio</span></label><input id="dbtr-iban" type="text" autocomplete="off" spellcheck="false" inputmode="text" aria-describedby="dbtr-iban-err"><p id="dbtr-iban-err" class="bad" hidden></p><p id="dbtr-iban-auto" class="auto-tag" hidden>rellenado automáticamente</p></div>
 </div>
 <div class="row">
-<div><label for="dbtr-bic">BIC (opcional)</label><input id="dbtr-bic" type="text" autocomplete="off" spellcheck="false"></div>
-<div><label for="dbtr-date">Fecha de ejecución</label><input id="dbtr-date" type="date" autocomplete="off"></div>
+<div><label for="dbtr-bic">BIC (opcional)</label><input id="dbtr-bic" type="text" autocomplete="off" spellcheck="false"><p id="dbtr-bic-auto" class="auto-tag" hidden>rellenado automáticamente</p></div>
+<div><label for="dbtr-date">Fecha de ejecución <span class="req">obligatoria</span></label><input id="dbtr-date" type="date" autocomplete="off" aria-describedby="dbtr-date-err"><p id="dbtr-date-err" class="bad" hidden></p><p id="dbtr-date-auto" class="auto-tag" hidden>rellenado automáticamente</p></div>
 </div>
 <label class="check" for="dbtr-batch"><input id="dbtr-batch" type="checkbox" checked> Movimiento agrupado (un adeudo en la cuenta)</label>
 <div id="nif-wrap">
-<label for="dbtr-nif">NIF-sufijo (12 caracteres)</label>
-<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false">
+<label for="dbtr-nif">NIF-sufijo (12 caracteres) <span id="nif-req" class="req" hidden>obligatorio</span></label>
+<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false" aria-describedby="dbtr-nif-err">
+<p id="dbtr-nif-err" class="bad" hidden></p>
 <p class="note">La guía AEB/CECA lo exige cuando el IBAN del ordenante es español, salvo acuerdo con su banco. Va en InitgPty/Id/OrgId/Othr.</p>
 </div>
 <p style="margin:12px 0 0"><button id="dbtr-clear" type="button" class="btn ghost">Borrar datos de este navegador</button></p>
@@ -110,7 +117,8 @@
 <p class="note">La guía de la <a href="https://aebanca.es/wp-content/uploads/2026/03/Folleto.-Ordenes-en-formato-ISO-20022-para-emision-de-transferencias-y-cheques-en-euros-noviembre-2025.pdf" rel="noopener noreferrer">AEB, la CECA y la UNACC</a> (vigente desde el 5 de octubre de 2025) usa pain.001.001.09. Algunos bancos, por ejemplo la CGD en el <a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">Canal Multibancário</a> (EBICS), todavía piden la 03.</p>
 
 <div id="mapping" hidden>
-<p class="note" style="margin-bottom:0">Columnas detectadas. Corríjalas si el nombre no está en su sitio.</p>
+<p id="map-confidence" class="note" hidden></p>
+<p class="note" style="margin-bottom:0">Columnas detectadas. Corríjalas si el nombre no está en su sitio. En cada fila son obligatorios el nombre, el IBAN y el importe.</p>
 <div class="row">
 <div><label for="map-name">Columna del nombre</label><select id="map-name"></select></div>
 <div><label for="map-iban">Columna del IBAN</label><select id="map-iban"></select></div>
@@ -118,13 +126,15 @@
 <div><label for="map-ref">Columna de la referencia</label><select id="map-ref"></select></div>
 <div><label for="map-bic">Columna del BIC</label><select id="map-bic"></select></div>
 </div>
+<label class="check" id="confirm-map-label" for="confirm-map" hidden><input id="confirm-map" type="checkbox"><span id="confirm-map-text"></span></label>
 </div>
 <ul class="files" id="file-list"></ul>
 <p id="error" class="bad" role="alert" hidden></p>
 <p id="limit-note" class="warn" role="status" hidden></p>
 <p id="example-note" class="note" hidden></p>
 <div class="actions">
-<button id="download" type="button" class="btn" disabled>Descargar XML</button>
+<button id="download" type="button" class="btn" disabled aria-describedby="download-reason">Descargar XML</button>
+<p id="download-reason" class="note" hidden></p>
 <button id="pro" type="button" class="btn ghost">Pro próximamente</button>
 </div>
 <p id="pro-note" class="note" hidden></p>
@@ -146,6 +156,7 @@
 </div>
 
 <div id="results" hidden tabindex="-1">
+<div id="missing-summary" hidden></div>
 <div class="counters">
 <div class="counter"><b id="c-count">0</b><span>Pagos</span></div>
 <div class="counter"><b id="c-sum">0,00 €</b><span>Suma de control</span></div>
@@ -206,14 +217,15 @@
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
 <div class="f-brand"><a href="/es/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Herramientas gratis y privadas para PDF, Excel y extractos. Todo corre en el navegador.</p></div>
-<div><h4>Herramientas</h4><a href="/en/statement-to-csv/">Extracto PDF a CSV</a><a href="/en/statement/">Extracto → Excel</a><a href="/efatura/">e-fatura → Excel</a><a href="/es/fichero-sepa/">Fichero SEPA</a><a href="/en/tools/">Herramientas</a></div>
+<div><h4>Herramientas</h4><a href="/en/statement-to-csv/">Extracto PDF a CSV</a><a href="/en/statement/">Extracto → Excel</a><a href="/efatura/">e-fatura → Excel</a><a href="./">Fichero SEPA</a><a href="/en/tools/">Herramientas</a></div>
 <div><h4>Leer</h4><a href="/en/sepa/">This page in English</a><a href="/sepa/">Esta página em português</a></div>
 <div><h4>Netmend</h4><a href="/en/tools/">Herramientas</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Hecho por Pedro Carvalho en Portugal · Esta página no envía pagos. Sin cookies ni rastreadores. Su fichero no se envía.</div>
+<div class="f-bottom">© 2026 Netmend · Hecho por Pedro Carvalho en Portugal · Esta página no envía pagos. Sin rastreadores ni publicidad. Solo una cookie técnica para recordar el idioma. Su fichero no se envía.</div>
 </div></footer>
 <script src="/assets/pwa.js"></script>
 <script src="/assets/vendor/xlsx.mini.min.js"></script>
+<script src="/sepa/bic.js"></script>
 <script src="/sepa/app.js"></script>
 <script src="/assets/lang.js"></script>
 </body>

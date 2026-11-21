@@ -31,6 +31,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 .lang a[aria-current]{color:#fff}
 input[type=date]{width:100%;font:inherit;font-size:15px;color:var(--text);padding:10px 12px;border:1px solid var(--border-2);border-radius:10px;background:rgba(0,0,0,.35)}
 label.check{display:flex;align-items:flex-start;gap:8px;font-weight:500;color:var(--muted);margin-top:14px}
+label.check[hidden]{display:none}
 label.check input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}
 #problems{margin:8px 0 0;padding-left:18px}
 #problems li{margin:6px 0;overflow-wrap:anywhere}
@@ -41,6 +42,23 @@ label.check input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}
 #ben-list li{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 #ben-list .btn{padding:6px 10px;font-size:13px}
 #results:focus{outline:2px solid var(--coral);outline-offset:4px}
+.req{color:var(--coral-2);font-size:12px;font-weight:650}
+.auto-tag{color:var(--teal);font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+p.auto-tag{display:block;margin:4px 0 0}
+span.auto-tag{display:inline;margin-left:6px}
+.auto-tag[hidden]{display:none}
+#preview-body td:nth-child(2) input{min-width:22em}
+#missing-summary{border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin:0 0 12px}
+#missing-summary ul{margin:6px 0 0}
+input[aria-invalid="true"]{border-color:#f87171}
+#preview-body input{width:100%;min-width:7em;box-sizing:border-box;font:inherit;font-size:13px;color:inherit;background:transparent;border:1px solid transparent;border-radius:6px;padding:4px 6px}
+#preview-body input:focus{border-color:var(--border-2);background:rgba(0,0,0,.35)}
+#preview-body .cell-err{display:block;font-size:11px;margin-top:2px}
+.switch{display:flex;align-items:center;gap:10px;margin-top:12px;font-weight:650}
+.switch input{width:18px;height:18px;flex:0 0 auto}
+.switch-state{font-size:12px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px}
+.switch-state.on{color:#04231c;background:var(--teal)}
+.switch-state.off{color:var(--muted);border:1px solid var(--border)}
 @media(max-width:860px){
   .counters{grid-template-columns:1fr 1fr}
   .app-grid{grid-template-columns:1fr}

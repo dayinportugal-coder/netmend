@@ -65,12 +65,9 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 .block-h{margin:22px 0 8px}
 .lang a{color:var(--muted);text-decoration:none}
 .lang a[aria-current]{color:#fff}
-@media(max-width:860px){
-  .app-grid,.counters{grid-template-columns:1fr 1fr}
-  .app-grid{grid-template-columns:1fr}
+@media(max-width:860px){ .app-grid,.counters{grid-template-columns:1fr 1fr} .app-grid{grid-template-columns:1fr}
 }
-@media(max-width:760px){
-  nav a.nav-tools{display:inline-flex}
+@media(max-width:760px){ nav a.nav-tools{display:inline-flex}
 }
 @media(max-width:560px){.steps{grid-template-columns:1fr}}
 </style>
@@ -82,16 +79,12 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 <header><div class="wrap">
 <a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
 <nav><a class="nav-tools" href="/en/tools/">Tools</a><a href="#guide">How to export</a><a class="cta" href="#app">Use it free</a><span class="lang-switch" role="navigation" aria-label="Language"><a href="/efatura/" hreflang="pt-PT" lang="pt-PT" data-lang="pt">PT</a><span aria-hidden="true">|</span><a href="/en/efatura/" hreflang="en" lang="en" data-lang="en" aria-current="true">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav>
-</div></header>
-
-<div class="hero"><div class="wrap">
+</div></header> <div class="hero"><div class="wrap">
 <p class="crumbs"><a href="/en/">Netmend</a> · <a href="/en/tools/">Tools</a> · e-fatura <span class="lang">· <a href="/en/efatura/" aria-current="page">English</a> · <a href="/efatura/">Português</a></span></p>
 <h1>e-fatura CSV to a <span>clean Excel</span></h1>
 <p>VAT by supplier and quarter, credit notes negative, duplicates removed. The file stays on this computer. <a href="/efatura/">Em português</a>.</p>
 <div class="pills"><span>Nothing is uploaded</span><span>Up to 12 files</span><span>Works offline once installed</span></div>
-</div></div>
-
-<section class="tight" id="app"><div class="wrap">
+</div></div> <section class="tight" id="app"><div class="wrap">
 <div class="app-grid">
 <div class="tool" id="drop">
 <label for="file" style="margin-top:0">CSV or ZIP from e-fatura</label>
@@ -124,17 +117,13 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 </tbody>
 </table>
 </div>
-</div>
-
-<h2 id="guide">How to export from e-fatura</h2>
+</div> <h2 id="guide">How to export from e-fatura</h2>
 <p class="lead">The portal calls the download “Obter dados para Excel”. The file is still a CSV, and one search only keeps the latest 300 documents.</p>
 <div class="steps">
 <div class="step"><p class="n">Step 1</p><p>Sign in at <a href="https://faturas.portaldasfinancas.gov.pt/" rel="noopener noreferrer">faturas.portaldasfinancas.gov.pt</a> and open Faturação as <b>Adquirente</b> (the buyer).</p></div>
 <div class="step"><p class="n">Step 2</p><p>Open <b>Consultar faturas</b>. Set the dates, then click Pesquisar. For a business, filter to invoices marked <b>afetas à atividade</b>. If you have more than 300 invoices, export month by month.</p></div>
 <div class="step"><p class="n">Step 3</p><p>Click <b>Obter dados para Excel</b> and drop the CSV here, or a ZIP of several. Do not open the file in Excel and save it again first.</p></div>
-</div>
-
-<div id="results" hidden>
+</div> <div id="results" hidden>
 <div class="counters" aria-live="polite">
 <div class="counter"><b id="c-docs">0</b><span id="c-docs-l">Documents</span></div>
 <div class="counter"><b id="c-total">0</b><span id="c-total-l">Net total</span></div>
@@ -142,26 +131,20 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 <div class="counter"><b id="c-pending">0</b><span id="c-pending-l">Pending</span></div>
 <div class="counter"><b id="c-invalid">0</b><span id="c-invalid-l">Invalid NIFs</span></div>
 </div>
-<p id="empty-note" class="note" hidden></p>
-
-<div id="sector-wrap">
+<p id="empty-note" class="note" hidden></p> <div id="sector-wrap">
 <div class="scroll"><table>
 <caption>By sector</caption>
 <thead><tr><th>Sector</th><th class="num">Documents</th><th class="num">Base (ex VAT)</th><th class="num">VAT</th><th class="num">Total</th></tr></thead>
 <tbody id="sector-body"></tbody>
 </table></div>
-</div>
-
-<div id="pending-wrap" hidden>
+</div> <div id="pending-wrap" hidden>
 <p class="note">These still need a sector on e-fatura, where the export has a sector column. <a href="https://faturas.portaldasfinancas.gov.pt/" rel="noopener noreferrer">Open e-fatura to classify them</a></p>
 <div class="scroll"><table>
 <caption>Pending</caption>
 <thead><tr><th>Date</th><th>Issuer</th><th>NIF</th><th>Number</th><th>Status</th><th class="num">Total</th></tr></thead>
 <tbody id="pending-body"></tbody>
 </table></div>
-</div>
-
-<div class="scroll"><table>
+</div> <div class="scroll"><table>
 <caption>Invoices</caption>
 <thead><tr><th>Date</th><th>Issuer</th><th>NIF</th><th>Type</th><th class="col-sector">Sector</th><th>Status</th><th class="num">Total</th></tr></thead>
 <tbody id="preview-body"></tbody>
@@ -169,9 +152,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 <p id="preview-note" class="note" hidden></p>
 <p class="disclaimer"><b>This is not tax advice.</b> The page only organises the file you exported. It does not say what you can deduct. Check the figures with your accountant or on Portal das Finanças before you use them on a return.</p>
 </div>
-</div></section>
-
-<section class="alt" id="why"><div class="wrap">
+</div></section> <section class="alt" id="why"><div class="wrap">
 <h2>What the portal CSV gets wrong</h2>
 <p class="lead">Excel can open the file, and still add a credit note on top of the invoice it cancels. These are limits of the export itself, reported by people who convert it, not a promise that every future file will look the same.</p>
 <div class="grid">
@@ -180,25 +161,21 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:now
 <div class="card"><b>1.234,56 becomes text</b><p>Amounts over 1,000 use a dot for thousands and a comma for cents, sometimes with a € in front. Excel then refuses to sum them. The sheet stores real numbers.</p></div>
 <div class="card"><b>300 rows, then it stops</b><p>One search keeps the latest 300 documents. Export several periods, or a ZIP of them. The free merge takes 12 files; overlapping invoices are kept once.</p></div>
 </div>
-</div></section>
-
-<section id="faq"><div class="wrap">
+</div></section> <section id="faq"><div class="wrap">
 <h2>Questions</h2>
 <details><summary>Does the file leave my computer?</summary><p>No. Reading, the NIF check and the Excel file all happen in this browser. There is no account and no upload. Closing the tab drops the data.</p></details>
 <details><summary>Which export does it read?</summary><p>The CSV from Portal das Finanças, e-fatura, Consultar faturas (Adquirente), via “Obter dados para Excel”. Headers vary (Setor or Sector, Situação or Estado, NIF in its own column or glued to the name). A ZIP of those CSVs works too. It is not a SAF-T file.</p></details>
 <details><summary>What is in the Excel file?</summary><p>Faturas, Por NIF, Por mês, Por trimestre and Problemas. Por setor is added when the export has a sector column. Each summary has the taxable base, VAT and total. Cancelled documents are left out of the totals. Dates are real Excel dates.</p></details>
 <details><summary>What does Pro add?</summary><p>Pro coming soon. The button does not take a payment. The free tool already merges 12 files on this computer.</p></details>
 <p class="note" style="margin-top:18px">Also on Netmend: <a href="/en/sepa/">Excel to SEPA XML</a> · <a href="/en/statement/">bank statement PDF to Excel</a> · <a href="/en/tools/">all tools</a>. Questions: <a href="mailto:dayinportugal@gmail.com?subject=Netmend%20e-fatura">dayinportugal@gmail.com</a></p>
-</div></section>
-
-<footer class="site-footer"><div class="wrap">
+</div></section> <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
 <div class="f-brand"><a href="/en/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Free, private tools for PDF, Excel and bank statements. Everything runs in your browser.</p></div>
 <div><h4>Free tools</h4><a href="/en/statement-to-csv/">Statement PDF to CSV</a><a href="/en/statement/">Statement → Excel</a><a href="/en/efatura/">e-fatura → Excel</a><a href="/en/excel-functions/">Excel formula translator</a><a href="/en/tools/">Tools</a></div>
 <div><h4>Learn</h4><a href="/en/guides/">PDF to Excel guides</a><a href="/en/compare/">Comparisons</a><a href="/efatura/">Esta página em português</a></div>
 <div><h4>Netmend</h4><a href="/en/tools/">Tools</a><a href="/en/#services">Services</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · This page is not tax advice. No cookies, no trackers. Your CSV is not uploaded.</div>
+<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · This page is not tax advice. Your CSV is not uploaded. No trackers and no ads. Only a technical cookie to remember the language.</div>
 </div></footer>
 <script src="/assets/pwa.js"></script>
 <script src="/assets/vendor/jszip.min.js"></script>

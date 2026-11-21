@@ -43,7 +43,7 @@
 </div></header>
 
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="/">Netmend</a> · <a href="/tools/">Ferramentas</a> · Ficheiro SEPA <span class="lang">· <a href="/en/sepa/">English</a> · <a href="/sepa/" aria-current="page">Português</a> · <a href="/es/fichero-sepa/">Español</a></span></p>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/tools/">Ferramentas</a> · Ficheiro SEPA</p>
 <h1>Criar ficheiro SEPA XML <span>grátis</span></h1>
 <p>Ficheiro SEPA para transferências em lote: fornecedores e ordenados, a partir de Excel ou CSV. O ficheiro fica neste computador.</p>
 <div class="pills"><span>Nada é enviado</span><span>Todas as linhas</span><span>pain.001.001.09</span></div>
@@ -60,6 +60,12 @@
 <button id="repeat" type="button" class="btn ghost">Repetir o último lote</button>
 <button id="template" type="button" class="btn ghost">Descarregar o modelo Excel</button>
 </div>
+<label class="switch" for="autofill"><input id="autofill" type="checkbox"><span>Preencher automaticamente o que estiver vazio</span><span id="autofill-state" class="switch-state off">Desligado</span></label>
+<label class="check" for="autofill-ref"><input id="autofill-ref" type="checkbox"> Se a referência estiver vazia, usar «Pagamento de &lt;mês&gt; de &lt;ano&gt;»</label>
+<details>
+<summary>De onde vêm os BIC?</summary>
+<p class="note">Só preenche o que estiver vazio: BIC a partir do código do banco no IBAN (algarismos 5 a 8, <a href="https://www.bportugal.pt/sites/default/files/anexos/documentos-relacionados/international_bank_account_number_pt.pdf" rel="noopener noreferrer">nota do Banco de Portugal</a>; BIC da lista SICOI de 6 de outubro de 2026, só quando está publicado; IBAN ES pela lista <a href="https://www.bde.es/f/webbe/Comunes/sispago/menu_dcha/TARGET_BE_NRBE.pdf" rel="noopener noreferrer">TARGET do Banco de España</a>), o ordenante guardado neste aparelho, a próxima data útil e, se aceitar, a referência. O que escrever à mão não é substituído. Se o IBAN mudar, o BIC preenchido automaticamente acompanha. Desligar volta a tirar o que foi preenchido e não foi editado.</p>
+</details>
 <p class="note" style="margin:10px 0 0">O exemplo é fictício: os nomes dizem EXEMPLO e os IBAN só servem para testar o formato. Não são contas reais.</p>
 <details>
 <summary>Colar CSV</summary>
@@ -71,17 +77,18 @@
 <h2 style="font-size:20px;margin:18px 0 0">Ordenante</h2>
 <p class="note" style="margin:4px 0 0">A conta de onde sai o dinheiro. Fica guardada só neste browser, até a limpar.</p>
 <div class="row">
-<div><label for="dbtr-name">Nome</label><input id="dbtr-name" type="text" autocomplete="off" maxlength="80"></div>
-<div><label for="dbtr-iban">IBAN</label><input id="dbtr-iban" type="text" autocomplete="off" spellcheck="false" inputmode="text"></div>
+<div><label for="dbtr-name">Nome <span class="req">obrigatório</span></label><input id="dbtr-name" type="text" autocomplete="off" maxlength="80" aria-describedby="dbtr-name-err"><p id="dbtr-name-err" class="bad" hidden></p><p id="dbtr-name-auto" class="auto-tag" hidden>preenchido automaticamente</p></div>
+<div><label for="dbtr-iban">IBAN <span class="req">obrigatório</span></label><input id="dbtr-iban" type="text" autocomplete="off" spellcheck="false" inputmode="text" aria-describedby="dbtr-iban-err"><p id="dbtr-iban-err" class="bad" hidden></p><p id="dbtr-iban-auto" class="auto-tag" hidden>preenchido automaticamente</p></div>
 </div>
 <div class="row">
-<div><label for="dbtr-bic">BIC (opcional)</label><input id="dbtr-bic" type="text" autocomplete="off" spellcheck="false"></div>
-<div><label for="dbtr-date">Data de execução</label><input id="dbtr-date" type="date" autocomplete="off"></div>
+<div><label for="dbtr-bic">BIC (opcional)</label><input id="dbtr-bic" type="text" autocomplete="off" spellcheck="false"><p id="dbtr-bic-auto" class="auto-tag" hidden>preenchido automaticamente</p></div>
+<div><label for="dbtr-date">Data de execução <span class="req">obrigatória</span></label><input id="dbtr-date" type="date" autocomplete="off" aria-describedby="dbtr-date-err"><p id="dbtr-date-err" class="bad" hidden></p><p id="dbtr-date-auto" class="auto-tag" hidden>preenchido automaticamente</p></div>
 </div>
 <label class="check" for="dbtr-batch"><input id="dbtr-batch" type="checkbox" checked> Movimento agrupado (um débito na conta)</label>
 <div id="nif-wrap" hidden>
-<label for="dbtr-nif">NIF-sufijo (12 caracteres)</label>
-<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false">
+<label for="dbtr-nif">NIF-sufijo (12 caracteres) <span id="nif-req" class="req" hidden>obrigatório</span></label>
+<input id="dbtr-nif" type="text" maxlength="16" autocomplete="off" spellcheck="false" aria-describedby="dbtr-nif-err">
+<p id="dbtr-nif-err" class="bad" hidden></p>
 <p class="note">Obrigatório quando o IBAN do ordenante é espanhol. A guia AEB/CECA põe estes 12 caracteres em InitgPty/Id/OrgId/Othr.</p>
 </div>
 <p style="margin:12px 0 0"><button id="dbtr-clear" type="button" class="btn ghost">Limpar dados deste browser</button></p>
@@ -110,7 +117,8 @@
 <p class="note">A versão 09 é a do <a href="https://www.santander.pt/pdfs/pdfs-empresas/netbanco-empresas-ajuda-online/netbanco-empresas-ajuda-online-documentos/sepa/manual_c2b.pdf" rel="noopener noreferrer">manual C2PSP 06.01</a>, em vigor desde 28 de agosto de 2025 (o mesmo texto está no <a href="https://www.bancomontepio.pt/content/dam/montepio/partilhado/documentos/pt_PT/pdf-pmc/SEPA0001.pdf" rel="noopener noreferrer">Montepio</a>). Alguns bancos, por exemplo a CGD no <a href="https://www.cgd.pt/Empresas/Gestao_corrente/Servicos/Pages/Canal-Multibancario.aspx" rel="noopener noreferrer">Canal Multibancário</a> (EBICS), ainda pedem a 03.</p>
 
 <div id="mapping" hidden>
-<p class="note" style="margin-bottom:0">Colunas detetadas. Corrija se o nome não estiver no sítio certo.</p>
+<p id="map-confidence" class="note" hidden></p>
+<p class="note" style="margin-bottom:0">Colunas detetadas. Corrija se o nome não estiver no sítio certo. Em cada linha são obrigatórios o nome, o IBAN e o montante.</p>
 <div class="row">
 <div><label for="map-name">Coluna do nome</label><select id="map-name"></select></div>
 <div><label for="map-iban">Coluna do IBAN</label><select id="map-iban"></select></div>
@@ -118,13 +126,15 @@
 <div><label for="map-ref">Coluna da referência</label><select id="map-ref"></select></div>
 <div><label for="map-bic">Coluna do BIC</label><select id="map-bic"></select></div>
 </div>
+<label class="check" id="confirm-map-label" for="confirm-map" hidden><input id="confirm-map" type="checkbox"><span id="confirm-map-text"></span></label>
 </div>
 <ul class="files" id="file-list"></ul>
 <p id="error" class="bad" role="alert" hidden></p>
 <p id="limit-note" class="warn" role="status" hidden></p>
 <p id="example-note" class="note" hidden></p>
 <div class="actions">
-<button id="download" type="button" class="btn" disabled>Descarregar XML</button>
+<button id="download" type="button" class="btn" disabled aria-describedby="download-reason">Descarregar XML</button>
+<p id="download-reason" class="note" hidden></p>
 <button id="pro" type="button" class="btn ghost">Pro em breve</button>
 </div>
 <p id="pro-note" class="note" hidden></p>
@@ -146,6 +156,7 @@
 </div>
 
 <div id="results" hidden tabindex="-1">
+<div id="missing-summary" hidden></div>
 <div class="counters">
 <div class="counter"><b id="c-count">0</b><span>Pagamentos</span></div>
 <div class="counter"><b id="c-sum">0,00 €</b><span>Soma de controlo</span></div>
@@ -211,10 +222,11 @@
 <div><h4>Ler</h4><a href="/en/sepa/">This page in English</a><a href="/es/fichero-sepa/">Esta página en español</a></div>
 <div><h4>Netmend</h4><a href="/tools/">Ferramentas</a><a href="/#services">Serviços</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Esta página não envia pagamentos. Sem cookies nem trackers. O seu ficheiro não é enviado.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Esta página não envia pagamentos. Sem trackers nem publicidade. Só um cookie técnico para lembrar a língua. O seu ficheiro não é enviado.</div>
 </div></footer>
 <script src="/assets/pwa.js"></script>
 <script src="/assets/vendor/xlsx.mini.min.js"></script>
+<script src="/sepa/bic.js"></script>
 <script src="/sepa/app.js"></script>
 <script src="/assets/lang.js"></script>
 </body>
