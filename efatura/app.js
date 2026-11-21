@@ -8,7 +8,8 @@
 (function () {
   "use strict";
 
-  var FREE_MAX = 3;
+  var FREE_MAX = 12;
+  var PREVIEW_MAX = 200;
   var EFATURA_URL = "https://faturas.portaldasfinancas.gov.pt/";
   var lang = (document.documentElement.lang || "en").toLowerCase().indexOf("pt") === 0 ? "pt" : "en";
 
@@ -16,6 +17,7 @@
     en: {
       docs: "Documents",
       total: "Net total",
+      iva: "Total VAT",
       pending: "Pending",
       invalid: "Invalid NIFs",
       yes: "Yes",
@@ -23,12 +25,14 @@
       noSector: "No sector",
       rows: "rows",
       dupChip: "duplicates removed",
-      limit: "The free tool merges 3 files at a time. {n} files were found, so only the first 3 were used.",
-      proNote: "Pro is not for sale yet. No payment is taken. The free tool already merges 3 files on this computer.",
+      limit: "The free tool merges {max} files at a time. {n} files were found, so only the first {max} were used.",
+      proNote: "Pro coming soon. It is not available yet, and this button does not take a payment.",
       sampleFail: "The example file could not be loaded. Check your connection and try again.",
       readFail: "That file could not be read.",
       noneParsed: "None of these files look like an e-fatura CSV. Export with “Obter dados para Excel” and drop the file as it is, without opening it in Excel first.",
+      headerOnly: "This file has the e-fatura column names but no invoice rows.",
       empty: "No invoices left after removing cancelled documents.",
+      previewCap: "Showing the first {max} of {n} invoices. The Excel file has every row.",
       pendTitle: "Pending or without a sector",
       pendLead: "These still need a sector on e-fatura. Until then they may not count for the deduction you expect.",
       pendLink: "Open e-fatura to classify them",
@@ -45,10 +49,11 @@
       colDocs: "Documents",
       filesLabel: "Files",
       truncated: "300 or more rows. The portal export stops at 300, so export a shorter period and merge the files.",
-      sheetF: ["Date", "Month", "Issuer NIF", "Issuer name", "NIF valid", "Type", "Number", "ATCUD", "Sector", "Status", "Total", "Taxable base", "VAT", "Source file"],
-      sheetS: ["Sector", "Documents", "Total"],
-      sheetN: ["NIF", "Name", "NIF valid", "Documents", "Total"],
-      sheetM: ["Month", "Documents", "Total"],
+      sheetF: ["Date", "Month", "Issuer NIF", "Issuer name", "NIF valid", "Type", "Number", "ATCUD", "Sector", "Status", "Total", "Base (ex VAT)", "VAT", "Source file"],
+      sheetS: ["Sector", "Documents", "Base (ex VAT)", "VAT", "Total"],
+      sheetN: ["NIF", "Name", "NIF valid", "Documents", "Base (ex VAT)", "VAT", "Total"],
+      sheetM: ["Month", "Documents", "Base (ex VAT)", "VAT", "Total"],
+      sheetQ: ["Quarter", "Documents", "Base (ex VAT)", "VAT", "Total"],
       sheetP: ["Issue", "File", "Document", "NIF", "Name", "Detail"],
       totalRow: "Total",
       noneIssue: "None",
@@ -60,16 +65,19 @@
         cancelled: "Cancelled",
         truncated: "Truncated export",
         amount: "Amount",
+        mismatch: "Base + VAT",
         "too-big": "File too large"
       },
       detail: {
-        dup: "Removed. Same issuer NIF, document number, date and type were already in the merge.",
+        dup: "Removed. The same issuer NIF and document number were already in the merge.",
         credit: "The credit note was positive in the export. The amount is now negative.",
         nif: "The NIF does not pass the check digit.",
         "nif-prefix": "The check digit passes, but the first digits are not a known Portuguese NIF type.",
         "nif-digits": "The NIF does not have 9 digits.",
         "nif-missing": "The issuer NIF is missing.",
-        pending: "Pending, or no sector. Classify it on e-fatura.",
+        pending: "The status is pending. Classify it on e-fatura.",
+        "no-sector": "The sector cell is empty. Classify it on e-fatura.",
+        mismatch: "Base plus VAT does not equal the total (difference over €0.01).",
         cancelled: "Cancelled document. Left out of the totals.",
         truncated: "This file has 300 or more rows. The portal keeps only the latest 300 per export.",
         amount: "The total could not be read as a number, so it was left out of the sums.",
@@ -79,6 +87,7 @@
     pt: {
       docs: "Documentos",
       total: "Total líquido",
+      iva: "IVA total",
       pending: "Pendentes",
       invalid: "NIF inválidos",
       yes: "Sim",
@@ -86,12 +95,14 @@
       noSector: "Sem setor",
       rows: "linhas",
       dupChip: "duplicados removidos",
-      limit: "A versão grátis junta 3 ficheiros de cada vez. Encontrámos {n}, por isso só os 3 primeiros foram usados.",
-      proNote: "O Pro ainda não está à venda. Não há qualquer pagamento. A versão grátis já junta 3 ficheiros neste computador.",
+      limit: "A versão grátis junta {max} ficheiros de cada vez. Encontrámos {n}, por isso só os {max} primeiros foram usados.",
+      proNote: "Pro em breve. Ainda não está disponível e este botão não cobra nada.",
       sampleFail: "Não foi possível carregar o exemplo. Verifique a ligação e tente de novo.",
       readFail: "Não foi possível ler esse ficheiro.",
-      noneParsed: "Nenhum destes ficheiros parece um CSV do e-fatura. Exporte com “Obter dados para Excel” e largue o ficheiro tal como vem, sem o abrir no Excel primeiro.",
+      noneParsed: "Nenhum destes ficheiros parece um CSV do e-fatura. Exporte com “Obter dados para Excel” e arraste o ficheiro tal como vem, sem o abrir no Excel primeiro.",
+      headerOnly: "Este ficheiro tem os cabeçalhos do e-fatura, mas não tem linhas de faturas.",
       empty: "Não restaram faturas depois de retirar os documentos anulados.",
+      previewCap: "A mostrar as primeiras {max} de {n} faturas. O Excel traz todas.",
       pendTitle: "Pendentes ou sem setor",
       pendLead: "Ainda precisam de um setor no e-fatura. Enquanto estiverem assim, podem não contar para a dedução que espera.",
       pendLink: "Abrir o e-fatura para classificar",
@@ -107,11 +118,12 @@
       colTotal: "Total",
       colDocs: "Documentos",
       filesLabel: "Ficheiros",
-      truncated: "300 ou mais linhas. A exportação do portal pára nas 300: exporte um período mais curto e junte os ficheiros.",
-      sheetF: ["Data", "Mês", "NIF emitente", "Nome emitente", "NIF válido", "Tipo", "Número", "ATCUD", "Setor", "Situação", "Total", "Base tributável", "IVA", "Ficheiro"],
-      sheetS: ["Setor", "Documentos", "Total"],
-      sheetN: ["NIF", "Nome", "NIF válido", "Documentos", "Total"],
-      sheetM: ["Mês", "Documentos", "Total"],
+      truncated: "300 ou mais linhas. A exportação do portal para nas 300: exporte um período mais curto e junte os ficheiros.",
+      sheetF: ["Data", "Mês", "NIF emitente", "Nome emitente", "NIF válido", "Tipo", "Número", "ATCUD", "Setor", "Situação", "Total", "Base (s/ IVA)", "IVA", "Ficheiro"],
+      sheetS: ["Setor", "Documentos", "Base (s/ IVA)", "IVA", "Total"],
+      sheetN: ["NIF", "Nome", "NIF válido", "Documentos", "Base (s/ IVA)", "IVA", "Total"],
+      sheetM: ["Mês", "Documentos", "Base (s/ IVA)", "IVA", "Total"],
+      sheetQ: ["Trimestre", "Documentos", "Base (s/ IVA)", "IVA", "Total"],
       sheetP: ["Problema", "Ficheiro", "Documento", "NIF", "Nome", "Detalhe"],
       totalRow: "Total",
       noneIssue: "Nenhum",
@@ -123,16 +135,19 @@
         cancelled: "Anulada",
         truncated: "Exportação cortada",
         amount: "Valor",
+        mismatch: "Base + IVA",
         "too-big": "Ficheiro grande"
       },
       detail: {
-        dup: "Removido. O mesmo NIF, número, data e tipo já estavam na junção.",
+        dup: "Removido. O mesmo NIF e o mesmo número de documento já estavam na junção.",
         credit: "A nota de crédito vinha com valor positivo. O valor ficou negativo.",
         nif: "O NIF não passa no dígito de controlo.",
         "nif-prefix": "O dígito de controlo bate certo, mas os primeiros dígitos não são um tipo de NIF português conhecido.",
         "nif-digits": "O NIF não tem 9 dígitos.",
         "nif-missing": "Falta o NIF do emitente.",
-        pending: "Pendente ou sem setor. Classifique no e-fatura.",
+        pending: "A situação é pendente. Classifique no e-fatura.",
+        "no-sector": "A célula do setor está vazia. Classifique no e-fatura.",
+        mismatch: "A base mais o IVA não batem certo com o total (diferença acima de 0,01 €).",
         cancelled: "Documento anulado. Ficou de fora dos totais.",
         truncated: "Este ficheiro tem 300 ou mais linhas. O portal só guarda as 300 mais recentes em cada exportação.",
         amount: "O total não foi lido como número, por isso ficou de fora das somas.",
@@ -332,9 +347,27 @@
     return !s || s === "sem setor" || s === "por classificar" || s === "n a" || s === "na" || s === "nd" || s === "null" || s === "pendente" || s === "sem classificacao";
   }
 
-  function isPending(status, sector) {
-    if (/pend|falta|aguard|por class|por valid|incomplet/.test(normKey(status))) return true;
+  function statusPending(status) {
+    return /pend|falta|aguard|por class|por valid|incomplet/.test(normKey(status));
+  }
+
+  function isPending(status, sector, hasSectorColumn) {
+    if (statusPending(status)) return true;
+    if (!hasSectorColumn) return false;
     return sectorBlank(sector);
+  }
+
+  function splitNumeroAtcud(value) {
+    var v = String(value || "").trim();
+    if (!v) return { numero: "", atcud: "" };
+    var m = v.match(/^(.*?)(?:\s*[\/|;-]\s*|\s+)([A-Z0-9]{8,}-\d+)\s*$/i);
+    if (m && normKey(m[1])) return { numero: m[1].replace(/[\s\/|;-]+$/, "").trim(), atcud: m[2].toUpperCase() };
+    if (/^[A-Z0-9]{8,}-\d+$/i.test(v)) return { numero: "", atcud: v.toUpperCase() };
+    return { numero: v, atcud: "" };
+  }
+
+  function normNumero(s) {
+    return String(s || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
   }
 
   function cell(row, map, field) {
@@ -359,18 +392,32 @@
   }
 
   function docKey(row) {
-    var num = normKey(row.numero);
-    if (!row.nif && !num && !normKey(row.atcud)) return "";
-    if (!num) return [row.nif, normKey(row.atcud), row.date, normKey(row.tipo), String(row.totalC)].join("|");
-    return [row.nif, num, row.date, normKey(row.tipo)].join("|");
+    var num = normNumero(row.numero);
+    if (row.nif && num) return row.nif + "|" + num;
+    var atcud = normNumero(row.atcud);
+    if (row.nif && atcud) return row.nif + "|A|" + atcud;
+    return "";
   }
 
   function rank(row) {
     var r = 0;
     if (!row.pending) r += 4;
-    if (!sectorBlank(row.sector)) r += 2;
+    if (row.hasSector && !sectorBlank(row.sector)) r += 2;
     if (row.nifValid) r += 1;
     return r;
+  }
+
+  function quarterKey(iso) {
+    if (!iso || iso.length < 7) return "—";
+    var month = Number(iso.slice(5, 7));
+    if (!month) return "—";
+    return iso.slice(0, 4) + "-T" + (Math.floor((month - 1) / 3) + 1);
+  }
+
+  function excelDate(iso) {
+    if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return "";
+    var p = iso.split("-").map(Number);
+    return new Date(Date.UTC(p[0], p[1] - 1, p[2], 12, 0, 0));
   }
 
   function parseText(text, filename) {
@@ -382,6 +429,8 @@
     var found = findTable(table);
     if (!found) return { error: true, rows: [], problems: [] };
     var map = found.map;
+    var hasSector = map.setor != null;
+    var combinedNumero = map.numero != null && normKey(table[found.headerIndex][map.numero]).indexOf("atcud") !== -1;
     var data = table.slice(found.headerIndex + 1);
     var out = [];
     var problems = [];
@@ -405,9 +454,12 @@
       var nifInfo = checkNif(nifRaw);
       var numero = cell(cells, map, "numero");
       var atcud = cell(cells, map, "atcud");
-      if (!atcud) {
-        var foundAtcud = (numero + " " + combined).match(/\b([A-Z0-9]{8,}-\d+)\b/i);
-        if (foundAtcud) atcud = foundAtcud[1];
+      if (combinedNumero || !atcud) {
+        var parts = splitNumeroAtcud(numero);
+        if (parts.atcud) {
+          numero = parts.numero || numero;
+          if (!atcud) atcud = parts.atcud;
+        }
       }
       var totalRaw = cell(cells, map, "total");
       var totalC = parseMoneyCents(totalRaw);
@@ -423,9 +475,14 @@
         if (ivaC != null && ivaC > 0) ivaC = -ivaC;
         creditFixed = true;
       }
+      var pendingReason = "";
+      if (statusPending(status)) pendingReason = "pending";
+      else if (hasSector && sectorBlank(sector)) pendingReason = "no-sector";
+      var mismatch = totalC != null && baseC != null && ivaC != null && Math.abs((baseC + ivaC) - totalC) > 1;
       var row = {
         date: date,
         month: date ? date.slice(0, 7) : "",
+        quarter: quarterKey(date),
         nif: nifInfo.nif,
         nifValid: nifInfo.valid,
         nifReason: nifInfo.reason,
@@ -433,20 +490,23 @@
         tipo: tipo,
         numero: numero,
         atcud: atcud,
-        sector: sector,
+        sector: hasSector ? sector : "",
+        hasSector: hasSector,
         status: status,
         totalC: totalC,
         baseC: baseC,
         ivaC: ivaC,
         file: filename,
-        pending: isPending(status, sector),
+        pending: !!pendingReason,
+        pendingReason: pendingReason,
         cancelled: isCancelled(tipo, status),
         creditFixed: creditFixed,
-        amountBad: totalRaw !== "" && totalC == null
+        amountBad: totalRaw !== "" && totalC == null,
+        mismatch: mismatch
       };
       out.push(row);
     });
-    return { error: false, rows: out, problems: problems, delim: delim };
+    return { error: false, rows: out, problems: problems, hasSector: hasSector, headerOnly: out.length === 0 };
   }
 
   function sectorName(raw) {
@@ -482,6 +542,8 @@
       }
       parsed++;
       file.dataRows = result.rows.length;
+      file.hasSector = result.hasSector;
+      file.headerOnly = result.headerOnly;
       result.problems.forEach(function (p) { problems.push(p); });
       result.rows.forEach(function (row) {
         if (row.cancelled) {
@@ -490,8 +552,9 @@
         }
         if (row.creditFixed) problems.push({ code: "credit", file: row.file, doc: row.numero, nif: row.nif, name: row.nome, detail: "credit" });
         if (!row.nifValid) problems.push({ code: "nif", file: row.file, doc: row.numero, nif: row.nif, name: row.nome, detail: row.nifReason || "nif" });
-        if (row.pending) problems.push({ code: "pending", file: row.file, doc: row.numero, nif: row.nif, name: row.nome, detail: "pending" });
+        if (row.pending) problems.push({ code: "pending", file: row.file, doc: row.numero, nif: row.nif, name: row.nome, detail: row.pendingReason || "pending" });
         if (row.amountBad) problems.push({ code: "amount", file: row.file, doc: row.numero, nif: row.nif, name: row.nome, detail: "amount" });
+        if (row.mismatch) problems.push({ code: "mismatch", file: row.file, doc: row.numero, nif: row.nif, name: row.nome, detail: "mismatch" });
         var key = docKey(row);
         if (!key) key = "row|" + order.length + "|" + row.file;
         if (!kept[key]) {
@@ -513,7 +576,7 @@
       if (a.date !== b.date) return a.date < b.date ? -1 : 1;
       return a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0;
     });
-    return { docs: docs, problems: problems, parsed: parsed, files: files };
+    return { docs: docs, problems: problems, parsed: parsed, files: files, hasSector: files.some(function (f) { return f.hasSector; }) };
   }
 
   function groupSum(docs, keyFn) {
@@ -521,9 +584,11 @@
     var order = [];
     docs.forEach(function (row) {
       var key = keyFn(row);
-      if (!map[key]) { map[key] = { key: key, n: 0, totalC: 0 }; order.push(key); }
+      if (!map[key]) { map[key] = { key: key, n: 0, totalC: 0, baseC: 0, ivaC: 0 }; order.push(key); }
       map[key].n++;
       if (row.totalC != null) map[key].totalC += row.totalC;
+      if (row.baseC != null) map[key].baseC += row.baseC;
+      if (row.ivaC != null) map[key].ivaC += row.ivaC;
     });
     return order.map(function (k) { return map[k]; });
   }
@@ -533,19 +598,39 @@
     return cents / 100;
   }
 
-  function buildSheet(rows, numberCols) {
-    var ws = XLSX.utils.aoa_to_sheet(rows);
+  function buildSheet(rows, numberCols, dateCols) {
+    var ws = XLSX.utils.aoa_to_sheet(rows, { cellDates: true });
     var ref = ws["!ref"];
     if (!ref) return ws;
     var range = XLSX.utils.decode_range(ref);
-    numberCols.forEach(function (c) {
+    (numberCols || []).forEach(function (c) {
       for (var r = range.s.r + 1; r <= range.e.r; r++) {
         var addr = XLSX.utils.encode_cell({ r: r, c: c });
         if (ws[addr] && ws[addr].t === "n") ws[addr].z = "#,##0.00";
       }
     });
+    (dateCols || []).forEach(function (c) {
+      for (var r2 = range.s.r + 1; r2 <= range.e.r; r2++) {
+        var addr2 = XLSX.utils.encode_cell({ r: r2, c: c });
+        var cell = ws[addr2];
+        if (!cell || cell.v === "" || cell.v == null) continue;
+        cell.t = "d";
+        cell.z = "dd/mm/yyyy";
+      }
+    });
     ws["!autofilter"] = { ref: ref };
     return ws;
+  }
+
+  function summarySheet(header, groups, labelOf) {
+    var rows = [header];
+    var n = 0, base = 0, iva = 0, total = 0;
+    groups.forEach(function (g) {
+      rows.push([labelOf ? labelOf(g) : g.key, g.n, euros(g.baseC), euros(g.ivaC), euros(g.totalC)]);
+      n += g.n; base += g.baseC; iva += g.ivaC; total += g.totalC;
+    });
+    rows.push([t.totalRow, n, euros(base), euros(iva), euros(total)]);
+    return rows;
   }
 
   function buildWorkbook(model) {
@@ -553,40 +638,39 @@
     var validLabel = function (row) { return row.nifValid ? t.yes : t.no; };
     var fRows = [t.sheetF];
     docs.forEach(function (row) {
-      fRows.push([row.date, row.month, row.nif, row.nome, validLabel(row), row.tipo, row.numero, row.atcud, sectorName(row.sector), row.status, euros(row.totalC), euros(row.baseC), euros(row.ivaC), row.file]);
+      fRows.push([excelDate(row.date), row.month, row.nif, row.nome, validLabel(row), row.tipo, row.numero, row.atcud, row.hasSector ? sectorName(row.sector) : "", row.status, euros(row.totalC), euros(row.baseC), euros(row.ivaC), row.file]);
     });
-    var sectors = groupSum(docs, function (row) { return sectorName(row.sector); });
+    var sectors = groupSum(docs.filter(function (row) { return row.hasSector; }), function (row) { return sectorName(row.sector); });
     sectors.sort(function (a, b) { return b.totalC - a.totalC; });
-    var sRows = [t.sheetS];
-    var sTotal = 0, sN = 0;
-    sectors.forEach(function (g) { sRows.push([g.key, g.n, euros(g.totalC)]); sTotal += g.totalC; sN += g.n; });
-    sRows.push([t.totalRow, sN, euros(sTotal)]);
+    var sRows = summarySheet(t.sheetS, sectors);
 
     var byNifMap = Object.create(null);
     docs.forEach(function (row) {
       var key = row.nif || "—";
-      if (!byNifMap[key]) byNifMap[key] = { nif: row.nif, nome: row.nome, valid: row.nifValid, n: 0, totalC: 0 };
+      if (!byNifMap[key]) byNifMap[key] = { key: key, nif: row.nif, nome: row.nome, valid: row.nifValid, n: 0, totalC: 0, baseC: 0, ivaC: 0 };
       var g = byNifMap[key];
       g.n++;
       if (row.totalC != null) g.totalC += row.totalC;
-      if (row.nome && row.nome.length > g.nome.length) g.nome = row.nome;
+      if (row.baseC != null) g.baseC += row.baseC;
+      if (row.ivaC != null) g.ivaC += row.ivaC;
+      if (row.nome && row.nome.length > (g.nome || "").length) g.nome = row.nome;
     });
     var nifGroups = Object.keys(byNifMap).map(function (k) { return byNifMap[k]; });
     nifGroups.sort(function (a, b) { return b.totalC - a.totalC; });
     var nRows = [t.sheetN];
-    var nTotal = 0, nN = 0;
+    var nN = 0, nBase = 0, nIva = 0, nTotal = 0;
     nifGroups.forEach(function (g) {
-      nRows.push([g.nif, g.nome, g.valid ? t.yes : t.no, g.n, euros(g.totalC)]);
-      nTotal += g.totalC; nN += g.n;
+      nRows.push([g.nif, g.nome, g.valid ? t.yes : t.no, g.n, euros(g.baseC), euros(g.ivaC), euros(g.totalC)]);
+      nN += g.n; nBase += g.baseC; nIva += g.ivaC; nTotal += g.totalC;
     });
-    nRows.push([t.totalRow, "", "", nN, euros(nTotal)]);
+    nRows.push([t.totalRow, "", "", nN, euros(nBase), euros(nIva), euros(nTotal)]);
 
     var months = groupSum(docs, function (row) { return row.month || "—"; });
     months.sort(function (a, b) { return a.key < b.key ? -1 : 1; });
-    var mRows = [t.sheetM];
-    var mTotal = 0, mN = 0;
-    months.forEach(function (g) { mRows.push([g.key, g.n, euros(g.totalC)]); mTotal += g.totalC; mN += g.n; });
-    mRows.push([t.totalRow, mN, euros(mTotal)]);
+    var mRows = summarySheet(t.sheetM, months);
+    var quarters = groupSum(docs, function (row) { return row.quarter || "—"; });
+    quarters.sort(function (a, b) { return a.key < b.key ? -1 : 1; });
+    var qRows = summarySheet(t.sheetQ, quarters);
 
     var pRows = [t.sheetP];
     if (!model.problems.length) pRows.push([t.noneIssue, "", "", "", "", ""]);
@@ -596,20 +680,25 @@
 
     var wb = XLSX.utils.book_new();
     var widths = function (ws, cols) { ws["!cols"] = cols.map(function (w) { return { wch: w }; }); };
-    var wsF = buildSheet(fRows, [10, 11, 12]);
+    var wsF = buildSheet(fRows, [10, 11, 12], [0]);
     widths(wsF, [12, 10, 14, 36, 12, 22, 16, 16, 28, 18, 14, 16, 12, 28]);
-    var wsS = buildSheet(sRows, [2]);
-    widths(wsS, [36, 14, 16]);
-    var wsN = buildSheet(nRows, [4]);
-    widths(wsN, [14, 36, 12, 14, 16]);
-    var wsM = buildSheet(mRows, [2]);
-    widths(wsM, [12, 14, 16]);
+    var wsN = buildSheet(nRows, [4, 5, 6]);
+    widths(wsN, [14, 36, 12, 14, 16, 14, 14]);
+    var wsM = buildSheet(mRows, [2, 3, 4]);
+    widths(wsM, [12, 14, 16, 14, 14]);
+    var wsQ = buildSheet(qRows, [2, 3, 4]);
+    widths(wsQ, [12, 14, 16, 14, 14]);
     var wsP = buildSheet(pRows, []);
     widths(wsP, [22, 28, 16, 14, 36, 72]);
     XLSX.utils.book_append_sheet(wb, wsF, "Faturas");
-    XLSX.utils.book_append_sheet(wb, wsS, "Por setor");
+    if (model.hasSector) {
+      var wsS = buildSheet(sRows, [2, 3, 4]);
+      widths(wsS, [36, 14, 16, 14, 14]);
+      XLSX.utils.book_append_sheet(wb, wsS, "Por setor");
+    }
     XLSX.utils.book_append_sheet(wb, wsN, "Por NIF");
     XLSX.utils.book_append_sheet(wb, wsM, "Por mês");
+    XLSX.utils.book_append_sheet(wb, wsQ, "Por trimestre");
     XLSX.utils.book_append_sheet(wb, wsP, "Problemas");
     return wb;
   }
@@ -623,24 +712,37 @@
 
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 
+  function fillLimit(el, dropped, found) {
+    if (dropped > 0) {
+      el.hidden = false;
+      el.textContent = t.limit.replace(/\{n\}/g, String(found)).replace(/\{max\}/g, String(FREE_MAX));
+    } else el.hidden = true;
+  }
+
   function render(model) {
     var docs = model.docs;
-    var totalC = 0, invalid = 0;
+    var totalC = 0, ivaC = 0;
+    var badNifs = Object.create(null);
     docs.forEach(function (row) {
       if (row.totalC != null) totalC += row.totalC;
-      if (!row.nifValid) invalid++;
+      if (row.ivaC != null) ivaC += row.ivaC;
+      if (!row.nifValid) badNifs[row.nif || ("missing:" + row.nome + "|" + row.numero)] = true;
     });
+    var invalid = Object.keys(badNifs).length;
     var pending = docs.filter(function (row) { return row.pending; });
     model.totalC = totalC;
+    model.ivaC = ivaC;
     model.invalid = invalid;
     model.pending = pending;
 
     $("c-docs").textContent = String(docs.length);
     $("c-total").textContent = money(totalC);
+    $("c-iva").textContent = money(ivaC);
     $("c-pending").textContent = String(pending.length);
     $("c-invalid").textContent = String(invalid);
     $("c-docs-l").textContent = t.docs;
     $("c-total-l").textContent = t.total;
+    $("c-iva-l").textContent = t.iva;
     $("c-pending-l").textContent = t.pending;
     $("c-invalid-l").textContent = t.invalid;
 
@@ -667,41 +769,43 @@
       fileList.appendChild(liDup);
     }
 
-    var limit = $("limit-note");
-    if (model.dropped > 0) {
-      limit.hidden = false;
-      limit.textContent = t.limit.replace("{n}", String(model.found));
-    } else limit.hidden = true;
+    fillLimit($("limit-note"), model.dropped, model.found);
 
     var warn = $("warn-note");
     var truncated = model.problems.some(function (p) { return p.code === "truncated"; });
     warn.hidden = !truncated;
     if (truncated) warn.textContent = t.truncated;
 
+    var sectorWrap = $("sector-wrap");
     var sBody = $("sector-body");
     clear(sBody);
-    var sectors = groupSum(docs, function (row) { return sectorName(row.sector); });
-    sectors.sort(function (a, b) { return b.totalC - a.totalC; });
-    sectors.forEach(function (g) {
-      var tr = document.createElement("tr");
-      tr.appendChild(td(g.key));
-      tr.appendChild(td(String(g.n), "num"));
-      tr.appendChild(td(money(g.totalC), "num"));
-      sBody.appendChild(tr);
-    });
+    if (model.hasSector) {
+      sectorWrap.hidden = false;
+      var sectors = groupSum(docs.filter(function (row) { return row.hasSector; }), function (row) { return sectorName(row.sector); });
+      sectors.sort(function (a, b) { return b.totalC - a.totalC; });
+      sectors.forEach(function (g) {
+        var tr = document.createElement("tr");
+        tr.appendChild(td(g.key));
+        tr.appendChild(td(String(g.n), "num"));
+        tr.appendChild(td(money(g.baseC), "num"));
+        tr.appendChild(td(money(g.ivaC), "num"));
+        tr.appendChild(td(money(g.totalC), "num"));
+        sBody.appendChild(tr);
+      });
+    } else sectorWrap.hidden = true;
 
     var pendWrap = $("pending-wrap");
     var pBody = $("pending-body");
     clear(pBody);
     if (pending.length) {
       pendWrap.hidden = false;
-      pending.forEach(function (row) {
+      pending.slice(0, PREVIEW_MAX).forEach(function (row) {
         var tr = document.createElement("tr");
         tr.appendChild(td(showDate(row.date)));
         tr.appendChild(td(row.nome));
         tr.appendChild(td(row.nif));
         tr.appendChild(td(row.numero));
-        tr.appendChild(td(row.status || t.noSector, "warn"));
+        tr.appendChild(td(row.status || (row.pendingReason === "no-sector" ? t.noSector : ""), "warn"));
         tr.appendChild(td(money(row.totalC), "num"));
         pBody.appendChild(tr);
       });
@@ -709,7 +813,7 @@
 
     var body = $("preview-body");
     clear(body);
-    docs.forEach(function (row) {
+    docs.slice(0, PREVIEW_MAX).forEach(function (row) {
       var tr = document.createElement("tr");
       tr.appendChild(td(showDate(row.date)));
       tr.appendChild(td(row.nome));
@@ -717,11 +821,19 @@
       if (!row.nifValid) nifCell.title = t.detail[row.nifReason] || t.detail.nif;
       tr.appendChild(nifCell);
       tr.appendChild(td(row.tipo));
-      tr.appendChild(td(sectorName(row.sector), row.pending ? "warn" : ""));
+      var sectorCell = td(row.hasSector ? sectorName(row.sector) : "", row.pending && row.hasSector ? "warn" : "");
+      sectorCell.classList.add("col-sector");
+      tr.appendChild(sectorCell);
       tr.appendChild(td(row.status, row.pending ? "warn" : ""));
       tr.appendChild(td(money(row.totalC), "num" + (row.totalC < 0 ? " bad" : "")));
       body.appendChild(tr);
     });
+    document.querySelectorAll(".col-sector").forEach(function (el) { el.hidden = !model.hasSector; });
+    var cap = $("preview-note");
+    if (docs.length > PREVIEW_MAX) {
+      cap.hidden = false;
+      cap.textContent = t.previewCap.replace("{max}", String(PREVIEW_MAX)).replace("{n}", String(docs.length));
+    } else cap.hidden = true;
 
     $("results").hidden = false;
     $("download").disabled = docs.length === 0;
@@ -733,7 +845,22 @@
   var state = null;
   var generation = 0;
 
+  function clearResults() {
+    state = null;
+    $("results").hidden = true;
+    clear($("file-list"));
+    $("download").disabled = true;
+    $("limit-note").hidden = true;
+    $("warn-note").hidden = true;
+    $("empty-note").hidden = true;
+    if ($("preview-note")) $("preview-note").hidden = true;
+    ["c-docs", "c-total", "c-iva", "c-pending", "c-invalid"].forEach(function (id) {
+      if ($(id)) $(id).textContent = id === "c-docs" || id === "c-pending" || id === "c-invalid" ? "0" : "";
+    });
+  }
+
   function showError(msg) {
+    clearResults();
     var box = $("error");
     box.hidden = false;
     box.textContent = msg;
@@ -778,7 +905,7 @@
     clearError();
     return expand(items).then(function (all) {
       if (gen !== generation) return;
-      if (!all.length) { showError(t.noneParsed); $("results").hidden = true; state = null; return; }
+      if (!all.length) { showError(t.noneParsed); return; }
       var found = all.length;
       var dropped = Math.max(0, found - FREE_MAX);
       var used = all.slice(0, FREE_MAX);
@@ -790,10 +917,15 @@
       var model = merge(files);
       model.dropped = dropped;
       model.found = found;
-      if (!model.parsed) { showError(t.noneParsed); $("results").hidden = true; state = null; return; }
+      if (!model.parsed) { showError(t.noneParsed); return; }
+      if (!model.docs.length && model.files.some(function (f) { return f.headerOnly; }) && !model.problems.some(function (p) { return p.code === "cancelled"; })) {
+        showError(t.headerOnly);
+        return;
+      }
       render(model);
-      var results = $("results");
-      if (results && typeof results.scrollIntoView === "function") results.scrollIntoView({ block: "nearest" });
+    }).catch(function () {
+      if (gen !== generation) return;
+      showError(t.readFail);
     });
   }
 
@@ -839,6 +971,6 @@
   $("download").addEventListener("click", function () {
     if (!state || !state.docs.length || typeof XLSX === "undefined") return;
     var wb = buildWorkbook(state);
-    XLSX.writeFile(wb, "efatura-netmend.xlsx");
+    XLSX.writeFile(wb, "efatura-netmend.xlsx", { cellDates: true });
   });
 })();

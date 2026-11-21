@@ -192,3 +192,7 @@ footer{font-size:13px;color:var(--faint);padding:24px 0;border-top:1px solid var
 .nm-hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}.nm-hub a.card{display:block;text-decoration:none;color:var(--text)}.nm-hub .tag{display:inline-block;font-size:12px;color:var(--teal);margin-bottom:6px}
 .nm-cert-prev{width:100%;max-width:720px;border:1px solid var(--border);border-radius:10px;background:#fff;margin-top:14px}
 @media print{body>header,.hero,.site-footer,.noprint,section:not(.printable){display:none!important}body{background:#fff;color:#000}body::before,body::after{display:none}.printable,.printable *{color:#000!important;background:#fff!important;border-color:#ccc!important}}
+.nm-install{background:transparent;color:var(--text);border:1px solid var(--border-2);border-radius:8px;padding:8px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.nm-install-fixed{position:fixed;right:14px;bottom:14px;z-index:70;background:#131419}
+.nm-install:hover{background:#1b1d24}
+.nm-ios-hint{position:fixed;left:14px;right:14px;bottom:14px;z-index:70;margin:0 auto;max-width:420px;background:#131419;color:#9aa1ad;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:8px 12px;font-size:13px;text-align:center}
