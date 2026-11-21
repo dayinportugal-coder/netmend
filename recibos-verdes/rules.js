@@ -50,6 +50,21 @@
     /* CIRS art. 101.º-B n.º 1 d), Decreto-Lei n.º 49/2025, in force 1 July 2025:
        no withholding when each withholding is under 25 €. */
     withholdingWaiverCents: 2500,
+    /* CIRS art. 28.º n.º 2, consolidated text (CIRS_07_2025) and AT FAQ 5880.
+       Art. 28.º n.º 6: organised accounting is mandatory from the next year
+       only after two consecutive years over this amount, or one year by more
+       than 25% (n.º 6). 200 000 × 1,25 = 250 000. */
+    simplificadoLimitCents: 20000000,
+    simplificadoForceCents: 25000000,
+    /* CIRS art. 31.º n.º 1, same consolidation. */
+    coefArt151: 75,
+    coefOtherServices: 35,
+    coefGoodsHospitality: 15,
+    /* Art. 31.º n.º 13: for alíneas b) and c), documented expenses are compared
+       with 15% of those gross service amounts. */
+    expenseFloorPct: 15,
+    /* CIRS art. 25.º n.º 1 a): 8,54 × IAS. Lei n.º 45-A/2024. */
+    deducaoEspecificaFactorBps: 854,
     declarationMonths: [1, 4, 7, 10],
     /* FAQ Q34. Payment from the 10th to the 20th of the following month. */
     paymentDayFrom: 10,
@@ -334,6 +349,45 @@
     return ey + "-" + pad(em) + "-01";
   }
 
+  function addMonthsIso(iso, n) {
+    var y = Number(iso.slice(0, 4));
+    var m = Number(iso.slice(5, 7)) + n;
+    var d = Number(iso.slice(8, 10));
+    while (m > 12) { m -= 12; y += 1; }
+    while (m < 1) { m += 12; y -= 1; }
+    var last = new Date(Date.UTC(y, m, 0)).getUTCDate();
+    if (d > last) d = last;
+    return y + "-" + pad(m) + "-" + pad(d);
+  }
+
+  /* Show the "first year is ending" note only while the effect date is recent:
+     not more than 12 months ago, and not more than 15 months ahead. */
+  function firstYearNotice(startIso, today) {
+    var effect = regimeStartDate(startIso);
+    if (!effect || !today) return { show: false, effect: effect || "" };
+    var from = addMonthsIso(today, -12);
+    var until = addMonthsIso(today, 15);
+    return { show: effect >= from && effect <= until, effect: effect };
+  }
+
+  function deducaoEspecificaCents() {
+    return Math.round(RULES.iasCents * RULES.deducaoEspecificaFactorBps / 100);
+  }
+
+  /* Art. 31 n.º 13 for alíneas b) and c): add-back is max(0, 15% of gross − automatic deduction). */
+  function expenseAddBack(grossCents, kind) {
+    var applies = kind === "art151" || kind === "other" || kind === "al";
+    var auto = deducaoEspecificaCents();
+    if (!applies) return { applies: false, addCents: 0, autoCents: auto, ceilingCents: 0 };
+    var fifteen = Math.round(Math.max(0, grossCents) * RULES.expenseFloorPct / 100);
+    return {
+      applies: true,
+      addCents: Math.max(0, fifteen - auto),
+      autoCents: auto,
+      ceilingCents: Math.round(auto * 100 / RULES.expenseFloorPct)
+    };
+  }
+
   function dateInForce(iso, startIso) {
     if (!startIso) return true;
     var effect = regimeStartDate(startIso);
@@ -351,6 +405,65 @@
     var start = year + "-" + pad(startM) + "-01";
     var end = isoUTC(new Date(Date.UTC(year, startM + 2, 0)));
     return iso >= start && iso <= end;
+  }
+
+  /* All-day Google Calendar template. End date is exclusive.
+     details must not include names, NIFs or amounts. */
+  function googleCalendarUrl(opts) {
+    var start = String(opts.start || "").replace(/-/g, "");
+    var end = addDays(opts.start, 1).replace(/-/g, "");
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="
+      + encodeURIComponent(opts.text || "")
+      + "&dates=" + start + "/" + end
+      + "&details=" + encodeURIComponent(opts.details || "");
+  }
+
+  /* Which "you crossed a limit" notes apply. Amounts are cents, no VAT.
+     yearIvaCents > 0 means these documents already charged VAT. */
+  function limitFlags(input) {
+    input = input || {};
+    var base = Math.max(0, Math.round(Number(input.yearBaseCents) || 0));
+    var iva = Math.max(0, Math.round(Number(input.yearIvaCents) || 0));
+    var gross = Math.max(0, Math.round(Number(input.grossCents) || 0));
+    var exempt = iva === 0;
+    return {
+      ivaOverYear: exempt && base > RULES.ivaLimitCents && base <= RULES.ivaOverrunCents,
+      ivaOverNow: exempt && base > RULES.ivaOverrunCents,
+      ssCap: !!input.capped,
+      ssRemainder: !!input.remainder,
+      ssFirstYearEnded: !!input.leftFirstYear,
+      irsDispensa: gross >= RULES.ivaLimitCents,
+      simplificadoWatch: gross > RULES.simplificadoLimitCents && gross <= RULES.simplificadoForceCents,
+      simplificadoForce: gross > RULES.simplificadoForceCents
+    };
+  }
+
+  /* Art. 31.º n.º 1. reduction "y1" is −50% and "y2" is −25%, only for
+     alíneas b), c) and the AL case that uses c). n.º 11 can block it. */
+  function anexoTaxable(grossCents, kind, reduction) {
+    var table = {
+      art151: { bps: 7500, expense: true, starter: true },
+      other: { bps: 3500, expense: true, starter: true },
+      goods: { bps: 1500, expense: false, starter: false },
+      al: { bps: 3500, expense: true, starter: true },
+      alContencao: { bps: 5000, expense: false, starter: false },
+      royalties: { bps: 9500, expense: false, starter: false }
+    };
+    var spec = table[kind] || table.goods;
+    var bps = spec.bps;
+    var applied = "none";
+    if (spec.starter && reduction === "y1") { bps = Math.round(bps * 50 / 100); applied = "y1"; }
+    else if (spec.starter && reduction === "y2") { bps = Math.round(bps * 75 / 100); applied = "y2"; }
+    var gross = Math.max(0, Math.round(Number(grossCents) || 0));
+    return {
+      kind: spec === table[kind] ? kind : "goods",
+      coefBps: bps,
+      coef: bps / 100,
+      grossCents: gross,
+      taxableCents: Math.round(gross * bps / 10000),
+      expenseRule: spec.expense,
+      reduction: applied
+    };
   }
 
   function checkNif(raw) {
@@ -382,6 +495,12 @@
     todayIso: todayIso,
     quarterContains: quarterContains,
     checkNif: checkNif,
-    clampAdjustment: clampAdjustment
+    clampAdjustment: clampAdjustment,
+    googleCalendarUrl: googleCalendarUrl,
+    limitFlags: limitFlags,
+    anexoTaxable: anexoTaxable,
+    firstYearNotice: firstYearNotice,
+    expenseAddBack: expenseAddBack,
+    deducaoEspecificaCents: deducaoEspecificaCents
   };
 });

@@ -413,10 +413,6 @@
     return "other";
   }
 
-  function normRef(s) {
-    return String(s || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
-  }
-
   function quarterOf(iso) {
     if (!iso || iso.length < 7) return null;
     var month = Number(iso.slice(5, 7));
@@ -508,42 +504,19 @@
     return true;
   }
 
-  function dupKey(row) {
-    var s = String(row.numero || "").trim().toUpperCase();
-    var series = "";
-    var number = "";
-    var m = s.match(/^([A-Z]+)\s*[-/]\s*(?:(20\d{2})\s*[-/]\s*)?(\d+)$/);
-    if (m) { series = m[1]; number = String(Number(m[3])); }
-    else {
-      m = s.match(/^([A-Z]+)\s+(\d+)$/);
-      if (m) { series = m[1]; number = String(Number(m[2])); }
-      else number = s.replace(/[^A-Z0-9]/g, "");
-    }
-    if (!number) return "";
-    var year = row.date ? row.date.slice(0, 4) : "";
-    var amount = row.baseC == null ? "" : String(row.baseC);
-    return [series, number, year, row.nif || "", amount].join("|");
-  }
-
-  /* A fatura and a later recibo for the same income count once.
-     FAQ Q18: declare as you declare for IRS. For these receipts that moment
-     is payment, so the recibo (or fatura-recibo) is kept and the fatura whose
-     number is in Referência is left out. */
-  function pairDocuments(rows) {
-    var faturas = [];
-    rows.forEach(function (row) {
-      if (row.kind === "fatura" && !row.cancelled) faturas.push(row);
-    });
-    rows.forEach(function (row) {
-      if (row.kind !== "recibo") return;
-      var ref = normRef(row.referencia);
-      if (!ref) return;
-      faturas.forEach(function (fat) {
-        if (fat.pairedAway) return;
-        if (fat.nif && row.nif && fat.nif !== row.nif) return;
-        if (normRef(fat.numero) === ref) fat.pairedAway = true;
+  function dedupeRows(all, problems) {
+    problems = problems || [];
+    var result = window.NM_RV_MERGE.dedupeRows(all);
+    all.forEach(function (row) {
+      rowProblems(row).forEach(function (p) {
+        problems.push({ code: p.code, detail: p.detail, file: row.file, doc: row.numero || row.referencia || "", nif: row.nif, name: row.nome });
       });
     });
+    result.problems.forEach(function (p) {
+      problems.push({ code: "dup", detail: "dup", file: p.file, doc: p.doc, nif: p.nif, name: p.name });
+    });
+    result.problems = problems;
+    return result;
   }
 
   function mergeFiles(files) {
@@ -557,29 +530,9 @@
       if (!file.matrix) return;
       buildReceipts(file.matrix, file.map, file.headerIndex, file.name).rows.forEach(function (row) { all.push(row); });
     });
-    pairDocuments(all);
-    var kept = Object.create(null);
-    var order = [];
-    all.forEach(function (row) {
-      rowProblems(row).forEach(function (p) {
-        problems.push({ code: p.code, detail: p.detail, file: row.file, doc: row.numero, nif: row.nif, name: row.nome });
-      });
-      if (row.cancelled || row.amountBad || row.pairedAway || row.isolado || !row.date) return;
-      var key = dupKey(row);
-      if (!key) key = "row|" + order.length + "|" + row.file;
-      if (!kept[key]) {
-        kept[key] = row;
-        order.push(key);
-        return;
-      }
-      problems.push({ code: "dup", detail: "dup", file: row.file, doc: row.numero, nif: row.nif, name: row.nome });
-    });
-    var receipts = order.map(function (k) { return kept[k]; });
-    receipts.sort(function (a, b) {
-      if (a.date !== b.date) return a.date < b.date ? -1 : 1;
-      return String(a.numero).localeCompare(String(b.numero));
-    });
-    return { receipts: receipts, problems: problems, isolados: all.filter(function (row) { return row.isolado && !row.cancelled; }) };
+    var result = dedupeRows(all, problems);
+    result.all = all;
+    return result;
   }
 
   function money(cents) {
@@ -863,45 +816,85 @@
     return out + chunk;
   }
 
-  function buildIcs(model) {
-    var years = {};
-    model.quarters.forEach(function (q) { years[q.year] = true; });
-    if (!Object.keys(years).length) years[RULES.year] = true;
-    var events = [];
-    Object.keys(years).forEach(function (ys) {
-      var year = Number(ys);
-      [1, 2, 3, 4].forEach(function (q) {
-        var deadlineYear = q === 4 ? year + 1 : year;
-        var when = RV.quarterDeadline(year, q);
-        if (when < RV.todayIso()) return;
-        var stamp = when.replace(/-/g, "");
-        var endDate = new Date(Date.UTC(Number(stamp.slice(0, 4)), Number(stamp.slice(4, 6)) - 1, Number(stamp.slice(6, 8)) + 1));
-        var end = endDate.getUTCFullYear() + pad(endDate.getUTCMonth() + 1) + pad(endDate.getUTCDate());
-        var summary = lang === "pt"
-          ? "Declaração trimestral Segurança Social — " + quarterLabel(year, q)
-          : "Portugal quarterly Social Security declaration — " + quarterLabel(year, q);
-        var desc = t.declare.replace("{date}", showDate(when));
-        events.push([
-          "BEGIN:VEVENT",
-          "UID:netmend-rv-" + year + "-t" + q + "@netmend.app",
-          "DTSTAMP:" + stamp + "T120000Z",
-          "DTSTART;VALUE=DATE:" + stamp,
-          "DTEND;VALUE=DATE:" + end,
-          fold("SUMMARY:" + icsEscape(summary)),
-          fold("DESCRIPTION:" + icsEscape(desc)),
-          "BEGIN:VALARM",
-          "TRIGGER:-P7D",
-          "ACTION:DISPLAY",
-          "DESCRIPTION:" + icsEscape(summary),
-          "END:VALARM",
-          "BEGIN:VALARM",
-          "TRIGGER:-P1D",
-          "ACTION:DISPLAY",
-          "DESCRIPTION:" + icsEscape(summary),
-          "END:VALARM",
-          "END:VEVENT"
-        ].join("\r\n"));
+  function icsEvent(uid, startIso, endIso, summary, desc) {
+    var start = startIso.replace(/-/g, "");
+    var end = endIso.replace(/-/g, "");
+    var now = new Date();
+    var stamp = now.getUTCFullYear() + pad(now.getUTCMonth() + 1) + pad(now.getUTCDate()) + "T" + pad(now.getUTCHours()) + pad(now.getUTCMinutes()) + pad(now.getUTCSeconds()) + "Z";
+    return [
+      "BEGIN:VEVENT",
+      "UID:" + uid,
+      "DTSTAMP:" + stamp,
+      "DTSTART;VALUE=DATE:" + start,
+      "DTEND;VALUE=DATE:" + end,
+      fold("SUMMARY:" + icsEscape(summary)),
+      fold("DESCRIPTION:" + icsEscape(desc)),
+      "BEGIN:VALARM",
+      "TRIGGER:-P7D",
+      "ACTION:DISPLAY",
+      fold("DESCRIPTION:" + icsEscape(summary)),
+      "END:VALARM",
+      "BEGIN:VALARM",
+      "TRIGGER:-P1D",
+      "ACTION:DISPLAY",
+      fold("DESCRIPTION:" + icsEscape(summary)),
+      "END:VALARM",
+      "END:VEVENT"
+    ].join("\r\n");
+  }
+
+  function nextDeclarations(today) {
+    var out = [];
+    var year = Number(today.slice(0, 4));
+    var guard = 0;
+    while (out.length < 4 && guard < 6) {
+      [1, 4, 7, 10].forEach(function (month) {
+        if (out.length >= 4) return;
+        var when = RV.declarationDeadline(year, month);
+        if (when >= today) out.push(when);
       });
+      year += 1;
+      guard += 1;
+    }
+    return out;
+  }
+
+  function nextPayments(today) {
+    var out = [];
+    var y = Number(today.slice(0, 4));
+    var m = Number(today.slice(5, 7));
+    var i;
+    for (i = 0; i < 14 && out.length < 12; i++) {
+      var mm = m + i;
+      var yy = y;
+      while (mm > 12) { mm -= 12; yy += 1; }
+      var start = yy + "-" + pad(mm) + "-10";
+      var end = yy + "-" + pad(mm) + "-21";
+      if (end > today) out.push({ start: start, end: end });
+    }
+    return out;
+  }
+
+  function buildIcs() {
+    var today = RV.todayIso();
+    var events = [];
+    nextDeclarations(today).forEach(function (when) {
+      var summary = lang === "pt" ? "Declaração trimestral Segurança Social" : "Portugal quarterly Social Security declaration";
+      var desc = t.declare.replace("{date}", showDate(when));
+      var end = RV.googleCalendarUrl ? when : when;
+      var endIso = (function () {
+        var p = when.split("-").map(Number);
+        var d = new Date(Date.UTC(p[0], p[1] - 1, p[2] + 1));
+        return d.getUTCFullYear() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate());
+      })();
+      events.push(icsEvent("netmend-rv-decl-" + when.replace(/-/g, "") + "@netmend.app", when, endIso, summary, desc));
+    });
+    nextPayments(today).forEach(function (win) {
+      var summary = lang === "pt" ? "Pagamento da contribuição da Segurança Social (dia 10 a 20)" : "Pay the Social Security contribution (10th to 20th)";
+      var desc = lang === "pt"
+        ? "A contribuição do mês anterior paga-se entre o dia 10 e o dia 20. FAQ do ISS, pergunta 34."
+        : "The previous month's contribution is paid between the 10th and the 20th.";
+      events.push(icsEvent("netmend-rv-pay-" + win.start.replace(/-/g, "") + "@netmend.app", win.start, win.end, summary, desc));
     });
     return [
       "BEGIN:VCALENDAR",
@@ -1035,9 +1028,11 @@
       if (q.year > RULES.year) bits.push(t.iasWarning);
       extra.textContent = bits.join(" ");
       if (bits.length) card.appendChild(extra);
+      var dueWhen = RV.quarterDeadline(q.year, q.q);
       var due = document.createElement("p");
-      due.textContent = t.declare.replace("{date}", showDate(RV.quarterDeadline(q.year, q.q)));
+      due.textContent = t.declare.replace("{date}", showDate(dueWhen));
       card.appendChild(due);
+      if (dueWhen >= RV.todayIso()) card.appendChild(calendarLink(dueWhen, quarterLabel(q.year, q.q)));
       if (q.iva || q.ret) {
         var tax = document.createElement("p");
         tax.textContent = t.iva + ": " + money(q.iva) + " · " + t.ret + ": " + money(q.ret);
@@ -1134,7 +1129,394 @@
     status.textContent = model.source === "manual"
       ? t.statusManual.replace("{year}", String(model.years[0] ? model.years[0].year : RULES.year))
       : t.statusFile.replace("{n}", String(totalRows)).replace("{p}", String(model.problems.length));
+    renderDeadlines(model);
+    renderLimits(model);
+    maybeSave(model);
     if (reveal && results.scrollIntoView) results.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function calendarDetails() {
+    var page = lang === "pt"
+      ? "https://netmend.app/pt/recibos-verdes/declaracao-trimestral/"
+      : "https://netmend.app/freelancer-portugal-quarterly/";
+    return (lang === "pt"
+      ? "Entregar a declaração trimestral da Segurança Social no portal, com os rendimentos do trimestre sem IVA. "
+      : "File the quarterly Social Security declaration with the quarter's income, without VAT. ")
+      + page
+      + (lang === "pt"
+        ? " Este link não cria lembretes. O ficheiro .ics da página traz avisos 7 dias e 1 dia antes."
+        : " This link does not set reminders. The page's .ics file has alarms 7 days and 1 day before.");
+  }
+
+  function calendarLink(when, label) {
+    var p = document.createElement("p");
+    var a = document.createElement("a");
+    a.className = "cal-link";
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.href = RV.googleCalendarUrl({
+      start: when,
+      text: (lang === "pt" ? "Declaração trimestral Segurança Social — " : "Portugal quarterly Social Security — ") + label,
+      details: calendarDetails()
+    });
+    a.textContent = lang === "pt" ? "Adicionar ao Google Calendar" : "Add to Google Calendar";
+    a.setAttribute("aria-label", a.textContent + ": " + label + ", " + showDate(when) + (lang === "pt" ? ". Abre noutro separador." : ". Opens in a new tab."));
+    p.appendChild(a);
+    return p;
+  }
+
+  function renderDeadlines(model) {
+    var host = $("deadlines");
+    if (!host) return;
+    clear(host);
+    var today = RV.todayIso();
+    var years = {};
+    (model.quarters || []).forEach(function (q) { years[q.year] = true; });
+    var items = [];
+    Object.keys(years).forEach(function (ys) {
+      var year = Number(ys);
+      [1, 2, 3, 4].forEach(function (q) {
+        var when = RV.quarterDeadline(year, q);
+        if (when >= today) items.push({ year: year, q: q, when: when });
+      });
+    });
+    if (!items.length) { host.hidden = true; return; }
+    host.hidden = false;
+    var h = document.createElement("h2");
+    h.textContent = lang === "pt" ? "Prazos seguintes" : "Upcoming deadlines";
+    host.appendChild(h);
+    items.forEach(function (item) {
+      var p = document.createElement("p");
+      p.appendChild(document.createTextNode(quarterLabel(item.year, item.q) + " — " + showDate(item.when) + ". "));
+      p.appendChild(calendarLink(item.when, quarterLabel(item.year, item.q)).firstChild);
+      host.appendChild(p);
+    });
+    var row = document.createElement("p");
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn ghost";
+    btn.id = "add-all-cal";
+    btn.textContent = lang === "pt" ? "Adicionar todos" : "Add all";
+    btn.addEventListener("click", function () { if ($("download-ics")) $("download-ics").click(); });
+    row.appendChild(btn);
+    var note = document.createElement("span");
+    note.textContent = lang === "pt"
+      ? " No Android, use os links do Google um a um. O .ics importa-se no Google Calendar no computador (Definições › Importar), no iPhone e no Outlook. Inclui as próximas declarações e os pagamentos do dia 10 ao dia 20. Os links do Google não criam lembretes; o .ics traz avisos 7 dias e 1 dia antes."
+      : " On Android, use the Google links one by one. The .ics file imports in Google Calendar on a computer (Settings › Import), on iPhone and in Outlook. It includes the next declarations and the 10th–20th payment windows. Google links cannot set alarms; the .ics has reminders 7 days and 1 day before.";
+    row.appendChild(note);
+    host.appendChild(row);
+  }
+
+  function limitSection(title, steps) {
+    var box = document.createElement("article");
+    box.className = "q-card";
+    var h = document.createElement("h3");
+    h.textContent = title;
+    box.appendChild(h);
+    var ol = document.createElement("ol");
+    steps.forEach(function (step) {
+      var li = document.createElement("li");
+      li.appendChild(document.createTextNode(step.text));
+      if (step.href) {
+        li.appendChild(document.createTextNode(" "));
+        var a = document.createElement("a");
+        a.href = step.href;
+        a.rel = "noopener noreferrer";
+        a.target = "_blank";
+        a.textContent = step.link;
+        li.appendChild(a);
+      }
+      ol.appendChild(li);
+    });
+    box.appendChild(ol);
+    return box;
+  }
+
+  function renderLimits(model) {
+    var host = $("limits-panel");
+    if (!host) return;
+    clear(host);
+    var opts = model.options || {};
+    var capped = false;
+    var remainder = false;
+    var leftFirst = false;
+    (model.quarters || []).forEach(function (q) {
+      var est = RV.estimateQuarter({
+        amountCents: q.amount, activity: opts.activity, adjustmentPct: opts.adjustmentPct,
+        accumulate: opts.accumulate, regime: opts.regime, beforeRegime: q.phase === "first-year"
+      });
+      if (est.capped) capped = true;
+      if (opts.accumulate && est.headline === "pay") remainder = true;
+      if (opts.startDate && RV.firstYearNotice(opts.startDate, RV.todayIso()).show && (q.amount > 0 || q.exemptAmount > 0)) leftFirst = true;
+    });
+    var pt = lang === "pt";
+    var blocks = [];
+    (model.years || []).forEach(function (y) {
+      var flags = RV.limitFlags({
+        yearBaseCents: y.base, yearIvaCents: y.iva, grossCents: y.base,
+        capped: false, remainder: false, leftFirstYear: false
+      });
+      if (flags.ivaOverYear) {
+        blocks.push(limitSection(pt ? "IVA: passou 15 000 € e não passou 18 750 € (" + y.year + ")" : "VAT: over €15,000 and not over €18,750 (" + y.year + ")", pt ? [
+          { text: "A isenção do artigo 53.º mantém-se até 31 de dezembro deste ano. O imposto passa a ser devido a 1 de janeiro do ano seguinte.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/diplomas_legislativos/Documents/Decreto_Lei_35_2025.pdf", link: "Decreto-Lei n.º 35/2025, art. 58.º n.º 4 a)" },
+          { text: "Entregue a declaração de alterações nos 15 dias úteis a contar do último dia do ano.", href: "https://www.portaldasfinancas.gov.pt/", link: "Portal das Finanças" },
+          { text: "A partir de 1 de janeiro do ano seguinte, liquide IVA. Abaixo de 650 000 € a declaração periódica é trimestral, até ao dia 20 do 2.º mês seguinte (o 2.º trimestre e junho: 20 de setembro), salvo as exceções do n.º 6 do artigo 41.º. O fim de semana e o feriado mudam o dia. As datas são as do calendário fiscal desse ano, não as de 2026 se o IVA só começa em 2027.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/instrucoes_administrativas/Documents/Oficio_circulado_25069_2025.pdf", link: "Ofício circulado n.º 25069/2025" }
+        ] : [
+          { text: "The article 53 exemption lasts until 31 December. Tax is due from 1 January of the next year.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/diplomas_legislativos/Documents/Decreto_Lei_35_2025.pdf", link: "Decree-Law 35/2025, art. 58" },
+          { text: "File the change declaration within 15 business days of the last day of the year.", href: "https://www.portaldasfinancas.gov.pt/", link: "Portal das Finanças" },
+          { text: "From 1 January, charge VAT. At this turnover the periodic return is quarterly, due on the 20th of the second month after the quarter (Q2 and the month of June are due on 20 September). A weekend or holiday moves the day. The 2026 calendar lists the moved dates.", href: "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/calendario_fiscal/Pages/Quadro_res_Decl_2026.aspx", link: "Calendário fiscal 2026" }
+        ]));
+      }
+      if (flags.ivaOverNow) {
+        blocks.push(limitSection(pt ? "IVA: passou 18 750 € (" + y.year + ")" : "VAT: over €18,750 (" + y.year + ")", pt ? [
+          { text: "A isenção cessa no momento em que o volume passa 18 750 €. Liquide IVA na fatura que ultrapassa esse valor.", href: "https://info.portaldasfinancas.gov.pt/pt/at/Divulgacao/publicacoes_internas/Newsletter_AT/Documents/Newsletter-39-janeiro-2026.pdf", link: "Newsletter da AT, janeiro de 2026" },
+          { text: "Entregue a declaração de alterações nos 15 dias úteis a contar desse momento.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/diplomas_legislativos/Documents/Decreto_Lei_35_2025.pdf", link: "Decreto-Lei n.º 35/2025, art. 58.º n.º 5 b)" },
+          { text: "Passe ao regime normal. Abaixo de 650 000 € a declaração periódica é trimestral, até ao dia 20 do 2.º mês seguinte (20 de setembro no 2.º trimestre e em junho), salvo as exceções do n.º 6 do artigo 41.º (Lei n.º 65/2026). Confirme o dia no calendário fiscal desse ano.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/instrucoes_administrativas/Documents/Oficio_circulado_25069_2025.pdf", link: "Ofício circulado n.º 25069/2025" }
+        ] : [
+          { text: "The exemption ends when turnover goes over €18,750. Charge VAT on the invoice that crosses it.", href: "https://info.portaldasfinancas.gov.pt/pt/at/Divulgacao/publicacoes_internas/Newsletter_AT/Documents/Newsletter-39-janeiro-2026.pdf", link: "AT newsletter, January 2026" },
+          { text: "File the change declaration within 15 business days of that moment.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/diplomas_legislativos/Documents/Decreto_Lei_35_2025.pdf", link: "Decree-Law 35/2025, art. 58" },
+          { text: "Below €650,000 of prior-year turnover, the periodic return is quarterly, due on the 20th of the second month (20 September is the exception). Check the calendar: weekends and holidays move the day.", href: "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/calendario_fiscal/Pages/Quadro_res_Decl_2026.aspx", link: "2026 tax calendar" }
+        ]));
+      }
+      var irs = RV.limitFlags({ grossCents: y.base, yearBaseCents: 0, yearIvaCents: 0 });
+      var yearRows = (model.receipts || []).filter(function (row) {
+        return row.date && String(row.date).slice(0, 4) === String(y.year) && !row.cancelled && !row.isolado;
+      });
+      var alreadyWithheld = yearRows.length > 0 && yearRows.every(function (row) { return row.retC > 0; });
+      if (irs.irsDispensa && !alreadyWithheld) {
+        blocks.push(limitSection(pt ? "Retenção de IRS: o limite da dispensa (" + y.year + ")" : "IRS withholding waiver (" + y.year + ")", pt ? [
+          { text: "Se usava a dispensa da alínea a) do n.º 1 do artigo 101.º-B (previsão anual abaixo do limite do artigo 53.º do IVA, 15 000 €), essa dispensa cessa no mês seguinte àquele em que o limite é atingido. Não pode usá-la se no ano anterior já tinha um montante igual ou superior.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs101b.aspx", link: "CIRS, artigo 101.º-B n.º 3" },
+          { text: "A partir daí, os clientes com contabilidade organizada têm de reter. A menção «Sem retenção, nos termos do n.º 1 do artigo 101.º-B» deixa de servir para os novos recibos.", href: "https://www.portaldasfinancas.gov.pt/", link: "Portal das Finanças" },
+          { text: "A dispensa de cada retenção abaixo de 25 € (alínea d) é outra regra e não depende deste total anual.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/diplomas_legislativos/Documents/Decreto_Lei_49_2025.pdf", link: "Decreto-Lei n.º 49/2025" }
+        ] : [
+          { text: "If you were using the article 101-B (1) (a) waiver (expected annual income under the VAT article 53 limit, €15,000), it ends the month after the limit is reached. It cannot be used if last year was already at or above the limit.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs101b.aspx", link: "CIRS article 101-B (3)" },
+          { text: "From then, clients with organised accounts must withhold. The “sem retenção” line no longer applies to new receipts.", href: "https://www.portaldasfinancas.gov.pt/", link: "Portal das Finanças" },
+          { text: "The separate waiver for each withholding under €25 (paragraph d) does not depend on this annual total.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/legislacao/diplomas_legislativos/Documents/Decreto_Lei_49_2025.pdf", link: "Decree-Law 49/2025" }
+        ]));
+      }
+      if (irs.simplificadoForce) {
+        blocks.push(limitSection(pt ? "Regime simplificado: passou 250 000 € (" + y.year + ")" : "Simplified regime: over €250,000 (" + y.year + ")", pt ? [
+          { text: "O regime simplificado abrange quem, no ano anterior, não passou 200 000 € de rendimentos ilíquidos da categoria B.", href: "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/Pages/faqs-00352.aspx", link: "FAQ da AT, questão 5880" },
+          { text: "Ultrapassar esse montante em mais de 25% num único ano (acima de 250 000 €) faz cessar o regime simplificado a partir do ano seguinte. A contabilidade organizada passa a ser obrigatória.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/Cod_download/Documents/CIRS_07_2025.pdf", link: "CIRS, artigo 28.º n.º 6" },
+          { text: "A declaração de alterações que formaliza a contabilidade organizada entrega-se até ao fim de março, quando a opção é sua. Neste caso a mudança é obrigatória no ano seguinte.", href: "https://www.portaldasfinancas.gov.pt/", link: "Portal das Finanças" }
+        ] : [
+          { text: "The simplified regime covers someone whose previous-year category B gross income was not above €200,000.", href: "https://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/questoes_frequentes/Pages/faqs-00352.aspx", link: "AT FAQ 5880" },
+          { text: "Exceeding that amount by more than 25% in a single year (above €250,000) ends the simplified regime from the next year. Organised accounting becomes mandatory.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/Cod_download/Documents/CIRS_07_2025.pdf", link: "CIRS article 28 (6)" },
+          { text: "File the change on the tax portal. The mandatory change applies from the following year.", href: "https://www.portaldasfinancas.gov.pt/", link: "Portal das Finanças" }
+        ]));
+      } else if (irs.simplificadoWatch) {
+        blocks.push(limitSection(pt ? "Regime simplificado: entre 200 000 € e 250 000 € (" + y.year + ")" : "Simplified regime: between €200,000 and €250,000 (" + y.year + ")", pt ? [
+          { text: "Um único ano acima de 200 000 € e até 250 000 € não faz, por si, cessar o regime simplificado. A cessação exige dois anos consecutivos acima de 200 000 €, ou um ano acima de 250 000 €.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/Cod_download/Documents/CIRS_07_2025.pdf", link: "CIRS, artigo 28.º n.ºs 2 e 6" },
+          { text: "Confira o ano anterior no Portal das Finanças antes de mudar para contabilidade organizada.", href: "https://www.portaldasfinancas.gov.pt/", link: "Portal das Finanças" }
+        ] : [
+          { text: "One year above €200,000 and up to €250,000 does not by itself end the simplified regime. That takes two consecutive years over €200,000, or one year over €250,000.", href: "https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/Cod_download/Documents/CIRS_07_2025.pdf", link: "CIRS article 28 (2) and (6)" },
+          { text: "Check last year on the tax portal before switching to organised accounting.", href: "https://www.portaldasfinancas.gov.pt/", link: "Portal das Finanças" }
+        ]));
+      }
+    });
+    if (capped) {
+      blocks.push(limitSection(pt ? "Segurança Social: teto de 12 × IAS" : "Social Security: 12 × IAS cap", pt ? [
+        { text: "Declare na mesma o valor total do trimestre, sem IVA. A base mensal não passa de 12 × IAS (6 445,56 € em 2026).", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "FAQ do ISS, exemplo 5 da pergunta 32" },
+        { text: "À taxa de 21,4% esse teto dá 1 379,35 € por mês. Se escolheu ENI ou EIRL, a taxa é 25,2% sobre o mesmo teto.", href: "https://www.seg-social.pt/ptss/pssd/menu/trabalho/remuneracoes-contribuicoes/trabalhadores-independentes", link: "Segurança Social Direta" }
+      ] : [
+        { text: "Still declare the full quarter, without VAT. The monthly base stops at 12 × IAS (€6,445.56 in 2026).", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "ISS FAQ, question 32 example 5" },
+        { text: "At 21.4% the cap is €1,379.35 a month. The ENI/EIRL rate is 25.2% on the same cap.", href: "https://www.seg-social.pt/ptss/pssd/menu/trabalho/remuneracoes-contribuicoes/trabalhadores-independentes", link: "Segurança Social Direta" }
+      ]));
+    }
+    if (remainder) {
+      blocks.push(limitSection(pt ? "Segurança Social: acumulação acima de 4 × IAS" : "Social Security: employment and income above 4 × IAS", pt ? [
+        { text: "Declare o valor total. A base é só o que excede 4 × IAS (2 148,52 € em 2026) no rendimento relevante mensal.", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "FAQ do ISS, exemplo 4 da pergunta 32" },
+        { text: "A opção de ±25% não se aplica a quem contribui por este remanescente.", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "FAQ, pergunta 28" }
+      ] : [
+        { text: "Declare the full amount. The base is only the part of monthly relevant income above 4 × IAS (€2,148.52 in 2026).", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "ISS FAQ, question 32 example 4" },
+        { text: "The ±25% option does not apply when you pay on that remainder.", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "FAQ question 28" }
+      ]));
+    }
+    if (leftFirst) {
+      var notice = RV.firstYearNotice(opts.startDate, RV.todayIso());
+      blocks.push(limitSection(pt ? "Segurança Social: fim da isenção do 1.º ano" : "Social Security: the first-year exemption has started to end", pt ? [
+        { text: "O enquadramento produz efeitos no 1.º dia do 12.º mês posterior ao início, a partir de " + showDate(notice.effect) + ". Dessa data em diante a contribuição é devida.", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "FAQ do ISS, pergunta 1" },
+        { text: "Entregue a declaração trimestral no momento declarativo seguinte (janeiro, abril, julho ou outubro). Quem termina a isenção em setembro entrega já em outubro.", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "FAQ, perguntas 17 e 49" }
+      ] : [
+        { text: "Enrolment starts on the 1st day of the 12th month after the start month. Contributions are due from that date.", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "ISS FAQ, question 1" },
+        { text: "File the quarterly declaration at the next January, April, July or October. An exemption that ends in September is filed in October.", href: "https://www.seg-social.pt/ptss/pssd/documento/cmdddzytm006agq2y1ci6tibc", link: "FAQ questions 17 and 49" }
+      ]));
+    }
+    if (!blocks.length) { host.hidden = true; return; }
+    host.hidden = false;
+    var h = document.createElement("h2");
+    h.textContent = pt ? "Ultrapassou um limite? O que fazer" : "Crossed a limit? What to do";
+    host.appendChild(h);
+    var lead = document.createElement("p");
+    lead.className = "note";
+    lead.textContent = pt
+      ? "Estimativa para 2026, não é uma instrução da Autoridade Tributária nem da Segurança Social. Cada passo indica a fonte."
+      : "A 2026 estimate, not an instruction from the tax authority or Social Security. Each step names its source.";
+    host.appendChild(lead);
+    blocks.forEach(function (box) { host.appendChild(box); });
+  }
+
+  var restoredRows = [];
+
+  function plainRow(row) {
+    return {
+      date: row.date || "", numero: row.numero || "", tipo: row.tipo || "", referencia: row.referencia || "",
+      kind: row.kind || "", isolado: !!row.isolado, nome: row.nome || "", nif: row.nif || "",
+      nifValid: !!row.nifValid, nifReason: row.nifReason || "", baseC: row.baseC, ivaC: row.ivaC,
+      retC: row.retC, totalC: row.totalC, status: row.status || "", cancelled: !!row.cancelled,
+      amountBad: !!row.amountBad, mismatch: !!row.mismatch, file: row.file || "", pairedAway: !!row.pairedAway,
+      quarter: row.quarter || null
+    };
+  }
+
+  var saveBypass = false;
+
+  function savedOptions(model) {
+    return {
+      activity: model.options.activity,
+      regime: model.options.regime,
+      adjustmentPct: model.options.adjustmentPct,
+      accumulate: !!model.options.accumulate,
+      startDate: model.options.startDate || ""
+    };
+  }
+
+  function writeSaved(year, rows, model) {
+    return window.NM_RV_STORE.saveYear({
+      year: year,
+      savedAt: new Date().toISOString(),
+      options: savedOptions(model),
+      rows: rows
+    }).then(function (record) {
+      if ($("forget-local")) $("forget-local").hidden = false;
+      return record;
+    });
+  }
+
+  function maybeSave(model) {
+    var box = $("save-local");
+    if (!box || !box.checked || !window.NM_RV_STORE || !model || model.source !== "file") return;
+    if (!model.years || !model.years.length) return;
+    var year = model.years[model.years.length - 1].year;
+    var rows = (model.receipts || []).concat(model.isolados || []).map(plainRow);
+    if (!rows.length) return;
+    if (saveBypass || restoredRows.length) {
+      writeSaved(year, rows, model).catch(function () {});
+      return;
+    }
+    window.NM_RV_STORE.latest().then(function (rec) {
+      if (!rec || rec.year !== year || !rec.rows || !rec.rows.length) {
+        writeSaved(year, rows, model).catch(function () {});
+        return;
+      }
+      var host = $("save-choice");
+      if (!host) return;
+      host.hidden = false;
+      clear(host);
+      var p = document.createElement("p");
+      p.textContent = lang === "pt"
+        ? "Já tem " + year + " guardado com " + rec.rows.length + " documentos. O ficheiro novo não substitui esse ano sem a sua escolha."
+        : year + " is already saved with " + rec.rows.length + " documents. The new file will not replace that year unless you choose.";
+      var join = document.createElement("button");
+      join.type = "button";
+      join.className = "btn";
+      join.textContent = lang === "pt" ? "Juntar este ficheiro" : "Merge this file";
+      var replace = document.createElement("button");
+      replace.type = "button";
+      replace.className = "btn ghost";
+      replace.textContent = lang === "pt" ? "Substituir" : "Replace";
+      join.addEventListener("click", function () {
+        var merged = dedupeRows(rec.rows.concat(rows), []);
+        var combined = (merged.receipts || []).concat(merged.isolados || []).map(plainRow);
+        restoredRows = combined;
+        saveBypass = true;
+        host.hidden = true;
+        render(modelFromReceipts(merged.receipts, merged.problems, optionsFromForm(), merged.isolados));
+      });
+      replace.addEventListener("click", function () {
+        restoredRows = rows;
+        saveBypass = true;
+        host.hidden = true;
+        writeSaved(year, rows, model).catch(function () {});
+      });
+      host.appendChild(p);
+      host.appendChild(join);
+      host.appendChild(document.createTextNode(" "));
+      host.appendChild(replace);
+    }).catch(function () {});
+  }
+
+  function applySavedOptions(opts) {
+    if (!opts) return;
+    var activity = document.querySelector('input[name="activity"][value="' + (opts.activity || "services") + '"]');
+    if (activity) activity.checked = true;
+    var regime = document.querySelector('input[name="regime"][value="' + (opts.regime === "eni" ? "eni" : "ti") + '"]');
+    if (regime) regime.checked = true;
+    if ($("adjust") && opts.adjustmentPct != null) $("adjust").value = String(opts.adjustmentPct);
+    if ($("accumulate")) $("accumulate").checked = !!opts.accumulate;
+    if ($("start-date")) $("start-date").value = opts.startDate || "";
+    if ($("year")) $("year").value = String(opts.year || $("year").value);
+  }
+
+  function renderNewsletter() {
+    var host = $("newsletter");
+    if (!host) return;
+    var url = window.NEWSLETTER_ACTION_URL;
+    if (!url) { host.hidden = true; while (host.firstChild) host.removeChild(host.firstChild); return; }
+    host.hidden = false;
+    clear(host);
+    var title = document.createElement("h2");
+    title.textContent = "Lembretes dos prazos";
+    host.appendChild(title);
+    var form = document.createElement("form");
+    form.method = "post";
+    form.action = url;
+    form.target = "_blank";
+    var label = document.createElement("label");
+    label.setAttribute("for", "news-email");
+    label.textContent = "Email";
+    var input = document.createElement("input");
+    input.id = "news-email";
+    input.name = "email";
+    input.type = "email";
+    input.required = true;
+    input.autocomplete = "email";
+    var check = document.createElement("input");
+    check.id = "news-ok";
+    check.name = "consent";
+    check.type = "checkbox";
+    check.required = true;
+    check.value = "yes";
+    var consent = document.createElement("label");
+    consent.setAttribute("for", "news-ok");
+    consent.textContent = "Quero um email uns dias antes de cada prazo. Recebo primeiro um email para confirmar a inscrição e posso cancelar quando quiser.";
+    var button = document.createElement("button");
+    button.type = "submit";
+    button.className = "btn";
+    button.textContent = "Quero os lembretes";
+    var privacy = document.createElement("p");
+    privacy.className = "note";
+    privacy.textContent = "O endereço fica no Buttondown, o serviço que envia estes lembretes. Sem a confirmação desse email a inscrição não fica ativa.";
+    var status = document.createElement("p");
+    status.id = "news-status";
+    status.className = "note";
+    status.setAttribute("role", "status");
+    status.hidden = true;
+    form.addEventListener("submit", function () {
+      status.hidden = false;
+      status.textContent = "Pedido enviado. O Buttondown abre a página de confirmação: confirme o email que lhe enviarem. Pode cancelar quando quiser.";
+    });
+    var row = document.createElement("div");
+    row.className = "choice";
+    row.appendChild(check);
+    row.appendChild(consent);
+    form.appendChild(label);
+    form.appendChild(input);
+    form.appendChild(row);
+    form.appendChild(button);
+    host.appendChild(form);
+    host.appendChild(privacy);
+    host.appendChild(status);
   }
 
   var loaded = [];
@@ -1232,6 +1614,7 @@
     }
     showError("");
     var merged = mergeFiles(loaded);
+    if (restoredRows.length) merged = dedupeRows(restoredRows.concat(merged.all || []), []);
     render(modelFromReceipts(merged.receipts, merged.problems, optionsFromForm(), merged.isolados));
   }
 
@@ -1305,7 +1688,76 @@
     }
   }
 
+  function askDeleteSaved(force) {
+    if (!window.NM_RV_STORE) return;
+    window.NM_RV_STORE.latest().then(function (rec) {
+      if (!rec && !force) return;
+      var host = $("save-choice");
+      if (!host) return;
+      host.hidden = false;
+      clear(host);
+      var p = document.createElement("p");
+      p.textContent = lang === "pt" ? "Apagar também o que já está guardado neste aparelho?" : "Also delete what is already saved on this device?";
+      var yes = document.createElement("button");
+      yes.type = "button";
+      yes.className = "btn";
+      yes.textContent = lang === "pt" ? "Apagar" : "Delete";
+      var no = document.createElement("button");
+      no.type = "button";
+      no.className = "btn ghost";
+      no.textContent = lang === "pt" ? "Manter" : "Keep";
+      yes.addEventListener("click", function () {
+        restoredRows = [];
+        saveBypass = false;
+        if ($("save-local")) $("save-local").checked = false;
+        if ($("resume-banner")) $("resume-banner").hidden = true;
+        host.hidden = true;
+        window.NM_RV_STORE.deleteDb().then(function () {
+          if ($("status")) $("status").textContent = lang === "pt" ? "Dados apagados deste aparelho." : "Saved data was deleted from this device.";
+          if ($("forget-local")) $("forget-local").hidden = true;
+        }).catch(function () {});
+      });
+      no.addEventListener("click", function () { host.hidden = true; });
+      host.appendChild(p);
+      host.appendChild(yes);
+      host.appendChild(document.createTextNode(" "));
+      host.appendChild(no);
+    }).catch(function () {});
+  }
+
+  function offerResume() {
+    if (!$("resume-banner") || !window.NM_RV_STORE) return;
+    window.NM_RV_STORE.latest().then(function (rec) {
+      if (!rec || !rec.rows || !rec.rows.length) return;
+      var banner = $("resume-banner");
+      banner.hidden = false;
+      if ($("forget-local")) $("forget-local").hidden = false;
+      if ($("resume-label")) {
+        $("resume-label").textContent = lang === "pt"
+          ? "Há um ano guardado neste aparelho."
+          : "A saved year is on this device.";
+      }
+      if ($("resume-year")) {
+        $("resume-year").textContent = (lang === "pt" ? "Continuar o ano " : "Continue ") + rec.year;
+        $("resume-year").onclick = function () {
+          restoredRows = window.NM_RV_MERGE.filterByYear(rec.rows, rec.year);
+          applySavedOptions(rec.options);
+          if ($("year") && rec.year) $("year").value = String(rec.year);
+          if ($("save-local")) $("save-local").checked = true;
+          banner.hidden = true;
+          setMode("file");
+          var merged = dedupeRows(restoredRows.slice(), []);
+          render(modelFromReceipts(merged.receipts, merged.problems, optionsFromForm(), merged.isolados));
+        };
+      }
+    }).catch(function () {});
+  }
+
   function wire() {
+    renderNewsletter();
+    if (document.documentElement.getAttribute("data-tool") === "anexo") return;
+    offerResume();
+    if (!$("mode-file")) return;
     var drop = $("drop");
     var input = $("file");
     input.addEventListener("change", function () {
@@ -1383,7 +1835,22 @@
     });
     $("download").disabled = true;
     $("download-ics").disabled = true;
+    if ($("save-local")) $("save-local").addEventListener("change", function () {
+      if ($("save-local").checked && current) maybeSave(current);
+      else if (!$("save-local").checked) askDeleteSaved();
+    });
+    if ($("forget-local")) $("forget-local").addEventListener("click", function () { askDeleteSaved(true); });
   }
+
+  window.NM_RV_APP = {
+    mergeFiles: mergeFiles,
+    dedupeRows: dedupeRows,
+    matrixFromCsv: matrixFromCsv,
+    matrixFromXlsx: matrixFromXlsx,
+    matrixFromHtml: matrixFromHtml,
+    findTable: findTable,
+    decodeBytes: decodeBytes
+  };
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire);
   else wire();

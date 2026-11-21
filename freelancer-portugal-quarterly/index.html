@@ -161,6 +161,13 @@
 <div class="choice"><input id="accumulate" type="checkbox"><label for="accumulate">I also have a job (employment)</label></div>
 <p class="note">One coefficient for the whole amount. If a quarter mixed services and sales, split the amounts and add the two estimates. Organised accounting is not this calculation.</p>
 
+<div id="resume-banner" class="q-card" hidden>
+<p id="resume-label">A saved year is on this device.</p>
+<button id="resume-year" type="button" class="btn">Continue</button>
+</div>
+<div class="choice"><input id="save-local" type="checkbox"><label for="save-local">Save this year on this device</label></div>
+<p class="note">Off unless you turn it on. Receipts and settings stay in this browser, on this device. Nothing is uploaded. Saving works from a file. <button id="forget-local" type="button" class="btn ghost" hidden>Delete saved data</button></p>
+<div id="save-choice" class="q-card" hidden></div>
 <div class="actions">
 <button id="download" type="button" class="btn" disabled>Download Excel</button>
 <button id="download-ics" type="button" class="btn ghost" disabled>Download deadlines (.ics)</button>
@@ -182,6 +189,8 @@
 <h2>By quarter</h2>
 <p class="lead">The amount to type on the declaration is the total without VAT. Relevant income is what Social Security works out next, at 70% or 20%.</p>
 <div id="quarter-cards" class="q-grid"></div>
+<div id="deadlines" hidden></div>
+<div id="limits-panel" hidden></div>
 
 <h2 id="iva-heading">VAT exemption limit for green receipts</h2>
 <p class="lead">Article 53 uses turnover without VAT. The bar compares the bases on this page with €15,000 and with €18,750.</p>
@@ -265,6 +274,9 @@
 <script src="/assets/pwa.js"></script>
 <script src="../assets/vendor/jszip.min.js"></script>
 <script src="../assets/vendor/xlsx.full.min.js"></script>
+<script src="../recibos-verdes/merge.js"></script>
+<script src="../recibos-verdes/newsletter.js"></script>
+<script src="../recibos-verdes/store.js"></script>
 <script src="../recibos-verdes/rules.js"></script>
 <script src="../recibos-verdes/app.js"></script>
 </body>
