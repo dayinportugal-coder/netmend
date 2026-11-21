@@ -1,97 +1,102 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Official bank CSV vs converting a statement PDF — which should you use? · Netmend</title>
-<meta name="description" content="An honest comparison: when a bank’s official CSV, XLS, QBO or MT940 is the right file, and when converting the official PDF statement is the only way to get a spreadsheet that ties out.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSV oficial do banco face à conversão do extrato em PDF — qual usar? · Netmend</title>
+<meta name="description" content="Uma comparação honesta: quando o CSV, XLS, QBO ou MT940 oficial do banco é o ficheiro certo, e quando converter o PDF oficial do extrato é a única forma de ter uma folha que fecha.">
 <link rel="canonical" href="https://netmend.app/compare/official-csv-vs-pdf/">
-<meta property="og:title" content="Official bank CSV vs converting a statement PDF — which should you use? · Netmend"><meta property="og:description" content="An honest comparison: when a bank’s official CSV, XLS, QBO or MT940 is the right file, and when converting the official PDF statement is the only way to get a spreadsheet that ties out.">
+<meta property="og:url" content="https://netmend.app/compare/official-csv-vs-pdf/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/compare/official-csv-vs-pdf/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/compare/official-csv-vs-pdf/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/compare/official-csv-vs-pdf/">
+<meta property="og:title" content="CSV oficial do banco face à conversão do extrato em PDF — qual usar? · Netmend"><meta property="og:description" content="Uma comparação honesta: quando o CSV, XLS, QBO ou MT940 oficial do banco é o ficheiro certo, e quando converter o PDF oficial do extrato é a única forma de ter uma folha que fecha.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the official CSV “more accurate” than the PDF?", "acceptedAnswer": {"@type": "Answer", "text": "They should come from the same ledger, but they are not the same document. The PDF is the statement, with printed balances. The CSV is a data extract, sometimes for a different date range, and sometimes without pending or end-of-weekend items. Tick whichever file you use against the question you are trying to answer."}}, {"@type": "Question", "name": "Can I throw the PDF away if I have the CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Not if someone may ask for an official statement. Keep the PDF. Use the CSV (or a conversion) as the working file."}}, {"@type": "Question", "name": "Which should I import into Xero or QuickBooks?", "acceptedAnswer": {"@type": "Answer", "text": "The bank’s official QBO, QFX or CSV, or a live feed, when it covers the dates. Convert the PDF only when that file does not exist or does not go back far enough, then reshape it to the official import layout."}}], "url": "https://netmend.app/compare/official-csv-vs-pdf/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "O CSV oficial é “mais rigoroso” do que o PDF?", "acceptedAnswer": {"@type": "Answer", "text": "Devem vir do mesmo razão, mas não são o mesmo documento. O PDF é o extrato, com saldos impressos. O CSV é um extrato de dados, por vezes para outro intervalo de datas, e por vezes sem pendentes ou movimentos de fim de semana. Confira o ficheiro que usar com a pergunta a que está a tentar responder."}}, {"@type": "Question", "name": "Posso deitar fora o PDF se tiver o CSV?", "acceptedAnswer": {"@type": "Answer", "text": "Não, se alguém puder pedir um extrato oficial. Guarde o PDF. Use o CSV (ou uma conversão) como ficheiro de trabalho."}}, {"@type": "Question", "name": "Qual devo importar para o Xero ou o QuickBooks?", "acceptedAnswer": {"@type": "Answer", "text": "O QBO, QFX ou CSV oficial do banco, ou uma ligação em direto, quando cobre as datas. Converta o PDF só quando esse ficheiro não existe ou não recua o suficiente, e depois dê-lhe a forma do esquema oficial de importação."}}], "url": "https://netmend.app/compare/official-csv-vs-pdf/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../../statement-to-csv/app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../../statement-to-csv/">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Feito por nós</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/compare/official-csv-vs-pdf/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/compare/official-csv-vs-pdf/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Compare</a> · Official bank CSV vs converting the PDF</p>
-<h1>Official bank CSV vs converting the <span>PDF</span></h1>
-<p>If the bank will give you a spreadsheet, take it. Converting the official PDF is the fallback, and sometimes the better record. This page is a comparison, not a sales pitch for either route.</p>
-<div class="pills"><span>Free tool in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/compare/">Comparar</a> · CSV oficial do banco face à conversão do PDF</p>
+<h1>CSV oficial do banco face à conversão do <span>PDF</span></h1>
+<p>Se o banco der uma folha, aceite-a. Converter o PDF oficial é o recurso, e por vezes o melhor registo. Esta página é uma comparação, não um argumento de venda de qualquer dos caminhos.</p>
+<div class="pills"><span>Ferramenta grátis no browser</span><span>Sem conta</span><span>Feito por nós, se quiser</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a statement PDF now</h2>
+<h2>Converter um extrato em PDF agora</h2>
 
-<p class="lead">Defaults are a starting point. Change the number format to match the PDF. The file never leaves your computer.</p>
+<p class="lead">Os valores por defeito são um ponto de partida. Mude o formato dos números para coincidir com o PDF. O ficheiro não sai do computador.</p>
 <div class="tool">
-<label for="file">PDF (stays on your computer)</label>
+<label for="file">PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No file at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/demo-statement.pdf">Try a demo PDF</button> (fictional data)</p>
+<p class="note">Não tem um ficheiro à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/demo-statement.pdf">Experimentar um PDF de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions / likely rows</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto" selected>Detect automatically</option><option value="eu">European 1.234,56</option><option value="us">UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Movimentos / linhas prováveis</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto" selected>Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us">Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against the original PDF before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o PDF original antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto”, ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro localmente. Não há servidor nem envio. Pode desligar a internet depois de a página carregar e continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
 
-<h2>What the two files actually are</h2>
-<p>An <b>official transaction export</b> (CSV, XLS, QBO, QFX, MT940, CAMT.053, midata) is a data file the bank generated from the same ledger as the app. It is usually the cleanest set of columns, and it is what accounting tools are built to import. It is not always a statement. Some banks say so in as many words: <a href="../../statement-to-csv/starling/">Starling</a> calls its feed-export CSV a transaction summary, not a verifiable monthly statement; <a href="../../statement-to-csv/nationwide/">Nationwide midata</a> is a comparison-site file that deliberately omits the last 31 days; <a href="../../statement-to-csv/commerzbank/">Commerzbank</a> distinguishes an Umsatz CSV from the Kontoauszug in the Postfach; <a href="../../statement-to-csv/us-bank/">U.S. Bank</a> lets you download three years of transactions but seven years of e-statement PDFs.</p>
-<p>An <b>official statement PDF</b> is the document with the letterhead, the period, and the printed opening and closing balances. It is what a lender, a landlord, an auditor or a tax enquiry usually asks for. It is a poor working file until someone turns the table into rows. That is the only job a converter has.</p>
-<h2>When the official export is the right choice</h2>
+<h2>O que os dois ficheiros são de facto</h2>
+<p>Uma <b>exportação oficial de movimentos</b> (CSV, XLS, QBO, QFX, MT940, CAMT.053, midata) é um ficheiro de dados que o banco gerou a partir do mesmo razão da aplicação. Costuma ser o conjunto de colunas mais limpo, e é o que as ferramentas de contabilidade estão feitas para importar. Nem sempre é um extrato. Alguns bancos dizem-no por extenso: a <a href="/statement-to-csv/starling/">Starling</a> chama ao CSV da exportação do feed um resumo de movimentos, não um extrato mensal verificável; o <a href="/statement-to-csv/nationwide/">midata do Nationwide</a> é um ficheiro para sítios de comparação que omite de propósito os últimos 31 dias; o <a href="/statement-to-csv/commerzbank/">Commerzbank</a> distingue um CSV de Umsatz do Kontoauszug no Postfach; o <a href="/statement-to-csv/us-bank/">U.S. Bank</a> deixa transferir três anos de movimentos mas sete anos de PDFs de extrato eletrónico.</p>
+<p>Um <b>PDF oficial de extrato</b> é o documento com o timbre, o período e os saldos de abertura e de fecho impressos. É o que um credor, um senhorio, um auditor ou uma inspeção fiscal costuma pedir. É um mau ficheiro de trabalho até alguém transformar a tabela em linhas. É o único trabalho que um conversor tem.</p>
+<h2>Quando a exportação oficial é a escolha certa</h2>
 <ul>
-<li>The dates you need are inside the export window (18 months of ABN AMRO XLS, two years of American Express Excel/CSV, three years of U.S. Bank CSV/QBO, twelve months of a Starling feed export, and so on).</li>
-<li>You are importing into software that already understands that file (QBO into QuickBooks, official CSV into Xero, MT940 or CAMT.053 into an accountant’s tool).</li>
-<li>You do not need the printed “True Copy” or letterhead in the same file — you can keep the PDF in a folder and work from the export.</li>
+<li>As datas de que precisa estão dentro da janela de exportação (18 meses de XLS do ABN AMRO, dois anos de Excel/CSV da American Express, três anos de CSV/QBO do U.S. Bank, doze meses de uma exportação do feed da Starling, e por aí fora).</li>
+<li>Está a importar para software que já entende esse ficheiro (QBO no QuickBooks, CSV oficial no Xero, MT940 ou CAMT.053 numa ferramenta de contabilista).</li>
+<li>Não precisa da “cópia autenticada” impressa nem do timbre no mesmo ficheiro — pode guardar o PDF numa pasta e trabalhar a partir da exportação.</li>
 </ul>
-<h2>When converting the PDF is the right choice</h2>
+<h2>Quando converter o PDF é a escolha certa</h2>
 <ul>
-<li>The bank never offered a spreadsheet, or the official export does not go back far enough.</li>
-<li>You were only sent the PDF (a client, a tenant, a solicitor).</li>
-<li>You need the rows to <b>tie out</b> to a specific statement: opening balance + movements = closing balance, with no missing 31-day gap and no mid-month feed that includes pending items.</li>
-<li>The official export is a summary without a running balance, and you want a check column you can tick against the PDF.</li>
+<li>O banco nunca ofereceu uma folha, ou a exportação oficial não recua o suficiente.</li>
+<li>Só lhe enviaram o PDF (um cliente, um inquilino, um solicitador).</li>
+<li>Precisa que as linhas <b>fechem</b> com um extrato concreto: saldo de abertura + movimentos = saldo de fecho, sem um buraco de 31 dias e sem um feed a meio do mês que inclua pendentes.</li>
+<li>A exportação oficial é um resumo sem saldo acumulado, e quer uma coluna de conferência que possa assinalar contra o PDF.</li>
 </ul>
-<p>A converted PDF is only as good as the layout and the check. A text-based official PDF usually converts cleanly. A scan does not. And a conversion is not a certified copy of the statement — if a third party asked for the statement, send the official PDF, and keep the spreadsheet for the books.</p>
-<p>The tool below is the converter we mean: it runs in your browser, and it is the wrong first step whenever the bank will still generate a CSV or XLS for the same dates. Our <a href="../../statement-to-csv/#bank-guides">bank-by-bank guides</a> start with that official path, then offer this fallback.</p>
+<p>Um PDF convertido só é tão bom como o esquema e a conferência. Um PDF oficial com texto costuma converter-se de forma limpa. Uma digitalização não. E uma conversão não é uma cópia certificada do extrato — se um terceiro pediu o extrato, envie o PDF oficial e guarde a folha para a contabilidade.</p>
+<p>A ferramenta abaixo é o conversor de que falamos: corre no browser, e é o primeiro passo errado sempre que o banco ainda gerar um CSV ou XLS para as mesmas datas. Os nossos <a href="/statement-to-csv/#bank-guides">guias por banco</a> começam por esse caminho oficial e depois oferecem este recurso.</p>
 
-<p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
+<p class="note"><b>Fontes</b> (verificadas a 13/11/2026). A ajuda oficial dos produtos está ligada no texto. Os menus e os modelos mudam: o ecrã atual do QuickBooks, do Xero ou do banco é a referência.</p>
 </div></section>
 
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of documents or a layout that has to match QuickBooks or Xero, we convert them and check the totals against each document.</p>
+<h2>Precisa que façamos nós?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de documentos ou um esquema que tenha de coincidir com o QuickBooks ou o Xero, convertemos e conferimos os totais de cada documento.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your file is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Totais reconciliados. 48 h. Pagamento no Fiverr.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Precisa que façamos nós?</a></div>
+<div class="card"><b>Privacidade</b><p>O seu ficheiro é tratado só para a encomenda e apagado depois da entrega. Esta página em si nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos morada, telefone nem número de identificação.</p></div>
 </div>
 </div></section>
 
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Is the official CSV “more accurate” than the PDF?</summary><p>They should come from the same ledger, but they are not the same document. The PDF is the statement, with printed balances. The CSV is a data extract, sometimes for a different date range, and sometimes without pending or end-of-weekend items. Tick whichever file you use against the question you are trying to answer.</p></details><details><summary>Can I throw the PDF away if I have the CSV?</summary><p>Not if someone may ask for an official statement. Keep the PDF. Use the CSV (or a conversion) as the working file.</p></details><details><summary>Which should I import into Xero or QuickBooks?</summary><p>The bank’s official QBO, QFX or CSV, or a live feed, when it covers the dates. Convert the PDF only when that file does not exist or does not go back far enough, then reshape it to the official import layout.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>O CSV oficial é “mais rigoroso” do que o PDF?</summary><p>Devem vir do mesmo razão, mas não são o mesmo documento. O PDF é o extrato, com saldos impressos. O CSV é um extrato de dados, por vezes para outro intervalo de datas, e por vezes sem pendentes ou movimentos de fim de semana. Confira o ficheiro que usar com a pergunta a que está a tentar responder.</p></details><details><summary>Posso deitar fora o PDF se tiver o CSV?</summary><p>Não, se alguém puder pedir um extrato oficial. Guarde o PDF. Use o CSV (ou uma conversão) como ficheiro de trabalho.</p></details><details><summary>Qual devo importar para o Xero ou o QuickBooks?</summary><p>O QBO, QFX ou CSV oficial do banco, ou uma ligação em direto, quando cobre as datas. Converta o PDF só quando esse ficheiro não existe ou não recua o suficiente, e depois dê-lhe a forma do esquema oficial de importação.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related guides</h2>
-<div class="banklist"><a href="../../guides/bank-statement-to-quickbooks/"><b>Import a PDF bank statement into QuickBooks</b></a><a href="../../guides/bank-statement-to-xero/"><b>Import a PDF bank statement into Xero</b></a><a href="../csv-vs-excel/"><b>CSV vs Excel for bank statements</b></a><a href="../browser-vs-acrobat-vs-excel/"><b>In-browser converter vs Acrobat vs Excel</b></a><a href="../diy-vs-done-for-you/"><b>DIY conversion vs paying someone</b></a><a href="../"><b>All comparisons</b></a><a href="../../guides/"><b>How-to guides</b></a><a href="../../statement-to-csv/"><b>Bank statement converter</b> and bank guides</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Guias relacionados</h2>
+<div class="banklist"><a href="/guides/bank-statement-to-quickbooks/"><b>Importar um extrato bancário em PDF para o QuickBooks</b></a><a href="/guides/bank-statement-to-xero/"><b>Importar um extrato bancário em PDF para o Xero</b></a><a href="/compare/csv-vs-excel/"><b>CSV ou Excel para extratos bancários</b></a><a href="/compare/browser-vs-acrobat-vs-excel/"><b>Conversor no browser face ao Acrobat e ao Excel</b></a><a href="/compare/diy-vs-done-for-you/"><b>Conversão por conta própria face a pagar a alguém</b></a><a href="/compare/"><b>Todas as comparações</b></a><a href="/guides/"><b>Guias práticos</b></a><a href="/statement-to-csv/"><b>Conversor de extratos bancários</b> e guias por banco</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins para o Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins para o Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Um cookie lembra só o idioma. Sem trackers e sem registo. As ferramentas grátis correm no browser.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>

@@ -1,98 +1,103 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Convert PDF receipts to Excel or CSV (free, private) · Netmend</title>
-<meta name="description" content="Turn a pack of PDF receipts into a spreadsheet: date, supplier, VAT, total. What a text PDF will give you, why photos fail, and how to check the sum against the papers.">
+<html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Converter recibos em PDF para Excel ou CSV (grátis, em privado) · Netmend</title>
+<meta name="description" content="Transforme um maço de recibos em PDF numa folha: data, fornecedor, IVA, total. O que um PDF de texto dá, porque as fotos falham, e como conferir a soma com os papéis.">
 <link rel="canonical" href="https://netmend.app/guides/pdf-receipts-to-excel/">
-<meta property="og:title" content="Convert PDF receipts to Excel or CSV (free, private) · Netmend"><meta property="og:description" content="Turn a pack of PDF receipts into a spreadsheet: date, supplier, VAT, total. What a text PDF will give you, why photos fail, and how to check the sum against the papers.">
+<meta property="og:url" content="https://netmend.app/guides/pdf-receipts-to-excel/">
+<link rel="alternate" hreflang="pt-PT" href="https://netmend.app/guides/pdf-receipts-to-excel/">
+<link rel="alternate" hreflang="en" href="https://netmend.app/en/guides/pdf-receipts-to-excel/">
+<link rel="alternate" hreflang="x-default" href="https://netmend.app/guides/pdf-receipts-to-excel/">
+<meta property="og:title" content="Converter recibos em PDF para Excel ou CSV (grátis, em privado) · Netmend"><meta property="og:description" content="Transforme um maço de recibos em PDF numa folha: data, fornecedor, IVA, total. O que um PDF de texto dá, porque as fotos falham, e como conferir a soma com os papéis.">
 <meta property="og:image" content="https://netmend.app/assets/og-image.png"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#07080b">
-<link rel="stylesheet" href="../../assets/tools.css">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Will this read a photo of a till receipt?", "acceptedAnswer": {"@type": "Answer", "text": "No. The tool reads the text layer of a digital PDF. A photograph is an image. Type that row, use receipt capture in your accounting software, or send the pack to us."}}, {"@type": "Question", "name": "Should each item on the receipt be its own row?", "acceptedAnswer": {"@type": "Answer", "text": "Only if you need that detail (for example stock or a mixed VAT rate). For most small-business books, one row per receipt with the printed gross is enough and easier to tick."}}, {"@type": "Question", "name": "Can I import this sheet straight into Xero or QuickBooks?", "acceptedAnswer": {"@type": "Answer", "text": "Not as-is. Copy the rows into that product’s expense, bill or receipt template. And do not also import the same spend from the bank feed without matching the two."}}], "url": "https://netmend.app/guides/pdf-receipts-to-excel/"}</script>
+<link rel="stylesheet" href="/assets/tools.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "pt-PT", "mainEntity": [{"@type": "Question", "name": "Isto lê a fotografia de um talão de caixa?", "acceptedAnswer": {"@type": "Answer", "text": "Não. A ferramenta lê a camada de texto de um PDF digital. Uma fotografia é uma imagem. Escreva essa linha, use a captura de recibos do programa de contabilidade, ou envie-nos o maço."}}, {"@type": "Question", "name": "Cada artigo do recibo deve ser a sua linha?", "acceptedAnswer": {"@type": "Answer", "text": "Só se precisar desse detalhe (por exemplo stock ou uma taxa de IVA mista). Na maior parte da contabilidade de uma pequena empresa, uma linha por recibo com o bruto impresso chega e é mais fácil de conferir."}}, {"@type": "Question", "name": "Posso importar esta folha diretamente para o Xero ou o QuickBooks?", "acceptedAnswer": {"@type": "Answer", "text": "Não tal como está. Copie as linhas para o modelo de despesa, compra ou recibo desse produto. E não importe também a mesma despesa da ligação bancária sem associar as duas."}}], "url": "https://netmend.app/guides/pdf-receipts-to-excel/"}</script>
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-<script defer src="../../statement-to-csv/app.js"></script>
+<script defer src="/statement-to-csv/app.js"></script>
 
 </head><body>
 
-<header><div class="wrap"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
-<nav><a href="../../#services">Services</a><a href="../../statement-to-csv/">Statement converter</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">From $20</a></nav></div></header>
+<header><div class="wrap"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30"></a>
+<nav><a href="/#services">Serviços</a><a href="/statement-to-csv/">Conversor de extratos</a><a class="cta" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Feito por nós</a><span class="lang-switch" role="navigation" aria-label="Idioma"><a href="/guides/pdf-receipts-to-excel/" hreflang="pt-PT" lang="pt-PT" data-lang="pt" aria-current="true">PT</a><span aria-hidden="true">|</span><a href="/en/guides/pdf-receipts-to-excel/" hreflang="en" lang="en" data-lang="en">EN</a><span aria-hidden="true">|</span><a href="/es/" hreflang="es" lang="es" data-lang="es">ES</a></span></nav></div></header>
 <div class="hero"><div class="wrap">
-<p class="crumbs"><a href="../../">Netmend</a> · <a href="../">Guides</a> · Convert PDF receipts to Excel or CSV</p>
-<h1>Convert PDF receipts to <span>Excel or CSV</span></h1>
-<p>A receipt is usually one or two totals, not a bank-statement table. The useful spreadsheet is a list: date, supplier, net, VAT, gross, and a category you add yourself. This page shows how far an in-browser PDF tool can take a digital receipt, and when you should type the line instead.</p>
-<div class="pills"><span>Free tool in your browser</span><span>No account</span><span>From $20 if you want it done</span></div>
+<p class="crumbs"><a href="/">Netmend</a> · <a href="/guides/">Guias</a> · Converter recibos em PDF para Excel ou CSV</p>
+<h1>Converter recibos em PDF para <span>Excel ou CSV</span></h1>
+<p>Um recibo costuma ser um ou dois totais, não uma tabela de extrato bancário. A folha útil é uma lista: data, fornecedor, líquido, IVA, bruto, e uma categoria que acrescenta. Esta página mostra até onde uma ferramenta de PDF no browser leva um recibo digital, e quando vale mais a pena escrever a linha.</p>
+<div class="pills"><span>Ferramenta grátis no browser</span><span>Sem conta</span><span>Feito por nós, se quiser</span></div>
 </div></div>
 <section><div class="wrap">
-<h2>Convert a PDF now</h2>
+<h2>Converter um PDF agora</h2>
 
-<p class="lead">This converter is built for tables. Use it on a digital invoice or receipt with a real text layer. Switch to “Every text row” if the first preview looks short.</p>
+<p class="lead">Este conversor foi feito para tabelas. Use-o numa fatura ou num recibo digital com uma camada de texto real. Mude para “Todas as linhas de texto” se a primeira pré-visualização parecer curta.</p>
 <div class="tool">
-<label for="file">PDF (stays on your computer)</label>
+<label for="file">PDF (fica no seu computador)</label>
 <input id="file" type="file" accept="application/pdf">
-<p class="note">No file at hand? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="../../samples/sample-invoices.pdf">Try a demo PDF</button> (fictional data)</p>
+<p class="note">Não tem um ficheiro à mão? <button id="demo" type="button" class="btn ghost" style="padding:5px 10px" data-src="/samples/sample-invoices.pdf">Experimentar um PDF de demonstração</button> (dados fictícios)</p>
 <div class="row">
-<div><label for="mode">Output</label><select id="mode"><option value="tx">Transactions / likely rows</option><option value="all">Every text row (raw table)</option></select></div>
-<div><label for="fmt">Number format</label><select id="fmt"><option value="auto" selected>Detect automatically</option><option value="eu">European 1.234,56</option><option value="us">UK/US 1,234.56</option></select></div>
-<div><label for="sep">CSV for</label><select id="sep"><option value=";">Excel in Europe (; and ,)</option><option value="," selected>Excel UK/US, Google Sheets (, and .)</option></select></div>
+<div><label for="mode">Resultado</label><select id="mode"><option value="tx">Movimentos / linhas prováveis</option><option value="all">Todas as linhas de texto (tabela em bruto)</option></select></div>
+<div><label for="fmt">Formato dos números</label><select id="fmt"><option value="auto" selected>Detetar automaticamente</option><option value="eu">Europeu 1.234,56</option><option value="us">Reino Unido/EUA 1,234.56</option></select></div>
+<div><label for="sep">CSV para</label><select id="sep"><option value=";">Excel na Europa (; e ,)</option><option value="," selected>Excel Reino Unido/EUA, Google Sheets (, e .)</option></select></div>
 </div>
-<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Download CSV</button></p>
+<div id="out" hidden><p id="stats" class="note"></p><p><button id="dl" class="btn" disabled>Transferir CSV</button></p>
 <div class="scroll"><table id="preview"></table></div>
-<p class="note">Check the totals against the original PDF before you use the file. If a column is in the wrong place, try “Every text row”, or send it to us.</p></div>
+<p class="note">Confira os totais com o PDF original antes de usar o ficheiro. Se uma coluna estiver no sítio errado, experimente “Todas as linhas de texto”, ou envie-nos o ficheiro.</p></div>
 </div>
-<p class="note">How it stays private: the page uses the open-source pdf.js library (Mozilla) to read the file locally. There is no server and no upload. You can disconnect from the internet after the page loads and it still works.</p>
+<p class="note">Como fica privado: a página usa a biblioteca de código aberto pdf.js (Mozilla) para ler o ficheiro localmente. Não há servidor nem envio. Pode desligar a internet depois de a página carregar e continua a funcionar.</p>
 
 </div></section>
 <section class="alt"><div class="wrap">
 
-<h2>What a useful receipt sheet looks like</h2>
-<p>For bookkeeping, one row per receipt is almost always better than one row per word the PDF happened to contain. A practical set of columns is:</p>
+<h2>Como é uma folha de recibos útil</h2>
+<p>Para a contabilidade, uma linha por recibo é quase sempre melhor do que uma linha por cada palavra que o PDF calhou de conter. Um conjunto prático de colunas é:</p>
 <ul>
-<li><b>Date</b> — the receipt date, in one format only (DD/MM/YYYY in the UK and Europe, MM/DD/YYYY in the US).</li>
-<li><b>Supplier</b> — the name on the receipt, not the payment-processor name if you can help it (a “SumUp” or “Stripe” line is harder to review later).</li>
-<li><b>Description</b> — what it was for, in a few words.</li>
-<li><b>Net, VAT or sales tax, and gross</b> — as printed. If the receipt has no tax break-down, leave net and VAT blank and keep the gross, rather than inventing a split.</li>
-<li><b>Currency</b> and <b>payment method</b> if you have mixed cards or a foreign trip.</li>
-<li><b>Source file</b> — the PDF name, so you can find the original in a month’s time.</li>
+<li><b>Data</b> — a data do recibo, num só formato (DD/MM/AAAA no Reino Unido e na Europa, MM/DD/AAAA nos EUA).</li>
+<li><b>Fornecedor</b> — o nome no recibo, não o nome do processador de pagamentos se o puder evitar (uma linha “SumUp” ou “Stripe” é mais difícil de rever mais tarde).</li>
+<li><b>Descrição</b> — para que foi, em poucas palavras.</li>
+<li><b>Líquido, IVA ou imposto sobre vendas, e bruto</b> — como está impresso. Se o recibo não separa o imposto, deixe o líquido e o IVA em branco e fique com o bruto, em vez de inventar uma divisão.</li>
+<li><b>Moeda</b> e <b>meio de pagamento</b> se misturar cartões ou uma viagem ao estrangeiro.</li>
+<li><b>Ficheiro de origem</b> — o nome do PDF, para encontrar o original daí a um mês.</li>
 </ul>
-<p>If you later import this into QuickBooks or Xero, you still need their bill or expense template. The sheet above is the working file; their sample CSV is the import file. Do not import receipts as bank transactions if the same card spend will also arrive on the bank feed — you will double-count.</p>
-<h2>What the free tool can do</h2>
-<p>The converter on this page reads a digital PDF in your browser. It is built around tables, so it behaves best when a receipt or a VAT invoice is a text PDF with the amounts in real characters, not a picture of amounts. Till receipts saved from an email as a proper PDF often work. A photo of a till roll, a WhatsApp screenshot, or a “PDF” that is only an image wrapper usually does not. In that case the honest options are to type the row, to use your accounting app’s receipt-capture tool, or to send the pack as a done-for-you job.</p>
+<p>Se mais tarde importar isto para o QuickBooks ou o Xero, continua a precisar do modelo de compra ou de despesa deles. A folha acima é o ficheiro de trabalho; o CSV de exemplo deles é o ficheiro de importação. Não importe recibos como movimentos bancários se a mesma despesa do cartão também chegar pela ligação — vai contar duas vezes.</p>
+<h2>O que a ferramenta grátis faz</h2>
+<p>O conversor desta página lê um PDF digital no browser. Foi feito à volta de tabelas, por isso comporta-se melhor quando um recibo ou uma fatura com IVA é um PDF de texto, com os valores em caracteres reais, não numa imagem dos valores. Talões de caixa guardados de um e-mail como PDF a sério costumam funcionar. A foto de um rolo de caixa, uma captura do WhatsApp, ou um “PDF” que é só uma imagem embrulhada, em geral não. Nesse caso, as opções honestas são escrever a linha, usar a captura de recibos da aplicação de contabilidade, ou enviar o maço como trabalho feito por nós.</p>
 <ol>
-<li>Drop one digital receipt (or a short pack if they are already one PDF) into the tool. Start with <b>Every text row</b>.</li>
-<li>Copy the useful cells — date, name, totals — into the column layout above. Ignore headers, logos, footers and payment-terminal IDs.</li>
-<li>Add the gross amounts up and compare the sum with a pile total you already trust, or with the card statement for the same period. One missing till receipt is easier to spot as a missing total than as a missing file name.</li>
+<li>Largue um recibo digital (ou um maço curto, se já forem um só PDF) na ferramenta. Comece por <b>Todas as linhas de texto</b>.</li>
+<li>Copie as células úteis — data, nome, totais — para o esquema de colunas acima. Ignore cabeçalhos, logótipos, rodapés e identificadores do terminal de pagamento.</li>
+<li>Some os brutos e compare a soma com um total do maço em que já confia, ou com o extrato do cartão do mesmo período. Um talão em falta vê-se melhor como um total em falta do que como um nome de ficheiro em falta.</li>
 </ol>
-<p>For a year of mixed photos and PDFs, a human pass is still cheaper than trusting an automatic extract you did not tick. The tool is there to save typing on the clean digital files, not to invent numbers from a photograph.</p>
+<p>Para um ano de fotos e PDFs misturados, uma passagem humana continua a sair mais barata do que confiar num extrato automático que não conferiu. A ferramenta existe para poupar a escrita nos ficheiros digitais limpos, não para inventar números a partir de uma fotografia.</p>
 
-<p class="note"><b>Sources</b> (checked 13/11/2026). Official product help is linked in the text. Menus and templates change: treat the current screen in QuickBooks, Xero or your bank as the authority.</p>
+<p class="note"><b>Fontes</b> (verificadas a 13/11/2026). A ajuda oficial dos produtos está ligada no texto. Os menus e os modelos mudam: o ecrã atual do QuickBooks, do Xero ou do banco é a referência.</p>
 </div></section>
 
 <section id="done-for-you"><div class="wrap">
-<h2>Need it done for you? From $20</h2>
-<p class="lead">The free tool is for a clean, text-based PDF. For scans, password files, a packed year of documents or a layout that has to match QuickBooks or Xero, we convert them and check the totals against each document.</p>
+<h2>Precisa que façamos nós?</h2>
+<p class="lead">A ferramenta grátis serve para um PDF de texto limpo. Para digitalizações, ficheiros com palavra-passe, um ano cheio de documentos ou um esquema que tenha de coincidir com o QuickBooks ou o Xero, convertemos e conferimos os totais de cada documento.</p>
 <div class="grid">
-<div class="card"><b>Done-for-you conversion</b><div class="price">$20 <small>/ 20 pages</small></div>
-<p>75 pages $40 · 200 pages $80. Totals reconciled. 48h. Pay on Fiverr.</p>
-<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Need it done for you? From $20</a></div>
-<div class="card"><b>Privacy</b><p>Your file is processed only for the order and deleted after delivery. This page itself never uploads the file.</p>
-<p class="note">Who handles the data: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. No address, phone or national ID is asked for or published.</p></div>
+<div class="card"><b>Conversão feita por nós</b>
+<p>Totais reconciliados. 48 h. Pagamento no Fiverr.</p>
+<a class="btn" href="https://www.fiverr.com/dayinportugal/convert-pdf-invoices-and-documents-into-a-clean-excel-spreadsheet">Precisa que façamos nós?</a></div>
+<div class="card"><b>Privacidade</b><p>O seu ficheiro é tratado só para a encomenda e apagado depois da entrega. Esta página em si nunca envia o ficheiro.</p>
+<p class="note">Quem trata os dados: Pedro Carvalho (Netmend), <a href="mailto:dayinportugal@gmail.com">dayinportugal@gmail.com</a>. Não pedimos nem publicamos morada, telefone nem número de identificação.</p></div>
 </div>
 </div></section>
 
-<section class="alt"><div class="wrap"><h2>FAQ</h2><details><summary>Will this read a photo of a till receipt?</summary><p>No. The tool reads the text layer of a digital PDF. A photograph is an image. Type that row, use receipt capture in your accounting software, or send the pack to us.</p></details><details><summary>Should each item on the receipt be its own row?</summary><p>Only if you need that detail (for example stock or a mixed VAT rate). For most small-business books, one row per receipt with the printed gross is enough and easier to tick.</p></details><details><summary>Can I import this sheet straight into Xero or QuickBooks?</summary><p>Not as-is. Copy the rows into that product’s expense, bill or receipt template. And do not also import the same spend from the bank feed without matching the two.</p></details></div></section>
+<section class="alt"><div class="wrap"><h2>Perguntas frequentes</h2><details><summary>Isto lê a fotografia de um talão de caixa?</summary><p>Não. A ferramenta lê a camada de texto de um PDF digital. Uma fotografia é uma imagem. Escreva essa linha, use a captura de recibos do programa de contabilidade, ou envie-nos o maço.</p></details><details><summary>Cada artigo do recibo deve ser a sua linha?</summary><p>Só se precisar desse detalhe (por exemplo stock ou uma taxa de IVA mista). Na maior parte da contabilidade de uma pequena empresa, uma linha por recibo com o bruto impresso chega e é mais fácil de conferir.</p></details><details><summary>Posso importar esta folha diretamente para o Xero ou o QuickBooks?</summary><p>Não tal como está. Copie as linhas para o modelo de despesa, compra ou recibo desse produto. E não importe também a mesma despesa da ligação bancária sem associar as duas.</p></details></div></section>
 <section><div class="wrap">
-<h2>Related guides</h2>
-<div class="banklist"><a href="../pdf-invoice-to-excel-quickbooks/"><b>Convert PDF invoices to Excel for QuickBooks</b></a><a href="../pdf-invoice-to-excel-xero/"><b>Convert PDF invoices to Excel for Xero</b></a><a href="../scanned-pdf-invoices-to-excel/"><b>Convert scanned PDF invoices to Excel — honestly</b></a><a href="../credit-card-statement-to-excel/"><b>Convert a credit card statement PDF to Excel or CSV</b></a><a href="../"><b>All how-to guides</b></a><a href="../../compare/"><b>Comparisons</b></a><a href="../../statement-to-csv/"><b>Bank statement converter</b> and bank guides</a></div>
-<p class="note" style="margin-top:16px"><a href="../../excel-functions/">Excel formula translator</a> · <a href="../../wall-of-love/">Testimonial wall</a> · <a href="../../pin-maker/">Pinterest pin maker</a> · <a href="../../">All Netmend services</a></p>
+<h2>Guias relacionados</h2>
+<div class="banklist"><a href="/guides/pdf-invoice-to-excel-quickbooks/"><b>Converter faturas em PDF para Excel, para o QuickBooks</b></a><a href="/guides/pdf-invoice-to-excel-xero/"><b>Converter faturas em PDF para Excel, para o Xero</b></a><a href="/guides/scanned-pdf-invoices-to-excel/"><b>Converter faturas digitalizadas em PDF para Excel — com franqueza</b></a><a href="/guides/credit-card-statement-to-excel/"><b>Converter um extrato de cartão de crédito em PDF para Excel ou CSV</b></a><a href="/guides/"><b>Todos os guias</b></a><a href="/compare/"><b>Comparações</b></a><a href="/statement-to-csv/"><b>Conversor de extratos bancários</b> e guias por banco</a></div>
+<p class="note" style="margin-top:16px"><a href="/excel-functions/">Tradutor de fórmulas do Excel</a> · <a href="/wall-of-love/">Mural de testemunhos</a> · <a href="/pin-maker/">Criador de pins para o Pinterest</a> · <a href="/">Todos os serviços Netmend</a></p>
 </div></section>
 
 <footer class="site-footer"><div class="wrap">
 <div class="f-grid">
-<div class="f-brand"><a href="../../"><img src="../../assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Small, private tools for writing on X, plus fixed-price back-office work for small businesses. Everything runs in your browser.</p></div>
-<div><h4>Products</h4><a href="../../x-post-writer/">X Post Writer</a><a href="../../x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Lifetime license $19</a><a href="../../#services">Done-for-you services</a></div>
-<div><h4>Free tools</h4><a href="../../statement-to-csv/">Statement PDF to CSV</a><a href="../../excel-functions/">Excel formula translator</a><a href="../../wall-of-love/">Testimonial wall</a><a href="../../pin-maker/">Pinterest pin maker</a></div>
-<div><h4>Learn</h4><a href="../../x-growth/">X growth guides</a><a href="../../guides/">PDF to Excel guides</a><a href="../../compare/">Comparisons</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contact</a></div>
+<div class="f-brand"><a href="/"><img src="/assets/logo-light.svg" alt="Netmend" width="121" height="30" loading="lazy"></a><p>Ferramentas pequenas e privadas para escrever no X, e trabalho administrativo para pequenas empresas. Tudo corre no browser.</p></div>
+<div><h4>Produtos</h4><a href="/x-post-writer/">X Post Writer</a><a href="/x-reach-checker/">X Reach Checker</a><a href="https://portugaldiary.gumroad.com/l/leutz" target="_blank" rel="noopener noreferrer">Licença vitalícia</a><a href="/#services">Serviços feitos por nós</a></div>
+<div><h4>Ferramentas grátis</h4><a href="/statement-to-csv/">Extrato PDF para CSV</a><a href="/excel-functions/">Tradutor de fórmulas do Excel</a><a href="/wall-of-love/">Mural de testemunhos</a><a href="/pin-maker/">Criador de pins para o Pinterest</a></div>
+<div><h4>Aprender</h4><a href="/x-growth/">Guias para crescer no X</a><a href="/guides/">Guias de PDF para Excel</a><a href="/compare/">Comparações</a><a href="mailto:dayinportugal@gmail.com?subject=Netmend">Contacto</a></div>
 </div>
-<div class="f-bottom">© 2026 Netmend · Made by Pedro Carvalho in Portugal · No cookies, no trackers, no sign-up. Free tools run in your browser.</div>
+<div class="f-bottom">© 2026 Netmend · Feito por Pedro Carvalho em Portugal · Um cookie lembra só o idioma. Sem trackers e sem registo. As ferramentas grátis correm no browser.</div>
 </div></footer>
+<script src="/assets/lang.js"></script>
 </body></html>
